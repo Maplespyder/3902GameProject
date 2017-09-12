@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.ICommand
+namespace MarioClone.Commands
 {
     class ExitCommand : AbstractCommand<MarioCloneGame>
     {

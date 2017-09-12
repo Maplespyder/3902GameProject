@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using MarioClone.ICommand;
 
-namespace MarioClone.IController
+namespace MarioClone.Controllers
 {
     public abstract class AbstractController : IController
     {
-        private Dictionary<int, ICommand.ICommand> inputToCommandMap;
+        private Dictionary<int, ICommand> inputToCommandMap;
 
         protected AbstractController()
         {
-            inputToCommandMap = new Dictionary<int, ICommand.ICommand>();
+            inputToCommandMap = new Dictionary<int, ICommand>();
         }
 
-        protected Dictionary<int, ICommand.ICommand> InputToCommandMap
+        protected Dictionary<int, ICommand> InputToCommandMap
         {
             get { return inputToCommandMap; }
         }
@@ -23,7 +22,7 @@ namespace MarioClone.IController
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public bool AddInputCommand(int input, ICommand.ICommand command)
+        public bool AddInputCommand(int input, ICommand command)
         {
             if (!inputToCommandMap.ContainsKey(input))
             {

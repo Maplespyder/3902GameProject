@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MarioClone.IController;
-using MarioClone.ISprite;
-using MarioClone.ICommand;
 using System.Collections.Generic;
+using MarioClone.Controllers;
+using MarioClone.Commands;
+using MarioClone.Sprites;
 
 namespace MarioClone
 {
@@ -18,7 +18,7 @@ namespace MarioClone
         KeyboardController keyboardController;
         GamepadController gamepadController;
 
-        List<ISprite.ISprite> spriteList;
+        List<Sprite> spriteList;
 
 		public MarioCloneGame()
 		{
@@ -50,33 +50,33 @@ namespace MarioClone
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spriteList = new List<ISprite.ISprite>();
+            spriteList = new List<Sprite>();
 
             keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             gamepadController.AddInputCommand((int)Buttons.Start, new ExitCommand(this));
 
+            var gameBounds = new List<Rectangle>()
+            {
+                new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)
+            };
+
             // TODO: use this.Content to load your game content here
-            ISprite.ISprite hunkyDory = new MotionlessSprite(Content.Load<Texture2D>("Sprites/hunkydory"), new Vector2(0, 0));
+            var hunkyDory = new MotionlessSprite(Content.Load<Texture2D>("Sprites/hunkydory"), new Vector2(100, 400), new Vector2(0, 0), gameBounds, false);
             keyboardController.AddInputCommand((int)Keys.W, new ToggleSpriteCommand(hunkyDory));
             gamepadController.AddInputCommand((int)Buttons.A, new ToggleSpriteCommand(hunkyDory));
             spriteList.Add(hunkyDory);
 
-            ISprite.ISprite sonicIdle = new AnimatedUnmovingSprite(Content.Load<Texture2D>("Sprites/sonicidle"),
-                new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), 1, 16);
+            var sonicIdle = new AnimatedUnmovingSprite(Content.Load<Texture2D>("Sprites/sonicidle"), new Vector2(200, 400), new Vector2(0, 0), gameBounds, false, 1, 16, .1f, 39, 32, 16);
             keyboardController.AddInputCommand((int)Keys.E, new ToggleSpriteCommand(sonicIdle));
             gamepadController.AddInputCommand((int)Buttons.B, new ToggleSpriteCommand(sonicIdle));
             spriteList.Add(sonicIdle);
 
-            ISprite.ISprite spinball = new UnanimatedMovingSprite(Content.Load<Texture2D>("Sprites/spinball"), 
-                new Vector2(0, 0), new Vector2(2, 1));
-
+            var spinball = new UnanimatedMovingSprite(Content.Load<Texture2D>("Sprites/spinball"), new Vector2(100, 400), new Vector2(0, 50), gameBounds, false);
             keyboardController.AddInputCommand((int)Keys.R, new ToggleSpriteCommand(spinball));
             gamepadController.AddInputCommand((int)Buttons.X, new ToggleSpriteCommand(spinball));
             spriteList.Add(spinball);
 
-            ISprite.ISprite mario = new AnimatedMovingSprite(Content.Load<Texture2D>("Sprites/mario"), 
-                new Vector2(0, graphics.PreferredBackBufferHeight / 2), new Vector2(2, 0), 1, 4);
-
+            var mario = new AnimatedMovingSprite(Content.Load<Texture2D>("Sprites/mario"), new Vector2(200, 400), new Vector2(50, 0), gameBounds, false, 1, 4, .1f, 40, 26, 4);
             keyboardController.AddInputCommand((int)Keys.T, new ToggleSpriteCommand(mario));
             gamepadController.AddInputCommand((int)Buttons.Y, new ToggleSpriteCommand(mario));
             spriteList.Add(mario);
@@ -101,24 +101,12 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-            // TODO: Add your update logic here
             keyboardController.UpdateAndExecuteInputs();
             gamepadController.UpdateAndExecuteInputs();
 
-            foreach (ISprite.ISprite sprite in spriteList)
+            foreach (var sprite in spriteList)
             {
-                if (sprite.Visible)
-                {
-                    if(sprite.Position.X < graphics.PreferredBackBufferWidth 
-                        && (sprite.Position.Y < graphics.PreferredBackBufferHeight))
-                    {
-                        sprite.Update();
-                    }
-                    else
-                    {
-                        sprite.ToggleVisible();
-                    }
-                }
+                sprite.Update(gameTime);
             }
 
 			base.Update(gameTime);
@@ -133,27 +121,14 @@ namespace MarioClone
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            foreach (ISprite.ISprite sprite in spriteList)
+            foreach (var sprite in spriteList)
             {
-                if (sprite.Visible)
-                {
-                    if ((sprite.Position.X < graphics.PreferredBackBufferWidth)
-                        && (sprite.Position.Y < graphics.PreferredBackBufferHeight))
-                    {
-                        spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.GetCurrentFrame(), Color.White);
-                    } 
-                    else
-                    {
-                        sprite.ToggleVisible();
-                    }
-                }
+                sprite.Draw(spriteBatch);
             }
             spriteBatch.End();
-			// TODO: Add your drawing code here
 
 			base.Draw(gameTime);
 		}
-
 
         public void ExitCommand()
         {

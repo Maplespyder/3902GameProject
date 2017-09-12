@@ -42,23 +42,23 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ICommand\AbstractCommand.cs" />
-    <Compile Include="ICommand\ExitCommand.cs" />
-    <Compile Include="ICommand\ICommand.cs" />
-    <Compile Include="ICommand\ToggleSpriteCommand.cs" />
-    <Compile Include="IController\AbstractController.cs" />
-    <Compile Include="IController\GamepadController.cs" />
-    <Compile Include="IController\IController.cs" />
-    <Compile Include="IController\KeyboardController.cs" />
-    <Compile Include="ISprite\AbstractSprite.cs" />
-    <Compile Include="ISprite\AnimatedMovingSprite.cs" />
-    <Compile Include="ISprite\AnimatedUnmovingSprite.cs" />
-    <Compile Include="ISprite\ISprite.cs" />
-    <Compile Include="ISprite\MotionlessSprite.cs" />
-    <Compile Include="ISprite\UnanimatedMovingSprite.cs" />
+    <Compile Include="Sprites\AnimatedMovingSprite.cs" />
+    <Compile Include="Sprites\AnimatedUnmovingSprite.cs" />
+    <Compile Include="Commands\AbstractCommand.cs" />
+    <Compile Include="Commands\ExitCommand.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="Commands\ToggleSpriteCommand.cs" />
+    <Compile Include="Controllers\AbstractController.cs" />
+    <Compile Include="Controllers\GamepadController.cs" />
+    <Compile Include="IController.cs" />
+    <Compile Include="Controllers\KeyboardController.cs" />
+    <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="Sprite.cs" />
     <Compile Include="MarioCloneGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprites\MotionlessSprite.cs" />
+    <Compile Include="Sprites\UnanimatedMovingSprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

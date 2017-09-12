@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using MarioClone.ICommand;
 using System.Collections.Generic;
 
-namespace MarioClone.IController
+namespace MarioClone.Controllers
 {
     public class KeyboardController : AbstractController
 	{
@@ -24,7 +23,7 @@ namespace MarioClone.IController
             {
                 if(lastState.IsKeyUp(key))
                 {
-                    ICommand.ICommand command;
+                    ICommand command;
                     if(InputToCommandMap.TryGetValue((int)key, out command))
                     {
                         command.InvokeCommand();

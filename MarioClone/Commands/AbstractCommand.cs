@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.ICommand
+namespace MarioClone.Commands
 {
     /// <summary>
     /// Abstract class that provides a default constructor, and an 
