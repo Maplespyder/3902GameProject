@@ -5,6 +5,7 @@ namespace MarioClone.ISprite
 {
     public abstract class AbstractSprite : ISprite
     {
+        //ertetr
         private Vector2 position;
         private Vector2 velocity;
         private bool visible;
