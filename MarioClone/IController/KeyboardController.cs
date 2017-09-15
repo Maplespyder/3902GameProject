@@ -2,7 +2,7 @@
 using MarioClone.Command;
 using System.Collections.Generic;
 
-namespace MarioClone.IController
+namespace MarioClone.Controller
 {
     public class KeyboardController : AbstractController
 	{
@@ -24,7 +24,7 @@ namespace MarioClone.IController
             {
                 if(lastState.IsKeyUp(key))
                 {
-                    Command.ICommand command;
+                    ICommand command;
                     if(InputToCommandMap.TryGetValue((int)key, out command))
                     {
                         command.InvokeCommand();

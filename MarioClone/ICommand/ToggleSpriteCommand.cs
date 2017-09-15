@@ -1,8 +1,10 @@
-﻿namespace MarioClone.Command
+﻿using MarioClone.Sprite;
+
+namespace MarioClone.Command
 {
-    public class ToggleSpriteCommand : AbstractCommand<ISprite.ISprite>
+    public class ToggleSpriteCommand : AbstractCommand<ISprite>
     {
-        public ToggleSpriteCommand(ISprite.ISprite receiver) : base(receiver) { }
+        public ToggleSpriteCommand(ISprite receiver) : base(receiver) { }
 
         public override void InvokeCommand()
         {

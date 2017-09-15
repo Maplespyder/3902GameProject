@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using MarioClone.Command;
 using System.Collections.Generic;
 
-namespace MarioClone.IController
+namespace MarioClone.Controller
 {
     public class GamepadController : AbstractController
     {
@@ -35,7 +35,7 @@ namespace MarioClone.IController
                 {
                     if (lastState.IsButtonUp(button) && currentState.IsButtonDown(button))
                     {
-                        Command.ICommand command;
+                        ICommand command;
                         if(InputToCommandMap.TryGetValue((int)(button), out command))
                         {
                             command.InvokeCommand();

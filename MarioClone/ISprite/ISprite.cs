@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MarioClone.Command;
 
-namespace MarioClone.ISprite
+namespace MarioClone.Sprite
 {
     public interface ISprite
     {

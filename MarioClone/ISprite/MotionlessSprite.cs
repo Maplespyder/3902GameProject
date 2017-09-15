@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MarioClone.ISprite
+namespace MarioClone.Sprite
 {
     class MotionlessSprite : AbstractSprite
     {
