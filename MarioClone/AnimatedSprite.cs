@@ -26,7 +26,7 @@ namespace MarioClone
 
         protected float ElapsedTime { get; set; }
 
-        public AnimatedSprite(Texture2D texture, Vector2 location, Vector2 velocity, List<Rectangle> bounds, bool visible, int rows, int columns, float frameTime, int frameHeight, int frameWidth, int frameCount) : base(texture, location, velocity, bounds, visible)
+        public AnimatedSprite(Texture2D texture, Vector2 location, Vector2 velocity, List<Rectangle> bounds, bool visible, int rows, int columns, float frameTime, int frameHeight, int frameWidth, int frameCount) : base(texture, location, new Rectangle(0,0,0,0), velocity, bounds, visible)
         {
             Rows = rows;
             Columns = columns;

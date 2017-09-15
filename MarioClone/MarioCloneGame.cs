@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using MarioClone.Controllers;
 using MarioClone.Commands;
 using MarioClone.Sprites;
+using Microsoft.Xna.Framework.Content;
+using MarioClone.Factories;
 
 namespace MarioClone
 {
@@ -17,12 +19,14 @@ namespace MarioClone
 		SpriteBatch spriteBatch;
         KeyboardController keyboardController;
         GamepadController gamepadController;
-
+        
+        static ContentManager _content;
         List<Sprite> spriteList;
 
 		public MarioCloneGame()
 		{
 			graphics = new GraphicsDeviceManager(this);
+            _content = Content;
 			Content.RootDirectory = "Content";
 		}
 
@@ -61,25 +65,30 @@ namespace MarioClone
             };
 
             // TODO: use this.Content to load your game content here
-            var hunkyDory = new MotionlessSprite(Content.Load<Texture2D>("Sprites/hunkydory"), new Vector2(100, 400), new Vector2(0, 0), gameBounds, false);
-            keyboardController.AddInputCommand((int)Keys.W, new ToggleSpriteCommand(hunkyDory));
-            gamepadController.AddInputCommand((int)Buttons.A, new ToggleSpriteCommand(hunkyDory));
-            spriteList.Add(hunkyDory);
+            var brickblock = NormalThemedBlockFactory.Instance.Create(BlockType.BrickBlock, new Vector2(0, 0));
+            keyboardController.AddInputCommand((int)Keys.W, new ToggleSpriteCommand(brickblock));
+            gamepadController.AddInputCommand((int)Buttons.A, new ToggleSpriteCommand(brickblock));
+            spriteList.Add(brickblock);
+            
+            var floorblock = NormalThemedBlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(20, 20));
+            keyboardController.AddInputCommand((int)Keys.E, new ToggleSpriteCommand(floorblock));
+            gamepadController.AddInputCommand((int)Buttons.B, new ToggleSpriteCommand(floorblock));
+            spriteList.Add(floorblock);
 
-            var sonicIdle = new AnimatedUnmovingSprite(Content.Load<Texture2D>("Sprites/sonicidle"), new Vector2(200, 400), new Vector2(0, 0), gameBounds, false, 1, 16, .1f, 39, 32, 16);
-            keyboardController.AddInputCommand((int)Keys.E, new ToggleSpriteCommand(sonicIdle));
-            gamepadController.AddInputCommand((int)Buttons.B, new ToggleSpriteCommand(sonicIdle));
-            spriteList.Add(sonicIdle);
+            var questionblock = NormalThemedBlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 40));
+            keyboardController.AddInputCommand((int)Keys.R, new ToggleSpriteCommand(questionblock));
+            gamepadController.AddInputCommand((int)Buttons.X, new ToggleSpriteCommand(questionblock));
+            spriteList.Add(questionblock);
+            
+            var stairblock = NormalThemedBlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(60, 60));
+            keyboardController.AddInputCommand((int)Keys.T, new ToggleSpriteCommand(stairblock));
+            gamepadController.AddInputCommand((int)Buttons.Y, new ToggleSpriteCommand(stairblock));
+            spriteList.Add(stairblock);
 
-            var spinball = new UnanimatedMovingSprite(Content.Load<Texture2D>("Sprites/spinball"), new Vector2(100, 400), new Vector2(0, 50), gameBounds, false);
-            keyboardController.AddInputCommand((int)Keys.R, new ToggleSpriteCommand(spinball));
-            gamepadController.AddInputCommand((int)Buttons.X, new ToggleSpriteCommand(spinball));
-            spriteList.Add(spinball);
-
-            var mario = new AnimatedMovingSprite(Content.Load<Texture2D>("Sprites/mario"), new Vector2(200, 400), new Vector2(50, 0), gameBounds, false, 1, 4, .1f, 40, 26, 4);
-            keyboardController.AddInputCommand((int)Keys.T, new ToggleSpriteCommand(mario));
-            gamepadController.AddInputCommand((int)Buttons.Y, new ToggleSpriteCommand(mario));
-            spriteList.Add(mario);
+            var usedblock = NormalThemedBlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 80));
+            keyboardController.AddInputCommand((int)Keys.Y, new ToggleSpriteCommand(usedblock));
+            gamepadController.AddInputCommand((int)Buttons.RightTrigger, new ToggleSpriteCommand(usedblock));
+            spriteList.Add(usedblock);
         }
 
 		/// <summary>
@@ -129,6 +138,11 @@ namespace MarioClone
 
 			base.Draw(gameTime);
 		}
+
+        public static ContentManager GameContent
+        {
+            get { return _content; }
+        }
 
         public void ExitCommand()
         {

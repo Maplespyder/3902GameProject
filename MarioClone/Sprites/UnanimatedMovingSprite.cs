@@ -6,7 +6,7 @@ namespace MarioClone.Sprites
 {
     class UnanimatedMovingSprite : Sprite
     {
-        public UnanimatedMovingSprite(Texture2D texture, Vector2 location, Vector2 velocity, List<Rectangle> bounds, bool visible) : base(texture, location, velocity, bounds, visible)
+        public UnanimatedMovingSprite(Texture2D texture, Vector2 location, Vector2 velocity, List<Rectangle> bounds, bool visible) : base(texture, location, new Rectangle(0, 0, 0, 0), velocity, bounds, visible)
         {
             Velocity = new Vector2(0, 50);
         }

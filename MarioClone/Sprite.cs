@@ -12,6 +12,8 @@ namespace MarioClone
     {
         public Texture2D Texture { get; protected set; }
 
+        public Rectangle SheetSource { get; protected set; }
+
         public Vector2 Location { get; protected set; }
 
         public Vector2 Velocity { get; protected set; }
@@ -20,10 +22,11 @@ namespace MarioClone
 
         public List<Rectangle> Bounds { get; protected set; }
 
-        public Sprite(Texture2D texture, Vector2 location, Vector2 velocity, List<Rectangle> bounds, bool visible)
+        public Sprite(Texture2D texture, Vector2 location, Rectangle source, Vector2 velocity, List<Rectangle> bounds, bool visible)
         {
             Texture = texture;
             Location = location;
+            SheetSource = source;
             Velocity = velocity;
             Visible = visible;
             Bounds = bounds;
@@ -33,7 +36,7 @@ namespace MarioClone
         {
             if (Visible)
             {
-                spriteBatch.Draw(Texture, Location, Color.White);
+                spriteBatch.Draw(Texture, Location, SheetSource, Color.White);
             }
         }
 
