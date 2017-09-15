@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MarioClone.IController;
 using MarioClone.ISprite;
-using MarioClone.ICommand;
+using MarioClone.Command;
 using System.Collections.Generic;
 
 namespace MarioClone

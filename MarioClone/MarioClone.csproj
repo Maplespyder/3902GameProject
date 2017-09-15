@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="ICommand\AbstractCommand.cs" />
     <Compile Include="ICommand\ExitCommand.cs" />
-    <Compile Include="ICommand\ICommand.cs" />
     <Compile Include="ICommand\ToggleSpriteCommand.cs" />
     <Compile Include="IController\AbstractController.cs" />
     <Compile Include="IController\GamepadController.cs" />

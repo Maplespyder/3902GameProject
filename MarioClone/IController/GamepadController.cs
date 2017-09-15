@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using MarioClone.ICommand;
+using MarioClone.Command;
 using System.Collections.Generic;
 
 namespace MarioClone.IController
@@ -35,7 +35,7 @@ namespace MarioClone.IController
                 {
                     if (lastState.IsButtonUp(button) && currentState.IsButtonDown(button))
                     {
-                        ICommand.ICommand command;
+                        Command.ICommand command;
                         if(InputToCommandMap.TryGetValue((int)(button), out command))
                         {
                             command.InvokeCommand();

@@ -4,9 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Jacob/Source/Repos/Baritone 2/MarioClone/Content/Sprites/hunkydory.jpg</File>
-    <File>C:/Users/Jacob/Source/Repos/Baritone 2/MarioClone/Content/Sprites/mario.png</File>
-    <File>C:/Users/Jacob/Source/Repos/Baritone 2/MarioClone/Content/Sprites/sonicidle.png</File>
-    <File>C:/Users/Jacob/Source/Repos/Baritone 2/MarioClone/Content/Sprites/spinball.png</File>
+    <File>C:/Users/Jacob/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/hunkydory.jpg</File>
+    <File>C:/Users/Jacob/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/mario.png</File>
+    <File>C:/Users/Jacob/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/sonicidle.png</File>
+    <File>C:/Users/Jacob/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/spinball.png</File>
   </SourceFiles>
 </SourceFileCollection>

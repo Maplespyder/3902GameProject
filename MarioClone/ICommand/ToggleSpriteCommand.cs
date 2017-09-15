@@ -1,4 +1,4 @@
-﻿namespace MarioClone.ICommand
+﻿namespace MarioClone.Command
 {
     public class ToggleSpriteCommand : AbstractCommand<ISprite.ISprite>
     {
