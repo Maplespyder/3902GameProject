@@ -89,6 +89,21 @@ namespace MarioClone
             keyboardController.AddInputCommand((int)Keys.Y, new ToggleSpriteCommand(usedblock));
             gamepadController.AddInputCommand((int)Buttons.RightTrigger, new ToggleSpriteCommand(usedblock));
             spriteList.Add(usedblock);
+
+            var goomba = IdleEnemySpriteFactory.Instance.Create(EnemyType.Goomba, new Vector2(100, 100));
+            keyboardController.AddInputCommand((int)Keys.A, new ToggleSpriteCommand(goomba));
+            gamepadController.AddInputCommand((int)Buttons.RightShoulder, new ToggleSpriteCommand(goomba));
+            spriteList.Add(goomba);
+
+            var greenkoopa = IdleEnemySpriteFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(120, 120));
+            keyboardController.AddInputCommand((int)Keys.S, new ToggleSpriteCommand(greenkoopa));
+            gamepadController.AddInputCommand((int)Buttons.LeftShoulder, new ToggleSpriteCommand(greenkoopa));
+            spriteList.Add(greenkoopa);
+
+            var redkoopa = IdleEnemySpriteFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(140, 140));
+            keyboardController.AddInputCommand((int)Keys.D, new ToggleSpriteCommand(redkoopa));
+            gamepadController.AddInputCommand((int)Buttons.LeftTrigger, new ToggleSpriteCommand(redkoopa));
+            spriteList.Add(redkoopa);
         }
 
 		/// <summary>
@@ -129,7 +144,8 @@ namespace MarioClone
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            
+            spriteBatch.Begin(transformMatrix:Matrix.CreateScale(2));
             foreach (var sprite in spriteList)
             {
                 sprite.Draw(spriteBatch);

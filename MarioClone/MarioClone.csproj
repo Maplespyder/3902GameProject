@@ -43,6 +43,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Factories\BlockSpriteFactory.cs" />
+    <Compile Include="Factories\EnemySpriteFactory.cs" />
+    <Compile Include="Factories\IdleEnemySpriteFactory.cs" />
     <Compile Include="Factories\NormalThemedBlockFactory.cs" />
     <Compile Include="Sprites\AnimatedMovingSprite.cs" />
     <Compile Include="Sprites\AnimatedUnmovingSprite.cs" />

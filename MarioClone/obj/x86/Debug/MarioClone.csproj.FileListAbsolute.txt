@@ -85,3 +85,6 @@ C:\Users\Jacob\Source\Repos\General Mills Frosted Flakes\MarioClone\bin\Windows\
 C:\Users\Jacob\Source\Repos\General Mills Frosted Flakes\MarioClone\bin\Windows\x86\Debug\SharpDX.XInput.xml
 C:\Users\Jacob\Source\Repos\General Mills Frosted Flakes\MarioClone\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\Jacob\Source\Repos\General Mills Frosted Flakes\MarioClone\bin\Windows\x86\Debug\Content\Sprites\AllBlocks.xnb
+C:\Users\Jacob\Source\Repos\General Mills Frosted Flakes\MarioClone\bin\Windows\x86\Debug\Content\Sprites\Goomba.xnb
+C:\Users\Jacob\Source\Repos\General Mills Frosted Flakes\MarioClone\bin\Windows\x86\Debug\Content\Sprites\GreenKoopa.xnb
+C:\Users\Jacob\Source\Repos\General Mills Frosted Flakes\MarioClone\bin\Windows\x86\Debug\Content\Sprites\RedKoopa.xnb
