@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.ISprite
+namespace MarioClone.Sprites
 {
 	class StaticSprite : Sprite
 	{

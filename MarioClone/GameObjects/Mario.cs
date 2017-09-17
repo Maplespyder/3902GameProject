@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone
+namespace MarioClone.GameObjects
 {
-    class Mario : IGameObject, IMoveable
+    class Mario : IGameObject, IDrawable, IMoveable
     { 
         public Sprite Sprite { get;  set; }
 
