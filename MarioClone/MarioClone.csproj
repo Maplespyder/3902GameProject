@@ -55,6 +55,9 @@
     <Compile Include="IController.cs" />
     <Compile Include="Controllers\KeyboardController.cs" />
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="GameObjects\IGameObject.cs" />
+    <Compile Include="GameObjects\IMoveable.cs" />
+    <Compile Include="GameObjects\Mario.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="MarioCloneGame.cs" />
     <Compile Include="Program.cs" />
