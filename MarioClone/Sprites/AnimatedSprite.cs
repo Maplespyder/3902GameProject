@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Sprites
 {
-    class AnimatedSprite : StaticSprite, AbstractAnimated
+    class AnimatedSprite : ISprite.Sprite
     {
 
         private int frameCounter = 0;
@@ -19,8 +19,8 @@ namespace MarioClone.Sprites
         private int Rows;
         private int Columns;
 
-        public AnimatedSprite(Texture2D spriteSheet, Rectangle sourceRectangle, Vector2 velocity, int rows, int columns, int startFrame, int endFrame) : 
-            base(spriteSheet, sourceRectangle, velocity)
+        public AnimatedSprite(Texture2D spriteSheet, Rectangle sourceRectangle, int rows, int columns, int startFrame, int endFrame) : 
+            base(spriteSheet, sourceRectangle)
         {
             StartFrame = startFrame;
             EndFrame = endFrame;

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MarioClone.ISprite
 {
-	class StaticSprite : AbstractDrawable
+	class StaticSprite : Sprite
 	{
-		public StaticSprite(Texture2D spriteSheet, Rectangle sourceRectangle, Vector2 velocity) : 
-            base(spriteSheet, sourceRectangle, velocity)
+		public StaticSprite(Texture2D spriteSheet, Rectangle sourceRectangle) : 
+            base(spriteSheet, sourceRectangle)
 		{ 
 
 		}
@@ -19,11 +19,6 @@ namespace MarioClone.ISprite
 		public override void Update()
 		{
             //Nothing
-		}
-
-		public override void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth)
-		{
-			spriteBatch.Draw(SpriteSheet, Position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepth);
 		}
 
 	}

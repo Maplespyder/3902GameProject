@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.ISprite;
+using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -31,17 +32,17 @@ namespace MarioClone.Factories
             switch (type)
             {
                 case EnemyType.Goomba:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"), position,
-                        new Rectangle(0, 0, 32, 32), new Vector2(0, 0), bounds, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
+                        new Rectangle(0, 0, 32, 32));
                 case EnemyType.GreenKoopa:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/GreenKoopa"), position,
-                        new Rectangle(64, 0, 32, 57), new Vector2(0, 0), bounds, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/GreenKoopa"),
+                        new Rectangle(64, 0, 32, 57));
                 case EnemyType.RedKoopa:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/RedKoopa"), position,
-                        new Rectangle(0, 0, 32, 57), new Vector2(0, 0), bounds, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/RedKoopa"),
+                        new Rectangle(0, 0, 32, 57));
                 default:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"), position,
-                        new Rectangle(0, 0, 32, 32), new Vector2(0, 0), bounds, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
+                        new Rectangle(0, 0, 32, 32));
             }
         }
     }
