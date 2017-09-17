@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-    public interface IMoveable
+    public interface IDraw
     {
-        void Move();
-    
-        Vector2 Velocity { get; set; }
+        int DrawOrder { get; }
+        bool Visible { get; }
 
+        void Draw(SpriteBatch spriteBatch);
     }
 }
