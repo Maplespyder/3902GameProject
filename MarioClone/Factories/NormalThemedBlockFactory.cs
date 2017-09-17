@@ -33,19 +33,19 @@ namespace MarioClone.Factories
             {
                 case BlockType.QuestionBlock:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(0, 0, 16, 16), new Vector2(0, 0), rectangles, true);
+                        location, new Rectangle(0, 0, 32, 32), new Vector2(0, 0), rectangles, true);
                 case BlockType.BrickBlock:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(0, 16, 16, 16), new Vector2(0,0), rectangles, true);
+                        location, new Rectangle(0, 32, 32, 32), new Vector2(0,0), rectangles, true);
                 case BlockType.FloorBlock:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(16, 16, 16, 16), new Vector2(0, 0), rectangles, true);
+                        location, new Rectangle(32, 32, 32, 32), new Vector2(0, 0), rectangles, true);
                 case BlockType.StairBlock:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(32, 16, 16, 16), new Vector2(0, 0), rectangles, true);
+                        location, new Rectangle(64, 32, 32, 32), new Vector2(0, 0), rectangles, true);
                 case BlockType.UsedBlock:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(48, 16, 16, 16), new Vector2(0, 0), rectangles, true);
+                        location, new Rectangle(96, 32, 32, 32), new Vector2(0, 0), rectangles, true);
                 default:
                     return null;
             }

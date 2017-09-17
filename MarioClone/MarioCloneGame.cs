@@ -144,8 +144,8 @@ namespace MarioClone
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            
-            spriteBatch.Begin(transformMatrix:Matrix.CreateScale(2));
+
+			spriteBatch.Begin();
             foreach (var sprite in spriteList)
             {
                 sprite.Draw(spriteBatch);
