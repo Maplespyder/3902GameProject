@@ -49,10 +49,10 @@
     <Compile Include="Factories\IdleEnemySpriteFactory.cs" />
     <Compile Include="Factories\NormalThemedBlockFactory.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
-    <Compile Include="ICommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\GamepadController.cs" />
-    <Compile Include="IController.cs" />
+    <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\KeyboardController.cs" />
     <Compile Include="GameObjects\IGameObject.cs" />
     <Compile Include="GameObjects\IMoveable.cs" />

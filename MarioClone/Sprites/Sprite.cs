@@ -21,13 +21,8 @@ namespace MarioClone.Sprites
         }
 
 		#region ISprite
-		
-        /// <summary>
-		/// Updates behavior of drawable object (sprite)
-		/// </summary>
-		public abstract void Update();
 
-		public void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth)
+		public virtual void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth)
 		{
 			spriteBatch.Draw(SpriteSheet, Position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepth);
 		}

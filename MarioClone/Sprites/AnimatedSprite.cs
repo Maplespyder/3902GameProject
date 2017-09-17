@@ -1,15 +1,9 @@
-﻿using MarioClone.ISprite;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarioClone.Sprites
 {
-    class AnimatedSprite : ISprite.Sprite
+    class AnimatedSprite : Sprite
     {
 
         private int frameCounter = 0;
@@ -29,7 +23,7 @@ namespace MarioClone.Sprites
             Rows = rows;
         }
 
-        public void UpdateSourceRectangle()
+        private void UpdateSourceRectangle()
         {
                 int width = SpriteSheet.Width / Columns;
                 int height = SpriteSheet.Height / Rows;
@@ -38,7 +32,7 @@ namespace MarioClone.Sprites
                 SourceRectangle = new Rectangle(width * column, height * row, width, height);       
         }
 
-        public override void Update()
+        private void Update()
         {
             if(frameCounter == 10)
             {
@@ -51,6 +45,12 @@ namespace MarioClone.Sprites
                 UpdateSourceRectangle();
             }
             frameCounter++;      
+        }
+
+        public override void Draw(SpriteBatch batch, Vector2 position, float layer)
+        {
+            Update();
+            base.Draw(batch, position, layer);
         }
     }
 }

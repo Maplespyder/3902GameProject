@@ -15,11 +15,5 @@ namespace MarioClone.Sprites
 		{ 
 
 		}
-
-		public override void Update()
-		{
-            //Nothing
-		}
-
 	}
 }
