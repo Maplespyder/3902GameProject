@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.ISprite;
+using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -32,20 +33,20 @@ namespace MarioClone.Factories
             switch(type)
             {
                 case BlockType.QuestionBlock:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(0, 0, 32, 32), new Vector2(0, 0), rectangles, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
+                        new Rectangle(0, 0, 32, 32));
                 case BlockType.BrickBlock:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(0, 32, 32, 32), new Vector2(0,0), rectangles, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
+                        new Rectangle(0, 32, 32, 32));
                 case BlockType.FloorBlock:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(32, 32, 32, 32), new Vector2(0, 0), rectangles, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
+                        new Rectangle(32, 32, 32, 32));
                 case BlockType.StairBlock:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(64, 32, 32, 32), new Vector2(0, 0), rectangles, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
+                        new Rectangle(64, 32, 32, 32));
                 case BlockType.UsedBlock:
-                    return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        location, new Rectangle(96, 32, 32, 32), new Vector2(0, 0), rectangles, true);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
+						new Rectangle(96, 32, 32, 32));
                 default:
                     return null;
             }

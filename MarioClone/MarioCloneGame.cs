@@ -7,6 +7,7 @@ using MarioClone.Commands;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework.Content;
 using MarioClone.Factories;
+using MarioClone.ISprite;
 
 namespace MarioClone
 {
@@ -66,43 +67,27 @@ namespace MarioClone
 
             // TODO: use this.Content to load your game content here
             var brickblock = NormalThemedBlockFactory.Instance.Create(BlockType.BrickBlock, new Vector2(0, 0));
-            keyboardController.AddInputCommand((int)Keys.W, new ToggleSpriteCommand(brickblock));
-            gamepadController.AddInputCommand((int)Buttons.A, new ToggleSpriteCommand(brickblock));
             spriteList.Add(brickblock);
             
             var floorblock = NormalThemedBlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(20, 20));
-            keyboardController.AddInputCommand((int)Keys.E, new ToggleSpriteCommand(floorblock));
-            gamepadController.AddInputCommand((int)Buttons.B, new ToggleSpriteCommand(floorblock));
             spriteList.Add(floorblock);
 
             var questionblock = NormalThemedBlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 40));
-            keyboardController.AddInputCommand((int)Keys.R, new ToggleSpriteCommand(questionblock));
-            gamepadController.AddInputCommand((int)Buttons.X, new ToggleSpriteCommand(questionblock));
             spriteList.Add(questionblock);
             
             var stairblock = NormalThemedBlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(60, 60));
-            keyboardController.AddInputCommand((int)Keys.T, new ToggleSpriteCommand(stairblock));
-            gamepadController.AddInputCommand((int)Buttons.Y, new ToggleSpriteCommand(stairblock));
             spriteList.Add(stairblock);
 
             var usedblock = NormalThemedBlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 80));
-            keyboardController.AddInputCommand((int)Keys.Y, new ToggleSpriteCommand(usedblock));
-            gamepadController.AddInputCommand((int)Buttons.RightTrigger, new ToggleSpriteCommand(usedblock));
             spriteList.Add(usedblock);
 
             var goomba = IdleEnemySpriteFactory.Instance.Create(EnemyType.Goomba, new Vector2(100, 100));
-            keyboardController.AddInputCommand((int)Keys.A, new ToggleSpriteCommand(goomba));
-            gamepadController.AddInputCommand((int)Buttons.RightShoulder, new ToggleSpriteCommand(goomba));
             spriteList.Add(goomba);
 
             var greenkoopa = IdleEnemySpriteFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(120, 120));
-            keyboardController.AddInputCommand((int)Keys.S, new ToggleSpriteCommand(greenkoopa));
-            gamepadController.AddInputCommand((int)Buttons.LeftShoulder, new ToggleSpriteCommand(greenkoopa));
             spriteList.Add(greenkoopa);
 
             var redkoopa = IdleEnemySpriteFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(140, 140));
-            keyboardController.AddInputCommand((int)Keys.D, new ToggleSpriteCommand(redkoopa));
-            gamepadController.AddInputCommand((int)Buttons.LeftTrigger, new ToggleSpriteCommand(redkoopa));
             spriteList.Add(redkoopa);
         }
 
@@ -130,7 +115,7 @@ namespace MarioClone
 
             foreach (var sprite in spriteList)
             {
-                sprite.Update(gameTime);
+                sprite.Update();
             }
 
 			base.Update(gameTime);
@@ -143,12 +128,13 @@ namespace MarioClone
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-
+			int i = 0;
 
 			spriteBatch.Begin();
             foreach (var sprite in spriteList)
             {
-                sprite.Draw(spriteBatch);
+                sprite.Draw(spriteBatch, new Vector2(i,i), 0);
+				i += 50;
             }
             spriteBatch.End();
 

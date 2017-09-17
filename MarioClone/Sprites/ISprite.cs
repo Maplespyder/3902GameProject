@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarioClone.ISprite
 {
-	interface IDrawable
+	interface ISprite
 	{
 		void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth);
 	}
