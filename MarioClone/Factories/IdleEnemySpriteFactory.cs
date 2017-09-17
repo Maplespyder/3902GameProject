@@ -32,16 +32,16 @@ namespace MarioClone.Factories
             {
                 case EnemyType.Goomba:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"), position,
-                        new Rectangle(0, 0, 16, 16), new Vector2(0, 0), bounds, true);
+                        new Rectangle(0, 0, 32, 32), new Vector2(0, 0), bounds, true);
                 case EnemyType.GreenKoopa:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/GreenKoopa"), position,
-                        new Rectangle(32, 0, 16, 26), new Vector2(0, 0), bounds, true);
+                        new Rectangle(64, 0, 32, 57), new Vector2(0, 0), bounds, true);
                 case EnemyType.RedKoopa:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/RedKoopa"), position,
-                        new Rectangle(0, 0, 16, 26), new Vector2(0, 0), bounds, true);
+                        new Rectangle(0, 0, 32, 57), new Vector2(0, 0), bounds, true);
                 default:
                     return new MotionlessSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"), position,
-                        new Rectangle(0, 0, 16, 16), new Vector2(0, 0), bounds, true);
+                        new Rectangle(0, 0, 32, 32), new Vector2(0, 0), bounds, true);
             }
         }
     }
