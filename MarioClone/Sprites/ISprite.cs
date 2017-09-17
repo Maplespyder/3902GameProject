@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Sprites
 {
-	interface ISprite
+	public interface ISprite
 	{
-		void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth);
+        Rectangle SourceRectangle { get; }
+
+        Texture2D SpriteSheet { get; }
+
+        void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth);
 	}
 
 }

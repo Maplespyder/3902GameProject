@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-    public interface IMoveable
+    public interface IMoveable : IGameObject
     {
         void Move();
     
-        Vector2 Velocity { get; set; }
-
+        Vector2 Velocity { get; }
     }
 }

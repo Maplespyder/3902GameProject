@@ -1,4 +1,6 @@
-﻿namespace MarioClone
+﻿using MarioClone.Commands;
+
+namespace MarioClone
 {
     public interface IController
 	{

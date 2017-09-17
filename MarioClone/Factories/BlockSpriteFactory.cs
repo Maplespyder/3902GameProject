@@ -1,4 +1,4 @@
-﻿using MarioClone.ISprite;
+﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 
 namespace MarioClone.Factories

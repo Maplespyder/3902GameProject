@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using MarioClone.Commands;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace MarioClone.Controllers

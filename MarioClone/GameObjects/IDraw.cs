@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-    public interface IDraw
+    public interface IDraw : IGameObject
     {
         int DrawOrder { get; }
         bool Visible { get; }
 
-        void Draw(SpriteBatch spriteBatch);
+        void Draw(SpriteBatch spriteBatch, float layer);
     }
 }

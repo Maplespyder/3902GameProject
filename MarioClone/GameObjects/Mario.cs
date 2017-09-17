@@ -1,4 +1,5 @@
-﻿using MarioClone.States;
+﻿using MarioClone.Sprites;
+using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,60 +10,46 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-    class Mario : IGameObject, IDrawable, IMoveable
-    { 
-        public Sprite Sprite { get;  set; }
+    public class Mario : IGameObject, IDraw, IMoveable
+    {
+        public MarioState State { get; protected set; }
 
-        public Vector2 Position { get; set; }
+        public ISprite Sprite { get; protected set; }
 
-        public Vector2 Velocity { get; set; }
-        public Texture2D Texture { get; set; }
+        public Vector2 Position { get; protected set; }
 
-        public Rectangle SheetSource { get; protected set; }
+        public int DrawOrder { get; protected set; }
 
-        public int DrawOrder => throw new NotImplementedException();
+        public bool Visible { get; protected set; }
 
-        public bool Visible => throw new NotImplementedException();
+        public Vector2 Velocity { get; protected set; }
 
-
-         public MarioActionState State { get ; set; }
-
-        
-        
-
-        public event EventHandler<EventArgs> DrawOrderChanged;
-        public event EventHandler<EventArgs> VisibleChanged;
-
-        public Mario(MarioActionState actionState, Sprite sprite, Vector2 velocity, Vector2 position)
+        public Mario(ISprite sprite, Vector2 velocity, Vector2 position)
         {
-            State = actionState;
+            Sprite = sprite;
+            State = new MarioIdle(this);
             Velocity = velocity;
-        }
-
-        public void Draw(GameTime gameTime)
-        {
-             if(Visible)
-            {
-                Sprite.Draw();
-            }
-            
+            Position = position;
         }
 
         public void Move()
         {
-            if (Position.X < 100)
-            {
-                Velocity = new Vector2(10, 0);
-            }
-            else if (Position.X > 500)
-            {
-                Velocity = new Vector2(-10, 0);
-            }
+            State.Move();
         }
 
-        public void Update()
+        public void RunLeft()
+        {
+            State.RunLeft();
+        }
+
+        public void Update(GameTime gameTime)
         {
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, float layer)
+        {
+            Sprite.Draw(spriteBatch, Position, layer);
         }
     }
 }

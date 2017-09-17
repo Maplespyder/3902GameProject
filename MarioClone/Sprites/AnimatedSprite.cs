@@ -6,45 +6,51 @@ namespace MarioClone.Sprites
     class AnimatedSprite : Sprite
     {
 
-        private int frameCounter = 0;
-        private int currentFrame;
-        private int StartFrame;
-        private int EndFrame;
-        private int Rows;
-        private int Columns;
+        protected int FrameCounter { get; set; }
+
+        protected int CurrentFrame { get; set; }
+
+        protected int StartFrame { get; set; }
+
+        protected int EndFrame { get; set; }
+
+        protected int Rows { get; set; }
+
+        protected int Columns { get; set; }
 
         public AnimatedSprite(Texture2D spriteSheet, Rectangle sourceRectangle, int rows, int columns, int startFrame, int endFrame) : 
             base(spriteSheet, sourceRectangle)
         {
+            FrameCounter = 0;
             StartFrame = startFrame;
             EndFrame = endFrame;
-            currentFrame = startFrame;
+            CurrentFrame = startFrame;
             Columns = columns;
             Rows = rows;
         }
 
         private void UpdateSourceRectangle()
         {
-                int width = SpriteSheet.Width / Columns;
-                int height = SpriteSheet.Height / Rows;
-                int row = StartFrame / Columns;
-                int column = StartFrame % Columns;
-                SourceRectangle = new Rectangle(width * column, height * row, width, height);       
+            int width = SpriteSheet.Width / Columns;
+            int height = SpriteSheet.Height / Rows;
+            int row = StartFrame / Columns;
+            int column = StartFrame % Columns;
+            SourceRectangle = new Rectangle(width * column, height * row, width, height);       
         }
 
         private void Update()
         {
-            if(frameCounter == 10)
+            if(FrameCounter == 10)
             {
-                frameCounter = 0;
-                currentFrame++;
-                if(currentFrame == EndFrame)
+                FrameCounter = 0;
+                CurrentFrame++;
+                if(CurrentFrame == EndFrame)
                 {
-                    currentFrame = StartFrame;
+                    CurrentFrame = StartFrame;
                 }
                 UpdateSourceRectangle();
             }
-            frameCounter++;      
+            FrameCounter++;      
         }
 
         public override void Draw(SpriteBatch batch, Vector2 position, float layer)

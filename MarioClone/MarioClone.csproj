@@ -64,8 +64,8 @@
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
     <Compile Include="Sprites\StaticSprite.cs" />
-    <Compile Include="States\IState.cs" />
-    <Compile Include="States\MarioActionState.cs" />
+    <Compile Include="States\MarioStates\MarioIdle.cs" />
+    <Compile Include="States\MarioStates\MarioState.cs" />
     <Compile Include="States\State.cs" />
   </ItemGroup>
   <ItemGroup>

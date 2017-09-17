@@ -16,15 +16,15 @@ namespace MarioClone.Sprites
 
 		protected Sprite(Texture2D spriteSheet, Rectangle sourceRectangle)
         {
-            this.SpriteSheet = spriteSheet;
-            this.SourceRectangle = sourceRectangle;
+            SpriteSheet = spriteSheet;
+            SourceRectangle = sourceRectangle;
         }
 
 		#region ISprite
 
-		public virtual void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth)
+		public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth)
 		{
-			spriteBatch.Draw(SpriteSheet, Position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepth);
+			spriteBatch.Draw(SpriteSheet, position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, layerDepth);
 		}
 
 		#endregion

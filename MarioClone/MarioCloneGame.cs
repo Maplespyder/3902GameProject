@@ -7,7 +7,6 @@ using MarioClone.Commands;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework.Content;
 using MarioClone.Factories;
-using MarioClone.ISprite;
 
 namespace MarioClone
 {
@@ -115,7 +114,7 @@ namespace MarioClone
 
             foreach (var sprite in spriteList)
             {
-                sprite.Update();
+                //sprite.Update();
             }
 
 			base.Update(gameTime);

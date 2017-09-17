@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarioClone.GameObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace MarioClone.States
 {
-    public abstract class State<TContext>
-        where TContext : class
+    public abstract class State
     {
-        protected TContext Context { get; set; }
+        protected IGameObject Context { get; set; }
 
-        public State(TContext context)
+        public State(IGameObject context)
         {
             Context = context;
         }
