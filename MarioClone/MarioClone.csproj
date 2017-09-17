@@ -64,6 +64,8 @@
     <Compile Include="Sprites\MotionlessSprite.cs" />
     <Compile Include="Sprites\UnanimatedMovingSprite.cs" />
     <Compile Include="States\IState.cs" />
+    <Compile Include="States\MarioActionState.cs" />
+    <Compile Include="States\State.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
