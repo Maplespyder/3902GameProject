@@ -46,8 +46,12 @@
     <Compile Include="Factories\EnemySpriteFactory.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\ExitCommand.cs" />
+    <Compile Include="Factories\FireMarioSpriteFactory.cs" />
     <Compile Include="Factories\IdleEnemySpriteFactory.cs" />
+    <Compile Include="Factories\MarioSpriteFactory.cs" />
+    <Compile Include="Factories\NormalMarioSpriteFactory.cs" />
     <Compile Include="Factories\NormalThemedBlockFactory.cs" />
+    <Compile Include="Factories\SuperMarioSpriteFactory.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
