@@ -4,13 +4,13 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/hunkydory.jpg</File>
-    <File>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/mario.png</File>
-    <File>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/sonicidle.png</File>
-    <File>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/spinball.png</File>
-    <File>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/AllBlocks.png</File>
-    <File>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/Goomba.png</File>
-    <File>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/GreenKoopa.png</File>
-    <File>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/RedKoopa.png</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/hunkydory.jpg</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/mario.png</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/sonicidle.png</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/spinball.png</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/AllBlocks.png</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/Goomba.png</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/GreenKoopa.png</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/RedKoopa.png</File>
   </SourceFiles>
 </SourceFileCollection>

@@ -47,9 +47,9 @@ namespace MarioClone.GameObjects
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
         }
 
-        public void Draw(SpriteBatch spriteBatch, float layer)
+        public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
-            Sprite.Draw(spriteBatch, Position, layer);
+            Sprite.Draw(spriteBatch, Position, layer, gameTime);
         }
     }
 }
