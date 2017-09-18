@@ -18,6 +18,9 @@ namespace MarioClone.Sprites
 
         protected int Columns { get; set; }
 
+		private int elapsedTime = 0;
+		private int timePerFrame = (1000 / 24); //24 FPS 
+
         public AnimatedSprite(Texture2D spriteSheet, Rectangle sourceRectangle, int rows, int columns, int startFrame, int endFrame) : 
             base(spriteSheet, sourceRectangle)
         {
@@ -38,25 +41,27 @@ namespace MarioClone.Sprites
             SourceRectangle = new Rectangle(width * column, height * row, width, height);       
         }
 
-        private void Update()
+        private void Update(GameTime gameTime)
         {
-            if(FrameCounter == 10)
-            {
-                FrameCounter = 0;
-                CurrentFrame++;
-                if(CurrentFrame == EndFrame)
-                {
-                    CurrentFrame = StartFrame;
-                }
-                UpdateSourceRectangle();
-            }
-            FrameCounter++;      
-        }
+			elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+			if(elapsedTime > timePerFrame)
+			{
+				elapsedTime -= timePerFrame;
+				CurrentFrame++;
+				if (CurrentFrame == EndFrame)
+				{
+					CurrentFrame = StartFrame;
+				}
+				UpdateSourceRectangle();
+			}
 
-        public override void Draw(SpriteBatch batch, Vector2 position, float layer)
+
+		}
+
+        public override void Draw(SpriteBatch batch, Vector2 position, float layer, GameTime gameTime)
         {
-            Update();
-            base.Draw(batch, position, layer);
+            Update(gameTime);
+            base.Draw(batch, position, layer, gameTime);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace MarioClone.Sprites
 
         Texture2D SpriteSheet { get; }
 
-        void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth);
+        void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth, GameTime gametime);
 	}
 
 }

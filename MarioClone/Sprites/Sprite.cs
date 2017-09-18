@@ -22,7 +22,7 @@ namespace MarioClone.Sprites
 
 		#region ISprite
 
-		public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth)
+		public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth, GameTime gametime)
 		{
 			spriteBatch.Draw(SpriteSheet, position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, layerDepth);
 		}
