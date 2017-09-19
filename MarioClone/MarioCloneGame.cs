@@ -7,6 +7,7 @@ using MarioClone.Commands;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework.Content;
 using MarioClone.Factories;
+using MarioClone.GameObjects;
 
 namespace MarioClone
 {
@@ -21,7 +22,8 @@ namespace MarioClone
         GamepadController gamepadController;
         
         static ContentManager _content;
-        List<Sprite> spriteList;
+        List<ISprite> spriteList;
+        List<IDraw> gameObjects;
 
 		public MarioCloneGame()
 		{
@@ -54,8 +56,8 @@ namespace MarioClone
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spriteList = new List<Sprite>();
-
+            spriteList = new List<ISprite>();
+            gameObjects = new List<IDraw>();
             keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             gamepadController.AddInputCommand((int)Buttons.Start, new ExitCommand(this));
 
@@ -63,6 +65,12 @@ namespace MarioClone
             {
                 new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)
             };
+
+            var mario = MarioFactory.Create(new Vector2(200, 400));
+            gameObjects.Add(mario);
+
+            var mariowalking = SuperMarioSpriteFactory.Instance.Create(MarioActionState.Walking);
+            spriteList.Add(mariowalking);
 
             // TODO: use this.Content to load your game content here
             var brickblock = NormalThemedBlockFactory.Instance.Create(BlockType.BrickBlock, new Vector2(0, 0));
@@ -111,12 +119,7 @@ namespace MarioClone
 
             keyboardController.UpdateAndExecuteInputs();
             gamepadController.UpdateAndExecuteInputs();
-
-            foreach (var sprite in spriteList)
-            {
-                //sprite.Update();
-            }
-
+            
 			base.Update(gameTime);
 		}
 
@@ -132,8 +135,12 @@ namespace MarioClone
 			spriteBatch.Begin();
             foreach (var sprite in spriteList)
             {
-                sprite.Draw(spriteBatch, new Vector2(i,i), 0);
+                sprite.Draw(spriteBatch, new Vector2(i,i), 0, gameTime);
 				i += 50;
+            }
+            foreach(var obj in gameObjects)
+            {
+                obj.Draw(spriteBatch, 0, gameTime);
             }
             spriteBatch.End();
 
