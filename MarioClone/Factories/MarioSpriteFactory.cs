@@ -2,20 +2,20 @@
 
 namespace MarioClone.Factories
 {
+    public enum MarioActionState
+    {
+        Idling,
+        Walking,
+        Running,
+        Jumping,
+        Falling,
+        Crouching,
+        Dying,
+        ShootingFireball
+    }
+
     public abstract class MarioSpriteFactory
     {
-        public enum MarioActionState
-        {
-            Idling,
-            Walking,
-            Running,
-            Jumping,
-            Falling,
-            Crouching,
-            Dying,
-            ShootingFireball
-        }
-
         protected MarioSpriteFactory() { }
 
         public abstract ISprite Create(MarioActionState state);

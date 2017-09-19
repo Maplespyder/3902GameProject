@@ -48,6 +48,7 @@
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Factories\FireMarioSpriteFactory.cs" />
     <Compile Include="Factories\IdleEnemySpriteFactory.cs" />
+    <Compile Include="Factories\MarioFactory.cs" />
     <Compile Include="Factories\MarioSpriteFactory.cs" />
     <Compile Include="Factories\NormalMarioSpriteFactory.cs" />
     <Compile Include="Factories\NormalThemedBlockFactory.cs" />

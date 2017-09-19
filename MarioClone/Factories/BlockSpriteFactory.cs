@@ -9,7 +9,8 @@ namespace MarioClone.Factories
         UsedBlock,
         QuestionBlock,
         BrickBlock,
-        FloorBlock
+        FloorBlock,
+        BrokenBlock
     }
 
     public abstract class BlockSpriteFactory
