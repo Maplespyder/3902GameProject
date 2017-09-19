@@ -19,11 +19,12 @@ namespace MarioClone.Sprites
         protected int Columns { get; set; }
 
 		private int elapsedTime = 0;
-		private int timePerFrame = (1000 / 24); //24 FPS 
+		private int timePerFrame;
 
-        public AnimatedSprite(Texture2D spriteSheet, Rectangle sourceRectangle, int rows, int columns, int startFrame, int endFrame) : 
+        public AnimatedSprite(Texture2D spriteSheet, Rectangle sourceRectangle, int rows, int columns, int startFrame, int endFrame, int fps) : 
             base(spriteSheet, sourceRectangle)
         {
+			timePerFrame = (1000 / fps);
             FrameCounter = 0;
             StartFrame = startFrame;
             EndFrame = endFrame;
