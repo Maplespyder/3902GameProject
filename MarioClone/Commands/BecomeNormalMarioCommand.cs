@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace MarioClone.Commands
 {
 	/*
-	public class BecomeNormalMarioComamnd : AbstractCommand<Mario>
+	public class BecomeNormalMarioCommand : AbstractCommand<Mario>
 	{
 		
-		public BecomeNormalMarioComamnd(Mario receiver) : base(receiver) { }
+		public BecomeNormalMarioCommand(Mario receiver) : base(receiver) { }
 
 		public override void InvokeCommand()
 		{
