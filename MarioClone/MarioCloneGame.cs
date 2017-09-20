@@ -66,7 +66,11 @@ namespace MarioClone
                 new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)
             };
 
-            var mario = MarioFactory.Create(new Vector2(200, 400));
+
+			//ICommand BrickBlockCommand = new BrickBumpCommand(new BlockObject);
+			//ICommand QuestionBlockCommand = new QuestionBumpCommand(new BlockObject);
+
+			var mario = MarioFactory.Create(new Vector2(200, 400));
             gameObjects.Add(mario);
 
             var mariowalking = SuperMarioSpriteFactory.Instance.Create(MarioActionState.Walking);
@@ -74,12 +78,14 @@ namespace MarioClone
 
             // TODO: use this.Content to load your game content here
             var brickblock = NormalThemedBlockFactory.Instance.Create(BlockType.BrickBlock, new Vector2(0, 0));
+			//keyboardController.AddInputCommand((int)Keys.B, BrickBlockCommand);
             spriteList.Add(brickblock);
             
             var floorblock = NormalThemedBlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(20, 20));
             spriteList.Add(floorblock);
 
             var questionblock = NormalThemedBlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 40));
+			//keyboardController.AddInputCommand((int)Keys.Q, QuestionBlockCommand);
             spriteList.Add(questionblock);
             
             var stairblock = NormalThemedBlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(60, 60));
