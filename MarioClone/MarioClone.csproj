@@ -42,10 +42,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\BecomeDeadMarioCommand.cs" />
-    <Compile Include="Commands\BecomeNormalMarioComamnd.cs" />
-    <Compile Include="Commands\BrickBumpCommand.cs" />
-    <Compile Include="Commands\QuestionBumpCommand.cs" />
+    <Compile Include="Commands\BecomeSuperMarioCommand.cs" />
+    <Compile Include="Commands\ShowHiddenBrickCommand.cs" />
     <Compile Include="Factories\BlockSpriteFactory.cs" />
     <Compile Include="Factories\EnemySpriteFactory.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
