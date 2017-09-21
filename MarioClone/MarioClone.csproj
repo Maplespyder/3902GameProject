@@ -59,6 +59,14 @@
     <Compile Include="Factories\NormalMarioSpriteFactory.cs" />
     <Compile Include="Factories\NormalThemedBlockFactory.cs" />
     <Compile Include="Factories\SuperMarioSpriteFactory.cs" />
+    <Compile Include="GameObjects\Bricks\BreakableBrickObject.cs" />
+    <Compile Include="GameObjects\Bricks\BrickObject.cs" />
+    <Compile Include="GameObjects\Bricks\HiddenBrickObject.cs" />
+    <Compile Include="GameObjects\Bricks\QuestionBrickObject.cs" />
+    <Compile Include="GameObjects\Bricks\StaticBrickObject.cs" />
+    <Compile Include="GameObjects\Enemies\AbstractEnemyObject.cs" />
+    <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
+    <Compile Include="GameObjects\Enemies\KoopaObject.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
@@ -75,8 +83,10 @@
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
     <Compile Include="Sprites\StaticSprite.cs" />
+    <Compile Include="States\MarioStates\MarioActionState.cs" />
     <Compile Include="States\MarioStates\MarioIdle.cs" />
-    <Compile Include="States\MarioStates\MarioState.cs" />
+    <Compile Include="States\MarioStates\MarioNormal.cs" />
+    <Compile Include="States\MarioStates\MarioPowerupState.cs" />
     <Compile Include="States\State.cs" />
   </ItemGroup>
   <ItemGroup>
