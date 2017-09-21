@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,25 +7,21 @@ using MarioClone.GameObjects;
 
 namespace MarioClone.States
 {
-    public class MarioIdle : MarioState
+    public class MarioIdle : MarioActionState
     {
-        public MarioIdle(Mario context) : base(context)
+        public MarioNormal(Mario context) : base(context)
         {
-        }
-
-        protected override void CheckNextState()
-        {
-            throw new NotImplementedException();
         }
 
         public override void Move()
         {
-            throw new NotImplementedException();
+            // change values of mario like velocity
+            // then do something like Context.MarioActionState = new MarioRunning(this);
         }
 
-        public override void RunLeft()
+        protected override void CheckNextState()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

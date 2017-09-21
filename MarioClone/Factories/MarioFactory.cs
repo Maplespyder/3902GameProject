@@ -1,5 +1,6 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Sprites;
+using MarioClone.States;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,7 @@ namespace MarioClone.Factories
         public static Mario Create(Vector2 position)
         {
             //this implementation is not done in any way
-            ISprite marioSprite = SuperMarioSpriteFactory.Instance.Create(MarioActionState.Idling);
-            return new Mario(marioSprite, new Vector2(0, 0), position);
+            return new Mario(new Vector2(0, 0), position);
         }
     }
 }

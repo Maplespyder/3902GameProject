@@ -7,15 +7,13 @@ using MarioClone.GameObjects;
 
 namespace MarioClone.States
 {
-    public abstract class MarioState : State
+    public abstract class MarioActionState : State
     {
-        public MarioState(IGameObject context) : base(context)
+        public MarioActionState(IGameObject context) : base(context)
         {
         }
 
         // Behavior/actions
-
-        public abstract void RunLeft();
 
         public abstract void Move();
     }

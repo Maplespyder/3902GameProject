@@ -12,9 +12,25 @@ namespace MarioClone.GameObjects
 {
     public class Mario : IGameObject, IDraw, IMoveable
     {
-        public MarioState State { get; protected set; }
+        public MarioActionState ActionState { get; protected set; }
 
-        public ISprite Sprite { get; protected set; }
+        public MarioPowerupState PowerupState { get; protected set; }
+
+        public ISprite Sprite
+        {
+            get
+            {
+                switch(PowerupState.GetType().Name)
+                {
+                    case "MarioNormal":
+                        return NormalMarioSpriteFactory.Instance.Create(ActionState);
+                    case "MarioSuper":
+                        return SuperMarioSpriteFactory.Instance.Create(ActionState);
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+        }
 
         public Vector2 Position { get; protected set; }
 
@@ -24,22 +40,32 @@ namespace MarioClone.GameObjects
 
         public Vector2 Velocity { get; protected set; }
 
-        public Mario(ISprite sprite, Vector2 velocity, Vector2 position)
+        public Mario(Vector2 velocity, Vector2 position)
         {
-            Sprite = sprite;
-            State = new MarioIdle(this);
+            ActionState = new MarioIdle(this);
+            PowerupState = new MarioNormal(this);
             Velocity = velocity;
             Position = position;
         }
 
         public void Move()
         {
-            State.Move();
+            ActionState.Move();
         }
 
-        public void RunLeft()
+        public void BecomeNormal()
         {
-            State.RunLeft();
+            PowerupState.BecomeNormal();
+        }
+
+        public void BecomeSuper()
+        {
+            PowerupState.BecomeSuper();
+        }
+
+        public void BecomeFire()
+        {
+            PowerupState.BecomeFire();
         }
 
         public void Update(GameTime gameTime)
