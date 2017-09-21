@@ -15,6 +15,7 @@ namespace MarioClone.States
 
         // Behavior/actions
 
-        public abstract void Move();
+        public abstract void BecomeDead();
+        public abstract void BecomeIdle();
     }
 }

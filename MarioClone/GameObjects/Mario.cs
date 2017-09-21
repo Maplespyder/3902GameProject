@@ -48,11 +48,13 @@ namespace MarioClone.GameObjects
             Position = position;
         }
 
-        public void Move()
+        // action state methods, will likely be linked to commands
+        public void BecomeDead()
         {
-            ActionState.Move();
+            ActionState.BecomeDead();
         }
 
+        // powerup state methods, will likely be linked to commands
         public void BecomeNormal()
         {
             PowerupState.BecomeNormal();
@@ -63,11 +65,6 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeSuper();
         }
 
-        public void BecomeFire()
-        {
-            PowerupState.BecomeFire();
-        }
-
         public void Update(GameTime gameTime)
         {
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
@@ -75,7 +72,10 @@ namespace MarioClone.GameObjects
 
         public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
-            Sprite.Draw(spriteBatch, Position, layer, gameTime);
+            if (Visible)
+            {
+                Sprite.Draw(spriteBatch, Position, layer, gameTime);
+            }           
         }
     }
 }

@@ -24,12 +24,6 @@ namespace MarioClone.States
             CheckNextState();
         }
 
-        public override void BecomeFire()
-        {
-            Context.PowerupState = new MarioFire(Context);
-            CheckNextState();
-        }
-
         protected override void CheckNextState()
         {
             // check to see if mario is hit maybe? not sure what goes in here

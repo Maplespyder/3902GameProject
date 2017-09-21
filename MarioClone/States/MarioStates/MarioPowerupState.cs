@@ -17,6 +17,5 @@ namespace MarioClone.States
 
         public abstract void BecomeNormal();
         public abstract void BecomeSuper();
-        public abstract void BecomeFire();
     }
 }

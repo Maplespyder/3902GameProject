@@ -13,10 +13,16 @@ namespace MarioClone.States
         {
         }
 
-        public override void Move()
+        public override void BecomeDead()
         {
             // change values of mario like velocity
-            // then do something like Context.MarioActionState = new MarioRunning(this);
+            // then do something like Context.MarioActionState = new MarioDying(this);
+            CheckNextState();
+        }
+
+        public override void BecomeIdle()
+        {
+            CheckNextState();
         }
 
         protected override void CheckNextState()

@@ -23,7 +23,7 @@ namespace MarioClone
         
         static ContentManager _content;
         List<ISprite> spriteList;
-        List<IDraw> gameObjects;
+        List<IGameObject> gameObjects;
 
 		public MarioCloneGame()
 		{
@@ -57,7 +57,7 @@ namespace MarioClone
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
             spriteList = new List<ISprite>();
-            gameObjects = new List<IDraw>();
+            gameObjects = new List<IGameObject>();
             keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             gamepadController.AddInputCommand((int)Buttons.Start, new ExitCommand(this));
 
