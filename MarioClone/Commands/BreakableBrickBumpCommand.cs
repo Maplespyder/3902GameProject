@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Commands
 {
-	/*
-	public class BrickBumpCommand : AbstractCommand<BlockObject>
+	public class BreakableBrickBumpCommand : AbstractCommand<BreakableBrickObject>
 	{
-		public BrickBumpCommand(BlockObject receiver) : base(receiver) { }
+		public BreakableBrickBumpCommand(BreakableBrickObject receiver) : base(receiver) { }
 
 		public override void InvokeCommand()
 		{
-			Receiver.BrickHitByMario();
+			Receiver.HitByMario();
 		}
-	}*/
+	}
 }
