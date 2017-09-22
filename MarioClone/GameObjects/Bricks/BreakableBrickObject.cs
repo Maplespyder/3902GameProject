@@ -34,7 +34,7 @@ namespace MarioClone.GameObjects
 			Bounce,
 			Break,
 			Pieces,
-			Static,
+			Static
 		}
 		private State state = State.Static;
 
@@ -47,7 +47,7 @@ namespace MarioClone.GameObjects
 			Visible = true;
         }
 
-        public void HitByMario()
+        public void Execute()
         {
 			//TODO:s
 			//if small
