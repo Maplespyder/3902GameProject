@@ -1,11 +1,13 @@
 ﻿using System;
+using MarioClone.Sprites;
+using Microsoft.Xna.Framework;
 
 /// <summary>
 /// Summary description for Class1
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class BreakableBrickObject : BrickObject
+    public class BreakableBrickObject : IGameObject
 	{
         public Vector2 Position { get; protected set; }
 
@@ -17,12 +19,26 @@ namespace MarioClone.GameObjects
 
         public ISprite Sprite { get; protected set; }
 
-        public BreakableBrickObject(Isprite sprite, Vector2 Velocity, Vector2 Position)
+        public BreakableBrickObject(ISprite sprite, Vector2 velocity, Vector2 position)
         {
             Sprite = sprite;
             Velocity = velocity;
             Position = position;
 
+        }
+
+        public void BrickBump()
+        {
+
+        }
+
+        public void BrickBreak()
+        {
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-    public interface IDraw : IGameObject
+    public interface IDraw 
     {
         int DrawOrder { get; }
         bool Visible { get; }
