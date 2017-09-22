@@ -42,6 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\BecomeFireMarioCommand.cs" />
     <Compile Include="Commands\BecomeSuperMarioCommand.cs" />
     <Compile Include="Commands\ShowHiddenBrickCommand.cs" />
     <Compile Include="Commands\BreakableBrickBumpCommand.cs" />
@@ -92,11 +93,17 @@
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
     <Compile Include="Sprites\StaticSprite.cs" />
-    <Compile Include="States\MarioStates\MarioActionState.cs" />
-    <Compile Include="States\MarioStates\MarioIdle.cs" />
-    <Compile Include="States\MarioStates\MarioNormal.cs" />
-    <Compile Include="States\MarioStates\MarioPowerupState.cs" />
-    <Compile Include="States\State.cs" />
+    <Compile Include="States\MarioStates\Action\MarioActionState.cs" />
+    <Compile Include="States\MarioStates\Action\MarioCrouch.cs" />
+    <Compile Include="States\MarioStates\Action\MarioDead.cs" />
+    <Compile Include="States\MarioStates\Action\MarioIdle.cs" />
+    <Compile Include="States\MarioStates\Action\MarioJump.cs" />
+    <Compile Include="States\MarioStates\Action\MarioRunLeft.cs" />
+    <Compile Include="States\MarioStates\Action\MarioRunRight.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioFire.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioNormal.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioPowerupState.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioSuper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

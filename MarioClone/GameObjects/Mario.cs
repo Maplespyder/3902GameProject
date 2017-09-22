@@ -15,6 +15,11 @@ namespace MarioClone.GameObjects
     {
         private static Mario _mario;
 
+        internal void BecomeSuperMario()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Do not instantiate Mario more than once. We have to make Mario before
         /// things that reference him use him, because I can't null check this getter.
@@ -53,19 +58,45 @@ namespace MarioClone.GameObjects
         public Mario(Vector2 velocity, Vector2 position)
         {
             _mario = this;
-            PowerupState = new MarioNormal(this);
-            ActionState = new MarioIdle(this);
+            PowerupState = MarioNormal.Instance;
+            ActionState = MarioIdle.Instance;
             Velocity = velocity;
             Position = position;
         }
 
         // action state methods, will likely be linked to commands
-        public void BecomeDead()
+
+        public void BecomeIdle()
         {
-            ActionState.BecomeDead();
+            ActionState.BecomeIdle();
+        }
+
+        public void BecomeCrouch()
+        {
+            ActionState.BecomeCrouch();
+        }
+
+        public void BecomeJump()
+        {
+            ActionState.BecomeJump();
+        }
+
+        public void BecomeRunLeft()
+        {
+            ActionState.BecomeRunLeft();
+        }
+
+        public void BecomeRunRight()
+        {
+            ActionState.BecomeRunRight();
         }
 
         // powerup state methods, will likely be linked to commands
+        public void BecomeDead()
+        {
+            PowerupState.BecomeDead();
+        }
+
         public void BecomeNormal()
         {
             PowerupState.BecomeNormal();
@@ -74,6 +105,11 @@ namespace MarioClone.GameObjects
         public void BecomeSuper()
         {
             PowerupState.BecomeSuper();
+        }
+
+        public void BecomeFire()
+        {
+            PowerupState.BecomeFire();
         }
 
         public bool Update(GameTime gameTime)
@@ -88,6 +124,11 @@ namespace MarioClone.GameObjects
             {
                 Sprite.Draw(spriteBatch, Position, layer, gameTime);
             }           
+        }
+
+        public void Move()
+        {
+            ActionState.Move();
         }
     }
 }
