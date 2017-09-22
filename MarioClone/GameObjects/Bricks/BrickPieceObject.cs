@@ -23,17 +23,23 @@ namespace MarioClone.GameObjects.Bricks
 			Velocity = velocity;
 			Position = position;
 			Visible = true;
-
 		}
 
 		public void Update(GameTime gameTime)
 		{
-			//TODO UPDATE NUGGET MOVEMENT
+			Move();
+
+			//Nugget off screen?
+			if(Position.Y < MarioCloneGame.GraphicsDevice.PreferredBackBufferHeight || Position.Y > MarioCloneGame.GraphicsDevice.PreferredBackBufferHeight)
+			{
+				Visible = false;
+			}
 		}
 
 		public void Move()
 		{
-			
+			//Movement will also need to be tested and likely refactored later
+			Position = new Vector2(Position.X + .1f, Position.Y + 5);
 		}
 
 		public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
@@ -44,5 +50,4 @@ namespace MarioClone.GameObjects.Bricks
 			}
 		}
 	}
-}
 }

@@ -16,7 +16,7 @@ namespace MarioClone
     /// </summary>
     public class MarioCloneGame : Game
 	{
-		GraphicsDeviceManager graphics;
+		static sGraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
         KeyboardController keyboardController;
         GamepadController gamepadController;
@@ -158,7 +158,12 @@ namespace MarioClone
             get { return _content; }
         }
 
-        public void ExitCommand()
+		public static GraphicsDeviceManager GraphicsDevice
+		{
+			get { return graphics; }
+		}
+
+		public void ExitCommand()
         {
             Exit();
         }
