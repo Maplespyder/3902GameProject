@@ -12,7 +12,7 @@ using MarioClone.States;
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class BreakableBrickObject : IGameObject, IMoveable, IDraw
+    public class BreakableBrickObject : IGameObject, IMoveable
 	{
         public Vector2 Position { get; protected set; }
 
@@ -75,12 +75,12 @@ namespace MarioClone.GameObjects
 			}
 		}
 
-		public void Pieces(GameTime gameTime)
+		public bool Pieces(GameTime gameTime)
 		{
+            bool disposeMe = false;
 			foreach(BrickPieceObject piece in PieceList)
 			{
-				piece.Update(gameTime);
-				if (!piece.Visible)
+				if (piece.Update(gameTime))
 				{
 					InVisiblePieces.Add(piece);
 				}
@@ -98,12 +98,15 @@ namespace MarioClone.GameObjects
 			//If all pieces are gone
 			if(PieceList.Count == 0)
 			{
-				Visible = false;
+                disposeMe = true;
 			}
+
+            return disposeMe;
 		}
 
-		public void Update(GameTime gameTime)
+		public bool Update(GameTime gameTime)
         {
+            bool disposeMe = false;
 			//If state bounce, call bounce()
 			if (state.Equals(State.Bounce))
 			{
@@ -112,10 +115,16 @@ namespace MarioClone.GameObjects
 			else if (state.Equals(State.Break))
 			{
 				Break();
-			}else if (state.Equals(State.Pieces))
-			{
-				Pieces(gameTime);
 			}
+            else if (state.Equals(State.Pieces))
+			{
+                if(Pieces(gameTime))
+                {
+                    disposeMe = true;
+                }
+			}
+
+            return disposeMe;
         }
 
 		public void Move()

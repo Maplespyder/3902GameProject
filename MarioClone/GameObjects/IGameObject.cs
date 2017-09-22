@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-    public interface IGameObject
+    public interface IGameObject : IDraw
     { 
        ISprite Sprite { get; }
 
        Vector2 Position { get; }
 
-       void Update(GameTime gameTime);
+       bool Update(GameTime gameTime);
     }
 }

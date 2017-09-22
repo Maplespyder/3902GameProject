@@ -32,7 +32,7 @@ namespace MarioClone.Factories
                 case BlockType.QuestionBlock:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
                         new Rectangle(0, 0, 32, 32), 2, 4, 0, 3, 4);
-                case BlockType.BrickBlock:
+                case BlockType.BreakableBrick:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
                         new Rectangle(0, 32, 32, 32));
                 case BlockType.FloorBlock:
@@ -44,9 +44,12 @@ namespace MarioClone.Factories
                 case BlockType.UsedBlock:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
 						new Rectangle(96, 32, 32, 32));
-                case BlockType.BrokenBlock:
+                case BlockType.BrickPiece:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BrickPiece"),
                         new Rectangle(0, 0, 16, 16));
+                case BlockType.HiddenBlock:
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
+                        new Rectangle(96, 32, 32, 32));
                 default:
                     return null;
             }

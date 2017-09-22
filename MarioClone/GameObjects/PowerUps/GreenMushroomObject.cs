@@ -5,7 +5,7 @@
 /// </summary>
 namespace MarioClone.GameObjects
 {
-	public class LargeMarioMushroomObject : IGameObject, IDraw
+	public class LargeMarioMushroomObject : IGameObject
 	{
 		//
 		// TODO: Add constructor logic here

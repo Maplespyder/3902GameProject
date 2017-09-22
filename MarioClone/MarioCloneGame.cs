@@ -22,7 +22,6 @@ namespace MarioClone
         GamepadController gamepadController;
         
         static ContentManager _content;
-        List<ISprite> spriteList;
         List<IGameObject> gameObjects;
 
 		public MarioCloneGame()
@@ -56,7 +55,6 @@ namespace MarioClone
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spriteList = new List<ISprite>();
             gameObjects = new List<IGameObject>();
             keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             gamepadController.AddInputCommand((int)Buttons.Start, new ExitCommand(this));
@@ -74,31 +72,37 @@ namespace MarioClone
             gameObjects.Add(mario);
 
             // TODO: use this.Content to load your game content here
-            var brickblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.BrickBlock);
+            var brickblock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(0, 0));
 			//keyboardController.AddInputCommand((int)Keys.B, BrickBlockCommand);
-            spriteList.Add(brickblock);
-            
-            var floorblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.FloorBlock);
-            spriteList.Add(floorblock);
+            gameObjects.Add(brickblock);
 
-            var questionblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.QuestionBlock);
-			//keyboardController.AddInputCommand((int)Keys.Q, QuestionBlockCommand);
-            spriteList.Add(questionblock);
-            
-            var stairblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.StairBlock);
-            spriteList.Add(stairblock);
+            var questionblock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 0));
+            //keyboardController.AddInputCommand((int)Keys.Q, QuestionBlockCommand);
+            gameObjects.Add(questionblock);
 
-            var usedblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.UsedBlock);
-            spriteList.Add(usedblock);
+            var brickpiece = BlockFactory.Instance.Create(BlockType.BrickPiece, new Vector2(60, 0));
 
-            var goomba = MovingEnemySpriteFactory.Instance.Create(EnemyType.Goomba);
-            spriteList.Add(goomba);
+            /* all the types below currently lack an implementation, so their creation is commented out
+            var floorblock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(20, 0));
+            gameObjects.Add(floorblock);
+
+            var stairblock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(60, 0));
+            gameObjects.Add(stairblock);
+
+            var usedblock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 0)); ;
+            gameObjects.Add(usedblock);
+
+            var hiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(100, 0));
+            gameObjects.Add(hiddenBlock);
+
+            var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba);
+            gameObjects.Add(goomba);
 
             var greenkoopa = MovingEnemySpriteFactory.Instance.Create(EnemyType.GreenKoopa);
-            spriteList.Add(greenkoopa);
+            gameObjects.Add(greenkoopa);
 
             var redkoopa = MovingEnemySpriteFactory.Instance.Create(EnemyType.RedKoopa);
-            spriteList.Add(redkoopa);
+            gameObjects.Add(redkoopa);*/
         }
 
 		/// <summary>
@@ -122,7 +126,17 @@ namespace MarioClone
 
             keyboardController.UpdateAndExecuteInputs();
             gamepadController.UpdateAndExecuteInputs();
-            
+
+            List<IGameObject> tempList = new List<IGameObject>();
+            foreach(var obj in gameObjects)
+            {
+                if(obj.Update(gameTime))
+                {
+                    tempList.Add(obj);
+                }
+            }
+
+            gameObjects.RemoveAll((x) => tempList.Remove(x));
 			base.Update(gameTime);
 		}
 
@@ -133,15 +147,9 @@ namespace MarioClone
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-			int i = 0;
 
 			spriteBatch.Begin();
-            foreach (var sprite in spriteList)
-            {
-                sprite.Draw(spriteBatch, new Vector2(i,i), 0, gameTime);
-				i += 50;
-            }
-            foreach(var obj in gameObjects)
+            foreach (var obj in gameObjects)
             {
                 obj.Draw(spriteBatch, 0, gameTime);
             }

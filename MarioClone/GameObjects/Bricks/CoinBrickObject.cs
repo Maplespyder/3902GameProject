@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.GameObjects
 {
-    class CoinBrickObject : IGameObject, IMoveable, IDraw
+    class CoinBrickObject : IGameObject, IMoveable
     {
         public ISprite Sprite => throw new NotImplementedException();
 
@@ -31,9 +31,9 @@ namespace MarioClone.GameObjects
             throw new NotImplementedException();
         }
 
-        public void Update(GameTime gameTime)
+        public bool Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }

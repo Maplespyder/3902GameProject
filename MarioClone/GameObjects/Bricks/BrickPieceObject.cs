@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.GameObjects.Bricks
 {
-	public class BrickPieceObject : IGameObject, IDraw, IMoveable
+	public class BrickPieceObject : IGameObject, IMoveable
 	{
 		public Vector2 Position { get; protected set; }
 
@@ -25,15 +25,18 @@ namespace MarioClone.GameObjects.Bricks
 			Visible = true;
 		}
 
-		public void Update(GameTime gameTime)
+		public bool Update(GameTime gameTime)
 		{
+            bool disposeMe = false;
 			Move();
 
 			//Nugget off screen?
 			if(Position.Y < MarioCloneGame.GraphicsDevice.PreferredBackBufferHeight || Position.Y > MarioCloneGame.GraphicsDevice.PreferredBackBufferHeight)
 			{
-				Visible = false;
+                disposeMe = true;
 			}
+
+            return disposeMe;
 		}
 
 		public void Move()

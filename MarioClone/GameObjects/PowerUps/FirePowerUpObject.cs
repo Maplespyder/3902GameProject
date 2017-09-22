@@ -5,7 +5,7 @@
 /// </summary>
 namespace MarioClone.GameObjects
 {
-	public class FirePowerUpObject : IGameObject, IDraw
+	public class FirePowerUpObject : IGameObject
 	{
 		//
 		// TODO: Add constructor logic here

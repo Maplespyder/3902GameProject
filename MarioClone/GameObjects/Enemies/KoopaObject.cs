@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class KoopaObject : IGameObject, IMoveable, IDraw
+    public class KoopaObject : IGameObject, IMoveable
     {
         //
         // TODO: Add constructor logic here
@@ -38,9 +38,9 @@ namespace MarioClone.GameObjects
             throw new NotImplementedException();
         }
 
-        public void Update(GameTime gameTime)
+        public bool Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }

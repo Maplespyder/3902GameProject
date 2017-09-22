@@ -9,9 +9,10 @@ namespace MarioClone.Factories
         UsedBlock,
         QuestionBlock,
         CoinBlock,
-        BrickBlock,
+        BreakableBrick,
         FloorBlock,
-        BrokenBlock
+        BrickPiece,
+        HiddenBlock
     }
 
     public class BlockFactory
@@ -39,24 +40,27 @@ namespace MarioClone.Factories
 
         public IGameObject Create(BlockType type, Vector2 position)
         {
+            Vector2 velocity = new Vector2(0, 0);
             switch(type)
             {
-                case BlockType.BrickBlock:
-                    return new BreakableBrickObject(SpriteFactory.Create(type), new Vector2(0, 0), position);
+                case BlockType.BreakableBrick:
+                    return new BreakableBrickObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.CoinBlock:
-                    return new CoinBrickObject();
-                case BlockType.BrokenBlock:
-                    return null;
+                    //return new CoinBrickObject();
+                case BlockType.BrickPiece:
+                    return new GameObjects.Bricks.BrickPieceObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.FloorBlock:
-                    return null;
+                    //return null;
                 case BlockType.QuestionBlock:
-                    return new QuestionBlockObject();
+                    return new QuestionBlockObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.StairBlock:
                     //return new StairBlock();
                 case BlockType.UsedBlock:
                     //return new UsedBlockObject();
+                case BlockType.HiddenBlock:
+                    //return new HiddenBrickObject(SpriteFactory.Create(type), velocity, position);
                 default:
-                    return new BreakableBrickObject(SpriteFactory.Create(type), new Vector2(0, 0), position);
+                    return new BreakableBrickObject(SpriteFactory.Create(type), velocity, position);
             }
         }
     }

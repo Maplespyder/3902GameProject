@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class QuestionBlockObject : IMoveable, IGameObject, IDraw
+    public class QuestionBlockObject : IMoveable, IGameObject
 	{
         public Vector2 Position { get; protected set; }
 
@@ -74,9 +74,9 @@ namespace MarioClone.GameObjects
             //Nothing
         }
 
-        public void Update(GameTime gameTime)
+        public bool Update(GameTime gameTime)
         {
-            //Nothing
+            return false;
         }
     }
 }

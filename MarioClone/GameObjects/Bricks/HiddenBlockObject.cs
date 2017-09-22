@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class HiddenBrickObject :  IDraw, IMoveable, IGameObject
+    public class HiddenBrickObject : IMoveable, IGameObject
     {
 
         public Vector2 Position { get; protected set; }
@@ -51,7 +51,7 @@ namespace MarioClone.GameObjects
             throw new NotImplementedException();
         }
 
-        private void Update(Gametime gametime)
+        private bool Update(Gametime gametime)
         {
             throw new NotImplementedException();
         }

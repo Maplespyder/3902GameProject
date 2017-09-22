@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-    public class Mario : IGameObject, IDraw, IMoveable
+    public class Mario : IGameObject, IMoveable
     {
         private static Mario _mario;
 
@@ -76,9 +76,10 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeSuper();
         }
 
-        public void Update(GameTime gameTime)
+        public bool Update(GameTime gameTime)
         {
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
+            return false;
         }
 
         public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
