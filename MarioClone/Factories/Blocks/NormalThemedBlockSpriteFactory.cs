@@ -25,15 +25,13 @@ namespace MarioClone.Factories
             }
         }
 
-        public override Sprite Create(BlockType type, Vector2 location)
+        public override Sprite Create(BlockType type)
         {
-            List<Rectangle> rectangles = new List<Rectangle>();
-            rectangles.Add(new Rectangle(0, 0, 800, 600));
             switch(type)
             {
                 case BlockType.QuestionBlock:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        new Rectangle(0, 0, 32, 32), 2, 4, 0, 3 );
+                        new Rectangle(0, 0, 32, 32), 2, 4, 0, 3, 4);
                 case BlockType.BrickBlock:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
                         new Rectangle(0, 32, 32, 32));

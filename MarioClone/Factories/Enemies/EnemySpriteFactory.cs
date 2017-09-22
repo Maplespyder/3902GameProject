@@ -19,6 +19,6 @@ namespace MarioClone.Factories
     {
         protected EnemySpriteFactory() { }
 
-        public abstract Sprite Create(EnemyType type, Vector2 position);
+        public abstract ISprite Create(EnemyType type);
     }
 }

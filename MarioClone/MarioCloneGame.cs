@@ -73,34 +73,31 @@ namespace MarioClone
 			var mario = MarioFactory.Create(new Vector2(200, 400));
             gameObjects.Add(mario);
 
-            var mariowalking = SuperMarioSpriteFactory.Instance.Create(MarioActionState.Walking);
-            spriteList.Add(mariowalking);
-
             // TODO: use this.Content to load your game content here
-            var brickblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.BrickBlock, new Vector2(0, 0));
+            var brickblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.BrickBlock);
 			//keyboardController.AddInputCommand((int)Keys.B, BrickBlockCommand);
             spriteList.Add(brickblock);
             
-            var floorblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.FloorBlock, new Vector2(20, 20));
+            var floorblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.FloorBlock);
             spriteList.Add(floorblock);
 
-            var questionblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 40));
+            var questionblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.QuestionBlock);
 			//keyboardController.AddInputCommand((int)Keys.Q, QuestionBlockCommand);
             spriteList.Add(questionblock);
             
-            var stairblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.StairBlock, new Vector2(60, 60));
+            var stairblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.StairBlock);
             spriteList.Add(stairblock);
 
-            var usedblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 80));
+            var usedblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.UsedBlock);
             spriteList.Add(usedblock);
 
-            var goomba = IdleEnemySpriteFactory.Instance.Create(EnemyType.Goomba, new Vector2(100, 100));
+            var goomba = MovingEnemySpriteFactory.Instance.Create(EnemyType.Goomba);
             spriteList.Add(goomba);
 
-            var greenkoopa = IdleEnemySpriteFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(120, 120));
+            var greenkoopa = MovingEnemySpriteFactory.Instance.Create(EnemyType.GreenKoopa);
             spriteList.Add(greenkoopa);
 
-            var redkoopa = IdleEnemySpriteFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(140, 140));
+            var redkoopa = MovingEnemySpriteFactory.Instance.Create(EnemyType.RedKoopa);
             spriteList.Add(redkoopa);
         }
 

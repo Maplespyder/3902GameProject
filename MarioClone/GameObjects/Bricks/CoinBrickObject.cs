@@ -7,7 +7,7 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MarioClone.GameObjects.Bricks
+namespace MarioClone.GameObjects
 {
     class CoinBrickObject : IGameObject, IMoveable, IDraw
     {
