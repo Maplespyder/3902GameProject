@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
-namespace MarioClone.GameObjects
+namespace MarioClone.GameObjects.Bricks
 {
-    public class GoombaObject : IGameObject, IMoveable, IDraw
+    class CoinBrickObject : IGameObject, IMoveable, IDraw
     {
-      
         public ISprite Sprite => throw new NotImplementedException();
 
         public Vector2 Position => throw new NotImplementedException();

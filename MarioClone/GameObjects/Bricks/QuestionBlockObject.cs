@@ -1,11 +1,19 @@
-﻿using System;
+﻿using MarioClone.Sprites;
+using MarioClone.States;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Summary description for Class1
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class QuestionBrickObject : BrickObject, IMoveable, IGameObject
+    public class QuestionBlockObject : IMoveable, IGameObject, IDraw
 	{
         public Vector2 Position { get; protected set; }
 

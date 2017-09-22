@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class HiddenBrickObject : BrickObject, IDraw, IMoveable, IGameObject
+    public class HiddenBrickObject :  IDraw, IMoveable, IGameObject
     {
 
         public Vector2 Position { get; protected set; }
@@ -32,6 +32,10 @@ namespace MarioClone.GameObjects
             Velocity = velocity;
             Position = position;
 
+        }
+
+        public HiddenBrickObject()
+        {
         }
 
         public override void Draw(bool visible, SpriteBatch spriteBatch, float layer, GameTime gameTime)
