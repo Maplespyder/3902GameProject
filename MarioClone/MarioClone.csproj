@@ -64,6 +64,7 @@
     <Compile Include="Factories\PowerUps\PowerUpFactory.cs" />
     <Compile Include="Factories\PowerUps\PowerUpSpriteFactory.cs" />
     <Compile Include="GameObjects\Bricks\BreakableBrickObject.cs" />
+    <Compile Include="GameObjects\Bricks\BrickPieceObject.cs" />
     <Compile Include="GameObjects\Bricks\CoinBrickObject.cs" />
     <Compile Include="GameObjects\Bricks\HiddenBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\QuestionBlockObject.cs" />
