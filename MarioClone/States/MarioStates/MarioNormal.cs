@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MarioClone.GameObjects;
+﻿using MarioClone.GameObjects;
+using MarioClone.Factories;
 
 namespace MarioClone.States
 {
@@ -11,6 +7,7 @@ namespace MarioClone.States
     {
         public MarioNormal(Mario context) : base(context)
         {
+            context.SpriteFactory = NormalMarioSpriteFactory.Instance;
         }
 
         public override void BecomeNormal()

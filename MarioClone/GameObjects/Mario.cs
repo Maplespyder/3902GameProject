@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.Factories;
+using MarioClone.Sprites;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,25 +13,29 @@ namespace MarioClone.GameObjects
 {
     public class Mario : IGameObject, IDraw, IMoveable
     {
-        public MarioActionState ActionState { get; protected set; }
+        private static Mario _mario;
 
-        public MarioPowerupState PowerupState { get; protected set; }
-
-        public ISprite Sprite
+        /// <summary>
+        /// Do not instantiate Mario more than once. We have to make Mario before
+        /// things that reference him use him, because I can't null check this getter.
+        /// If you aren't sure what you're doing comes after Mario's creation, then
+        /// null check the return on instance.
+        /// </summary>
+        public static Mario Instance
         {
             get
             {
-                switch(PowerupState.GetType().Name)
-                {
-                    case "MarioNormal":
-                        return NormalMarioSpriteFactory.Instance.Create(ActionState);
-                    case "MarioSuper":
-                        return SuperMarioSpriteFactory.Instance.Create(ActionState);
-                    default:
-                        throw new NotImplementedException();
-                }
+                return _mario;
             }
         }
+
+        public MarioActionState ActionState { get; set; }
+
+        public MarioPowerupState PowerupState { get; set; }
+
+        public ISprite Sprite { get; set; }
+
+        public MarioSpriteFactory SpriteFactory { get; set; }
 
         public Vector2 Position { get; protected set; }
 
@@ -40,10 +45,16 @@ namespace MarioClone.GameObjects
 
         public Vector2 Velocity { get; protected set; }
 
+        /// <summary>
+        /// This constructor should only ever be called by the Mario factory.
+        /// </summary>
+        /// <param name="velocity"></param>
+        /// <param name="position"></param>
         public Mario(Vector2 velocity, Vector2 position)
         {
-            ActionState = new MarioIdle(this);
+            _mario = this;
             PowerupState = new MarioNormal(this);
+            ActionState = new MarioIdle(this);
             Velocity = velocity;
             Position = position;
         }

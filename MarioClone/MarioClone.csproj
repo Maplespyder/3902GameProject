@@ -57,7 +57,7 @@
     <Compile Include="Factories\MarioFactory.cs" />
     <Compile Include="Factories\MarioSpriteFactory.cs" />
     <Compile Include="Factories\NormalMarioSpriteFactory.cs" />
-    <Compile Include="Factories\NormalThemedBlockFactory.cs" />
+    <Compile Include="Factories\NormalThemedBlockSpriteFactory.cs" />
     <Compile Include="Factories\SuperMarioSpriteFactory.cs" />
     <Compile Include="GameObjects\Bricks\BreakableBrickObject.cs" />
     <Compile Include="GameObjects\Bricks\BrickPieceObject.cs" />

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using MarioClone.States;
 
 namespace MarioClone.Factories
 {
@@ -29,31 +25,29 @@ namespace MarioClone.Factories
 
         public override ISprite Create(MarioActionState state)
         {
-            var name = state.GetType().Name;
+            string name = state.GetType().Name;
 
             //change these for correct values
             //these are all just dummy values
-            switch (state)
+            switch (name)
             {
                 case "MarioIdling":
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 40, 64));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64));
                 case "MarioWalking":
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 40, 64),
-                        1, 8, 0, 1);
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64),
+                        1, 8, 0, 1, 4);
                 case "MarioRunning":
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 16, 16),
-                        2, 2, 0, 2 * 2);
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64),
+                        1, 8, 5, 7, 6);
                 case "MarioJumping":
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 16, 16));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(144, 0, 48, 64));
                 case "MarioCrouching":
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 16, 16));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(240, 0, 48, 64));
                 case "MarioFalling":
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 16, 16));
-                case "MarioDying":
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 16, 16));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(192, 0, 48, 64));
                 default:
                     //default will be idling
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 16, 16));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64));
 
             }
 

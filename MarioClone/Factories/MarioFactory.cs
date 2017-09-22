@@ -14,8 +14,11 @@ namespace MarioClone.Factories
     {
         public static Mario Create(Vector2 position)
         {
-            //this implementation is not done in any way
-            return new Mario(new Vector2(0, 0), position);
+            if (Mario.Instance == null)
+            {
+                return new Mario(new Vector2(0, 0), position);
+            }
+            return Mario.Instance;
         }
     }
 }

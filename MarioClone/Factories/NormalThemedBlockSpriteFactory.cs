@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Factories
 {
-    class NormalThemedBlockFactory : BlockSpriteFactory
+    class NormalThemedBlockSpriteFactory : BlockSpriteFactory
     {
-        static NormalThemedBlockFactory _factory;
+        static NormalThemedBlockSpriteFactory _factory;
 
-        public static NormalThemedBlockFactory Instance
+        public static NormalThemedBlockSpriteFactory Instance
         {
             get
             {
                 if(_factory == null)
                 {
-                    _factory = new NormalThemedBlockFactory();
+                    _factory = new NormalThemedBlockSpriteFactory();
                 }
                 return _factory;
             }

@@ -77,21 +77,21 @@ namespace MarioClone
             spriteList.Add(mariowalking);
 
             // TODO: use this.Content to load your game content here
-            var brickblock = NormalThemedBlockFactory.Instance.Create(BlockType.BrickBlock, new Vector2(0, 0));
+            var brickblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.BrickBlock, new Vector2(0, 0));
 			//keyboardController.AddInputCommand((int)Keys.B, BrickBlockCommand);
             spriteList.Add(brickblock);
             
-            var floorblock = NormalThemedBlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(20, 20));
+            var floorblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.FloorBlock, new Vector2(20, 20));
             spriteList.Add(floorblock);
 
-            var questionblock = NormalThemedBlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 40));
+            var questionblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 40));
 			//keyboardController.AddInputCommand((int)Keys.Q, QuestionBlockCommand);
             spriteList.Add(questionblock);
             
-            var stairblock = NormalThemedBlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(60, 60));
+            var stairblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.StairBlock, new Vector2(60, 60));
             spriteList.Add(stairblock);
 
-            var usedblock = NormalThemedBlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 80));
+            var usedblock = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 80));
             spriteList.Add(usedblock);
 
             var goomba = IdleEnemySpriteFactory.Instance.Create(EnemyType.Goomba, new Vector2(100, 100));
