@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MarioClone.GameObjects;
+using MarioClone.Factories;
 
 namespace MarioClone.States
 {
     public class MarioIdle : MarioActionState
     {
-        public MarioNormal(Mario context) : base(context)
+        public MarioIdle(Mario context) : base(context)
         {
+            context.SpriteFactory.Create(this);
         }
 
         public override void BecomeDead()

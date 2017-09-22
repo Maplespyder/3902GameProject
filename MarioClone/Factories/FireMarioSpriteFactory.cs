@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using MarioClone.States;
 
 namespace MarioClone.Factories
 {
@@ -29,33 +25,26 @@ namespace MarioClone.Factories
 
         public override ISprite Create(MarioActionState state)
         {
-
-            //change these for correct values
-            //these are all just dummy values
-            switch (state)
+            string name = state.GetType().Name;
+            switch (name)
             {
-                case MarioActionState.Idling:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16));
-                case MarioActionState.Walking:
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16),
-                        2, 2, 0, 2 * 2);
-                case MarioActionState.Running:
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16),
-                        2, 2, 0, 2 * 2);
-                case MarioActionState.Jumping:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16));
-                case MarioActionState.Crouching:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16));
-                case MarioActionState.Falling:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16));
-                case MarioActionState.ShootingFireball:
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16),
-                        2, 2, 0, 2 * 2);
-                case MarioActionState.Dying:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16));
+                case "MarioIdling":
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64));
+                case "MarioWalking":
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64),
+                        1, 8, 0, 1, 4);
+                case "MarioRunning":
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64),
+                        1, 8, 5, 7, 6);
+                case "MarioJumping":
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(144, 0, 48, 64));
+                case "MarioCrouching":
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(240, 0, 48, 64));
+                case "MarioFalling":
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(192, 0, 48, 64));
                 default:
                     //default will be idling
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireMario"), new Rectangle(0, 0, 16, 16));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64));
 
             }
 
