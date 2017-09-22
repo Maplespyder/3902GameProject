@@ -16,7 +16,7 @@ namespace MarioClone
     /// </summary>
     public class MarioCloneGame : Game
 	{
-		static sGraphicsDeviceManager graphics;
+		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
         KeyboardController keyboardController;
         GamepadController gamepadController;
