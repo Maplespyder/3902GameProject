@@ -23,8 +23,9 @@ namespace MarioClone.GameObjects
             Visible = false;
         }
 
-        public HiddenBrickObject()
+        public bool Update(GameTime gameTime)
         {
+            return false;
         }
 
         public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)

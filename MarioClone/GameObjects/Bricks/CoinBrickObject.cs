@@ -26,10 +26,16 @@ namespace MarioClone.GameObjects
             //should transform into used block
             throw new NotImplementedException();
         }
-
         public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (state.Equals(State.Static))
+            {
+                Sprite.Draw(spriteBatch, Position, layer, gameTime);
+            }
+            else if (state.Equals(State.Used))
+            {
+                UsedBlock.Draw(spriteBatch, layer, gameTime);
+            }
         }
 
         public override void Move()
@@ -37,7 +43,19 @@ namespace MarioClone.GameObjects
             throw new NotImplementedException();
         }
 
-        public override bool Update(GameTime gameTime)
+        public void Execute()
+        {
+            //For this sprint, the question block only needs to become used 
+            BecomeUsed();
+        }
+
+        public void BecomeUsed()
+        {
+            //UsedBlock = MarioFactory.Create(BlockType UsedBlock, Position);
+            state = State.Used;
+        }
+
+        public bool Update(GameTime gameTime)
         {
             return false;
         }

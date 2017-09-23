@@ -1,9 +1,11 @@
-﻿using System;
+﻿using MarioClone.Factories;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using MarioClone.Factories;
+using MarioClone.States;
 
 /// <summary>
 /// Summary description for Class1

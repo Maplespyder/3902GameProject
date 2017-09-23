@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MarioClone.Sprites;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +30,10 @@ namespace MarioClone.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (Visible)
+            {
+                Sprite.Draw(spriteBatch, Position, layer, gameTime);
+            }
         }
 
         public override void Move()
