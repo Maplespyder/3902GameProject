@@ -50,11 +50,11 @@ namespace MarioClone.Factories
                 case BlockType.BrickPiece:
                     return new BrickPieceObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.FloorBlock:
-                    //return new FloorBlockObject();
+                    return new FloorBlockObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.QuestionBlock:
                     return new QuestionBlockObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.StairBlock:
-                    return new StairBlock();
+                    return new StairBlockObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.UsedBlock:
                     return new UsedBlockObject();
                 case BlockType.HiddenBlock:

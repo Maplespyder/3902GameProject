@@ -7,20 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.GameObjects.Bricks
+namespace MarioClone.GameObjects
 {
-    public class FloorBlockObject : IGameObject
+    public class FloorBlockObject : AbstractBlock
     {
-        public Vector2 Position { get; protected set; }
-
-        public Vector2 Velocity { get; }
-
-        public int DrawOrder { get; }
-
-        public bool Visible { get; }
-
-        public ISprite Sprite { get; protected set; }
-
         public FloorBlockObject(ISprite sprite, Vector2 velocity, Vector2 position)
         {
             Sprite = sprite;
@@ -29,14 +19,34 @@ namespace MarioClone.GameObjects.Bricks
             Visible = true;
         }
 
-        public bool Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
             return false;
         }
 
-        public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
             Sprite.Draw(spriteBatch, Position, layer, gameTime);
+        }
+
+        public override void Bounce()
+        {
+            //do nothing
+        }
+
+        public override void Break()
+        {
+            //do nothing
+        }
+
+        public override void BecomeVisible()
+        {
+            //do nothing
+        }
+
+        public override void Move()
+        {
+            //do nothing
         }
     }
 }

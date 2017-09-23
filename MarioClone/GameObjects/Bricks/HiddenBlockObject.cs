@@ -23,7 +23,7 @@ namespace MarioClone.GameObjects
             Visible = false;
         }
 
-        public bool Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
             return false;
         }
@@ -37,11 +37,6 @@ namespace MarioClone.GameObjects
         }
 
         public override void Move()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Update(GameTime gametime)
         {
             throw new NotImplementedException();
         }
