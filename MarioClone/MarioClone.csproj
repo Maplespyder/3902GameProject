@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="Commands\BecomeFireMarioCommand.cs" />
     <Compile Include="Commands\BecomeSuperMarioCommand.cs" />
+    <Compile Include="Commands\CrouchCommand.cs" />
+    <Compile Include="Commands\JumpCommand.cs" />
     <Compile Include="Commands\ShowHiddenBrickCommand.cs" />
     <Compile Include="Commands\BreakableBrickBumpCommand.cs" />
     <Compile Include="Commands\QuestionBumpCommand.cs" />
