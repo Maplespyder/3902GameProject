@@ -9,29 +9,35 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.GameObjects
 {
-    class CoinBrickObject : IGameObject, IMoveable
+    public class CoinBrickObject : AbstractBlock
     {
-        public ISprite Sprite => throw new NotImplementedException();
+        public override void BecomeVisible()
+        {
+            //do nothing
+        }
 
-        public Vector2 Position => throw new NotImplementedException();
-
-        public Vector2 Velocity => throw new NotImplementedException();
-
-        public int DrawOrder => throw new NotImplementedException();
-
-        public bool Visible => throw new NotImplementedException();
-
-        public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        public override void Bounce()
         {
             throw new NotImplementedException();
         }
 
-        public void Move()
+        public override void Break()
+        {
+            //should transform into used block
+            throw new NotImplementedException();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(GameTime gameTime)
+        public override void Move()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Update(GameTime gameTime)
         {
             return false;
         }

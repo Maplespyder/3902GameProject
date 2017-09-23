@@ -1,32 +1,15 @@
 ﻿using MarioClone.Factories;
-using MarioClone.GameObjects.Bricks;
 using MarioClone.Sprites;
-using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 /// Summary description for Class1
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class QuestionBlockObject : IMoveable, IGameObject
+    public class QuestionBlockObject : AbstractBlock
 	{
-        public Vector2 Position { get; protected set; }
-
-        public Vector2 Velocity { get; }
-
-        public int DrawOrder { get; }
-
-        public bool Visible { get; }
-
-		public ISprite Sprite { get; protected set; }
-
 		//THIS IS A TEMPORARY STATE UNTIL REAL STATES ARE MADE//
 		public enum State
 		{
@@ -35,8 +18,7 @@ namespace MarioClone.GameObjects
 		}
 		private State state = State.Static;
 		private IGameObject UsedBlock;
-
-
+        
 		public QuestionBlockObject(ISprite sprite, Vector2 velocity, Vector2 position)
 		{
 			Sprite = sprite;
@@ -44,9 +26,8 @@ namespace MarioClone.GameObjects
 			Position = position;
 			Visible = true;
 		}
-
-
-		public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        
+		public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
             if (state.Equals(State.Static))
             {
@@ -57,26 +38,35 @@ namespace MarioClone.GameObjects
 			}
         }
 
-		public void Execute()
-		{
-			//For this sprint, the question block only needs to become used 
-			BecomeUsed();
-		}
-
 		public void BecomeUsed()
 		{
 			UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, Position);
 			state = State.Used;
 		}
 
-        public void Move()
+        public override void Move()
         {
             //Nothing
         }
 
-        public bool Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
             return false;
+        }
+
+        public override void Bounce()
+        {
+            BecomeUsed();
+        }
+
+        public override void Break()
+        {
+            //do nothing
+        }
+
+        public override void BecomeVisible()
+        {
+            //do nothing
         }
     }
 }

@@ -13,48 +13,51 @@ using System.Threading.Tasks;
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class HiddenBrickObject : IMoveable, IGameObject
+    public class HiddenBrickObject : AbstractBlock
     {
-
-        public Vector2 Position { get; protected set; }
-
-        public Vector2 Velocity { get; }
-
-        int DrawOrder { get; }
-
-        bool Visible { get; }
-
-        public ISprite Sprite { get; protected set; }
-
-        public HiddenBrickObject(Isprite sprite, Vector2 Velocity, Vector2 Position)
+        public HiddenBrickObject(ISprite sprite, Vector2 velocity, Vector2 position)
         {
             Sprite = sprite;
             Velocity = velocity;
             Position = position;
-
+            Visible = false;
         }
 
         public HiddenBrickObject()
         {
         }
 
-        public override void Draw(bool visible, SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
-            if (visible)
+            if (Visible)
             {
-                sprite.Draw(spritebatch, position, layer, gametime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
             }
         }
 
-        public void move()
+        public override void Move()
         {
             throw new NotImplementedException();
         }
 
-        private bool Update(Gametime gametime)
+        public override bool Update(GameTime gametime)
         {
             throw new NotImplementedException();
         }
 
-	}
+        public override void Bounce()
+        {
+            //do nothing
+        }
+
+        public override void Break()
+        {
+            //do nothing
+        }
+
+        public override void BecomeVisible()
+        {
+            Visible = true;
+        }
+    }
 }

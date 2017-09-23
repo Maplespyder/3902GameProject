@@ -3,20 +3,10 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MarioClone.GameObjects.Bricks
+namespace MarioClone.GameObjects
 {
-	public class BrickPieceObject : IGameObject, IMoveable
+	public class BrickPieceObject : AbstractBlock
 	{
-		public Vector2 Position { get; protected set; }
-
-		public Vector2 Velocity { get; }
-
-		public int DrawOrder { get; }
-
-		public bool Visible { get; protected set; }
-
-		public ISprite Sprite { get; protected set; }
-
 		public BrickPieceObject(ISprite sprite, Vector2 velocity, Vector2 position)
 		{
 			Sprite = sprite;
@@ -25,7 +15,22 @@ namespace MarioClone.GameObjects.Bricks
 			Visible = true;
 		}
 
-		public bool Update(GameTime gameTime)
+        public override void Bounce()
+        {
+            //do nothing
+        }
+
+        public override void Break()
+        {
+            //do nothing
+        }
+
+        public override void BecomeVisible()
+        {
+            //do nothing
+        }
+
+        public override bool Update(GameTime gameTime)
 		{
             bool disposeMe = false;
 			Move();
@@ -39,13 +44,13 @@ namespace MarioClone.GameObjects.Bricks
             return disposeMe;
 		}
 
-		public void Move()
+		public override void Move()
 		{
 			//Movement will also need to be tested and likely refactored later
 			Position = new Vector2(Position.X + .1f, Position.Y + 5);
 		}
 
-		public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+		public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
 		{
 			if (Visible)
 			{

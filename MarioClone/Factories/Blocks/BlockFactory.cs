@@ -38,7 +38,7 @@ namespace MarioClone.Factories
             SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
         }
 
-        public IGameObject Create(BlockType type, Vector2 position)
+        public AbstractBlock Create(BlockType type, Vector2 position)
         {
             Vector2 velocity = new Vector2(0, 0);
             switch(type)
@@ -46,19 +46,19 @@ namespace MarioClone.Factories
                 case BlockType.BreakableBrick:
                     return new BreakableBrickObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.CoinBlock:
-                    //return new CoinBrickObject();
+                    return new CoinBrickObject();
                 case BlockType.BrickPiece:
-                    return new GameObjects.Bricks.BrickPieceObject(SpriteFactory.Create(type), velocity, position);
+                    return new BrickPieceObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.FloorBlock:
-                    //return null;
+                    //return new FloorBlockObject();
                 case BlockType.QuestionBlock:
                     return new QuestionBlockObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.StairBlock:
-                    //return new StairBlock();
+                    return new StairBlock();
                 case BlockType.UsedBlock:
-                    //return new UsedBlockObject();
+                    return new UsedBlockObject();
                 case BlockType.HiddenBlock:
-                    //return new HiddenBrickObject(SpriteFactory.Create(type), velocity, position);
+                    return new HiddenBrickObject(SpriteFactory.Create(type), velocity, position);
                 default:
                     return new BreakableBrickObject(SpriteFactory.Create(type), velocity, position);
             }

@@ -64,6 +64,7 @@
     <Compile Include="Factories\Mario\SuperMarioSpriteFactory.cs" />
     <Compile Include="Factories\PowerUps\PowerUpFactory.cs" />
     <Compile Include="Factories\PowerUps\PowerUpSpriteFactory.cs" />
+    <Compile Include="GameObjects\Bricks\AbstractBlock.cs" />
     <Compile Include="GameObjects\Bricks\BreakableBrickObject.cs" />
     <Compile Include="GameObjects\Bricks\BrickPieceObject.cs" />
     <Compile Include="GameObjects\Bricks\CoinBrickObject.cs" />

@@ -3,27 +3,15 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using MarioClone.GameObjects.Bricks;
 using MarioClone.Factories;
-using MarioClone.States;
 
 /// <summary>
 /// Summary description for Class1
 /// </summary>
 namespace MarioClone.GameObjects
 {
-    public class BreakableBrickObject : IGameObject, IMoveable
+    public class BreakableBrickObject : AbstractBlock
 	{
-        public Vector2 Position { get; protected set; }
-
-        public Vector2 Velocity { get; }
-
-        public int DrawOrder { get; }
-
-        public bool Visible { get; protected set; }
-
-        public ISprite Sprite { get; protected set; }
-
 		private List<IGameObject> PieceList = new List<IGameObject>();
 		List<BrickPieceObject> InVisiblePieces = new List<BrickPieceObject>();
 		private Vector2 initialPosition;
@@ -56,7 +44,7 @@ namespace MarioClone.GameObjects
 			//set state to Break
         }
 
-        public void Break()
+        public override void Break()
         {
 			//TODO: Have the Brick cease drawing & create 4 nuggets
 			//Create nuggets 
@@ -67,7 +55,7 @@ namespace MarioClone.GameObjects
 			}
 			state = State.Pieces;
         }
-		public void Bounce()
+		public override void Bounce()
 		{
 			if(Position.Y < (initialPosition.Y + ((initialPosition.Y) / 2f)))
 			{
@@ -104,7 +92,7 @@ namespace MarioClone.GameObjects
             return disposeMe;
 		}
 
-		public bool Update(GameTime gameTime)
+		public override bool Update(GameTime gameTime)
         {
             bool disposeMe = false;
 			//If state bounce, call bounce()
@@ -127,12 +115,12 @@ namespace MarioClone.GameObjects
             return disposeMe;
         }
 
-		public void Move()
+		public override void Move()
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+		public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
 		{
 			if (state.Equals(State.Static) || state.Equals(State.Bounce)) //draw if bounce or static 
 			{
@@ -146,5 +134,10 @@ namespace MarioClone.GameObjects
 				}
 			}
 		}
-	}
+
+        public override void BecomeVisible()
+        {
+            //do nothing
+        }
+    }
 }
