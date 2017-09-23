@@ -34,7 +34,7 @@ namespace MarioClone.GameObjects
 			Used
 		}
 		private State state = State.Static;
-		private UsedBlockObject UsedBlock;
+		private IGameObject UsedBlock;
 
 
 		public QuestionBlockObject(ISprite sprite, Vector2 velocity, Vector2 position)
@@ -53,7 +53,7 @@ namespace MarioClone.GameObjects
                 Sprite.Draw(spriteBatch, Position, layer, gameTime);
             }else if (state.Equals(State.Used))
 			{
-				UsedBlockObject.Draw(spriteBatch, Position, layer, gameTime);
+				UsedBlock.Draw(spriteBatch, layer, gameTime);
 			}
         }
 
@@ -65,7 +65,7 @@ namespace MarioClone.GameObjects
 
 		public void BecomeUsed()
 		{
-			//UsedBlock = MarioFactory.Create(BlockType UsedBlock, Position);
+			UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, Position);
 			state = State.Used;
 		}
 

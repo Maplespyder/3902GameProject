@@ -163,7 +163,7 @@ namespace MarioClone
             get { return _content; }
         }
 
-		public static GraphicsDeviceManager GraphicsDevice
+		public static GraphicsDeviceManager ReturnGraphicsDevice
 		{
 			get { return graphics; }
 		}

@@ -31,7 +31,7 @@ namespace MarioClone.GameObjects.Bricks
 			Move();
 
 			//Nugget off screen?
-			if(Position.Y < MarioCloneGame.GraphicsDevice.PreferredBackBufferHeight || Position.Y > MarioCloneGame.GraphicsDevice.PreferredBackBufferHeight)
+			if(Position.Y < MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight || Position.Y > MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight)
 			{
                 disposeMe = true;
 			}

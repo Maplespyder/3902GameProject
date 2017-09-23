@@ -61,7 +61,7 @@ namespace MarioClone.GameObjects
 			//Create nuggets 
 			for(int i = 0; i < 4; i++)
 			{
-				var piece = MarioFactory.Create(BlockType BrokenBlock, Position); 
+				var piece = BlockFactory.Instance.Create(BlockType.BrickPiece, Position); 
 				PieceList.Add(piece);
 			}
 			state = State.Pieces;
