@@ -24,37 +24,36 @@ namespace MarioClone.GameObjects
 
         bool Visible { get; }
 
-        public ISprite Sprite { get; protected set; }
+        public ISprite Sprite { get; }
 
-        public HiddenBrickObject(Isprite sprite, Vector2 Velocity, Vector2 Position)
+        int IDraw.DrawOrder => throw new NotImplementedException();
+
+        bool IDraw.Visible => throw new NotImplementedException();
+
+        public HiddenBrickObject(ISprite sprite, Vector2 velocity, Vector2 position)
         {
             Sprite = sprite;
             Velocity = velocity;
             Position = position;
-
         }
 
-        public HiddenBrickObject()
+        public void Move()
         {
+            throw new NotImplementedException();
         }
 
-        public override void Draw(bool visible, SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        public bool Update(GameTime gameTime)
         {
-            if (visible)
+            return false;
+        }
+
+        public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        {
+            if (Visible)
             {
-                sprite.Draw(spritebatch, position, layer, gametime);
+                Sprite.Draw(spriteBatch, Position, layer, gameTime);
             }
         }
-
-        public void move()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool Update(Gametime gametime)
-        {
-            throw new NotImplementedException();
-        }
-
-	}
+    }
 }
+

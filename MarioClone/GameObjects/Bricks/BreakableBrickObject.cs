@@ -1,11 +1,10 @@
-﻿using System;
+﻿using MarioClone.Factories;
+using MarioClone.GameObjects.Bricks;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
-using MarioClone.GameObjects.Bricks;
-using MarioClone.Factories;
-using MarioClone.States;
 
 /// <summary>
 /// Summary description for Class1

@@ -18,19 +18,22 @@ namespace MarioClone.GameObjects
         //
         // TODO: Add constructor logic here
         //
-        public ISprite Sprite => throw new NotImplementedException();
+        public Vector2 Position { get; protected set; }
 
-        public Vector2 Position => throw new NotImplementedException();
+        public Vector2 Velocity { get; }
 
-        public Vector2 Velocity => throw new NotImplementedException();
+        public int DrawOrder { get; }
 
-        public int DrawOrder => throw new NotImplementedException();
+        public bool Visible { get; protected set; }
 
-        public bool Visible => throw new NotImplementedException();
+        public ISprite Sprite { get; protected set; }
 
         public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (Visible)
+            {
+                Sprite.Draw(spriteBatch, Position, layer, gameTime);
+            }
         }
 
         public void Move()

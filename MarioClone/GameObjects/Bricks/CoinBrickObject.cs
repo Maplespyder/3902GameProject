@@ -11,24 +11,60 @@ namespace MarioClone.GameObjects
 {
     class CoinBrickObject : IGameObject, IMoveable
     {
-        public ISprite Sprite => throw new NotImplementedException();
+        public Vector2 Position { get; protected set; }
 
-        public Vector2 Position => throw new NotImplementedException();
+        public Vector2 Velocity { get; }
 
-        public Vector2 Velocity => throw new NotImplementedException();
+        public int DrawOrder { get; }
 
-        public int DrawOrder => throw new NotImplementedException();
+        public bool Visible { get; protected set; }
 
-        public bool Visible => throw new NotImplementedException();
+        public ISprite Sprite { get; protected set; }
+
+        public enum State
+        {
+            Static,
+            Used
+        }
+        private State state = State.Static;
+        private UsedBlockObject UsedBlock;
+
+
+        public CoinBrickObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        {
+            Sprite = sprite;
+            Velocity = velocity;
+            Position = position;
+            Visible = true;
+        }
 
         public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (state.Equals(State.Static))
+            {
+                Sprite.Draw(spriteBatch, Position, layer, gameTime);
+            }
+            else if (state.Equals(State.Used))
+            {
+                UsedBlockObject.Draw(spriteBatch, Position, layer, gameTime);
+            }
         }
 
         public void Move()
         {
             throw new NotImplementedException();
+        }
+
+        public void Execute()
+        {
+            //For this sprint, the question block only needs to become used 
+            BecomeUsed();
+        }
+
+        public void BecomeUsed()
+        {
+            //UsedBlock = MarioFactory.Create(BlockType UsedBlock, Position);
+            state = State.Used;
         }
 
         public bool Update(GameTime gameTime)

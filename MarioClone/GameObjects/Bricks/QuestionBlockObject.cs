@@ -53,7 +53,7 @@ namespace MarioClone.GameObjects
                 Sprite.Draw(spriteBatch, Position, layer, gameTime);
             }else if (state.Equals(State.Used))
 			{
-				//UsedBlock.Draw(spriteBatch, Position, layer, gameTime);
+				UsedBlockObject.Draw(spriteBatch, Position, layer, gameTime);
 			}
         }
 
