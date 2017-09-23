@@ -67,9 +67,10 @@
     <Compile Include="GameObjects\Bricks\BreakableBrickObject.cs" />
     <Compile Include="GameObjects\Bricks\BrickPieceObject.cs" />
     <Compile Include="GameObjects\Bricks\CoinBrickObject.cs" />
+    <Compile Include="GameObjects\Bricks\FloorBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\HiddenBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\QuestionBlockObject.cs" />
-    <Compile Include="GameObjects\Bricks\StairBlock.cs" />
+    <Compile Include="GameObjects\Bricks\StairBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\UsedBlockObject.cs" />
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
     <Compile Include="GameObjects\Enemies\KoopaObject.cs" />
