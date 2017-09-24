@@ -7,12 +7,9 @@ namespace MarioClone.GameObjects
 {
 	public class BrickPieceObject : AbstractBlock
 	{
-		public BrickPieceObject(ISprite sprite, Vector2 velocity, Vector2 position)
-		{
-			Sprite = sprite;
-			Velocity = velocity;
-			Position = position;
-			Visible = true;
+		public BrickPieceObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+        {
+
 		}
 
         public override void Bounce()
@@ -50,11 +47,11 @@ namespace MarioClone.GameObjects
 			Position = new Vector2(Position.X + .1f, Position.Y + 5);
 		}
 
-		public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
 		{
 			if (Visible)
 			{
-				Sprite.Draw(spriteBatch, Position, layer, gameTime);
+				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
 			}
 		}
 	}
