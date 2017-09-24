@@ -67,6 +67,10 @@ namespace MarioClone
 
 			var mario = MarioFactory.Create(new Vector2(200, 400));
 			keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.W, new JumpCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
 			gameObjects.Add(mario);
 
 			// TODO: use this.Content to load your game content here
