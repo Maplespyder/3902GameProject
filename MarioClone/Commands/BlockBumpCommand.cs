@@ -2,9 +2,9 @@
 
 namespace MarioClone.Commands
 {
-    public class BrickBumpCommand : AbstractCommand<AbstractBlock>
+    public class BlockBumpCommand : AbstractCommand<AbstractBlock>
 	{
-		public BrickBumpCommand(AbstractBlock receiver) : base(receiver) { }
+		public BlockBumpCommand(AbstractBlock receiver) : base(receiver) { }
 
 		public override void InvokeCommand()
 		{

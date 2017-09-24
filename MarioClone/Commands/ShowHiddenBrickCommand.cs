@@ -1,4 +1,5 @@
-﻿/*using System;
+﻿using MarioClone.GameObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Commands
 {
-    public class ShowHiddenBrickCommand : AbstractCommand<BlockObject>
+    public class ShowHiddenBrickCommand : AbstractCommand<AbstractBlock>
     {
-        public ShowHiddenBrickCommand(BlockObject block) : base(block) { }
+        public ShowHiddenBrickCommand(AbstractBlock receiver) : base(receiver) { }
 
         public override void InvokeCommand()
         {
-            Receiver.ShowBrickCommand();
+            Receiver.BecomeVisible();
         }
     }
-} */
+} 

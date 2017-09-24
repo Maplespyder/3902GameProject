@@ -49,7 +49,7 @@
     <Compile Include="Commands\MoveLeftCommand.cs" />
     <Compile Include="Commands\MoveRightCommand.cs" />
     <Compile Include="Commands\ShowHiddenBrickCommand.cs" />
-    <Compile Include="Commands\BrickBumpCommand.cs" />
+    <Compile Include="Commands\BlockBumpCommand.cs" />
     <Compile Include="Commands\BecomeNormalMarioCommand.cs" />
     <Compile Include="Commands\BecomeDeadMarioCommand.cs" />
     <Compile Include="Factories\Blocks\BlockSpriteFactory.cs" />
