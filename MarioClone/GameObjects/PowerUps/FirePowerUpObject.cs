@@ -25,6 +25,14 @@ namespace MarioClone.GameObjects
 
         public ISprite Sprite { get; protected set; }
 
+        public FirePowerUpObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        {
+            Sprite = sprite;
+            Velocity = velocity;
+            Position = position;
+            Visible = true;
+        }
+
         public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
             if (Visible)

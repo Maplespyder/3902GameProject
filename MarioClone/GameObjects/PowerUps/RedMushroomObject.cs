@@ -8,7 +8,7 @@ using System;
 /// </summary>
 namespace MarioClone.GameObjects
 {
-	public class SmallMarioMushroomObjet : IGameObject, IMoveable
+	public class RedMushroomObject : IGameObject, IMoveable
 	{
         public Vector2 Position { get; protected set; }
 
@@ -20,6 +20,13 @@ namespace MarioClone.GameObjects
 
         public ISprite Sprite { get; protected set; }
 
+        public RedMushroomObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        {
+            Sprite = sprite;
+            Velocity = velocity;
+            Position = position;
+            Visible = true;
+        }
 
 
         public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)

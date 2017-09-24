@@ -3,9 +3,7 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+
 namespace MarioClone.GameObjects
 {
     public class GoombaObject : IGameObject, IMoveable
@@ -20,6 +18,15 @@ namespace MarioClone.GameObjects
         public bool Visible { get; protected set; }
 
         public ISprite Sprite { get; protected set; }
+
+        public GoombaObject(ISprite sprite,Vector2 velocity, Vector2 position)
+        {
+            //need to add in states
+            Sprite = sprite;
+            Velocity = velocity;
+            Position = position;
+            Visible = true;
+        }
 
         public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {

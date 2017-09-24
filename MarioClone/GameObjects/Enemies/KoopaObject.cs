@@ -8,16 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+
 namespace MarioClone.GameObjects
 {
     public class KoopaObject : IGameObject, IMoveable
     {
-        //
-        // TODO: Add constructor logic here
-        //
+      
         public Vector2 Position { get; protected set; }
 
         public Vector2 Velocity { get; }
@@ -27,6 +23,15 @@ namespace MarioClone.GameObjects
         public bool Visible { get; protected set; }
 
         public ISprite Sprite { get; protected set; }
+
+        public KoopaObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        {
+            //need to add in states
+            Sprite = sprite;
+            Velocity = velocity;
+            Position = position;
+            Visible = true;
+        }
 
         public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
