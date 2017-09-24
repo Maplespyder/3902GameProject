@@ -79,12 +79,12 @@ namespace MarioClone
 
 			// TODO: use this.Content to load your game content here
 
-			var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(0, 0));
+			var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
 			ICommand BrickBumpCommand = new BlockBumpCommand(BrickBlock);
 			keyboardController.AddInputCommand((int)Keys.B, BrickBumpCommand);
 			gameObjects.Add(BrickBlock);
 
-			var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 0));
+			var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(300,300));
 			ICommand QuestionBumpCommand = new BlockBumpCommand(QuestionBlock);
 			keyboardController.AddInputCommand((int)Keys.X, QuestionBumpCommand);
 			gameObjects.Add(QuestionBlock);
@@ -132,11 +132,11 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-			if (!paused)
-			{
+		
 				keyboardController.UpdateAndExecuteInputs();
 				gamepadController.UpdateAndExecuteInputs();
-
+				if (!paused)
+				{
 				List<IGameObject> tempList = new List<IGameObject>();
 				foreach (var obj in gameObjects)
 				{
@@ -157,16 +157,18 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			if (!paused)
+			{
+				GraphicsDevice.Clear(Color.CornflowerBlue);
+				spriteBatch.Begin();
+				foreach (var obj in gameObjects)
+				{
+					obj.Draw(spriteBatch, gameTime);
+				}
+				spriteBatch.End();
 
-			spriteBatch.Begin();
-            foreach (var obj in gameObjects)
-            {
-                obj.Draw(spriteBatch, gameTime);
-            }
-            spriteBatch.End();
-
-			base.Draw(gameTime);
+				base.Draw(gameTime);
+			}
 		}
 
         public static ContentManager GameContent

@@ -11,19 +11,23 @@ namespace MarioClone.GameObjects
 		public enum State
 		{
 			Static,
-			Used
+			Used,
+			Bounce
 		}
 		private State state = State.Static;
 		private IGameObject UsedBlock;
+		private bool maxHeightReached = false;
+		private Vector2 initialPosition;
 
-        public QuestionBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+
+		public QuestionBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
         {
-
+			initialPosition = Position;
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (state.Equals(State.Static))
+            if (!(state.Equals(State.Used)))
             {
                 Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
             }else if (state.Equals(State.Used))
@@ -45,12 +49,37 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime)
         {
-            return false;
+			if(state == State.Bounce)
+			{
+				Bounce();
+			}
+			return false;
         }
 
         public override void Bounce()
         {
-            BecomeUsed();
+			if (state == State.Static || state == State.Bounce)
+			{
+				if (Position.Y > (initialPosition.Y - 10) && !maxHeightReached) //if Position hasnt reached max height
+				{
+					Position = new Vector2(Position.X, Position.Y - 1f);
+					if (Position.Y == (initialPosition.Y - 10))
+					{
+						maxHeightReached = true;
+					}
+				}
+				else //lower back down to normal height otherwise
+				{
+					Position = new Vector2(Position.X, Position.Y + 1f);
+				}
+				state = State.Bounce;
+				if (Position.Y == initialPosition.Y) //back to static position
+				{
+					BecomeUsed();
+					state = State.Used;
+					maxHeightReached = false;
+				}
+			}
         }
 
         public override void Break()
