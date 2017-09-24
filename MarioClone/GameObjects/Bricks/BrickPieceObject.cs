@@ -7,7 +7,7 @@ namespace MarioClone.GameObjects
 {
 	public class BrickPieceObject : AbstractBlock
 	{
-		public BrickPieceObject(ISprite sprite, Vector2 velocity, Vector2 position) : base(sprite, velocity, position)
+		public BrickPieceObject(ISprite sprite, Vector2 velocity, Vector2 position, int DrawOrder) : base(sprite, velocity, position, drawOrder)
 		{
 			Sprite = sprite;
 			Velocity = velocity;
@@ -54,7 +54,7 @@ namespace MarioClone.GameObjects
 		{
 			if (Visible)
 			{
-				Sprite.Draw(spriteBatch, Position, layer, gameTime);
+				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
 			}
 		}
 	}

@@ -151,7 +151,7 @@ namespace MarioClone
 			spriteBatch.Begin();
             foreach (var obj in gameObjects)
             {
-                obj.Draw(spriteBatch, 0, gameTime);
+                obj.Draw(spriteBatch, gameTime);
             }
             spriteBatch.End();
 

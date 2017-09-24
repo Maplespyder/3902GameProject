@@ -7,12 +7,13 @@ namespace MarioClone.GameObjects
     public abstract class AbstractBlock : IGameObject, IMoveable
     {
 
-        protected AbstractBlock(ISprite sprite, Vector2 velocity, Vector2 position)
+        protected AbstractBlock(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder)
         {
             Sprite = sprite;
             Velocity = velocity;
             Position = position;
             Visible = true;
+            DrawOrder = drawOrder;
         }
         public abstract void Bounce();
 
@@ -32,7 +33,7 @@ namespace MarioClone.GameObjects
 
         public abstract void Move();
 
-        public abstract void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime);
+        public abstract void Draw(SpriteBatch spriteBatch,  GameTime gameTime);
 
         public abstract bool Update(GameTime gameTime);
     }

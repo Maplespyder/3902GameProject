@@ -127,11 +127,11 @@ namespace MarioClone.GameObjects
             return false;
         }
 
-        public void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, layer, gameTime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
             }           
         }
 
