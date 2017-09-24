@@ -29,23 +29,21 @@ namespace MarioClone.GameObjects
             initialPosition = position;
         }
 
-        public void Execute()
-        {
-			//TODO:s
-			//if small
-			//set state to Bounce
-			//else big
-			//set state to Break
-        }
-
         public override void Break()
         {
 			//TODO: Have the Brick cease drawing & create 4 nuggets
 			//Create nuggets 
-			for(int i = 0; i < 4; i++)
+			List<Vector2> velocityList = new List<Vector2>();
+			velocityList.Add(new Vector2(1, 2));
+			velocityList.Add(new Vector2(-1, 2));
+			velocityList.Add(new Vector2(-2, 1));
+			velocityList.Add(new Vector2(2, 1));
+
+			for (int i = 0; i < 4; i++)
 			{
-				var piece = BlockFactory.Instance.Create(BlockType.BrickPiece, Position); 
+				var piece = (BrickPieceObject)BlockFactory.Instance.Create(BlockType.BrickPiece, Position); 
 				PieceList.Add(piece);
+				piece.ChangeVelocity(velocityList[i]);
 			}
 			state = State.Pieces;
         }
