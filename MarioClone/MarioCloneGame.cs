@@ -83,7 +83,7 @@ namespace MarioClone
 			keyboardController.AddInputCommand((int)Keys.B, BrickBumpCommand);
 			gameObjects.Add(BrickBlock);
 
-			var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 0));
+			var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(300,300));
 			ICommand QuestionBumpCommand = new BlockBumpCommand(QuestionBlock);
 			keyboardController.AddInputCommand((int)Keys.X, QuestionBumpCommand);
 			gameObjects.Add(QuestionBlock);
