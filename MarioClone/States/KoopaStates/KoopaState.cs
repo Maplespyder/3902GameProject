@@ -23,8 +23,7 @@ namespace MarioClone.States
             // koopa cannot move currently
         }
 
-        public abstract void BecomeRunLeft();
-        public abstract void BecomeRunRight();
+        public abstract void BecomeRun();
         public abstract void BecomeDead();
     }
 }

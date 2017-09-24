@@ -8,7 +8,10 @@ namespace MarioClone.States
     {
         static MarioCrouch _state;
 
-        private MarioCrouch(Mario context) : base(context) { }
+        private MarioCrouch(Mario context) : base(context)
+        {
+            Action = MarioAction.Crouch;
+        }
 
         public static MarioActionState Instance
         {
@@ -24,7 +27,6 @@ namespace MarioClone.States
 
         public override void BecomeCrouch()
         {
-            // Do nothing
         }
 
         public override void BecomeIdle()
@@ -39,22 +41,22 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
         }
 
-        public override void BecomeRunLeft()
+        public override void BecomeRun()
         {
-            Context.ActionState = MarioRunLeft.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.RunLeft);
+            Context.ActionState = MarioRun.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Run);
         }
 
-        public override void BecomeRunRight()
+        public override void BecomeWalk()
         {
-            Context.ActionState = MarioRunRight.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.RunRight);
+            Context.ActionState = MarioWalk.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
         }
 
-        public override void BecomeDead()
+        public override void BecomeFall()
         {
-            Context.ActionState = MarioDead.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Dead);
+            Context.ActionState = MarioFall.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Fall);
         }
     }
 }

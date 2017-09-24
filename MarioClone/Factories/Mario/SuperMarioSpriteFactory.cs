@@ -30,19 +30,18 @@ namespace MarioClone.Factories
             {
                 case MarioAction.Idle:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64));
-                //case MarioAction.Walking:
-                //    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64),
-                //        1, 8, 0, 1, 4);
-                case MarioAction.RunLeft:
-                case MarioAction.RunRight:
+                case MarioAction.Walk:
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64),
+                        1, 8, 0, 1, 4);
+                case MarioAction.Run:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64),
                         1, 8, 5, 7, 6);
                 case MarioAction.Jump:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(144, 0, 48, 64));
                 case MarioAction.Crouch:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(240, 0, 48, 64));
-                //case MarioAction.Fall:
-                //    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(192, 0, 48, 64));
+                case MarioAction.Fall:
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(192, 0, 48, 64));
                 default:
                     //default will be idling
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BigMario"), new Rectangle(0, 0, 48, 64));

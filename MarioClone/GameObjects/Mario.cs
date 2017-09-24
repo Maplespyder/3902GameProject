@@ -89,16 +89,6 @@ namespace MarioClone.GameObjects
             ActionState.BecomeCrouch();
         }
 
-        public void BecomeRunLeft()
-        {
-            ActionState.BecomeRunLeft();
-        }
-
-        public void BecomeRunRight()
-        {
-            ActionState.BecomeRunRight();
-        }
-
         public void BecomeDead()
         {
             ActionState.BecomeDead();

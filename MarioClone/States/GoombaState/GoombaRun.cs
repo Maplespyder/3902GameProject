@@ -5,19 +5,12 @@ using MarioClone.Factories.Enemies;
 
 namespace MarioClone.States
 {
-    public class GoombaRunLeft : GoombaState
+    public class GoombaRun : GoombaState
     {
-        public GoombaRunLeft(GoombaObject context) : base(context) { }
+        public GoombaRun(GoombaObject context) : base(context) { }
 
-        public override void BecomeRunLeft()
+        public override void BecomeRun()
         {
-        }
-
-        public override void BecomeRunRight()
-        {
-            Context.State = new GoombaRunRight(Context);
-            Context.SpriteFactory = MovingEnemySpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(EnemyType.Goomba);
         }
 
         public override void BecomeDead()
