@@ -5,9 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+
 namespace MarioClone.GameObjects
 {
     public class BreakableBrickObject : AbstractBlock

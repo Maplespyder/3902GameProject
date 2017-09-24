@@ -3,9 +3,6 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
 namespace MarioClone.GameObjects
 {
     public class QuestionBlockObject : AbstractBlock

@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+
 namespace MarioClone.GameObjects
 {
 	public class RedMushroomObject : IGameObject, IMoveable
@@ -44,7 +42,7 @@ namespace MarioClone.GameObjects
 
         public bool Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }
