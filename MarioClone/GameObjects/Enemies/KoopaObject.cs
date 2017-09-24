@@ -39,14 +39,9 @@ namespace MarioClone.GameObjects
             Visible = true;
         }
 
-        public void BecomeRunLeft()
+        public void BecomeRun()
         {
-            State.BecomeRunLeft();
-        }
-
-        public void BecomeRunRight()
-        {
-            State.BecomeRunRight();
+            State.
         }
 
         public void BecomeDead()

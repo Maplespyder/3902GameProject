@@ -21,6 +21,13 @@ namespace MarioClone.States
             }
         }
 
+        public override void BecomeDead()
+        {
+            Context.PowerupState = MarioDead.Instance;
+            Context.SpriteFactory = DeadMarioSpriteFactory.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
+        }
+
         public override void BecomeNormal()
         {
             // Do nothing
@@ -30,14 +37,14 @@ namespace MarioClone.States
         {
             Context.PowerupState = MarioSuper.Instance;
             Context.SpriteFactory = SuperMarioSpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState);            
+            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);            
         }
 
         public override void BecomeFire()
         {
             Context.PowerupState = MarioFire.Instance;
             Context.SpriteFactory = FireMarioSpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState);            
+            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);            
         }
     }
 }
