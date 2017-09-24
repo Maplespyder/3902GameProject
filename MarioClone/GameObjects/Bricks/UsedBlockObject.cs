@@ -1,10 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MarioClone.Sprites;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.GameObjects
 {
     public class UsedBlockObject : AbstractBlock
     {
+        public UsedBlockObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        {
+            Sprite = sprite;
+            Velocity = velocity;
+            Position = position;
+            Visible = true;
+        }
         public override void BecomeVisible()
         {
             //do nothing
