@@ -27,7 +27,7 @@ namespace MarioClone.Factories
                 case PowerUpType.RedMushroom:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(64, 0, 32, 32));
                 case PowerUpType.Flower:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(0, 0, 32, 32));
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireFlower"), new Rectangle(0, 0, 32, 32), 1, 4, 0, 3, 4);
                 case PowerUpType.Star:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(32, 0, 32, 32));
                 default:

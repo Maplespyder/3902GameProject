@@ -31,7 +31,7 @@ namespace MarioClone.GameObjects
 
         public KoopaObject(Vector2 velocity, Vector2 position)
         {
-            State = new KoopaRunLeft(this);
+            State = new KoopaRun(this);
             SpriteFactory = MovingEnemySpriteFactory.Instance;
             Sprite = SpriteFactory.Create(EnemyType.GreenKoopa);
             Velocity = velocity;
@@ -41,7 +41,7 @@ namespace MarioClone.GameObjects
 
         public void BecomeRun()
         {
-            State.
+            //State.
         }
 
         public void BecomeDead()

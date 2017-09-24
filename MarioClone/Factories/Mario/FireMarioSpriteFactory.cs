@@ -30,13 +30,12 @@ namespace MarioClone.Factories
             {
                 case MarioAction.Idle:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64));
-                //case "MarioWalking":
-                //    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64),
-                //        1, 8, 0, 1, 4);
-                case MarioAction.RunLeft:
-                case MarioAction.RunRight:
+                case MarioAction.Walk:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64),
-                        1, 8, 5, 7, 6);
+                        1, 8, 0, 1, 4);
+                /*case MarioAction.Run:
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64),
+                        1, 8, 5, 7, 6);*/
                 case MarioAction.Jump:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(144, 0, 48, 64));
                 case MarioAction.Crouch:

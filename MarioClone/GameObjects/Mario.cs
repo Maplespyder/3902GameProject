@@ -65,6 +65,7 @@ namespace MarioClone.GameObjects
             Sprite = SpriteFactory.Create(MarioAction.Idle);
             Velocity = velocity;
             Position = position;
+            Visible = true;
         }
 
         // action state methods, will likely be linked to commands
@@ -72,11 +73,11 @@ namespace MarioClone.GameObjects
 
 		public void MoveLeft()
 		{
-			ActionState.BecomeRunLeft();
+            ActionState.BecomeWalk();
 		}
 		public void MoveRight()
 		{
-			ActionState.BecomeRunRight();
+			ActionState.BecomeWalk();
 		}
 
 		public void BecomeJump()
@@ -91,7 +92,7 @@ namespace MarioClone.GameObjects
 
         public void BecomeDead()
         {
-            ActionState.BecomeDead();
+            PowerupState.BecomeDead();
         }
 
         // powerup state methods, will likely be linked to commands
