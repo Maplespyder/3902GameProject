@@ -25,7 +25,7 @@ namespace MarioClone.GameObjects
         {
             if (state.Equals(State.Static))
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
             }else if (state.Equals(State.Used))
 			{
 				UsedBlock.Draw(spriteBatch, gameTime);

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MarioClone.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.Sprites
@@ -22,9 +23,10 @@ namespace MarioClone.Sprites
 
 		#region ISprite
 
-		public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth, GameTime gametime)
+		public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth, GameTime gametime, Facing facing)
 		{
-			spriteBatch.Draw(SpriteSheet, position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, layerDepth);
+            SpriteEffects flip = (facing == Facing.Left) ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			spriteBatch.Draw(SpriteSheet, position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, flip, layerDepth);
 		}
 
 		#endregion

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MarioClone.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.Sprites
@@ -59,10 +60,10 @@ namespace MarioClone.Sprites
 
 		}
 
-        public override void Draw(SpriteBatch batch, Vector2 position, float layer, GameTime gameTime)
+        public override void Draw(SpriteBatch batch, Vector2 position, float layer, GameTime gameTime, Facing facing)
         {
             Update(gameTime);
-            base.Draw(batch, position, layer, gameTime);
+            base.Draw(batch, position, layer, gameTime, facing);
         }
     }
 }

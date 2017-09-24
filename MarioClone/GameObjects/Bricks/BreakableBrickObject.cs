@@ -138,7 +138,7 @@ namespace MarioClone.GameObjects
 		{
 			if (state.Equals(State.Static) || state.Equals(State.Bounce)) //draw if bounce or static 
 			{
-				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
+				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
 			}
 			else if(state == State.Pieces)
 			{

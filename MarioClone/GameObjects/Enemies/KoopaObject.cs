@@ -53,7 +53,7 @@ namespace MarioClone.GameObjects
         {
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
+using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.States
 {
@@ -34,6 +35,12 @@ namespace MarioClone.States
         public override void BecomeNormal()
         {
             Context.PowerupState = MarioNormal.Instance;
+
+            if (Context.ActionState.Action == MarioAction.Crouch)
+            {
+                Context.ActionState = MarioIdle.Instance;
+            }
+
             Context.SpriteFactory = NormalMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MarioClone.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ namespace MarioClone.Sprites
 
         Texture2D SpriteSheet { get; }
 
-        void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth, GameTime gametime);
+        void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth, GameTime gametime, Facing facing);
 	}
-
 }
