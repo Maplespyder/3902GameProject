@@ -6,6 +6,14 @@ namespace MarioClone.GameObjects
 {
     public abstract class AbstractBlock : IGameObject, IMoveable
     {
+
+        protected AbstractBlock(ISprite sprite, Vector2 velocity, Vector2 position)
+        {
+            Sprite = sprite;
+            Velocity = velocity;
+            Position = position;
+            Visible = true;
+        }
         public abstract void Bounce();
 
         public abstract void Break();

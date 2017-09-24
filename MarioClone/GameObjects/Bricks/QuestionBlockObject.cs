@@ -15,16 +15,13 @@ namespace MarioClone.GameObjects
 		}
 		private State state = State.Static;
 		private IGameObject UsedBlock;
-        
-		public QuestionBlockObject(ISprite sprite, Vector2 velocity, Vector2 position)
-		{
-			Sprite = sprite;
-			Velocity = velocity;
-			Position = position;
-			Visible = true;
-		}
-        
-		public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+
+        public QuestionBlockObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
+        {
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
             if (state.Equals(State.Static))
             {
