@@ -18,11 +18,10 @@ namespace MarioClone
 	{
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
-        KeyboardController keyboardController;
-		GamepadController gamepadController;
         
         static ContentManager _content;
         List<IGameObject> gameObjects;
+        List<AbstractController> controllers;
 
 		public MarioCloneGame()
 		{
@@ -40,8 +39,6 @@ namespace MarioClone
 		protected override void Initialize()
 		{
             // TODO: Add your initialization logic here
-            keyboardController = new KeyboardController();
-            gamepadController = new GamepadController(PlayerIndex.One);
 
 			base.Initialize();
 		}
@@ -56,15 +53,19 @@ namespace MarioClone
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			gameObjects = new List<IGameObject>();
-			keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
-			gamepadController.AddInputCommand((int)Buttons.BigButton, new ExitCommand(this));
+            controllers = new List<AbstractController>();
 
-			var gameBounds = new List<Rectangle>()
-			{
-				new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)
-			};
+            KeyboardController keyboardController = new KeyboardController();
+            for(int i = 0; i < 4; i++)
+            {
+                controllers.Add(new GamepadController((PlayerIndex)i));
+            }
 
-
+            foreach (AbstractController c in controllers)
+            {
+                c.AddInputCommand((int)Buttons.Back, new ExitCommand(this));
+            }
+            
 			var mario = MarioFactory.Create(new Vector2(200, 400));
 			keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
 			keyboardController.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
