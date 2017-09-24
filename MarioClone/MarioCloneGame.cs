@@ -69,6 +69,7 @@ namespace MarioClone
 			//ICommand QuestionBlockCommand = new QuestionBumpCommand(new BlockObject);
 
 			var mario = MarioFactory.Create(new Vector2(200, 400));
+            keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
             gameObjects.Add(mario);
 
             // TODO: use this.Content to load your game content here
