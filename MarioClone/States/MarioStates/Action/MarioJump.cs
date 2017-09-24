@@ -28,12 +28,6 @@ namespace MarioClone.States
         public override void BecomeCrouch()
         {
             Context.ActionState = MarioCrouch.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
-        }
-
-        public override void BecomeIdle()
-        {
-            Context.ActionState = MarioIdle.Instance;
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
         }
 
@@ -41,22 +35,9 @@ namespace MarioClone.States
         {
         }
 
-        public override void BecomeRun()
+        public override void BecomeWalk(Facing orientation)
         {
-            Context.ActionState = MarioRun.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Run);
-        }
-
-        public override void BecomeWalk()
-        {
-            Context.ActionState = MarioWalk.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
-        }
-
-        public override void BecomeFall()
-        {
-            Context.ActionState = MarioFall.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Fall);
+            Context.Orientation = orientation;
         }
     }
 }

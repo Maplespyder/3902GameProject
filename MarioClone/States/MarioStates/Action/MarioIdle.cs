@@ -50,11 +50,11 @@ namespace MarioClone.States
             }
             else if (orientation == Facing.Right)
             {
-                Context.Orientation = Facing.Left);
+                Context.Orientation = Facing.Left;
             }
             else if (orientation == Facing.Left)
             {
-                Context.Orientation = Facing.Right);
+                Context.Orientation = Facing.Right;
             }
         }
     }

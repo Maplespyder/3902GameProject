@@ -78,7 +78,7 @@ namespace MarioClone.GameObjects
 
         public void MoveRight()
         {
-
+            ActionState.BecomeWalk(Facing.Right);
         }
 
 		public void BecomeJump()
