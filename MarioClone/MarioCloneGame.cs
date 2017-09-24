@@ -131,11 +131,11 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-			if (!paused)
-			{
+		
 				keyboardController.UpdateAndExecuteInputs();
 				gamepadController.UpdateAndExecuteInputs();
-
+				if (!paused)
+				{
 				List<IGameObject> tempList = new List<IGameObject>();
 				foreach (var obj in gameObjects)
 				{
@@ -156,16 +156,18 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			if (!paused)
+			{
+				GraphicsDevice.Clear(Color.CornflowerBlue);
+				spriteBatch.Begin();
+				foreach (var obj in gameObjects)
+				{
+					obj.Draw(spriteBatch, gameTime);
+				}
+				spriteBatch.End();
 
-			spriteBatch.Begin();
-            foreach (var obj in gameObjects)
-            {
-                obj.Draw(spriteBatch, gameTime);
-            }
-            spriteBatch.End();
-
-			base.Draw(gameTime);
+				base.Draw(gameTime);
+			}
 		}
 
         public static ContentManager GameContent
