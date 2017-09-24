@@ -4,11 +4,14 @@ using System;
 
 namespace MarioClone.States
 {
-    public class MarioRunLeft : MarioActionState
+    public class MarioWalk : MarioActionState
     {
-        static MarioRunLeft _state;
+        static MarioWalk _state;
 
-        private MarioRunLeft(Mario context) : base(context) { }
+        private MarioWalk(Mario context) : base(context)
+        {
+            Action = MarioAction.Walk;
+        }
 
         public static MarioActionState Instance
         {
@@ -16,7 +19,7 @@ namespace MarioClone.States
             {
                 if (_state == null)
                 {
-                    _state = new MarioRunLeft(Mario.Instance);
+                    _state = new MarioWalk(Mario.Instance);
                 }
                 return _state;
             }
@@ -40,21 +43,20 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
         }
 
-        public override void BecomeRunLeft()
+        public override void BecomeRun()
         {
-            // Do nothing
+            Context.ActionState = MarioRun.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Run);
         }
 
-        public override void BecomeRunRight()
+        public override void BecomeWalk()
         {
-            Context.ActionState = MarioRunRight.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.RunRight);
         }
 
-        public override void BecomeDead()
+        public override void BecomeFall()
         {
-            Context.ActionState = MarioDead.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Dead);
+            Context.ActionState = MarioFall.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Fall);
         }
     }
 }

@@ -12,8 +12,9 @@ namespace MarioClone.States
         public enum MarioAction
         {
             Idle,
-            RunLeft,
-            RunRight,
+            Walk,
+            Fall,
+            Run,
             Jump,
             Crouch,
             Dead
@@ -26,6 +27,8 @@ namespace MarioClone.States
             Context = context;
         }
 
+        public MarioAction Action { get; set; }
+
         // Behavior/actions
 
         public void Move()
@@ -34,10 +37,10 @@ namespace MarioClone.States
         }
 
         public abstract void BecomeIdle();
-        public abstract void BecomeRunLeft();
-        public abstract void BecomeRunRight();
+        public abstract void BecomeRun();
+        public abstract void BecomeWalk();
+        public abstract void BecomeFall();
         public abstract void BecomeJump();
         public abstract void BecomeCrouch();
-        public abstract void BecomeDead();
     }
 }

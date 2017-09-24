@@ -5,19 +5,12 @@ using MarioClone.Factories.Enemies;
 
 namespace MarioClone.States
 {
-    public class KoopaRunLeft : KoopaState
+    public class KoopaRun : KoopaState
     {
-        public KoopaRunLeft(KoopaObject context) : base(context) { }
+        public KoopaRun(KoopaObject context) : base(context) { }
 
-        public override void BecomeRunLeft()
+        public override void BecomeRun()
         {
-        }
-
-        public override void BecomeRunRight()
-        {
-            Context.State = new KoopaRunRight(Context);
-            Context.SpriteFactory = MovingEnemySpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(EnemyType.GreenKoopa);
         }
 
         public override void BecomeDead()

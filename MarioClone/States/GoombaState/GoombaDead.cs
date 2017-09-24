@@ -8,16 +8,9 @@ namespace MarioClone.States
     {
         public GoombaDead(GoombaObject context) : base(context) { }
 
-        public override void BecomeRunLeft()
+        public override void BecomeRun()
         {
-            Context.State = new GoombaRunLeft(Context);
-            Context.SpriteFactory = MovingEnemySpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(EnemyType.Goomba);
-        }
-
-        public override void BecomeRunRight()
-        {
-            Context.State = new GoombaRunRight(Context);
+            Context.State = new GoombaRun(Context);
             Context.SpriteFactory = MovingEnemySpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(EnemyType.Goomba);
         }
