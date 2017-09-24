@@ -13,11 +13,8 @@ namespace MarioClone.GameObjects
 {
     public class HiddenBrickObject : AbstractBlock
     {
-        public HiddenBrickObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        public HiddenBrickObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
         {
-            Sprite = sprite;
-            Velocity = velocity;
-            Position = position;
             Visible = false;
         }
 

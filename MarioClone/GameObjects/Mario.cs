@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.GameObjects
 {
@@ -60,6 +61,8 @@ namespace MarioClone.GameObjects
             _mario = this;
             PowerupState = MarioNormal.Instance;
             ActionState = MarioIdle.Instance;
+            SpriteFactory = NormalMarioSpriteFactory.Instance;
+            Sprite = SpriteFactory.Create(MarioAction.Idle);
             Velocity = velocity;
             Position = position;
         }
@@ -67,7 +70,16 @@ namespace MarioClone.GameObjects
         // action state methods, will likely be linked to commands
 
 
-        public void BecomeJump()
+		public void MoveLeft()
+		{
+			ActionState.BecomeRunLeft();
+		}
+		public void MoveRight()
+		{
+			ActionState.BecomeRunRight();
+		}
+
+		public void BecomeJump()
         {
             ActionState.BecomeJump();
         }
@@ -87,11 +99,12 @@ namespace MarioClone.GameObjects
             ActionState.BecomeRunRight();
         }
 
-        // powerup state methods, will likely be linked to commands
         public void BecomeDead()
         {
             ActionState.BecomeDead();
         }
+
+        // powerup state methods, will likely be linked to commands
 
         public void BecomeNormal()
         {

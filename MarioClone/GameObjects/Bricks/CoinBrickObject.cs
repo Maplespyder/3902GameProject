@@ -12,6 +12,10 @@ namespace MarioClone.GameObjects
 {
     public class CoinBrickObject : AbstractBlock
     {
+        public CoinBrickObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
+        {
+
+        }
         public override void BecomeVisible()
         {
             //do nothing

@@ -11,12 +11,9 @@ namespace MarioClone.GameObjects
 {
     public class StairBlockObject : AbstractBlock
     {
-        public StairBlockObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        public StairBlockObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
         {
-            Sprite = sprite;
-            Velocity = velocity;
-            Position = position;
-            Visible = true;
+
         }
 
         public override bool Update(GameTime gameTime)

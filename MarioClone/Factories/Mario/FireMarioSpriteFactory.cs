@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using MarioClone.States;
+using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.Factories
 {
@@ -23,25 +24,25 @@ namespace MarioClone.Factories
             }
         }
 
-        public override ISprite Create(MarioActionState state)
+        public override ISprite Create(MarioAction action)
         {
-            string name = state.GetType().Name;
-            switch (name)
+            switch (action)
             {
-                case "MarioIdling":
+                case MarioAction.Idle:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64));
-                case "MarioWalking":
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64),
-                        1, 8, 0, 1, 4);
-                case "MarioRunning":
+                //case "MarioWalking":
+                //    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64),
+                //        1, 8, 0, 1, 4);
+                case MarioAction.RunLeft:
+                case MarioAction.RunRight:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64),
                         1, 8, 5, 7, 6);
-                case "MarioJumping":
+                case MarioAction.Jump:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(144, 0, 48, 64));
-                case "MarioCrouching":
+                case MarioAction.Crouch:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(240, 0, 48, 64));
-                case "MarioFalling":
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(192, 0, 48, 64));
+                //case "MarioFalling":
+                //    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(192, 0, 48, 64));
                 default:
                     //default will be idling
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SuperMario"), new Rectangle(0, 0, 48, 64));
