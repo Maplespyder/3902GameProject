@@ -7,7 +7,10 @@ namespace MarioClone.States
     {
         static MarioSuper _state;
 
-        private MarioSuper(Mario context) : base(context) { }
+        private MarioSuper(Mario context) : base(context)
+        {
+            Powerup = MarioPowerup.Super;
+        }
 
         public static MarioPowerupState Instance
         {

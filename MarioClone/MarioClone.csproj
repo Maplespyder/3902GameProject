@@ -59,6 +59,7 @@
     <Compile Include="Factories\Enemies\EnemySpriteFactory.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\ExitCommand.cs" />
+    <Compile Include="Factories\Mario\DeadMarioFactory.cs" />
     <Compile Include="Factories\Mario\FireMarioSpriteFactory.cs" />
     <Compile Include="Factories\Enemies\MovingEnemySpriteFactory.cs" />
     <Compile Include="Factories\Mario\MarioFactory.cs" />
@@ -109,10 +110,8 @@
     <Compile Include="States\KoopaStates\KoopaState.cs" />
     <Compile Include="States\MarioStates\Action\MarioActionState.cs" />
     <Compile Include="States\MarioStates\Action\MarioCrouch.cs" />
-    <Compile Include="States\MarioStates\Action\MarioFall.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle.cs" />
     <Compile Include="States\MarioStates\Action\MarioJump.cs" />
-    <Compile Include="States\MarioStates\Action\MarioRun.cs" />
     <Compile Include="States\MarioStates\Action\MarioWalk.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioDead.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioFire.cs" />

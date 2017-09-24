@@ -18,4 +18,10 @@ namespace MarioClone.GameObjects
 
        bool Update(GameTime gameTime);
     }
+
+    public enum Facing
+    {
+        Left,
+        Right
+    }
 }
