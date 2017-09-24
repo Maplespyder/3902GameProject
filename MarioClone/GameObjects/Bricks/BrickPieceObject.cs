@@ -44,6 +44,11 @@ namespace MarioClone.GameObjects
             return disposeMe;
 		}
 
+		public void ChangeVelocity(Vector2 velocity)
+		{
+			Velocity = velocity;
+		}
+
 		public override void Move()
 		{
 			//Movement will also need to be tested and likely refactored late

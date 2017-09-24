@@ -51,6 +51,8 @@ namespace MarioClone.GameObjects
 
         public Vector2 Velocity { get; protected set; }
 
+        public Facing Orientation { get; set; }
+
         /// <summary>
         /// This constructor should only ever be called by the Mario factory.
         /// </summary>
@@ -70,15 +72,15 @@ namespace MarioClone.GameObjects
 
         // action state methods, will likely be linked to commands
 
-
 		public void MoveLeft()
 		{
-            ActionState.BecomeWalk();
+			ActionState.BecomeWalk(Facing.Left);
 		}
-		public void MoveRight()
-		{
-			ActionState.BecomeWalk();
-		}
+
+        public void MoveRight()
+        {
+
+        }
 
 		public void BecomeJump()
         {
@@ -90,12 +92,12 @@ namespace MarioClone.GameObjects
             ActionState.BecomeCrouch();
         }
 
+        // powerup state methods, will likely be linked to commands
+
         public void BecomeDead()
         {
             PowerupState.BecomeDead();
         }
-
-        // powerup state methods, will likely be linked to commands
 
         public void BecomeNormal()
         {
@@ -128,7 +130,7 @@ namespace MarioClone.GameObjects
 
         public void Move()
         {
-            ActionState.Move();
+            throw new NotImplementedException();
         }
     }
 }

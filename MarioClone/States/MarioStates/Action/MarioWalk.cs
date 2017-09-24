@@ -31,32 +31,19 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
         }
 
-        public override void BecomeIdle()
-        {
-            Context.ActionState = MarioIdle.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
-        }
-
         public override void BecomeJump()
         {
             Context.ActionState = MarioJump.Instance;
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
         }
 
-        public override void BecomeRun()
+        public override void BecomeWalk(Facing orientation)
         {
-            Context.ActionState = MarioRun.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Run);
-        }
-
-        public override void BecomeWalk()
-        {
-        }
-
-        public override void BecomeFall()
-        {
-            Context.ActionState = MarioFall.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Fall);
+            if (Context.Orientation != orientation)
+            {
+                Context.ActionState = MarioIdle.Instance;
+                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
+            }
         }
     }
 }

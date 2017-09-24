@@ -13,8 +13,6 @@ namespace MarioClone.States
         {
             Idle,
             Walk,
-            Fall,
-            Run,
             Jump,
             Crouch,
             Dead
@@ -36,10 +34,7 @@ namespace MarioClone.States
             // mario cannot move currently
         }
 
-        public abstract void BecomeIdle();
-        public abstract void BecomeRun();
-        public abstract void BecomeWalk();
-        public abstract void BecomeFall();
+        public abstract void BecomeWalk(Facing orientation);
         public abstract void BecomeJump();
         public abstract void BecomeCrouch();
     }

@@ -8,7 +8,10 @@ namespace MarioClone.States
     {
         static MarioDead _state;
 
-        private MarioDead(Mario context) : base(context) { }
+        private MarioDead(Mario context) : base(context)
+        {
+            Powerup = MarioPowerup.Dead;
+        }
 
         public static MarioPowerupState Instance
         {

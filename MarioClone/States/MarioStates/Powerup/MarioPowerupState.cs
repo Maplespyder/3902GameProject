@@ -9,6 +9,16 @@ namespace MarioClone.States
 {
     public abstract class MarioPowerupState
     {
+        public enum MarioPowerup
+        {
+            Dead,
+            Normal,
+            Super,
+            Fire
+        }
+
+        public MarioPowerup Powerup { get; set; }
+
         protected Mario Context { get; set; }
 
         public MarioPowerupState(Mario context)

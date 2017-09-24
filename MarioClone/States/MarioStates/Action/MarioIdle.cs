@@ -1,6 +1,7 @@
 using MarioClone.GameObjects;
 using MarioClone.Factories;
 using System;
+using static MarioClone.States.MarioPowerupState;
 
 namespace MarioClone.States
 {
@@ -27,12 +28,11 @@ namespace MarioClone.States
 
         public override void BecomeCrouch()
         {
-            Context.ActionState = MarioCrouch.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
-        }
-
-        public override void BecomeIdle()
-        {
+            if (Context.PowerupState.Powerup == MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerup.Fire)
+            {
+                Context.ActionState = MarioCrouch.Instance;
+                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch); 
+            }
         }
 
         public override void BecomeJump()
@@ -41,22 +41,21 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
         }
 
-        public override void BecomeRun()
+        public override void BecomeWalk(Facing orientation)
         {
-            Context.ActionState = MarioRun.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Run);
-        }
-
-        public override void BecomeWalk()
-        {
-            Context.ActionState = MarioWalk.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
-        }
-
-        public override void BecomeFall()
-        {
-            Context.ActionState = MarioFall.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Fall);
+            if (Context.Orientation == orientation)
+            {
+                Context.ActionState = MarioWalk.Instance;
+                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
+            }
+            else if (orientation == Facing.Right)
+            {
+                Context.Orientation = Facing.Left);
+            }
+            else if (orientation == Facing.Left)
+            {
+                Context.Orientation = Facing.Right);
+            }
         }
     }
 }
