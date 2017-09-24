@@ -6,12 +6,9 @@ namespace MarioClone.GameObjects
 {
     public class UsedBlockObject : AbstractBlock
     {
-        public UsedBlockObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        public UsedBlockObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
         {
-            Sprite = sprite;
-            Velocity = velocity;
-            Position = position;
-            Visible = true;
+
         }
         public override void BecomeVisible()
         {
