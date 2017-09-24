@@ -69,12 +69,12 @@ namespace MarioClone.GameObjects
 
         public void BecomeJump()
         {
-            ActionState.Jump();
+            ActionState.BecomeJump();
         }
 
         public void BecomeCrouch()
         {
-            ActionState.Crouch();
+            ActionState.BecomeCrouch();
         }
 
         public void BecomeRunLeft()
@@ -90,7 +90,7 @@ namespace MarioClone.GameObjects
         // powerup state methods, will likely be linked to commands
         public void BecomeDead()
         {
-            PowerupState.BecomeDead();
+            ActionState.BecomeDead();
         }
 
         public void BecomeNormal()

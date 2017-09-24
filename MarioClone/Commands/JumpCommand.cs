@@ -13,7 +13,7 @@ namespace MarioClone.Commands
 
         public override void InvokeCommand()
         {
-            Receiver.Jump();
+            Receiver.BecomeJump();
         }
     }
 }

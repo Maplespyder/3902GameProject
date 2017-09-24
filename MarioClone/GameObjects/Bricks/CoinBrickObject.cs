@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MarioClone.Factories;
 
 namespace MarioClone.GameObjects
 {
@@ -28,14 +29,15 @@ namespace MarioClone.GameObjects
         }
         public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
         {
-            if (state.Equals(State.Static))
+            /*if (state.Equals(State.Static))
             {
                 Sprite.Draw(spriteBatch, Position, layer, gameTime);
             }
             else if (state.Equals(State.Used))
             {
                 UsedBlock.Draw(spriteBatch, layer, gameTime);
-            }
+            }*/
+            Sprite.Draw(spriteBatch, Position, layer, gameTime);
         }
 
         public override void Move()
@@ -51,11 +53,11 @@ namespace MarioClone.GameObjects
 
         public void BecomeUsed()
         {
-            //UsedBlock = MarioFactory.Create(BlockType UsedBlock, Position);
-            state = State.Used;
+            //UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, Position);
+            //state = State.Used;
         }
 
-        public bool Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
             return false;
         }

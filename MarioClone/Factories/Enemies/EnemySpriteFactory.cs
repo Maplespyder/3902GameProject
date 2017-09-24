@@ -8,13 +8,6 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Factories
 {
-    public enum EnemyType
-    {
-        Goomba,
-        GreenKoopa,
-        RedKoopa
-    }
-
     public abstract class EnemySpriteFactory
     {
         protected EnemySpriteFactory() { }
