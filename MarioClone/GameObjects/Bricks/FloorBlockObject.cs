@@ -23,7 +23,7 @@ namespace MarioClone.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
+            Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
         }
 
         public override void Bounce()
