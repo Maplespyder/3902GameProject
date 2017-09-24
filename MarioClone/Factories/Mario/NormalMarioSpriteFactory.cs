@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using MarioClone.States;
+using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.Factories
 {
@@ -23,25 +24,22 @@ namespace MarioClone.Factories
             }
         }
 
-        public override ISprite Create(MarioActionState state)
+        public override ISprite Create(MarioAction action)
         {
-            string name = state.GetType().Name;
-
-            //change these for correct values
-            //these are all just dummy values
-            switch (name)
+            switch (action)
             {
-                case "MarioIdle":
+                case MarioAction.Idle:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 32));
-                case "MarioWalking":
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 32),
-                        1, 6, 0, 1, 4);
-                case "MarioRunning":
+                //case "MarioWalking":
+                //    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 32),
+                //        1, 6, 0, 1, 4);
+                case MarioAction.RunLeft:
+                case MarioAction.RunRight:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(128, 0, 32, 32),
                         1, 6, 4, 5, 6);
-                case "MarioJumping":
+                case MarioAction.Jump:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(96, 0, 32, 32));
-                case "MarioDying":
+                case MarioAction.Dead:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(192, 0, 32, 32));
                 default:
                     //default will be idling

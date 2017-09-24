@@ -9,6 +9,16 @@ namespace MarioClone.States
 {
     public abstract class MarioActionState
     {
+        public enum MarioAction
+        {
+            Idle,
+            RunLeft,
+            RunRight,
+            Jump,
+            Crouch,
+            Dead
+        }
+
         protected Mario Context { get; set; }
 
         public MarioActionState(Mario context)
