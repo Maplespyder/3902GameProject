@@ -2,12 +2,11 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/MarioClone/v15/.suo
-/.vs/slnx.sqlite
-/.vs/VSWorkspaceState.json
-/.vs/VSWorkspaceState.json
-/MarioClone/obj/x86/Debug/CoreCompileInputs.cache
-/MarioClone/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-/MarioClone/obj/x86/Release/CoreCompileInputs.cache
-/.vs/slnx.sqlite
-/.vs/VSWorkspaceState.json
+/.gitignore
+.vs
+.suo
+.sqlite
+.sql
+bin/
+debug/
+/MarioClone/obj/x86/Release/MarioClone.csproj.CoreCompileInputs.cache

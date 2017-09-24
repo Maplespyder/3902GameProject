@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MarioClone.Controller;
-using MarioClone.Sprite;
-using MarioClone.Command;
 using System.Collections.Generic;
+using MarioClone.Controllers;
+using MarioClone.Commands;
+using MarioClone.Sprites;
+using Microsoft.Xna.Framework.Content;
+using MarioClone.Factories;
+using MarioClone.GameObjects;
 
 namespace MarioClone
 {
@@ -13,16 +16,18 @@ namespace MarioClone
     /// </summary>
     public class MarioCloneGame : Game
 	{
-		GraphicsDeviceManager graphics;
+		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
         KeyboardController keyboardController;
-        GamepadController gamepadController;
-
-        List<ISprite> spriteList;
+		GamepadController gamepadController;
+        
+        static ContentManager _content;
+        List<IGameObject> gameObjects;
 
 		public MarioCloneGame()
 		{
 			graphics = new GraphicsDeviceManager(this);
+            _content = Content;
 			Content.RootDirectory = "Content";
 		}
 
@@ -41,45 +46,70 @@ namespace MarioClone
 			base.Initialize();
 		}
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
+		/// <summary>
+		/// LoadContent will be called once per game and is the place to load
+		/// all of your content.
+		/// </summary>
+		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spriteList = new List<ISprite>();
+			gameObjects = new List<IGameObject>();
+			keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
+			gamepadController.AddInputCommand((int)Buttons.BigButton, new ExitCommand(this));
 
-            keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
-            gamepadController.AddInputCommand((int)Buttons.Start, new ExitCommand(this));
+			var gameBounds = new List<Rectangle>()
+			{
+				new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)
+			};
 
-            // TODO: use this.Content to load your game content here
-            ISprite hunkyDory = new MotionlessSprite(Content.Load<Texture2D>("Sprites/hunkydory"), new Vector2(0, 0));
-            keyboardController.AddInputCommand((int)Keys.W, new ToggleSpriteCommand(hunkyDory));
-            gamepadController.AddInputCommand((int)Buttons.A, new ToggleSpriteCommand(hunkyDory));
-            spriteList.Add(hunkyDory);
 
-            ISprite sonicIdle = new AnimatedUnmovingSprite(Content.Load<Texture2D>("Sprites/sonicidle"),
-                new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), 1, 16);
-            keyboardController.AddInputCommand((int)Keys.E, new ToggleSpriteCommand(sonicIdle));
-            gamepadController.AddInputCommand((int)Buttons.B, new ToggleSpriteCommand(sonicIdle));
-            spriteList.Add(sonicIdle);
+			var mario = MarioFactory.Create(new Vector2(200, 400));
+			keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.W, new JumpCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
+			gameObjects.Add(mario);
 
-            ISprite spinball = new UnanimatedMovingSprite(Content.Load<Texture2D>("Sprites/spinball"), 
-                new Vector2(0, 0), new Vector2(2, 1));
+			// TODO: use this.Content to load your game content here
 
-            keyboardController.AddInputCommand((int)Keys.R, new ToggleSpriteCommand(spinball));
-            gamepadController.AddInputCommand((int)Buttons.X, new ToggleSpriteCommand(spinball));
-            spriteList.Add(spinball);
+			var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(0, 0));
+			ICommand BrickBumpCommand = new BlockBumpCommand(BrickBlock);
+			keyboardController.AddInputCommand((int)Keys.B, BrickBumpCommand);
+			gameObjects.Add(BrickBlock);
 
-            ISprite mario = new AnimatedMovingSprite(Content.Load<Texture2D>("Sprites/mario"), 
-                new Vector2(0, graphics.PreferredBackBufferHeight / 2), new Vector2(2, 0), 1, 4);
+			var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 0));
+			ICommand QuestionBumpCommand = new BlockBumpCommand(QuestionBlock);
+			keyboardController.AddInputCommand((int)Keys.X, QuestionBumpCommand);
+			gameObjects.Add(QuestionBlock);
 
-            keyboardController.AddInputCommand((int)Keys.T, new ToggleSpriteCommand(mario));
-            gamepadController.AddInputCommand((int)Buttons.Y, new ToggleSpriteCommand(mario));
-            spriteList.Add(mario);
+			var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(100, 0));
+			ICommand HiddenBlockCommand = new ShowHiddenBrickCommand(HiddenBlock);
+			keyboardController.AddInputCommand((int)Keys.H, HiddenBlockCommand);
+			gameObjects.Add(HiddenBlock);
+
+			var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(0, 100));
+			gameObjects.Add(FloorBlock);
+
+			var StairBlock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(40, 100));
+			gameObjects.Add(StairBlock);
+
+			var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 100));
+			gameObjects.Add(UsedBlock);
+
+			var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(140,0));
+            gameObjects.Add(goomba);
+
+            var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(180, 0));
+			gameObjects.Add(GreenKoopa);
+
+            var RedKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(220, 0));
+			gameObjects.Add(RedKoopa);
         }
 
 		/// <summary>
@@ -101,27 +131,23 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-            // TODO: Add your update logic here
-            keyboardController.UpdateAndExecuteInputs();
-            gamepadController.UpdateAndExecuteInputs();
+			if (!paused)
+			{
+				keyboardController.UpdateAndExecuteInputs();
+				gamepadController.UpdateAndExecuteInputs();
 
-            foreach (ISprite sprite in spriteList)
-            {
-                if (sprite.Visible)
-                {
-                    if(sprite.Position.X < graphics.PreferredBackBufferWidth 
-                        && (sprite.Position.Y < graphics.PreferredBackBufferHeight))
-                    {
-                        sprite.Update();
-                    }
-                    else
-                    {
-                        sprite.ToggleVisible();
-                    }
-                }
-            }
+				List<IGameObject> tempList = new List<IGameObject>();
+				foreach (var obj in gameObjects)
+				{
+					if (obj.Update(gameTime))
+					{
+						tempList.Add(obj);
+					}
+				}
 
-			base.Update(gameTime);
+				gameObjects.RemoveAll((x) => tempList.Remove(x));
+				base.Update(gameTime);
+			}
 		}
 
 		/// <summary>
@@ -132,30 +158,34 @@ namespace MarioClone
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-            foreach (ISprite sprite in spriteList)
+			spriteBatch.Begin();
+            foreach (var obj in gameObjects)
             {
-                if (sprite.Visible)
-                {
-                    if ((sprite.Position.X < graphics.PreferredBackBufferWidth)
-                        && (sprite.Position.Y < graphics.PreferredBackBufferHeight))
-                    {
-                        spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.GetCurrentFrame(), Color.White);
-                    } 
-                    else
-                    {
-                        sprite.ToggleVisible();
-                    }
-                }
+                obj.Draw(spriteBatch, gameTime);
             }
             spriteBatch.End();
-			// TODO: Add your drawing code here
 
 			base.Draw(gameTime);
 		}
 
+        public static ContentManager GameContent
+        {
+            get { return _content; }
+        }
 
-        public void ExitCommand()
+		public static GraphicsDeviceManager ReturnGraphicsDevice
+		{
+			get { return graphics; }
+		}
+
+		private static bool paused = false;
+		public static bool Paused
+		{
+			set { paused = value; }
+			get { return paused; }
+		}
+
+		public void ExitCommand()
         {
             Exit();
         }
