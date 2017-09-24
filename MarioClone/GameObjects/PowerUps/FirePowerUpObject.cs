@@ -23,10 +23,10 @@ namespace MarioClone.GameObjects
 
         public ISprite Sprite { get; protected set; }
 
-        public FirePowerUpObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        public FirePowerUpObject(ISprite sprite, Vector2 position)
         {
             Sprite = sprite;
-            Velocity = velocity;
+            Velocity = new Vector2(0, 0);
             Position = position;
             Visible = true;
         }
