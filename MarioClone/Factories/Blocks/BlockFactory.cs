@@ -56,7 +56,7 @@ namespace MarioClone.Factories
                 case BlockType.StairBlock:
                     return new StairBlockObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.UsedBlock:
-                    return new UsedBlockObject();
+                    return new UsedBlockObject(SpriteFactory.Create(type), velocity, position);
                 case BlockType.HiddenBlock:
                     return new HiddenBrickObject(SpriteFactory.Create(type), velocity, position);
                 default:
