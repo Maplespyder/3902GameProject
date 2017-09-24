@@ -8,11 +8,11 @@ using Microsoft.Win32.SafeHandles;
 
 namespace MarioClone.States.BlockStates
 {
-    public abstract class BlockState
+    public abstract class BreakableBrickState
     {
-        protected AbstractBlock Context { get; set; }
+        protected BreakableBrickObject Context { get; set; }
 
-        public BlockState(AbstractBlock context)
+        public BreakableBrickState(BreakableBrickObject context)
         {
             Context = context;
         }
@@ -21,6 +21,6 @@ namespace MarioClone.States.BlockStates
 
         public abstract void Break();
 
-        public abstract void BecomeVisible();
+        public abstract void Bump();
     }
 }

@@ -48,13 +48,9 @@ namespace MarioClone.States
                 Context.ActionState = MarioWalk.Instance;
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
             }
-            else if (orientation == Facing.Right)
+            else
             {
-                Context.Orientation = Facing.Left;
-            }
-            else if (orientation == Facing.Left)
-            {
-                Context.Orientation = Facing.Right;
+                Context.Orientation = orientation;
             }
         }
     }

@@ -100,7 +100,7 @@
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
     <Compile Include="Sprites\StaticSprite.cs" />
-    <Compile Include="States\BlockStates\BlockState.cs" />
+    <Compile Include="States\BlockStates\BreakableBrickObject.cs" />
     <Compile Include="States\BlockStates\BlockStatic.cs" />
     <Compile Include="States\GoombaState\GoombaDead.cs" />
     <Compile Include="States\GoombaState\GoombaRun.cs" />
