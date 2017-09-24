@@ -78,7 +78,7 @@ namespace MarioClone
 
 			// TODO: use this.Content to load your game content here
 
-			var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(0, 0));
+			var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
 			ICommand BrickBumpCommand = new BlockBumpCommand(BrickBlock);
 			keyboardController.AddInputCommand((int)Keys.B, BrickBumpCommand);
 			gameObjects.Add(BrickBlock);

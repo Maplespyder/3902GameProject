@@ -13,6 +13,7 @@ namespace MarioClone.GameObjects
 		private List<IGameObject> PieceList = new List<IGameObject>();
 		List<BrickPieceObject> InVisiblePieces = new List<BrickPieceObject>();
 		private Vector2 initialPosition;
+		private bool maxHeightReached = false;
 
 		//THIS IS A TEMPORARY STATE UNTIL REAL STATES ARE MADE//
 		public enum State
@@ -33,12 +34,12 @@ namespace MarioClone.GameObjects
         {
 			//TODO: Have the Brick cease drawing & create 4 nuggets
 			//Create nuggets 
-			List<Vector2> velocityList = new List<Vector2>();
-			velocityList.Add(new Vector2(1, 2));
-			velocityList.Add(new Vector2(-1, 2));
-			velocityList.Add(new Vector2(-2, 1));
-			velocityList.Add(new Vector2(2, 1));
 
+			List<Vector2> velocityList = new List<Vector2>();
+			velocityList.Add(new Vector2(1, 0));
+			velocityList.Add(new Vector2(-1, 0));
+			velocityList.Add(new Vector2(-2, 0));
+			velocityList.Add(new Vector2(2, 0));
 			for (int i = 0; i < 4; i++)
 			{
 				var piece = (BrickPieceObject)BlockFactory.Instance.Create(BlockType.BrickPiece, Position); 
@@ -49,9 +50,30 @@ namespace MarioClone.GameObjects
         }
 		public override void Bounce()
 		{
-			if(Position.Y < (initialPosition.Y + ((initialPosition.Y) / 2f)))
+			if (!(Mario.Instance.PowerupState.Powerup == States.MarioPowerupState.MarioPowerup.Normal))
 			{
-				Position = new Vector2(Position.X, Position.Y + .1f); //Movement speed will need be tested
+				state = State.Break;
+			}
+			else
+			{
+				if(Position.Y > (initialPosition.Y - 10) && !maxHeightReached) //if Position hasnt reached max height
+				{
+					Position = new Vector2(Position.X, Position.Y - 1f);
+					if(Position.Y == (initialPosition.Y - 10))
+					{
+						maxHeightReached = true;
+					}
+				}
+				else //lower back down to normal height otherwise
+				{
+					Position = new Vector2(Position.X, Position.Y + 1f);
+				}
+				state = State.Bounce;
+				if (Position.Y == initialPosition.Y) //back to static position
+				{
+					state = State.Static;
+					maxHeightReached = false;
+				}
 			}
 		}
 
@@ -118,7 +140,7 @@ namespace MarioClone.GameObjects
 			{
 				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
 			}
-			else if(state.Equals(State.Pieces)) 
+			else if(state == State.Pieces)
 			{
 				foreach (BrickPieceObject piece in PieceList)
 				{
