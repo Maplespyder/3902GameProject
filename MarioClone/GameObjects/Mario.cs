@@ -67,7 +67,16 @@ namespace MarioClone.GameObjects
         // action state methods, will likely be linked to commands
 
 
-        public void BecomeJump()
+		public void MoveLeft()
+		{
+			ActionState.BecomeRunLeft();
+		}
+		public void MoveRight()
+		{
+			ActionState.BecomeRunRight();
+		}
+
+		public void BecomeJump()
         {
             ActionState.BecomeJump();
         }
