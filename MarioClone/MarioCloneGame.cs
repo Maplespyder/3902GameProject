@@ -46,64 +46,63 @@ namespace MarioClone
 			base.Initialize();
 		}
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
+		/// <summary>
+		/// LoadContent will be called once per game and is the place to load
+		/// all of your content.
+		/// </summary>
+		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            gameObjects = new List<IGameObject>();
-            keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
-            gamepadController.AddInputCommand((int)Buttons.Start, new ExitCommand(this));
+			gameObjects = new List<IGameObject>();
+			keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
+			gamepadController.AddInputCommand((int)Buttons.Start, new ExitCommand(this));
 
-            var gameBounds = new List<Rectangle>()
-            {
-                new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)
-            };
+			var gameBounds = new List<Rectangle>()
+			{
+				new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)
+			};
 
-
-			//ICommand BrickBlockCommand = new BrickBumpCommand(new BlockObject);
-			//ICommand QuestionBlockCommand = new QuestionBumpCommand(new BlockObject);
 
 			var mario = MarioFactory.Create(new Vector2(200, 400));
-            keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
-            gameObjects.Add(mario);
+			keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
+			gameObjects.Add(mario);
 
-            // TODO: use this.Content to load your game content here
-            var brickblock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(0, 0));
-			//keyboardController.AddInputCommand((int)Keys.B, BrickBlockCommand);
-            gameObjects.Add(brickblock);
+			// TODO: use this.Content to load your game content here
 
-            var questionblock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 0));
-            //keyboardController.AddInputCommand((int)Keys.Q, QuestionBlockCommand);
-            gameObjects.Add(questionblock);
+			var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(0, 0));
+			ICommand BrickBumpCommand = new BlockBumpCommand(BrickBlock);
+			keyboardController.AddInputCommand((int)Keys.B, BrickBumpCommand);
+			gameObjects.Add(BrickBlock);
 
-            var brickpiece = BlockFactory.Instance.Create(BlockType.BrickPiece, new Vector2(60, 0));
+			var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(40, 0));
+			ICommand QuestionBumpCommand = new BlockBumpCommand(QuestionBlock);
+			keyboardController.AddInputCommand((int)Keys.X, QuestionBumpCommand);
+			gameObjects.Add(QuestionBlock);
 
-            /* all the types below currently lack an implementation, so their creation is commented out
-            var floorblock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(20, 0));
-            gameObjects.Add(floorblock);
+			var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(100, 0));
+			ICommand HiddenBlockCommand = new ShowHiddenBrickCommand(HiddenBlock);
+			keyboardController.AddInputCommand((int)Keys.H, HiddenBlockCommand);
+			gameObjects.Add(HiddenBlock);
 
-            var stairblock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(60, 0));
-            gameObjects.Add(stairblock);
+			var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(0, 100));
+			gameObjects.Add(FloorBlock);
 
-            var usedblock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 0)); ;
-            gameObjects.Add(usedblock);
+			var StairBlock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(40, 100));
+			gameObjects.Add(StairBlock);
 
-            var hiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(100, 0));
-            gameObjects.Add(hiddenBlock);
+			var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 100));
+			gameObjects.Add(UsedBlock);
 
-            var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba);
+			var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(140,0));
             gameObjects.Add(goomba);
 
-            var greenkoopa = MovingEnemySpriteFactory.Instance.Create(EnemyType.GreenKoopa);
-            gameObjects.Add(greenkoopa);
+            var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(180, 0));
+			gameObjects.Add(GreenKoopa);
 
-            var redkoopa = MovingEnemySpriteFactory.Instance.Create(EnemyType.RedKoopa);
-            gameObjects.Add(redkoopa);*/
+            var RedKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(220, 0));
+			gameObjects.Add(RedKoopa);
         }
 
 		/// <summary>
@@ -152,7 +151,7 @@ namespace MarioClone
 			spriteBatch.Begin();
             foreach (var obj in gameObjects)
             {
-                obj.Draw(spriteBatch, 0, gameTime);
+                obj.Draw(spriteBatch, gameTime);
             }
             spriteBatch.End();
 

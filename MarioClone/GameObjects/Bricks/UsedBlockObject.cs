@@ -6,7 +6,7 @@ namespace MarioClone.GameObjects
 {
     public class UsedBlockObject : AbstractBlock
     {
-        public UsedBlockObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
+        public UsedBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
         {
 
         }
@@ -25,11 +25,11 @@ namespace MarioClone.GameObjects
             //do nothing
         }
 
-        public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, layer, gameTime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
             }
         }
 

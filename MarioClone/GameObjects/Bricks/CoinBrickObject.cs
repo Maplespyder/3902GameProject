@@ -12,7 +12,7 @@ namespace MarioClone.GameObjects
 {
     public class CoinBrickObject : AbstractBlock
     {
-        public CoinBrickObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
+        public CoinBrickObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
         {
 
         }
@@ -31,17 +31,17 @@ namespace MarioClone.GameObjects
             //should transform into used block
             throw new NotImplementedException();
         }
-        public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             /*if (state.Equals(State.Static))
             {
-                Sprite.Draw(spriteBatch, Position, layer, gameTime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
             }
             else if (state.Equals(State.Used))
             {
-                UsedBlock.Draw(spriteBatch, layer, gameTime);
+                UsedBlock.Draw(spriteBatch, this.DrawOrder, gameTime);
             }*/
-            Sprite.Draw(spriteBatch, Position, layer, gameTime);
+            Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
         }
 
         public override void Move()

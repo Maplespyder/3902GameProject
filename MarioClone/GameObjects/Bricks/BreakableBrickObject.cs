@@ -24,7 +24,7 @@ namespace MarioClone.GameObjects
 		}
 		private State state = State.Static;
 
-        public BreakableBrickObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
+        public BreakableBrickObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base( sprite, velocity, position, drawOrder)
         {
             initialPosition = position;
         }
@@ -114,17 +114,17 @@ namespace MarioClone.GameObjects
 			throw new NotImplementedException();
 		}
 
-		public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
 		{
 			if (state.Equals(State.Static) || state.Equals(State.Bounce)) //draw if bounce or static 
 			{
-				Sprite.Draw(spriteBatch, Position, layer, gameTime);
+				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
 			}
 			else if(state.Equals(State.Pieces)) 
 			{
 				foreach (BrickPieceObject piece in PieceList)
 				{
-					piece.Draw(spriteBatch, layer, gameTime);
+					piece.Draw(spriteBatch,  gameTime);
 				}
 			}
 		}

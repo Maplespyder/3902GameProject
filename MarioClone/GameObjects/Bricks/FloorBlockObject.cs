@@ -11,7 +11,7 @@ namespace MarioClone.GameObjects
 {
     public class FloorBlockObject : AbstractBlock
     {
-        public FloorBlockObject(ISprite sprite, Vector2 velocity, Vector2 position) : base( sprite, velocity, position)
+        public FloorBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
         {
      
         }
@@ -21,9 +21,9 @@ namespace MarioClone.GameObjects
             return false;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, float layer, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Sprite.Draw(spriteBatch, Position, layer, gameTime);
+            Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
         }
 
         public override void Bounce()
