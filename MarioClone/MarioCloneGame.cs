@@ -67,6 +67,9 @@ namespace MarioClone
 
 			var mario = MarioFactory.Create(new Vector2(200, 400));
 			keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
 			keyboardController.AddInputCommand((int)Keys.W, new JumpCommand(mario));
 			keyboardController.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
 			keyboardController.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
