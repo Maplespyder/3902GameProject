@@ -67,6 +67,7 @@ namespace MarioClone.GameObjects
             Sprite = SpriteFactory.Create(MarioAction.Idle);
             Velocity = velocity;
             Position = position;
+            Visible = true;
         }
 
         // action state methods, will likely be linked to commands
