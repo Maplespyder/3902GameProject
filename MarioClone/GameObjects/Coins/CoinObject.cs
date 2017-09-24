@@ -21,6 +21,13 @@ namespace MarioClone.GameObjects
 
         public Vector2 Velocity { get; protected set; }
 
+        public CoinObject(ISprite sprite, Vector2 position)
+        {
+            Sprite = sprite;
+            Velocity = new Vector2(0, 0);
+            Position = position;
+            Visible = true;
+        }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
