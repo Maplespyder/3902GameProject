@@ -19,7 +19,7 @@ namespace MarioClone
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
         KeyboardController keyboardController;
-        GamepadController gamepadController;
+		GamepadController gamepadController;
         
         static ContentManager _content;
         List<IGameObject> gameObjects;
@@ -57,7 +57,7 @@ namespace MarioClone
 
 			gameObjects = new List<IGameObject>();
 			keyboardController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
-			gamepadController.AddInputCommand((int)Buttons.Start, new ExitCommand(this));
+			gamepadController.AddInputCommand((int)Buttons.BigButton, new ExitCommand(this));
 
 			var gameBounds = new List<Rectangle>()
 			{
@@ -67,6 +67,13 @@ namespace MarioClone
 
 			var mario = MarioFactory.Create(new Vector2(200, 400));
 			keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.W, new JumpCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
+			keyboardController.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
 			gameObjects.Add(mario);
 
 			// TODO: use this.Content to load your game content here
@@ -124,20 +131,23 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-            keyboardController.UpdateAndExecuteInputs();
-            gamepadController.UpdateAndExecuteInputs();
+			if (!paused)
+			{
+				keyboardController.UpdateAndExecuteInputs();
+				gamepadController.UpdateAndExecuteInputs();
 
-            List<IGameObject> tempList = new List<IGameObject>();
-            foreach(var obj in gameObjects)
-            {
-                if(obj.Update(gameTime))
-                {
-                    tempList.Add(obj);
-                }
-            }
+				List<IGameObject> tempList = new List<IGameObject>();
+				foreach (var obj in gameObjects)
+				{
+					if (obj.Update(gameTime))
+					{
+						tempList.Add(obj);
+					}
+				}
 
-            gameObjects.RemoveAll((x) => tempList.Remove(x));
-			base.Update(gameTime);
+				gameObjects.RemoveAll((x) => tempList.Remove(x));
+				base.Update(gameTime);
+			}
 		}
 
 		/// <summary>
@@ -166,6 +176,13 @@ namespace MarioClone
 		public static GraphicsDeviceManager ReturnGraphicsDevice
 		{
 			get { return graphics; }
+		}
+
+		private static bool paused = false;
+		public static bool Paused
+		{
+			set { paused = value; }
+			get { return paused; }
 		}
 
 		public void ExitCommand()

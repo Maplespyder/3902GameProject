@@ -24,11 +24,20 @@ namespace MarioClone.Controllers
             {
                 if(lastState.IsKeyUp(key))
                 {
-                    ICommand command;
-                    if(InputToCommandMap.TryGetValue((int)key, out command))
-                    {
-                        command.InvokeCommand();
-                    }
+					if (key.Equals(Keys.P))
+					{
+						MarioCloneGame.Paused = !MarioCloneGame.Paused;
+					}
+
+					if (!MarioCloneGame.Paused)
+					{
+						ICommand command;
+						if (InputToCommandMap.TryGetValue((int)key, out command))
+						{
+							command.InvokeCommand();
+
+						}
+					}
                 }
             }
 
