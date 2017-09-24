@@ -78,7 +78,7 @@
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
     <Compile Include="GameObjects\Enemies\KoopaObject.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
-    <Compile Include="GameObjects\CoinObject.cs" />
+    <Compile Include="GameObjects\Coins\CoinObject.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\GamepadController.cs" />
