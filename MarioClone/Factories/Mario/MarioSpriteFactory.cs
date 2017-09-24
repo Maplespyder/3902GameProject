@@ -1,5 +1,6 @@
 ﻿using MarioClone.Sprites;
 using MarioClone.States;
+using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.Factories
 {
@@ -7,6 +8,6 @@ namespace MarioClone.Factories
     {
         protected MarioSpriteFactory() { }
 
-        public abstract ISprite Create(MarioActionState state);
+        public abstract ISprite Create(MarioAction action);
     }
 }

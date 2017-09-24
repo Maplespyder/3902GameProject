@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.Factories;
+using MarioClone.Sprites;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,15 +23,35 @@ namespace MarioClone.GameObjects
 
         public bool Visible { get; protected set; }
 
-        public ISprite Sprite { get; protected set; }
+        public ISprite Sprite { get; set; }
 
-        public KoopaObject(ISprite sprite, Vector2 velocity, Vector2 position)
+        public EnemySpriteFactory SpriteFactory { get; set; }
+
+        public KoopaState State { get; set; }
+
+        public KoopaObject(Vector2 velocity, Vector2 position)
         {
-            //need to add in states
-            Sprite = sprite;
+            State = new KoopaRunLeft(this);
+            SpriteFactory = MovingEnemySpriteFactory.Instance;
+            Sprite = SpriteFactory.Create(EnemyType.GreenKoopa);
             Velocity = velocity;
             Position = position;
             Visible = true;
+        }
+
+        public void BecomeRunLeft()
+        {
+            State.BecomeRunLeft();
+        }
+
+        public void BecomeRunRight()
+        {
+            State.BecomeRunRight();
+        }
+
+        public void BecomeDead()
+        {
+            State.BecomeDead();
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
