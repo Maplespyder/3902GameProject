@@ -80,7 +80,7 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
 
-            var mario = MarioFactory.Create(new Vector2(200, 400));
+            var mario = MarioFactory.Create(new Vector2(200, 100));
 
             keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
             keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
@@ -109,42 +109,42 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.B, new BlockBumpCommand(BrickBlock));
             gameObjects.Add(BrickBlock);
 
-            var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(300, 300));
+            var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(250, 200));
             keyboard.AddInputCommand((int)Keys.X, new BlockBumpCommand(QuestionBlock));
             gameObjects.Add(QuestionBlock);
 
-            var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(100, 0));
+            var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(300, 200));
             keyboard.AddInputCommand((int)Keys.H, new ShowHiddenBrickCommand(HiddenBlock));
             gameObjects.Add(HiddenBlock);
 
-            var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(0, 100));
+            var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(350, 200));
             gameObjects.Add(FloorBlock);
 
-            var StairBlock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(40, 100));
+            var StairBlock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(400, 200));
             gameObjects.Add(StairBlock);
 
-            var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 100));
+            var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(450, 200));
             gameObjects.Add(UsedBlock);
 
-            var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(140, 0));
+            var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(200, 300));
             gameObjects.Add(goomba);
 
-            var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(180, 0));
+            var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(250, 300));
             gameObjects.Add(GreenKoopa);
 
-            var RedKoopa = EnemyFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(220, 0));
+            var RedKoopa = EnemyFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(300, 300));
             gameObjects.Add(RedKoopa);
 
-            var coin = PowerUpFactory.Create(PowerUpType.Coin, new Vector2(300, 20));
+            var coin = PowerUpFactory.Create(PowerUpType.Coin, new Vector2(200, 400));
             gameObjects.Add(coin);
 
-            var flower = PowerUpFactory.Create(PowerUpType.Flower, new Vector2(200, 40));
+            var flower = PowerUpFactory.Create(PowerUpType.Flower, new Vector2(250, 400));
             gameObjects.Add(flower);
 
-            var GreenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(600, 100));
+            var GreenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(300, 400));
             gameObjects.Add(GreenMushroom);
 
-            var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(600, 200));
+            var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(350, 400));
             gameObjects.Add(redMushroom);
         }
 
