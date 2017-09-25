@@ -27,11 +27,8 @@ namespace MarioClone.GameObjects
 
         public EnemySpriteFactory SpriteFactory { get; set; }
 
-        public KoopaState State { get; set; }
-
         public KoopaObject(Vector2 velocity, Vector2 position)
         {
-            State = new KoopaRun(this);
             SpriteFactory = MovingEnemySpriteFactory.Instance;
             Sprite = SpriteFactory.Create(EnemyType.GreenKoopa);
             Velocity = velocity;
@@ -39,21 +36,11 @@ namespace MarioClone.GameObjects
             Visible = true;
         }
 
-        public void BecomeRun()
-        {
-            //State.
-        }
-
-        public void BecomeDead()
-        {
-            State.BecomeDead();
-        }
-
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
             }
         }
 

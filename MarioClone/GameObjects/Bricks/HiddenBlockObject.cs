@@ -36,17 +36,7 @@ namespace MarioClone.GameObjects
             throw new NotImplementedException();
         }
 
-        public override void Bounce()
-        {
-            //do nothing
-        }
-
-        public override void Break()
-        {
-            //do nothing
-        }
-
-        public override void BecomeVisible()
+        public override void Bump()
         {
             Visible = true;
         }

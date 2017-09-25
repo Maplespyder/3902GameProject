@@ -1,4 +1,5 @@
 ﻿using MarioClone.Sprites;
+using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,13 +16,12 @@ namespace MarioClone.GameObjects
             Visible = true;
             DrawOrder = drawOrder;
         }
-        public abstract void Bounce();
 
-        public abstract void Break();
+        public abstract void Bump();
 
-        public abstract void BecomeVisible();
+        public BlockState State { get; set; }
 
-        public Vector2 Position { get; protected set; }
+        public Vector2 Position { get; set; }
 
         public Vector2 Velocity { get; protected set; }
 
@@ -29,7 +29,7 @@ namespace MarioClone.GameObjects
 
         public bool Visible { get; protected set; }
 
-        public ISprite Sprite { get; protected set; }
+        public ISprite Sprite { get; set; }
 
         public abstract void Move();
 
