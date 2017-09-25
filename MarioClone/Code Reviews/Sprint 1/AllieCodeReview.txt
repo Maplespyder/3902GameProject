@@ -1,0 +1,54 @@
+Code Review Template
+Author of Review: Allison Jett
+Date of Review: 9/25/17
+File Under Review: Block Objects (BreakableBrickObject.cs, QuestionBlock.cs)
+Author(s) of File: Everyone
+Comments on Code Quality:
+
+Block Objects:
+I feel like all the Block classes (AbstractBlock) have an unnecessary Move() method inside. BrickPieceObject is the only class that ever uses it. 
+Ideally, as block objects are capable of movement, allow Move() to handle movement logic or, at least, call onto a method that holds it. Otherwise, 
+Move() is just clutter atm. 
+
+Minutes to Complete: 5 
+-----------------------------
+File Under Review: MarioGameClone
+Author(s) of File: Everyone
+Comments on Code Quality:
+
+Variables:
+It doesn't look like any of the object variables in the main class follow any kind of pattern. Half of the object variables are Pascal casing, 
+others use camal casing. Ideally, all of these objects should have camal casing (redKoopa, goomba, greenKoopa, brickBlock, fireFlower). 
+
+IController:
+As both keyboardController and gamepadController implement IController in some fashion, maybe they're initialized as IControllers instead of 
+keyboardController & gamepadController. 
+
+IController keyBoard = new KeyboardController();
+List<IController> gamepads = new List<IController>();
+
+vs.
+
+KeyboardController keyBoard = new KeyboardController();
+List<GamepadController> gamepads = new List<GamepadController>();
+-----------------------------
+Minutes to Complete: 15 minutes
+
+File Under Review: KoopaObject.cs
+Author(s) of File: Everyone
+Comments on Code Quality:
+
+As of right now, the Koopa object has the ability to only return Green Koopas. Upon creation of a 'Red Koopa' in the main class, it uses 
+KoopaObject - which has no ability to return red. 
+
+Either we make two objects, RedKoopa and GreenKoopa, or create some sort of way to let the KoopaObject know which Koopa to make. 
+Since both Red and Green Koopas (as far as I can see), have the same behavior, having two seperate objects is a bit redundant. 
+The most trivial solution to this seems to be passing in some argument into KoopaObject that determines if red or green is made. 
+
+If Red and Green Koopas do behave differently later, having seperate objects would work better. 
+
+//Seems this was already fixed//
+Minutes to Complete: 5 minutes
+-----------------------------
+
+
