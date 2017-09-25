@@ -63,6 +63,7 @@ namespace MarioClone.GameObjects
             _mario = this;
             PowerupState = MarioNormal.Instance;
             ActionState = MarioIdle.Instance;
+            Orientation = Facing.Right;
             SpriteFactory = NormalMarioSpriteFactory.Instance;
             Sprite = SpriteFactory.Create(MarioAction.Idle);
             Velocity = velocity;
