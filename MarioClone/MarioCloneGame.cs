@@ -173,16 +173,19 @@ namespace MarioClone
             {
                 gamepad.UpdateAndExecuteInputs();
             }
-
+  
 			if (!paused)
 			{
-				foreach (var obj in gameObjects)
+                var removed = new List<IGameObject>();
+                foreach (var obj in gameObjects)
 				{
 					if (obj.Update(gameTime))
 					{
-                        gameObjects.Remove(obj);
+                        removed.Add(obj);
                     }
 				}
+
+                gameObjects.RemoveAll(x => removed.Contains(x));
 				base.Update(gameTime);
 			}
 		}
