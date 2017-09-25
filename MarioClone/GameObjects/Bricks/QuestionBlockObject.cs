@@ -20,7 +20,7 @@ namespace MarioClone.GameObjects
 		private Vector2 initialPosition;
 
 
-		public QuestionBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+		public QuestionBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
         {
 			initialPosition = Position;
         }

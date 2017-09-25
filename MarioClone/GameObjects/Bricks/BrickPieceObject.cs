@@ -8,12 +8,9 @@ namespace MarioClone.GameObjects
 	public class BrickPieceObject : AbstractBlock
 	{
 
-		public BrickPieceObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+		public BrickPieceObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
 		{
-			Sprite = sprite;
-			Velocity = velocity;
-			Position = position;
-			Visible = true;
+		
 		}
 
         public override void Bounce()

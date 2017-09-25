@@ -12,7 +12,7 @@ namespace MarioClone.GameObjects
 {
     public class CoinBrickObject : AbstractBlock
     {
-        public CoinBrickObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+        public CoinBrickObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
         {
 
         }

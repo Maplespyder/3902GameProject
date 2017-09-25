@@ -7,10 +7,10 @@ namespace MarioClone.GameObjects
     public abstract class AbstractBlock : IGameObject, IMoveable
     {
 
-        protected AbstractBlock(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder)
+        protected AbstractBlock(ISprite sprite, Vector2 position, int drawOrder)
         {
             Sprite = sprite;
-            Velocity = velocity;
+            Velocity = new Vector2(0,0);
             Position = position;
             Visible = true;
             DrawOrder = drawOrder;

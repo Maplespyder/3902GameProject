@@ -11,7 +11,7 @@ namespace MarioClone.GameObjects
 {
     public class FloorBlockObject : AbstractBlock
     {
-        public FloorBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+        public FloorBlockObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
         {
      
         }

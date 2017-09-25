@@ -25,7 +25,7 @@ namespace MarioClone.GameObjects
 		}
 		private State state = State.Static;
 
-        public BreakableBrickObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base( sprite, velocity, position, drawOrder)
+        public BreakableBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base( sprite, position, drawOrder)
         {
             initialPosition = position;
         }

@@ -6,7 +6,7 @@ namespace MarioClone.GameObjects
 {
     public class UsedBlockObject : AbstractBlock
     {
-        public UsedBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+        public UsedBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
         {
 
         }
