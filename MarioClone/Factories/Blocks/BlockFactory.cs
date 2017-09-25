@@ -44,23 +44,23 @@ namespace MarioClone.Factories
             switch(type)
             {
                 case BlockType.BreakableBrick:
-                    return new BreakableBrickObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new BreakableBrickObject(SpriteFactory.Create(type), position, 1);
                 case BlockType.CoinBlock:
-                    return new CoinBrickObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new CoinBrickObject(SpriteFactory.Create(type), position, 1);
                 case BlockType.BrickPiece:
-                    return new BrickPieceObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new BrickPieceObject(SpriteFactory.Create(type),position, 1);
                 case BlockType.FloorBlock:
-                    return new FloorBlockObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new FloorBlockObject(SpriteFactory.Create(type), position, 1);
                 case BlockType.QuestionBlock:
-                    return new QuestionBlockObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new QuestionBlockObject(SpriteFactory.Create(type), position, 1);
                 case BlockType.StairBlock:
-                    return new StairBlockObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new StairBlockObject(SpriteFactory.Create(type), position, 1);
                 case BlockType.UsedBlock:
-                    return new UsedBlockObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new UsedBlockObject(SpriteFactory.Create(type),  position, 1);
                 case BlockType.HiddenBlock:
-                    return new HiddenBrickObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new HiddenBrickObject(SpriteFactory.Create(type), position, 1);
                 default:
-                    return new BreakableBrickObject(SpriteFactory.Create(type), velocity, position, 1);
+                    return new BreakableBrickObject(SpriteFactory.Create(type),  position, 1);
             }
         }
     }
