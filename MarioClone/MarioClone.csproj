@@ -79,7 +79,8 @@
     <Compile Include="GameObjects\Bricks\StairBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\UsedBlockObject.cs" />
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
-    <Compile Include="GameObjects\Enemies\KoopaObject.cs" />
+    <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
+    <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
     <Compile Include="GameObjects\Coins\CoinObject.cs" />
     <Compile Include="Commands\ICommand.cs" />
