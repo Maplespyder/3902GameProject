@@ -111,6 +111,18 @@ namespace MarioClone
 
             var RedKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(220, 0));
 			gameObjects.Add(RedKoopa);
+
+            var coin = PowerUpFactory.Create(PowerUpType.Coin, new Vector2(300, 20));
+            gameObjects.Add(coin);
+
+            var flower = PowerUpFactory.Create(PowerUpType.Flower, new Vector2(200, 40));
+            gameObjects.Add(flower);
+
+            var greenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(100, 150));
+            gameObjects.Add(flower);
+
+            var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(600, 200));
+            gameObjects.Add(redMushroom);
         }
 
 		/// <summary>
