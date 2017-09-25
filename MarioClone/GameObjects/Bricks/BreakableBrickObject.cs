@@ -32,15 +32,18 @@ namespace MarioClone.GameObjects
 
         public override void Break()
         {
-			//TODO: Have the Brick cease drawing & create 4 nuggets
-			//Create nuggets 
+            //TODO: Have the Brick cease drawing & create 4 nuggets
+            //Create nuggets 
 
-			List<Vector2> velocityList = new List<Vector2>();
-			velocityList.Add(new Vector2(1, 0));
-			velocityList.Add(new Vector2(-1, 0));
-			velocityList.Add(new Vector2(-2, 0));
-			velocityList.Add(new Vector2(2, 0));
-			for (int i = 0; i < 4; i++)
+            List<Vector2> velocityList = new List<Vector2>
+            {
+                new Vector2(1, 0),
+                new Vector2(-1, 0),
+                new Vector2(-2, 0),
+                new Vector2(2, 0)
+            };
+
+            for (int i = 0; i < 4; i++)
 			{
 				var piece = (BrickPieceObject)BlockFactory.Instance.Create(BlockType.BrickPiece, Position); 
 				PieceList.Add(piece);
