@@ -16,6 +16,7 @@ namespace MarioClone
     /// </summary>
     public class MarioCloneGame : Game
 	{
+		KeyboardController keyboardController = new KeyboardController();
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
         
@@ -55,7 +56,7 @@ namespace MarioClone
 			gameObjects = new List<IGameObject>();
             controllers = new List<AbstractController>();
 
-            KeyboardController keyboardController = new KeyboardController();
+           
             for(int i = 0; i < 4; i++)
             {
                 controllers.Add(new GamepadController((PlayerIndex)i));
@@ -118,8 +119,8 @@ namespace MarioClone
             var flower = PowerUpFactory.Create(PowerUpType.Flower, new Vector2(200, 40));
             gameObjects.Add(flower);
 
-            var greenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(100, 150));
-            gameObjects.Add(flower);
+            var GreenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(600, 100));
+            gameObjects.Add(GreenMushroom);
 
             var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(600, 200));
             gameObjects.Add(redMushroom);
@@ -146,7 +147,7 @@ namespace MarioClone
 
 		
 				keyboardController.UpdateAndExecuteInputs();
-				gamepadController.UpdateAndExecuteInputs();
+				//gamepadController.UpdateAndExecuteInputs();
 				if (!paused)
 				{
 				List<IGameObject> tempList = new List<IGameObject>();
