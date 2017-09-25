@@ -16,31 +16,15 @@ namespace MarioClone.GameObjects
         {
 
         }
-        public override void BecomeVisible()
-        {
-            //do nothing
-        }
 
-        public override void Bounce()
+        public override void Bump()
         {
+            // spawn a coin, not implemented yet
             throw new NotImplementedException();
         }
 
-        public override void Break()
-        {
-            //should transform into used block
-            throw new NotImplementedException();
-        }
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            /*if (state.Equals(State.Static))
-            {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
-            }
-            else if (state.Equals(State.Used))
-            {
-                UsedBlock.Draw(spriteBatch, this.DrawOrder, gameTime);
-            }*/
             Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
         }
 

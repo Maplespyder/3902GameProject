@@ -8,7 +8,7 @@ namespace MarioClone.Commands
 
 		public override void InvokeCommand()
 		{
-			Receiver.Bounce();
+			Receiver.Bump();
 		}
 	}
 }
