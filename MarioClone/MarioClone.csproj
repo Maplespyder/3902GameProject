@@ -129,6 +129,7 @@
   <ItemGroup>
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\JacobCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 1\AnnaCodeReview.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

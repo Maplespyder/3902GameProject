@@ -10,7 +10,7 @@ namespace MarioClone.GameObjects
 
         public BrickPieceObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
         {
-
+ 
         }
 
         public override bool Update(GameTime gameTime)
