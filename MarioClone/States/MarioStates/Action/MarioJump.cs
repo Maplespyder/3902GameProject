@@ -27,8 +27,9 @@ namespace MarioClone.States
 
         public override void BecomeCrouch()
         {
-            Context.ActionState = MarioIdle.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
+            Context.ActionState = Context.PreviousActionState;
+            Context.Sprite = Context.SpriteFactory.Create(Context.PreviousActionState.Action);
+            Context.PreviousActionState = this;
         }
 
         public override void BecomeJump()
