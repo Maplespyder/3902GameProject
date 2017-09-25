@@ -9,7 +9,6 @@ namespace MarioClone.GameObjects
 {
     public class GreenKoopaObject : IGameObject, IMoveable
     {
-      
         public Vector2 Position { get; protected set; }
 
         public Vector2 Velocity { get; }
