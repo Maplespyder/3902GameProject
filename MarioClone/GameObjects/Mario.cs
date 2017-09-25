@@ -68,6 +68,7 @@ namespace MarioClone.GameObjects
             Velocity = velocity;
             Position = position;
             Visible = true;
+            DrawOrder = 1;
         }
 
         // action state methods, will likely be linked to commands
