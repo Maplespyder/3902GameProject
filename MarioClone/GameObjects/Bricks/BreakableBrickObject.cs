@@ -32,9 +32,6 @@ namespace MarioClone.GameObjects
 
         public override void Break()
         {
-            //TODO: Have the Brick cease drawing & create 4 nuggets
-            //Create nuggets 
-
             List<Vector2> velocityList = new List<Vector2>
             {
                 new Vector2(1, 0),
@@ -53,11 +50,11 @@ namespace MarioClone.GameObjects
         }
 		public override void Bounce()
 		{
-			if (!(Mario.Instance.PowerupState.Powerup == States.MarioPowerupState.MarioPowerup.Normal))
+			if (!(Mario.Instance.PowerupState.Powerup == States.MarioPowerupState.MarioPowerup.Normal) && !(state == State.Pieces))
 			{
 				state = State.Break;
 			}
-			else
+			else if(state == State.Bounce || state == State.Static)
 			{
 				if(Position.Y > (initialPosition.Y - 10) && !maxHeightReached) //if Position hasnt reached max height
 				{
