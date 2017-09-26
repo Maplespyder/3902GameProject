@@ -16,7 +16,7 @@ namespace MarioClone.Controllers
     }
 
     public class KeyboardController : AbstractController
-	{
+    {
         private KeyboardState lastState;
         private Dictionary<int, Dictionary<int, ICommand>> inputChordToCommandMap;
 
@@ -32,10 +32,10 @@ namespace MarioClone.Controllers
             {
                 throw new NotSupportedException();
             }
-            
-            if(inputChordToCommandMap.ContainsKey(modifier))
+
+            if (inputChordToCommandMap.ContainsKey(modifier))
             {
-                if(!inputChordToCommandMap[modifier].ContainsKey(input))
+                if (!inputChordToCommandMap[modifier].ContainsKey(input))
                 {
                     inputChordToCommandMap[modifier].Add(input, command);
                     return true;
@@ -75,56 +75,49 @@ namespace MarioClone.Controllers
         /// since this method was last called.
         /// </summary>
         public override void UpdateAndExecuteInputs()
-		{
+        {
             KeyboardState currentState = Keyboard.GetState();
 
             foreach (Keys key in currentState.GetPressedKeys())
             {
-                if(lastState.IsKeyUp(key))
+                if (lastState.IsKeyUp(key))
                 {
-					if (key.Equals(Keys.P))
-					{
-						MarioCloneGame.Paused = !MarioCloneGame.Paused;
-					}
+                    ICommand command = null;
 
-					if (!MarioCloneGame.Paused)
+                    foreach (Modifier mod in Enum.GetValues(typeof(Modifier)))
                     {
-                        ICommand command = null;
-
-                        foreach(Modifier mod in Enum.GetValues(typeof(Modifier)))
+                        if (currentState.IsKeyDown((Keys)mod))
                         {
-                            if(currentState.IsKeyDown((Keys)mod))
-                            {
-                                Dictionary<int, ICommand> temp;
+                            Dictionary<int, ICommand> temp;
 
-                                //if a modifier is being held, it should block other kinds of commands
-                                //this guarantees that the null check fails when it tries to run a regular command
-                                command = new DummyCommand(new DummyClass());
-                                if (inputChordToCommandMap.TryGetValue((int)mod, out temp))
+                            //if a modifier is being held, it should block other kinds of commands
+                            //this guarantees that the null check fails when it tries to run a regular command
+                            command = new DummyCommand(new DummyClass());
+                            if (inputChordToCommandMap.TryGetValue((int)mod, out temp))
+                            {
+                                if (temp.TryGetValue((int)key, out command))
                                 {
-                                    if (temp.TryGetValue((int)key, out command))
-                                    {
-                                        command.InvokeCommand();
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        //needs to be set here too, if it makes it in here but trygetvalue fails, because
-                                        //trygetvalue will set it back to null;
-                                        command = new DummyCommand(new DummyClass());
-                                    }
+                                    command.InvokeCommand();
+                                    break;
+                                }
+                                else
+                                {
+                                    //needs to be set here too, if it makes it in here but trygetvalue fails, because
+                                    //trygetvalue will set it back to null;
+                                    command = new DummyCommand(new DummyClass());
                                 }
                             }
                         }
-						if ((command == null) && InputToCommandMap.TryGetValue((int)key, out command))
-						{
-							command.InvokeCommand();
-						}
-					}
+                    }
+                    if ((command == null) && InputToCommandMap.TryGetValue((int)key, out command))
+                    {
+                        command.InvokeCommand();
+                    }
+
                 }
             }
 
             lastState = currentState;
-		}
+        }
     }
 }
