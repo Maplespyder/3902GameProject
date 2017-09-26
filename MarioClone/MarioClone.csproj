@@ -132,6 +132,7 @@
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 1\JacobCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 1\AnnaCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 1\SamCodeReview.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

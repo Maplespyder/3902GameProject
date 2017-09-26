@@ -28,10 +28,7 @@ namespace MarioClone.GameObjects
             Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
         }
 
-        public override void Move()
-        {
-            throw new NotImplementedException();
-        }
+    
 
         public void Execute()
         {
