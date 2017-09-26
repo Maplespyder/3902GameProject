@@ -135,6 +135,7 @@
     <Content Include="Code Reviews\Sprint 1\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 1\SamCodeReview.txt" />
     <Content Include="Icon.ico" />
+    <Content Include="README.txt" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
