@@ -17,6 +17,8 @@ namespace MarioClone.Controllers
             get { return inputToCommandMap; }
         }
 
+        public abstract bool AddInputChord(int modifier, int input, ICommand command);
+
         /// <summary>
         /// Adds the given input/command key value pair to the input/command
         /// mapping. Returns true if successfully added, and false otherwise.
@@ -32,6 +34,8 @@ namespace MarioClone.Controllers
             }
             return false;
         }
+
+        public abstract bool RemoveInputChord(int modifier, int input);
 
         /// <summary>
         /// Removes the given input/command key value pair in the input/command
