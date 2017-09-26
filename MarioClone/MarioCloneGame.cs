@@ -107,6 +107,7 @@ namespace MarioClone
 
             var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
             keyboard.AddInputCommand((int)Keys.B, new BlockBumpCommand(BrickBlock));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new BlockBumpCommand(BrickBlock));
             gameObjects.Add(BrickBlock);
 
             var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(250, 200));

@@ -19,6 +19,16 @@ namespace MarioClone.Controllers
             }
         }
 
+        public override bool AddInputChord(int modifier, int input, ICommand command)
+        {
+            return true;
+        }
+
+        public override bool RemoveInputChord(int modifier, int input)
+        {
+            return true;
+        }
+
         /// <summary>
         /// Executes the commands associated with all gamepad inputs received
         /// since this method was last called, if the gamepad is connected.
