@@ -4,16 +4,16 @@ namespace MarioClone.States
 {
     public abstract class GoombaState
     {
-        protected GoombaObject Context { get; set; } 
+        protected GoombaObject Context { get; set; }
 
-        public GoombaState(GoombaObject context)
+		protected GoombaState(GoombaObject context)
         {
             Context = context;
         }
 
-        // Behavior/actions
+		// Behavior/actions
 
-        public void Move()
+		static public void Move()
         {
             // koopa cannot move currently
         }

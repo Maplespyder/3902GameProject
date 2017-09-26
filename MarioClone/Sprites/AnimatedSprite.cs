@@ -7,8 +7,6 @@ namespace MarioClone.Sprites
     class AnimatedSprite : Sprite
     {
 
-        protected int FrameCounter { get; set; }
-
         protected int CurrentFrame { get; set; }
 
         protected int StartFrame { get; set; }
@@ -26,7 +24,6 @@ namespace MarioClone.Sprites
             base(spriteSheet, sourceRectangle)
         {
 			timePerFrame = (1000 / fps);
-            FrameCounter = 0;
             StartFrame = startFrame;
             EndFrame = endFrame;
             CurrentFrame = startFrame;

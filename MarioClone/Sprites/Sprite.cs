@@ -23,10 +23,10 @@ namespace MarioClone.Sprites
 
 		#region ISprite
 
-		public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth, GameTime gametime, Facing facing)
+		public virtual void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth, GameTime gametime, Facing facing)
 		{
             SpriteEffects flip = (facing == Facing.Left) ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-			spriteBatch.Draw(SpriteSheet, position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, flip, layerDepth);
+			spriteBatch.Draw(SpriteSheet, Position, SourceRectangle, Color.White, 0, Vector2.Zero, 1, flip, LayerDepth);
 		}
 
 		#endregion

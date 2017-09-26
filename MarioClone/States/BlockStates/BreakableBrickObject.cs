@@ -12,7 +12,7 @@ namespace MarioClone.States.BlockStates
     {
         protected BreakableBrickObject Context { get; set; }
 
-        public BreakableBrickState(BreakableBrickObject context)
+        protected BreakableBrickState(BreakableBrickObject context)
         {
             Context = context;
         }

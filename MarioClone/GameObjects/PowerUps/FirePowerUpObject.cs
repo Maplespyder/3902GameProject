@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-	public class FirePowerUpObject : IGameObject, IMoveable
+	public class FirepowerUpObject : IGameObject, IMoveable
 	{
         public Vector2 Position { get; protected set; }
 
@@ -23,7 +23,7 @@ namespace MarioClone.GameObjects
 
         public ISprite Sprite { get; protected set; }
 
-        public FirePowerUpObject(ISprite sprite, Vector2 position)
+        public FirepowerUpObject(ISprite sprite, Vector2 position)
         {
             Sprite = sprite;
             Velocity = new Vector2(0, 0);

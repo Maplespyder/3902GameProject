@@ -39,7 +39,7 @@ namespace MarioClone.GameObjects
             Visible = true;
         }
 
-        public void BecomeRun()
+		static public void BecomeRun()
         {
             //State.
         }

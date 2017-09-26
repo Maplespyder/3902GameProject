@@ -16,11 +16,6 @@ namespace MarioClone.GameObjects
     {
         private static Mario _mario;
 
-        internal void BecomeSuperMario()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Do not instantiate Mario more than once. We have to make Mario before
         /// things that reference him use him, because I can't null check this getter.

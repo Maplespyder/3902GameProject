@@ -6,7 +6,7 @@ namespace MarioClone.Controllers
 {
     public class KeyboardController : AbstractController
 	{
-        protected KeyboardState lastState;
+        private KeyboardState lastState;
 
         public KeyboardController()
         {

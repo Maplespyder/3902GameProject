@@ -11,14 +11,14 @@ namespace MarioClone.States
     {
         protected KoopaObject Context { get; set; }
 
-        public KoopaState(KoopaObject context)
+		protected KoopaState(KoopaObject context)
         {
             Context = context;
         }
 
-        // Behavior/actions
+		// Behavior/actions
 
-        public void Move()
+		static public void Move()
         {
             // koopa cannot move currently
         }
