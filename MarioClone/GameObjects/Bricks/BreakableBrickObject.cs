@@ -11,8 +11,8 @@ namespace MarioClone.GameObjects
 {
     public class BreakableBrickObject : AbstractBlock
 	{
-		private List<IGameObject> PieceList = new List<IGameObject>();
-		List<BrickPieceObject> InVisiblePieces = new List<BrickPieceObject>();
+		private List<IGameObject> pieceList = new List<IGameObject>();
+		List<BrickPieceObject> invisiblePiece = new List<BrickPieceObject>();
 
         public BreakableBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base( sprite, position, drawOrder)
         {
@@ -33,7 +33,7 @@ namespace MarioClone.GameObjects
             for (int i = 0; i < 4; i++)
 			{
 				var piece = (BrickPieceObject)BlockFactory.Instance.Create(BlockType.BrickPiece, Position); 
-				PieceList.Add(piece);
+				pieceList.Add(piece);
 				piece.ChangeVelocity(velocityList[i]);
 			}
         }
@@ -41,25 +41,25 @@ namespace MarioClone.GameObjects
 		public bool Pieces(GameTime gameTime)
 		{
             bool disposeMe = false;
-			foreach(BrickPieceObject piece in PieceList)
+			foreach(BrickPieceObject piece in pieceList)
 			{
 				if (piece.Update(gameTime))
 				{
-					InVisiblePieces.Add(piece);
+					invisiblePiece.Add(piece);
 				}
 			}
 
 			//Remove pieces from PieceList
-			foreach(BrickPieceObject piece in InVisiblePieces)
+			foreach(BrickPieceObject piece in invisiblePiece)
 			{
-				if (PieceList.Contains(piece))
+				if (pieceList.Contains(piece))
 				{
-					PieceList.Remove(piece);
+					pieceList.Remove(piece);
 				}
 			}
 
 			//If all pieces are gone
-			if(PieceList.Count == 0)
+			if(pieceList.Count == 0)
 			{
                 disposeMe = true;
 			}
@@ -83,7 +83,7 @@ namespace MarioClone.GameObjects
             {
                 Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
             }
-			foreach (BrickPieceObject piece in PieceList)
+			foreach (BrickPieceObject piece in pieceList)
 			{
 				piece.Draw(spriteBatch,  gameTime);
 			}

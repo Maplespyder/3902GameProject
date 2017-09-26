@@ -5,7 +5,7 @@ namespace MarioClone.States.BlockStates
 {
     public class BreakableBrickStatic : BlockState
     {
-        private bool IsMarioNormal
+        static bool IsMarioNormal
         {
             get
             {
@@ -13,7 +13,7 @@ namespace MarioClone.States.BlockStates
             }
         }
 
-        private bool IsMarioSuper
+        static private bool IsMarioSuper
         {
             get
             {
@@ -21,7 +21,7 @@ namespace MarioClone.States.BlockStates
             }
         }
 
-        private bool IsMarioFire
+        static bool IsMarioFire
         {
             get
             {

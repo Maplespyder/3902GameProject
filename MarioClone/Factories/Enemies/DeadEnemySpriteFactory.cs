@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Factories.Enemies
 {
-    class DeadEnemySpriteFactory : EnemySpriteFactory
+    public class DeadEnemySpriteFactory : EnemySpriteFactory
     {
         static DeadEnemySpriteFactory _factory;
-        public static DeadEnemySpriteFactory Instance
+        private static DeadEnemySpriteFactory Instance
         {
             get
             {
