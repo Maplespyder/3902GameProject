@@ -20,7 +20,7 @@ namespace MarioClone.States.BlockStates
 
         protected AbstractBlock Context { get; set; }
 
-        public BlockState(AbstractBlock context)
+        protected BlockState(AbstractBlock context)
         {
             Context = context;
         }

@@ -22,7 +22,7 @@ namespace MarioClone.States
 
         protected MarioAction LastState { get; set; }
 
-        public MarioActionState(Mario context)
+        protected MarioActionState(Mario context)
         {
             Context = context;
         }
