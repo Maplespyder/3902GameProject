@@ -13,7 +13,7 @@ namespace MarioClone.GameObjects
 {
     public class HiddenBrickObject : AbstractBlock
     {
-        public HiddenBrickObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
+        public HiddenBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
         {
             Visible = false;
         }
@@ -23,7 +23,7 @@ namespace MarioClone.GameObjects
             return false;
         }
 
-        public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Visible)
             {
@@ -36,17 +36,7 @@ namespace MarioClone.GameObjects
             throw new NotImplementedException();
         }
 
-        public override void Bounce()
-        {
-            //do nothing
-        }
-
-        public override void Break()
-        {
-            //do nothing
-        }
-
-        public override void BecomeVisible()
+        public override void Bump()
         {
             Visible = true;
         }

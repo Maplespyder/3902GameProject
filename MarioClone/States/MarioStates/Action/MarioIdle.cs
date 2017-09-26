@@ -31,6 +31,7 @@ namespace MarioClone.States
             if (Context.PowerupState.Powerup == MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerup.Fire)
             {
                 Context.ActionState = MarioCrouch.Instance;
+                Context.PreviousActionState = this;
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch); 
             }
         }
@@ -38,6 +39,7 @@ namespace MarioClone.States
         public override void BecomeJump()
         {
             Context.ActionState = MarioJump.Instance;
+            Context.PreviousActionState = this;
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
         }
 
@@ -46,6 +48,7 @@ namespace MarioClone.States
             if (Context.Orientation == orientation)
             {
                 Context.ActionState = MarioWalk.Instance;
+                Context.PreviousActionState = this;
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
             }
             else

@@ -1,0 +1,52 @@
+﻿Author of Review: Jacob Crabtree
+Date of Review: 09/29/17
+File Under Review: BreakableBrickObject.cs
+Author(s) of File: Allie Jett, Sam Trabitz, Anna Wolfe, Jacob Crabtree
+Comments on Code Quality:
+Data Members
+The pieces list is a private variable, which are usually at least lowercase, if not prefaced with an underscore. T
+his pieces list, however, is named PiecesList, like a property. InVisiblePieces is also odd, since Invisible is one word.
+Private is specified on one of the two private members, makes it a little hard to read along with the above naming oddities.
+
+Ctor()
+It uses inheritance to clean up the constructor, hiding a few arguments that are taken care of by the base constructor, so it's easy to read. 
+
+Break()
+Declaring the velocities in a list and adding them to the pieces while creating them is a nice touch as opposed to trying to do some weird 
+math to get the numbers right. This makes it easy to modify the break away velocities in one place, too.
+
+The cast to BrickPieceObject seems a little unnecessary, perhaps a ChangeVelocity method should be defined for all object implementing 
+IMoveable (which these bricks do, through abstract block). This would skip the cast. Also, why is PieceList of type IGameObject while 
+InVisiblePieces is BrickPieceObject? It would make more sense to have them both be AbstractBrick, since that's the most recent common ancestor.
+
+Pieces()
+The pieces method could definitely be named better. Pieces is a terribly undescriptive name. It seems to miss the advantage of having polymorphic 
+block states. Instead of having this pieces method, why not expose the pieces as a property on the brick. Then, in the breakable brick state, have 
+the "Pieces" logic run as part of BreakableBrickState.Update(), thus encapsulating this method inside a state. Then, inivisible pieces could also be 
+removed as a data member, and instead just be declared as a local. The invisible pieces list would still be necessary because you can't directly remove 
+from a list while looping through it, but it would wrap away this logic that the class doesn't need to know about. 
+
+Update()
+Following that, update would only have to call State.Action(). This is also a rather undescriptive name, but it's defined in a 
+different file, so I'll leave it be.
+
+Move()
+Why does Move() do nothing if the block both implements IMoveable and moves? Since it was inherited higher up as part of trying to keep a 
+uniform interface for blocks, it's fine if move were to do nothing, but the issue is that it actually does move when bumped (or broken, indirectly). 
+The update method could call upon state update and block move with a little refactoring, and then block move could call upon state move. This would 
+fully encapsulate the bouncing and breaking logic in a manner that makes sense, and would probably be much easier to maintain.
+
+Draw()
+The draw method, in this case, could also be handled polymorhpically by the states. Instead of having to check visibility and draw the 
+pieces, the block could simply tell its state to draw, and not worry about what state it's in. 
+
+Bump()
+I like the bump method, it passes all responsibility to its state.
+
+Minutes to Complete: 26 min
+Hypothetical Change to File: Implementing a collision for the block. Let's pretend the udpate method now takes some fraction/percent of how far
+the game should update based on when the next collision is. I think collision would be very difficult to perform right now, because the pieces
+don't collide, but the main game object does. Since there's both a state and the Pieces() method doing work, it's unclear where collision logic
+would go to determine the position of the block, how it should respond, etc. It doesn't help that state just takes an "Action", and pieces does 
+a "Pieces". I think that it would be rather difficult to implement collision on this block with the current setup. Trying to shuffle all the logic
+into the states would probably do wonders for the clarity and extensibility of this class.

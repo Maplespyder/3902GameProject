@@ -1,15 +1,14 @@
-﻿using System;
+﻿using MarioClone.Factories;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MarioClone.Factories;
-using MarioClone.States;
+using System;
+
 
 namespace MarioClone.GameObjects
 {
-    public class GoombaObject : IGameObject, IMoveable
+    public class RedKoopaObject : IGameObject, IMoveable
     {
-
         public Vector2 Position { get; protected set; }
 
         public Vector2 Velocity { get; }
@@ -22,10 +21,10 @@ namespace MarioClone.GameObjects
 
         public EnemySpriteFactory SpriteFactory { get; set; }
 
-        public GoombaObject(Vector2 velocity, Vector2 position)
+        public RedKoopaObject(Vector2 velocity, Vector2 position)
         {
             SpriteFactory = MovingEnemySpriteFactory.Instance;
-            Sprite = SpriteFactory.Create(EnemyType.Goomba);
+            Sprite = SpriteFactory.Create(EnemyType.RedKoopa);
             Velocity = velocity;
             Position = position;
             Visible = true;

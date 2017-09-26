@@ -26,19 +26,9 @@ namespace MarioClone.GameObjects
             Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
         }
 
-        public override void Bounce()
+        public override void Bump()
         {
-            //do nothing
-        }
-
-        public override void Break()
-        {
-            //do nothing
-        }
-
-        public override void BecomeVisible()
-        {
-            //do nothing
+            // do nothing
         }
 
         public override void Move()

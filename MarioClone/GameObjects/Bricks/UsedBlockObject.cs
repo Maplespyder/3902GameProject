@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using System;
+using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,19 +11,10 @@ namespace MarioClone.GameObjects
         {
 
         }
-        public override void BecomeVisible()
-        {
-            //do nothing
-        }
 
-        public override void Bounce()
+        public override void Bump()
         {
-            //do nothing
-        }
-
-        public override void Break()
-        {
-            //do nothing
+            //Do Nothing   
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)

@@ -80,7 +80,8 @@
     <Compile Include="GameObjects\Bricks\StairBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\UsedBlockObject.cs" />
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
-    <Compile Include="GameObjects\Enemies\KoopaObject.cs" />
+    <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
+    <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
     <Compile Include="GameObjects\Coins\CoinObject.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -101,14 +102,13 @@
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
     <Compile Include="Sprites\StaticSprite.cs" />
-    <Compile Include="States\BlockStates\BreakableBrickObject.cs" />
-    <Compile Include="States\BlockStates\BlockStatic.cs" />
-    <Compile Include="States\GoombaState\GoombaDead.cs" />
-    <Compile Include="States\GoombaState\GoombaRun.cs" />
-    <Compile Include="States\GoombaState\GoombaState.cs" />
-    <Compile Include="States\KoopaStates\KoopaDead.cs" />
-    <Compile Include="States\KoopaStates\KoopaRun.cs" />
-    <Compile Include="States\KoopaStates\KoopaState.cs" />
+    <Compile Include="States\BlockStates\BlockState.cs" />
+    <Compile Include="States\BlockStates\BreakableBrickBounce.cs" />
+    <Compile Include="States\BlockStates\BreakableBrickBreak.cs" />
+    <Compile Include="States\BlockStates\BreakableBrickStatic.cs" />
+    <Compile Include="States\BlockStates\QuestionBlockAction.cs" />
+    <Compile Include="States\BlockStates\QuestionBlockStatic.cs" />
+    <Compile Include="States\BlockStates\Used.cs" />
     <Compile Include="States\MarioStates\Action\MarioActionState.cs" />
     <Compile Include="States\MarioStates\Action\MarioCrouch.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle.cs" />
@@ -128,6 +128,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Code Reviews\Code Review Template.txt" />
+    <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 1\JacobCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 1\AnnaCodeReview.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

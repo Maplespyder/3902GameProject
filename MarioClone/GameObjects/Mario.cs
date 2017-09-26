@@ -32,6 +32,8 @@ namespace MarioClone.GameObjects
 
         public MarioActionState ActionState { get; set; }
 
+        public MarioActionState PreviousActionState { get; set; }
+
         public MarioPowerupState PowerupState { get; set; }
 
         public ISprite Sprite { get; set; }
@@ -58,6 +60,8 @@ namespace MarioClone.GameObjects
             _mario = this;
             PowerupState = MarioNormal.Instance;
             ActionState = MarioIdle.Instance;
+            PreviousActionState = MarioIdle.Instance;
+            Orientation = Facing.Right;
             SpriteFactory = NormalMarioSpriteFactory.Instance;
             Sprite = SpriteFactory.Create(MarioAction.Idle);
             Velocity = velocity;
@@ -65,8 +69,6 @@ namespace MarioClone.GameObjects
             Visible = true;
             DrawOrder = 1;
         }
-
-        // action state methods, will likely be linked to commands
 
 		public void MoveLeft()
 		{
@@ -87,8 +89,6 @@ namespace MarioClone.GameObjects
         {
             ActionState.BecomeCrouch();
         }
-
-        // powerup state methods, will likely be linked to commands
 
         public void BecomeDead()
         {

@@ -16,13 +16,13 @@ namespace MarioClone
     /// </summary>
     public class MarioCloneGame : Game
 	{
-		KeyboardController keyboardController = new KeyboardController();
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
         
         static ContentManager _content;
         List<IGameObject> gameObjects;
-        List<AbstractController> controllers;
+        List<GamepadController> gamepads;
+        KeyboardController keyboard;
 
 		public MarioCloneGame()
 		{
@@ -39,7 +39,17 @@ namespace MarioClone
 		/// </summary>
 		protected override void Initialize()
 		{
-            // TODO: Add your initialization logic here
+            keyboard = new KeyboardController();
+
+            gamepads = new List<GamepadController>
+            {
+                new GamepadController(PlayerIndex.One),
+                new GamepadController(PlayerIndex.Two),
+                new GamepadController(PlayerIndex.Three),
+                new GamepadController(PlayerIndex.Four)
+            };
+
+            gameObjects = new List<IGameObject>();
 
 			base.Initialize();
 		}
@@ -50,79 +60,91 @@ namespace MarioClone
 		/// </summary>
 		protected override void LoadContent()
 		{
-			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch(GraphicsDevice);
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			gameObjects = new List<IGameObject>();
-            controllers = new List<AbstractController>();
+            GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
+            GameContent.Load<Texture2D>("Sprites/FireFlower");
+            GameContent.Load<Texture2D>("Sprites/Coin");
+            GameContent.Load<Texture2D>("Sprites/SmallMario");
+            GameContent.Load<Texture2D>("Sprites/BigMario");
+            GameContent.Load<Texture2D>("Sprites/SuperMario");
+            GameContent.Load<Texture2D>("Sprites/AllBlocks");
+            GameContent.Load<Texture2D>("Sprites/Goomba");
+            GameContent.Load<Texture2D>("Sprites/GreenKoopa");
+            GameContent.Load<Texture2D>("Sprites/RedKoopa");        
+        }
 
-           
-            for(int i = 0; i < 4; i++)
-            {
-                controllers.Add(new GamepadController((PlayerIndex)i));
-            }
+        protected override void BeginRun()
+        {
+            keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
+            AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
 
-            foreach (AbstractController c in controllers)
-            {
-                c.AddInputCommand((int)Buttons.Back, new ExitCommand(this));
-            }
-            
-			var mario = MarioFactory.Create(new Vector2(200, 400));
-			keyboardController.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
-			keyboardController.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
-			keyboardController.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
-			keyboardController.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
-			keyboardController.AddInputCommand((int)Keys.W, new JumpCommand(mario));
-			keyboardController.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
-			keyboardController.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
-			keyboardController.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
-			gameObjects.Add(mario);
+            var mario = MarioFactory.Create(new Vector2(200, 100));
 
-			// TODO: use this.Content to load your game content here
+            keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
+            keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
+            keyboard.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
+            keyboard.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
 
-			var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
-			ICommand BrickBumpCommand = new BlockBumpCommand(BrickBlock);
-			keyboardController.AddInputCommand((int)Keys.B, BrickBumpCommand);
-			gameObjects.Add(BrickBlock);
+            keyboard.AddInputCommand((int)Keys.W, new JumpCommand(mario));
+            keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(mario));
+            AddCommandToAllGamepads(Buttons.A, new JumpCommand(mario));
 
-			var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(300,300));
-			ICommand QuestionBumpCommand = new BlockBumpCommand(QuestionBlock);
-			keyboardController.AddInputCommand((int)Keys.X, QuestionBumpCommand);
-			gameObjects.Add(QuestionBlock);
+            keyboard.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
+            keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(mario));
+            AddCommandToAllGamepads(Buttons.DPadLeft, new JumpCommand(mario));
 
-			var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(100, 0));
-			ICommand HiddenBlockCommand = new ShowHiddenBrickCommand(HiddenBlock);
-			keyboardController.AddInputCommand((int)Keys.H, HiddenBlockCommand);
-			gameObjects.Add(HiddenBlock);
+            keyboard.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
+            keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(mario));
+            AddCommandToAllGamepads(Buttons.DPadDown, new JumpCommand(mario));
 
-			var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(0, 100));
-			gameObjects.Add(FloorBlock);
+            keyboard.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
+            keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(mario));
+            AddCommandToAllGamepads(Buttons.DPadRight, new JumpCommand(mario));
 
-			var StairBlock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(40, 100));
-			gameObjects.Add(StairBlock);
+            gameObjects.Add(mario);
 
-			var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(80, 100));
-			gameObjects.Add(UsedBlock);
+            var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
+            keyboard.AddInputCommand((int)Keys.B, new BlockBumpCommand(BrickBlock));
+            gameObjects.Add(BrickBlock);
 
-			var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(140,0));
+            var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(250, 200));
+            keyboard.AddInputCommand((int)Keys.X, new BlockBumpCommand(QuestionBlock));
+            gameObjects.Add(QuestionBlock);
+
+            var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(300, 200));
+            keyboard.AddInputCommand((int)Keys.H, new ShowHiddenBrickCommand(HiddenBlock));
+            gameObjects.Add(HiddenBlock);
+
+            var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(350, 200));
+            gameObjects.Add(FloorBlock);
+
+            var StairBlock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(400, 200));
+            gameObjects.Add(StairBlock);
+
+            var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(450, 200));
+            gameObjects.Add(UsedBlock);
+
+            var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(200, 300));
             gameObjects.Add(goomba);
 
-            var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(180, 0));
-			gameObjects.Add(GreenKoopa);
+            var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(250, 300));
+            gameObjects.Add(GreenKoopa);
 
-            var RedKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(220, 0));
-			gameObjects.Add(RedKoopa);
+            var RedKoopa = EnemyFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(300, 300));
+            gameObjects.Add(RedKoopa);
 
-            var coin = PowerUpFactory.Create(PowerUpType.Coin, new Vector2(300, 20));
+            var coin = PowerUpFactory.Create(PowerUpType.Coin, new Vector2(200, 400));
             gameObjects.Add(coin);
 
-            var flower = PowerUpFactory.Create(PowerUpType.Flower, new Vector2(200, 40));
+            var flower = PowerUpFactory.Create(PowerUpType.Flower, new Vector2(250, 400));
             gameObjects.Add(flower);
 
-            var GreenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(600, 100));
+            var GreenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(300, 400));
             gameObjects.Add(GreenMushroom);
 
-            var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(600, 200));
+            var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(350, 400));
             gameObjects.Add(redMushroom);
         }
 
@@ -145,21 +167,25 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-		
-				keyboardController.UpdateAndExecuteInputs();
-				//gamepadController.UpdateAndExecuteInputs();
-				if (!paused)
-				{
-				List<IGameObject> tempList = new List<IGameObject>();
-				foreach (var obj in gameObjects)
+
+            keyboard.UpdateAndExecuteInputs();
+			foreach(var gamepad in gamepads)
+            {
+                gamepad.UpdateAndExecuteInputs();
+            }
+  
+			if (!paused)
+			{
+                var removed = new List<IGameObject>();
+                foreach (var obj in gameObjects)
 				{
 					if (obj.Update(gameTime))
 					{
-						tempList.Add(obj);
-					}
+                        removed.Add(obj);
+                    }
 				}
 
-				gameObjects.RemoveAll((x) => tempList.Remove(x));
+                gameObjects.RemoveAll(x => removed.Contains(x));
 				base.Update(gameTime);
 			}
 		}
@@ -204,6 +230,14 @@ namespace MarioClone
 		public void ExitCommand()
         {
             Exit();
+        }
+
+        private void AddCommandToAllGamepads(Buttons button, ICommand command)
+        {
+            foreach (var gamepad in gamepads)
+            {
+                gamepad.AddInputCommand((int)button, command);
+            }
         }
     }
 }
