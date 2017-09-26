@@ -72,10 +72,7 @@ namespace MarioClone.GameObjects
             return State.Action() && Pieces(gameTime);
         }
 
-		public override void Move()
-		{
-			// doesn't move
-		}
+		
 
 		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
 		{

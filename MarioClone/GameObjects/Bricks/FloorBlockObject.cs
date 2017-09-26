@@ -31,9 +31,6 @@ namespace MarioClone.GameObjects
             // do nothing
         }
 
-        public override void Move()
-        {
-            //do nothing
-        }
+       
     }
 }

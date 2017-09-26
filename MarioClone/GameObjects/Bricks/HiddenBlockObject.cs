@@ -31,10 +31,6 @@ namespace MarioClone.GameObjects
             }
         }
 
-        public override void Move()
-        {
-            throw new NotImplementedException();
-        }
 
         public override void Bump()
         {

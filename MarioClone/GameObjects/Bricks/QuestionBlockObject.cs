@@ -22,10 +22,7 @@ namespace MarioClone.GameObjects
             }
         }
 
-        public override void Move()
-        {
-            //Nothing
-        }
+   
 
         public override bool Update(GameTime gameTime)
         {
