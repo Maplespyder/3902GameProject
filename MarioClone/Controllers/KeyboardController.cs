@@ -7,6 +7,7 @@ namespace MarioClone.Controllers
 {
     public enum Modifier
     {
+        None = 0,
         LeftShift = Keys.LeftShift,
         RightShift = Keys.RightShift,
         LeftControl = Keys.LeftControl,

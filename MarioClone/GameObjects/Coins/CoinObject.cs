@@ -27,6 +27,7 @@ namespace MarioClone.GameObjects
             Velocity = new Vector2(0, 0);
             Position = position;
             Visible = true;
+            DrawOrder = 1;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
