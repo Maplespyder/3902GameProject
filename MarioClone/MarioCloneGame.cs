@@ -112,7 +112,7 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(mario));
             AddCommandToAllGamepads(Buttons.DPadRight, new JumpCommand(mario));
 
-            gameObjects.Add(mario);
+			gameObjects.Add(mario);
 
             var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
             keyboard.AddInputCommand((int)Keys.B, new BlockBumpCommand(BrickBlock));
@@ -210,6 +210,7 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
+			// Somewhere in your LoadContent() method:
 			if (!paused)
 			{
 				GraphicsDevice.Clear(Color.CornflowerBlue);

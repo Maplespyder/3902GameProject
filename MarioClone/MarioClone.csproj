@@ -83,6 +83,7 @@
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
     <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
     <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
+    <Compile Include="GameObjects\ICollidable.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
     <Compile Include="GameObjects\Coins\CoinObject.cs" />
     <Compile Include="Commands\ICommand.cs" />
