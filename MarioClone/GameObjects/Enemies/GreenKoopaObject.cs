@@ -38,10 +38,7 @@ namespace MarioClone.GameObjects
             }
         }
 
-        public void Move()
-        {
-            throw new NotImplementedException();
-        }
+   
 
         public bool Update(GameTime gameTime)
         {

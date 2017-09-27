@@ -31,10 +31,7 @@ namespace MarioClone.States
 
         // Behavior/actions
 
-        public void Move()
-        {
-            // mario cannot move currently
-        }
+    
 
         public abstract void BecomeWalk(Facing orientation);
         public abstract void BecomeJump();

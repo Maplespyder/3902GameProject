@@ -47,6 +47,7 @@
     <Compile Include="Commands\BecomeFireMarioCommand.cs" />
     <Compile Include="Commands\BecomeSuperMarioCommand.cs" />
     <Compile Include="Commands\CrouchCommand.cs" />
+    <Compile Include="Commands\DummyCommand.cs" />
     <Compile Include="Commands\JumpCommand.cs" />
     <Compile Include="Commands\MoveLeftCommand.cs" />
     <Compile Include="Commands\MoveRightCommand.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
     <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
     <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
+    <Compile Include="GameObjects\ICollidable.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
     <Compile Include="GameObjects\Coins\CoinObject.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -133,7 +135,9 @@
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 1\JacobCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 1\AnnaCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 1\SamCodeReview.txt" />
     <Content Include="Icon.ico" />
+    <Content Include="README.txt" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

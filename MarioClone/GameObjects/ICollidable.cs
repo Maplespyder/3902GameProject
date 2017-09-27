@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace MarioClone.GameObjects
 {
-    public interface IMoveable : IGameObject
-    {
-    
-        Vector2 Velocity { get; }
-    }
+	public interface ICollidable
+	{ 
+		Rectangle BoundingBox { get; }
+
+		int xCoordinate { get; }
+		int yCoordinate { get; }
+		int offSet { get; }
+
+		void UpdateBoundingBox();
+	}
 }
