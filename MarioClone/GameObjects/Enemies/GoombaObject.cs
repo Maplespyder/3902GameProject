@@ -22,11 +22,8 @@ namespace MarioClone.GameObjects
 
         public EnemySpriteFactory SpriteFactory { get; set; }
 
-        public GoombaState State { get; set; }
-
         public GoombaObject(Vector2 velocity, Vector2 position)
         {
-            State = new GoombaRun(this);
             SpriteFactory = MovingEnemySpriteFactory.Instance;
             Sprite = SpriteFactory.Create(EnemyType.Goomba);
             Velocity = velocity;
@@ -34,34 +31,15 @@ namespace MarioClone.GameObjects
             Visible = true;
         }
 
-        /*public void BecomeRunLeft()
-        {
-            State.BecomeRunLeft();
-        }
-
-        public void BecomeRunRight()
-        {
-            State.BecomeRunRight();
-        }
-
-        public void BecomeDead()
-        {
-            State.BecomeDead();
-        }*/
-
-
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
             }
         }
 
-        public void Move()
-        {
-            throw new NotImplementedException();
-        }
+   
 
         public bool Update(GameTime gameTime)
         {

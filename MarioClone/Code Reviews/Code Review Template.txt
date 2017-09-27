@@ -1,0 +1,11 @@
+﻿Code Review Template
+Author of Review: Name
+Date of Review: MM/DD/YY
+File Under Review: class1.cs
+Author(s) of File: Name(s)
+Comments on Code Quality:
+
+
+
+Minutes to Complete: X min
+Hypothetical Change to File:

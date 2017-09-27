@@ -16,11 +16,6 @@ namespace MarioClone.GameObjects
     {
         private static Mario _mario;
 
-        internal void BecomeSuperMario()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Do not instantiate Mario more than once. We have to make Mario before
         /// things that reference him use him, because I can't null check this getter.
@@ -36,6 +31,8 @@ namespace MarioClone.GameObjects
         }
 
         public MarioActionState ActionState { get; set; }
+
+        public MarioActionState PreviousActionState { get; set; }
 
         public MarioPowerupState PowerupState { get; set; }
 
@@ -63,14 +60,15 @@ namespace MarioClone.GameObjects
             _mario = this;
             PowerupState = MarioNormal.Instance;
             ActionState = MarioIdle.Instance;
+            PreviousActionState = MarioIdle.Instance;
+            Orientation = Facing.Right;
             SpriteFactory = NormalMarioSpriteFactory.Instance;
             Sprite = SpriteFactory.Create(MarioAction.Idle);
             Velocity = velocity;
             Position = position;
             Visible = true;
+            DrawOrder = 1;
         }
-
-        // action state methods, will likely be linked to commands
 
 		public void MoveLeft()
 		{
@@ -91,8 +89,6 @@ namespace MarioClone.GameObjects
         {
             ActionState.BecomeCrouch();
         }
-
-        // powerup state methods, will likely be linked to commands
 
         public void BecomeDead()
         {
@@ -124,13 +120,10 @@ namespace MarioClone.GameObjects
         {
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Orientation);
             }           
         }
 
-        public void Move()
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

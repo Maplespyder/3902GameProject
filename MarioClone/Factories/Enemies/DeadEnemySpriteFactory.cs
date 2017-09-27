@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Factories.Enemies
 {
-    class DeadEnemySpriteFactory : EnemySpriteFactory
+    public class DeadEnemySpriteFactory : EnemySpriteFactory
     {
         static DeadEnemySpriteFactory _factory;
         public static DeadEnemySpriteFactory Instance
@@ -23,6 +23,8 @@ namespace MarioClone.Factories.Enemies
                 return _factory;
             }
         }
+
+        private DeadEnemySpriteFactory() { }
 
         /// <summary>
         /// do not call for koopas, the dead koopa sprite sheet doesn't exist yet

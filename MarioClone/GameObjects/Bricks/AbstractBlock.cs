@@ -1,4 +1,5 @@
 ﻿using MarioClone.Sprites;
+using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,21 +8,20 @@ namespace MarioClone.GameObjects
     public abstract class AbstractBlock : IGameObject, IMoveable
     {
 
-        protected AbstractBlock(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder)
+        protected AbstractBlock(ISprite sprite, Vector2 position, int drawOrder)
         {
             Sprite = sprite;
-            Velocity = velocity;
+            Velocity = new Vector2(0,0);
             Position = position;
             Visible = true;
             DrawOrder = drawOrder;
         }
-        public abstract void Bounce();
 
-        public abstract void Break();
+        public abstract void Bump();
 
-        public abstract void BecomeVisible();
+        public BlockState State { get; set; }
 
-        public Vector2 Position { get; protected set; }
+        public Vector2 Position { get; set; }
 
         public Vector2 Velocity { get; protected set; }
 
@@ -29,9 +29,7 @@ namespace MarioClone.GameObjects
 
         public bool Visible { get; protected set; }
 
-        public ISprite Sprite { get; protected set; }
-
-        public abstract void Move();
+        public ISprite Sprite { get; set; }
 
         public abstract void Draw(SpriteBatch spriteBatch,  GameTime gameTime);
 

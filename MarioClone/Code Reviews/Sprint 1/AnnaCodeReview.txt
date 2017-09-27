@@ -1,0 +1,53 @@
+﻿
+Author of Review: Anna Wolfe
+Date of Review: 09/25/17
+File Under Review: MovingEnemySpriteFactory.cs
+Author(s) of File: Anna Wolfe, Allie Jett, Jacob Crabtree, Sam Trabitz
+Comments on Code Quality: 
+
+This class makes good use of inheriting from the EnemySpriteFactory. 
+
+However, within the create method I don't think it is the cleanest to load the texture within the arguments of the new MovingEnemySprite that we are returning.
+I think it would be better to have a variable that  we can pass as an argument instead. Unless, we are trying to minimize the number of lines of code, then this option 
+would be better.
+
+
+Minutes to Complete: 5 min
+Hypothetical Change to File: I suggest we declare a Texture for each that we are passing in and load the texture outside of the new MovingEnemySprite,
+for example we can call one tetxure redGoomba, and then we can pass the redGoomba texture in. 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Author of Review: Anna Wolfe
+Date of Review: 09/25/17
+File Under Review: CoinBrickObject.cs
+Author(s) of File: Anna Wolfe, Allie Jett, Jacob Crabtree, Sam Trabitz
+Comments on Code Quality: 
+
+The constructor uses inheritance from the base constructor which is definitely good.
+
+Looking back on the GameObjects, our initial idea was that the Bricks/Blocks should inherit IMoveable; however; most of the bricks/blocks aren't even using it.
+So I think it may be best if we take the move method out of the classes that do not need it and change the inheritance to match that. Or another solution would be to call upon the states within
+the move method. 
+
+Within the BecomeUsed() method I am a little confused as to why the implementation is commented out. 
+There might be something that I am missing here but it is clearly stated in the Execute() method that this sprint needs this funcitonality. The Execute() method is currently
+calling the BecomeUsed() that does not appear to have any sort of implementation, thus this needs fixed. 
+
+Minutes to Complete: 10 min
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Author of Review: Anna Wolfe
+Date of Review: 09/25/17
+File Under Review: GamepadController.cs
+Author(s) of File: Anna Wolfe, Allie Jett, Jacob Crabtree, Sam Trabitz
+Comments on Code Quality: 
+
+Something little that I noticed was that the ICommand command declaration inside the foreach within the UpdateAndExecute() method can be inlined for better practices.
+It is a very subtle change; however, it would result in better code quality. 
+
+
+Minutes to Complete: 5 min
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+

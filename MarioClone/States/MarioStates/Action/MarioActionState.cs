@@ -20,7 +20,9 @@ namespace MarioClone.States
 
         protected Mario Context { get; set; }
 
-        public MarioActionState(Mario context)
+        protected MarioAction LastState { get; set; }
+
+        protected MarioActionState(Mario context)
         {
             Context = context;
         }
@@ -29,10 +31,7 @@ namespace MarioClone.States
 
         // Behavior/actions
 
-        public void Move()
-        {
-            // mario cannot move currently
-        }
+    
 
         public abstract void BecomeWalk(Facing orientation);
         public abstract void BecomeJump();

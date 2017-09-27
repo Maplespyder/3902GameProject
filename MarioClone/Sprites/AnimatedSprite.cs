@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MarioClone.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.Sprites
 {
     class AnimatedSprite : Sprite
     {
-
-        protected int FrameCounter { get; set; }
 
         protected int CurrentFrame { get; set; }
 
@@ -25,7 +24,6 @@ namespace MarioClone.Sprites
             base(spriteSheet, sourceRectangle)
         {
 			timePerFrame = (1000 / fps);
-            FrameCounter = 0;
             StartFrame = startFrame;
             EndFrame = endFrame;
             CurrentFrame = startFrame;
@@ -59,10 +57,10 @@ namespace MarioClone.Sprites
 
 		}
 
-        public override void Draw(SpriteBatch batch, Vector2 position, float layer, GameTime gameTime)
+        public override void Draw(SpriteBatch batch, Vector2 position, float layer, GameTime gameTime, Facing facing)
         {
             Update(gameTime);
-            base.Draw(batch, position, layer, gameTime);
+            base.Draw(batch, position, layer, gameTime, facing);
         }
     }
 }

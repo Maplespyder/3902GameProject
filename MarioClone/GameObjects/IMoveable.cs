@@ -9,7 +9,6 @@ namespace MarioClone.GameObjects
 {
     public interface IMoveable : IGameObject
     {
-        void Move();
     
         Vector2 Velocity { get; }
     }

@@ -1,5 +1,6 @@
 ﻿using MarioClone.Factories;
 using MarioClone.Sprites;
+using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,48 +13,30 @@ namespace MarioClone.GameObjects
 	{
 		private List<IGameObject> PieceList = new List<IGameObject>();
 		List<BrickPieceObject> InVisiblePieces = new List<BrickPieceObject>();
-		private Vector2 initialPosition;
 
-		//THIS IS A TEMPORARY STATE UNTIL REAL STATES ARE MADE//
-		public enum State
-		{
-			Bounce,
-			Break,
-			Pieces,
-			Static
-		}
-		private State state = State.Static;
-
-        public BreakableBrickObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base( sprite, velocity, position, drawOrder)
+        public BreakableBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base( sprite, position, drawOrder)
         {
-            initialPosition = position;
+            State = new BreakableBrickStatic(this);
         }
 
-        public override void Break()
+        public void Break()
         {
-			//TODO: Have the Brick cease drawing & create 4 nuggets
-			//Create nuggets 
-			List<Vector2> velocityList = new List<Vector2>();
-			velocityList.Add(new Vector2(1, 2));
-			velocityList.Add(new Vector2(-1, 2));
-			velocityList.Add(new Vector2(-2, 1));
-			velocityList.Add(new Vector2(2, 1));
+            Visible = false;
+            List<Vector2> velocityList = new List<Vector2>
+            {
+                new Vector2(1, 0),
+                new Vector2(-1, 0),
+                new Vector2(-2, 0),
+                new Vector2(2, 0)
+            };
 
-			for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
 			{
 				var piece = (BrickPieceObject)BlockFactory.Instance.Create(BlockType.BrickPiece, Position); 
 				PieceList.Add(piece);
 				piece.ChangeVelocity(velocityList[i]);
 			}
-			state = State.Pieces;
         }
-		public override void Bounce()
-		{
-			if(Position.Y < (initialPosition.Y + ((initialPosition.Y) / 2f)))
-			{
-				Position = new Vector2(Position.X, Position.Y + .1f); //Movement speed will need be tested
-			}
-		}
 
 		public bool Pieces(GameTime gameTime)
 		{
@@ -86,50 +69,25 @@ namespace MarioClone.GameObjects
 
 		public override bool Update(GameTime gameTime)
         {
-            bool disposeMe = false;
-			//If state bounce, call bounce()
-			if (state.Equals(State.Bounce))
-			{
-				Bounce();
-			}
-			else if (state.Equals(State.Break))
-			{
-				Break();
-			}
-            else if (state.Equals(State.Pieces))
-			{
-                if(Pieces(gameTime))
-                {
-                    disposeMe = true;
-                }
-			}
-
-            return disposeMe;
+            return State.Action() && Pieces(gameTime);
         }
 
-		public override void Move()
-		{
-			throw new NotImplementedException();
-		}
+		
 
 		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
 		{
-			if (state.Equals(State.Static) || state.Equals(State.Bounce)) //draw if bounce or static 
+            if (Visible)
+            {
+                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
+            }
+			foreach (BrickPieceObject piece in PieceList)
 			{
-				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
-			}
-			else if(state.Equals(State.Pieces)) 
-			{
-				foreach (BrickPieceObject piece in PieceList)
-				{
-					piece.Draw(spriteBatch,  gameTime);
-				}
+				piece.Draw(spriteBatch,  gameTime);
 			}
 		}
-
-        public override void BecomeVisible()
+        public override void Bump()
         {
-            //do nothing
+            State.Bump();
         }
     }
 }

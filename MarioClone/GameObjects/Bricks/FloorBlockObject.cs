@@ -11,7 +11,7 @@ namespace MarioClone.GameObjects
 {
     public class FloorBlockObject : AbstractBlock
     {
-        public FloorBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+        public FloorBlockObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
         {
      
         }
@@ -23,27 +23,14 @@ namespace MarioClone.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
+            Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
         }
 
-        public override void Bounce()
+        public override void Bump()
         {
-            //do nothing
+            // do nothing
         }
 
-        public override void Break()
-        {
-            //do nothing
-        }
-
-        public override void BecomeVisible()
-        {
-            //do nothing
-        }
-
-        public override void Move()
-        {
-            //do nothing
-        }
+       
     }
 }

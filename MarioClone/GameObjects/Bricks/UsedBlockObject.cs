@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using System;
+using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,37 +7,25 @@ namespace MarioClone.GameObjects
 {
     public class UsedBlockObject : AbstractBlock
     {
-        public UsedBlockObject(ISprite sprite, Vector2 velocity, Vector2 position, int drawOrder) : base(sprite, velocity, position, drawOrder)
+        public UsedBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
         {
 
         }
-        public override void BecomeVisible()
-        {
-            //do nothing
-        }
 
-        public override void Bounce()
+        public override void Bump()
         {
-            //do nothing
-        }
-
-        public override void Break()
-        {
-            //do nothing
+            //Do Nothing   
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime);
+                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
             }
         }
 
-        public override void Move()
-        {
-            //do nothing
-        }
+    
 
         public override bool Update(GameTime gameTime)
         {

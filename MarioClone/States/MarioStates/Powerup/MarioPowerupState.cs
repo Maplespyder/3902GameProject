@@ -21,7 +21,7 @@ namespace MarioClone.States
 
         protected Mario Context { get; set; }
 
-        public MarioPowerupState(Mario context)
+        protected MarioPowerupState(Mario context)
         {
             Context = context;
         }

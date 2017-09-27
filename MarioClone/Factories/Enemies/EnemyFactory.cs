@@ -39,9 +39,9 @@ namespace MarioClone.Factories
                 case EnemyType.Goomba:
                     return new GoombaObject(velocity, position);
                 case EnemyType.GreenKoopa:
-                    return new KoopaObject(velocity, position);
+                    return new GreenKoopaObject(velocity, position);
                 case EnemyType.RedKoopa:
-                    return new KoopaObject(velocity, position);
+                    return new RedKoopaObject(velocity, position);
                 default:
                     return new GoombaObject(velocity, position);
             }

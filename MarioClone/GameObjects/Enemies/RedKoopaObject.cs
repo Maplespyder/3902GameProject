@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.Factories;
+using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -6,8 +7,8 @@ using System;
 
 namespace MarioClone.GameObjects
 {
-	public class GreenMushroomObject : IGameObject, IMoveable
-	{
+    public class RedKoopaObject : IGameObject, IMoveable
+    {
         public Vector2 Position { get; protected set; }
 
         public Vector2 Velocity { get; }
@@ -16,12 +17,15 @@ namespace MarioClone.GameObjects
 
         public bool Visible { get; protected set; }
 
-        public ISprite Sprite { get; protected set; }
+        public ISprite Sprite { get; set; }
 
-        public GreenMushroomObject(ISprite sprite, Vector2 position)
+        public EnemySpriteFactory SpriteFactory { get; set; }
+
+        public RedKoopaObject(Vector2 velocity, Vector2 position)
         {
-            Sprite = sprite;
-            Velocity = new Vector2(0, 0);
+            SpriteFactory = MovingEnemySpriteFactory.Instance;
+            Sprite = SpriteFactory.Create(EnemyType.RedKoopa);
+            Velocity = velocity;
             Position = position;
             Visible = true;
         }
@@ -34,11 +38,11 @@ namespace MarioClone.GameObjects
             }
         }
 
-     
+    
 
         public bool Update(GameTime gameTime)
         {
-			return false;
+            return false;
         }
     }
 }
