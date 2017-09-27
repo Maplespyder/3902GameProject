@@ -78,28 +78,37 @@ namespace MarioClone
         protected override void BeginRun()
         {
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
-
+            
             var mario = MarioFactory.Create(new Vector2(200, 100));
 
             keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(mario));
             keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Y, new BecomeNormalMarioCommand(mario));
             keyboard.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.I, new BecomeFireMarioCommand(mario));
             keyboard.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(mario));
 
             keyboard.AddInputCommand((int)Keys.W, new JumpCommand(mario));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(mario));
             keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(mario));
             AddCommandToAllGamepads(Buttons.A, new JumpCommand(mario));
 
             keyboard.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(mario));
             keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(mario));
             AddCommandToAllGamepads(Buttons.DPadLeft, new JumpCommand(mario));
 
             keyboard.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(mario));
             keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(mario));
             AddCommandToAllGamepads(Buttons.DPadDown, new JumpCommand(mario));
 
             keyboard.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(mario));
             keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(mario));
             AddCommandToAllGamepads(Buttons.DPadRight, new JumpCommand(mario));
 
@@ -107,14 +116,17 @@ namespace MarioClone
 
             var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
             keyboard.AddInputCommand((int)Keys.B, new BlockBumpCommand(BrickBlock));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new BlockBumpCommand(BrickBlock));
             gameObjects.Add(BrickBlock);
 
             var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(250, 200));
-            keyboard.AddInputCommand((int)Keys.X, new BlockBumpCommand(QuestionBlock));
+            keyboard.AddInputCommand((int)Keys.OemQuestion, new BlockBumpCommand(QuestionBlock));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.OemQuestion, new BlockBumpCommand(QuestionBlock));
             gameObjects.Add(QuestionBlock);
 
             var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(300, 200));
             keyboard.AddInputCommand((int)Keys.H, new ShowHiddenBrickCommand(HiddenBlock));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.H, new ShowHiddenBrickCommand(HiddenBlock));
             gameObjects.Add(HiddenBlock);
 
             var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(350, 200));
@@ -124,6 +136,8 @@ namespace MarioClone
             gameObjects.Add(StairBlock);
 
             var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(450, 200));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.X, new BlockBumpCommand(UsedBlock));
+            keyboard.AddInputCommand((int)Keys.X, new BlockBumpCommand(UsedBlock));
             gameObjects.Add(UsedBlock);
 
             var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(200, 300));
