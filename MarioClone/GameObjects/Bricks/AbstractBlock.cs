@@ -31,8 +31,6 @@ namespace MarioClone.GameObjects
 
         public ISprite Sprite { get; set; }
 
-        public abstract void Move();
-
         public abstract void Draw(SpriteBatch spriteBatch,  GameTime gameTime);
 
         public abstract bool Update(GameTime gameTime);

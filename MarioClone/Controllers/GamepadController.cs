@@ -19,6 +19,16 @@ namespace MarioClone.Controllers
             }
         }
 
+        public override bool AddInputChord(int modifier, int input, ICommand command)
+        {
+            return true;
+        }
+
+        public override bool RemoveInputChord(int modifier, int input)
+        {
+            return true;
+        }
+
         /// <summary>
         /// Executes the commands associated with all gamepad inputs received
         /// since this method was last called, if the gamepad is connected.
@@ -27,22 +37,28 @@ namespace MarioClone.Controllers
         {
             GamePadState currentState = GamePad.GetState(PlayerIndex.One);
 
-            if (currentState.IsConnected)
+            if (currentState.IsButtonDown(Buttons.Start)) 
             {
-                Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+                MarioCloneGame.Paused = !MarioCloneGame.Paused;
+            }
 
-                foreach (Buttons button in buttonList)
+            if (!MarioCloneGame.Paused)
+            {
+                if (currentState.IsConnected)
                 {
-                    if (lastState.IsButtonUp(button) && currentState.IsButtonDown(button))
+                    Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+                    foreach (Buttons button in buttonList)
                     {
-                        if (InputToCommandMap.TryGetValue((int)(button), out ICommand command))
+                        if (lastState.IsButtonUp(button) && currentState.IsButtonDown(button))
                         {
-                            command.InvokeCommand();
+                            if (InputToCommandMap.TryGetValue((int)(button), out ICommand command))
+                            {
+                                command.InvokeCommand();
+                            }
                         }
                     }
                 }
             }
-
             lastState = currentState;
         }
     }

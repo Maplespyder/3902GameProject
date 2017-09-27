@@ -124,9 +124,6 @@ namespace MarioClone.GameObjects
             }           
         }
 
-        public void Move()
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

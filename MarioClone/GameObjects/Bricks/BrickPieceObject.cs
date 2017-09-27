@@ -32,7 +32,7 @@ namespace MarioClone.GameObjects
 			Velocity = velocity;
 		}
 
-		public override void Move()
+		private void Move()
 		{
 			//Movement will also need to be tested and likely refactored late
 				Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);

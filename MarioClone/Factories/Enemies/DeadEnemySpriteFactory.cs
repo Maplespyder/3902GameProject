@@ -24,6 +24,8 @@ namespace MarioClone.Factories.Enemies
             }
         }
 
+        private DeadEnemySpriteFactory() { }
+
         /// <summary>
         /// do not call for koopas, the dead koopa sprite sheet doesn't exist yet
         /// </summary>

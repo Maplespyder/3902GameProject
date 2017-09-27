@@ -28,20 +28,6 @@ namespace MarioClone.GameObjects
             Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
         }
 
-    
-
-        public void Execute()
-        {
-            //For this sprint, the question block only needs to become used 
-            BecomeUsed();
-        }
-
-        public void BecomeUsed()
-        {
-            //UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, Position);
-            //state = State.Used;
-        }
-
         public override bool Update(GameTime gameTime)
         {
             return false;
