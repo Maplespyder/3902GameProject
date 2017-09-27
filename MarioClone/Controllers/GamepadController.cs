@@ -51,8 +51,7 @@ namespace MarioClone.Controllers
                     {
                         if (lastState.IsButtonUp(button) && currentState.IsButtonDown(button))
                         {
-                            ICommand command;
-                            if (InputToCommandMap.TryGetValue((int)(button), out command))
+                            if (InputToCommandMap.TryGetValue((int)(button), out ICommand command))
                             {
                                 command.InvokeCommand();
                             }

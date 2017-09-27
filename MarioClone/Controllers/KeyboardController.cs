@@ -88,12 +88,11 @@ namespace MarioClone.Controllers
                     {
                         if (currentState.IsKeyDown((Keys)mod))
                         {
-                            Dictionary<int, ICommand> temp;
 
                             //if a modifier is being held, it should block other kinds of commands
                             //this guarantees that the null check fails when it tries to run a regular command
                             command = new DummyCommand(new DummyClass());
-                            if (inputChordToCommandMap.TryGetValue((int)mod, out temp))
+                            if (inputChordToCommandMap.TryGetValue((int)mod, out Dictionary<int, ICommand> temp))
                             {
                                 if (temp.TryGetValue((int)key, out command))
                                 {
