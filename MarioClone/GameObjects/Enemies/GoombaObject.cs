@@ -33,6 +33,7 @@ namespace MarioClone.GameObjects
             Velocity = velocity;
             Position = position;
             Visible = true;
+			offSet = 4;
 
         }
 
@@ -40,14 +41,14 @@ namespace MarioClone.GameObjects
         {
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
 			}
         }
 
 		public void UpdateBoundingBox()
 		{
-			BoundingBox = new Rectangle((int)Position.X + offSet, (int)Position.Y + offSet, Sprite.SourceRectangle.Width - 2 * offSet, 
-				Sprite.SourceRectangle.Height - 2 * offSet);
+			BoundingBox = new Rectangle((int)Position.X + offSet, (int)Position.Y + offSet, Sprite.SourceRectangle.Width - (2* offSet), 
+				Sprite.SourceRectangle.Height - (2 * offSet));
 		}
    
         public bool Update(GameTime gameTime)

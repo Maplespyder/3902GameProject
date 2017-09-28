@@ -9,7 +9,8 @@ namespace MarioClone.GameObjects
 {
     public class QuestionBlockObject : AbstractBlock
 	{
-        public QuestionBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
+
+		public QuestionBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
         {
             State = new QuestionBlockStatic(this);
         }
@@ -19,13 +20,13 @@ namespace MarioClone.GameObjects
             if (Visible)
             {
                 Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
+
             }
         }
 
-   
-
-        public override bool Update(GameTime gameTime)
+		public override bool Update(GameTime gameTime)
         {
+			UpdateBoundingBox();
 			return State.Action();
         }
 

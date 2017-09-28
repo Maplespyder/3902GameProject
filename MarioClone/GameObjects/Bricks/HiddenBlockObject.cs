@@ -13,12 +13,14 @@ namespace MarioClone.GameObjects
 {
     public class HiddenBrickObject : AbstractBlock
     {
-        public HiddenBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
+
+		public HiddenBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
         {
             Visible = false;
+			UpdateBoundingBox();
         }
 
-        public override bool Update(GameTime gameTime)
+		public override bool Update(GameTime gameTime)
         {
             return false;
         }
@@ -28,6 +30,7 @@ namespace MarioClone.GameObjects
             if (Visible)
             {
                 Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+
             }
         }
 

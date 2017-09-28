@@ -7,9 +7,9 @@ namespace MarioClone.GameObjects
 {
     public class UsedBlockObject : AbstractBlock
     {
-        public UsedBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
+		public UsedBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
         {
-
+			UpdateBoundingBox();
         }
 
         public override void Bump()
@@ -25,9 +25,7 @@ namespace MarioClone.GameObjects
             }
         }
 
-    
-
-        public override bool Update(GameTime gameTime)
+		public override bool Update(GameTime gameTime)
         {
             return false;
         }

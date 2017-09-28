@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 namespace MarioClone.GameObjects
 {
     public class FloorBlockObject : AbstractBlock
-    {
-        public FloorBlockObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
+	{ 
+
+		public FloorBlockObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
         {
-     
+			UpdateBoundingBox();
         }
 
-        public override bool Update(GameTime gameTime)
+		public override bool Update(GameTime gameTime)
         {
             return false;
         }

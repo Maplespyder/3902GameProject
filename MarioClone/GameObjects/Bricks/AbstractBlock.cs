@@ -16,12 +16,18 @@ namespace MarioClone.GameObjects
             Visible = true;
             DrawOrder = drawOrder;
         }
+		public void UpdateBoundingBox()
+		{
+			BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, Sprite.SourceRectangle.Width,
+				Sprite.SourceRectangle.Height);
+		}
 
-        public abstract void Bump();
+		public abstract void Bump();
 
         public BlockState State { get; set; }
+		public Rectangle BoundingBox { get; protected set; }
 
-        public Vector2 Position { get; set; }
+		public Vector2 Position { get; set; }
 
         public Vector2 Velocity { get; protected set; }
 

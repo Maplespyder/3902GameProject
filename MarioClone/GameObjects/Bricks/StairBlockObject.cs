@@ -11,9 +11,10 @@ namespace MarioClone.GameObjects
 {
     public class StairBlockObject : AbstractBlock
     {
-        public StairBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
-        {
 
+		public StairBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
+        {
+			UpdateBoundingBox();
         }
 
         public override bool Update(GameTime gameTime)
@@ -21,9 +22,10 @@ namespace MarioClone.GameObjects
             return false;
         }
 
-        public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
+		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
         {
             Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+
         }
 
         public override void Bump()
