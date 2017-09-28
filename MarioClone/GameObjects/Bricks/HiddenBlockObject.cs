@@ -17,7 +17,6 @@ namespace MarioClone.GameObjects
 		public HiddenBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
         {
             Visible = false;
-			UpdateBoundingBox();
         }
 
 		public override bool Update(GameTime gameTime)

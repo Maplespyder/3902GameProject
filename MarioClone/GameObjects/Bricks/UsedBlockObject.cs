@@ -9,7 +9,6 @@ namespace MarioClone.GameObjects
     {
 		public UsedBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
         {
-			UpdateBoundingBox();
         }
 
         public override void Bump()

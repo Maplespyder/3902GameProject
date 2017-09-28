@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.Collision;
+using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +10,7 @@ namespace MarioClone.GameObjects
 	public class GreenMushroomObject : IGameObject, IMoveable
 	{
         public Vector2 Position { get; protected set; }
-		public Rectangle BoundingBox { get; protected set; }
+		public HitBox BoundingBox { get; protected set; }
 
 		public Vector2 Velocity { get; }
 
@@ -19,14 +20,13 @@ namespace MarioClone.GameObjects
 
         public ISprite Sprite { get; protected set; }
 
-		private int offSet = 0;
-
         public GreenMushroomObject(ISprite sprite, Vector2 position)
         {
             Sprite = sprite;
             Velocity = new Vector2(0, 0);
             Position = position;
             Visible = true;
+			BoundingBox = new HitBox(0, 0);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -37,15 +37,10 @@ namespace MarioClone.GameObjects
 			}
         }
 
-		public void UpdateBoundingBox()
-		{
-			BoundingBox = new Rectangle((int)Position.X - offSet, (int)Position.Y - offSet, Sprite.SourceRectangle.Width + (2 * offSet),
-				Sprite.SourceRectangle.Height + (2 * offSet));
-		}
 
 		public bool Update(GameTime gameTime)
         {
-			UpdateBoundingBox();
+			BoundingBox.UpdateHitBox(Position, Sprite);
 			return false;
         }
     }

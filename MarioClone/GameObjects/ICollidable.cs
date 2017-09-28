@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MarioClone.Collision;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,6 @@ namespace MarioClone.GameObjects
 {
 	public interface ICollidable
 	{ 
-		Rectangle BoundingBox { get; }
-
-		void UpdateBoundingBox();
+		HitBox BoundingBox { get; }
 	}
 }

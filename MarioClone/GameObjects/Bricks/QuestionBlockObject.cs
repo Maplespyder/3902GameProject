@@ -26,7 +26,7 @@ namespace MarioClone.GameObjects
 
 		public override bool Update(GameTime gameTime)
         {
-			UpdateBoundingBox();
+			BoundingBox.UpdateHitBox(Position, Sprite);
 			return State.Action();
         }
 

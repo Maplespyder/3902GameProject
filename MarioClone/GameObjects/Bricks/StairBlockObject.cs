@@ -14,7 +14,6 @@ namespace MarioClone.GameObjects
 
 		public StairBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
         {
-			UpdateBoundingBox();
         }
 
         public override bool Update(GameTime gameTime)

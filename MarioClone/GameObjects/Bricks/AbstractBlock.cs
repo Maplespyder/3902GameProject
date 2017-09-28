@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.Collision;
+using MarioClone.Sprites;
 using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,17 +16,13 @@ namespace MarioClone.GameObjects
             Position = position;
             Visible = true;
             DrawOrder = drawOrder;
+			BoundingBox = new HitBox(0, 0);
         }
-		public void UpdateBoundingBox()
-		{
-			BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, Sprite.SourceRectangle.Width,
-				Sprite.SourceRectangle.Height);
-		}
 
 		public abstract void Bump();
 
         public BlockState State { get; set; }
-		public Rectangle BoundingBox { get; protected set; }
+		public HitBox BoundingBox { get; protected set; }
 
 		public Vector2 Position { get; set; }
 

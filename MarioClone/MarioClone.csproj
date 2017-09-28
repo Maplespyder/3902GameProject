@@ -44,6 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Collision\GameGrid.cs" />
+    <Compile Include="Collision\HitBox.cs" />
     <Compile Include="Commands\BecomeFireMarioCommand.cs" />
     <Compile Include="Commands\BecomeSuperMarioCommand.cs" />
     <Compile Include="Commands\CrouchCommand.cs" />

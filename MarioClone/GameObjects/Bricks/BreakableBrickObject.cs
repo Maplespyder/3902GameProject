@@ -70,8 +70,8 @@ namespace MarioClone.GameObjects
 
 		public override bool Update(GameTime gameTime)
         {
-			UpdateBoundingBox();
-            return State.Action() && Pieces(gameTime);
+			BoundingBox.UpdateHitBox(Position, Sprite);
+			return State.Action() && Pieces(gameTime);
         }
 
 		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
