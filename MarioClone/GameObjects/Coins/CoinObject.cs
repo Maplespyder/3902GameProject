@@ -20,14 +20,18 @@ namespace MarioClone.GameObjects
         public bool Visible { get; protected set; }
 
         public Vector2 Velocity { get; protected set; }
+		public Rectangle BoundingBox { get; protected set; }
 
-        public CoinObject(ISprite sprite, Vector2 position)
+		private int offSet = 0;
+
+		public CoinObject(ISprite sprite, Vector2 position)
         {
             Sprite = sprite;
             Velocity = new Vector2(0, 0);
             Position = position;
             Visible = true;
             DrawOrder = 1;
+			UpdateBoundingBox();
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -37,10 +41,13 @@ namespace MarioClone.GameObjects
                 Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
             }
         }
+		public void UpdateBoundingBox()
+		{
+			BoundingBox = new Rectangle((int)Position.X - offSet, (int)Position.Y - offSet, Sprite.SourceRectangle.Width + (2 * offSet),
+				Sprite.SourceRectangle.Height + (2 * offSet));
+		}
 
-    
-
-        public bool Update(GameTime gameTime)
+		public bool Update(GameTime gameTime)
         {
             return false;
         }
