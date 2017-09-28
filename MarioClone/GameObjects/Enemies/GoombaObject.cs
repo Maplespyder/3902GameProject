@@ -25,8 +25,6 @@ namespace MarioClone.GameObjects
 		public Rectangle BoundingBox { get; protected set; }
 
 		public int offSet { get; protected set; } //determines offSet to shrink bounding box by
-		public int xCoordinate { get; protected set; }
-		public int yCoordinate { get; protected set; }
 
 		public GoombaObject(Vector2 velocity, Vector2 position)
         {
@@ -48,9 +46,8 @@ namespace MarioClone.GameObjects
 
 		public void UpdateBoundingBox()
 		{
-			xCoordinate = (int)Position.X + offSet;
-			yCoordinate = (int)Position.Y + offSet;
-			BoundingBox = new Rectangle(xCoordinate, yCoordinate, Sprite.SourceRectangle.Width - 2 * offSet, Sprite.SourceRectangle.Height - 2 * offSet);
+			BoundingBox = new Rectangle((int)Position.X + offSet, (int)Position.Y + offSet, Sprite.SourceRectangle.Width - 2 * offSet, 
+				Sprite.SourceRectangle.Height - 2 * offSet);
 		}
    
         public bool Update(GameTime gameTime)

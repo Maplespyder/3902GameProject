@@ -11,8 +11,6 @@ namespace MarioClone.GameObjects
 	{ 
 		Rectangle BoundingBox { get; }
 
-		int xCoordinate { get; }
-		int yCoordinate { get; }
 		int offSet { get; }
 
 		void UpdateBoundingBox();
