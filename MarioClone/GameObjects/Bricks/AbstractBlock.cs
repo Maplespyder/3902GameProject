@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.GameObjects
 {
-    public abstract class AbstractBlock : IGameObject, IMoveable
+    public abstract class AbstractBlock : IGameObject, IMoveable, ICollidable
     {
 
         protected AbstractBlock(ISprite sprite, Vector2 position, int drawOrder)
@@ -16,12 +16,13 @@ namespace MarioClone.GameObjects
             Position = position;
             Visible = true;
             DrawOrder = drawOrder;
-			BoundingBox = new HitBox(0, 0);
+			BoundingBox = new HitBox(0, 0, Color.Blue);
         }
 
 		public abstract void Bump();
 
         public BlockState State { get; set; }
+
 		public HitBox BoundingBox { get; protected set; }
 
 		public Vector2 Position { get; set; }

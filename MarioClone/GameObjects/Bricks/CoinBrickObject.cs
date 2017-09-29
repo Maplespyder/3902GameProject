@@ -26,10 +26,12 @@ namespace MarioClone.GameObjects
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+            BoundingBox.HitBoxDraw(spriteBatch);
         }
 
         public override bool Update(GameTime gameTime)
         {
+            BoundingBox.UpdateHitBox(Position, Sprite);
             return false;
         }
     }

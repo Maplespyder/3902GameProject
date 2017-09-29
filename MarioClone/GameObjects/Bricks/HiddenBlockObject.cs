@@ -21,6 +21,7 @@ namespace MarioClone.GameObjects
 
 		public override bool Update(GameTime gameTime)
         {
+            BoundingBox.UpdateHitBox(Position, Sprite);
             return false;
         }
 
@@ -29,6 +30,7 @@ namespace MarioClone.GameObjects
             if (Visible)
             {
                 Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+                BoundingBox.HitBoxDraw(spriteBatch);
 
             }
         }

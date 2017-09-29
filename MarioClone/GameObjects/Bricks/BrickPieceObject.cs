@@ -45,7 +45,8 @@ namespace MarioClone.GameObjects
 			if (Visible)
 			{
 				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
-			}
+                BoundingBox.HitBoxDraw(spriteBatch);
+            }
 		}
 
         public override void Bump()

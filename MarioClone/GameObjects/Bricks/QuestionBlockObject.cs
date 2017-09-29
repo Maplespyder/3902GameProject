@@ -20,6 +20,7 @@ namespace MarioClone.GameObjects
             if (Visible)
             {
                 Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
+                BoundingBox.HitBoxDraw(spriteBatch);
 
             }
         }

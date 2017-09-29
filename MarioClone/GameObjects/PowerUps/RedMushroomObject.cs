@@ -26,7 +26,7 @@ namespace MarioClone.GameObjects
             Velocity = new Vector2(0, 0);
             Position = position;
             Visible = true;
-			BoundingBox = new HitBox(0, 0);
+			BoundingBox = new HitBox(0, 0, Color.Green);
         }
 
 
@@ -34,7 +34,8 @@ namespace MarioClone.GameObjects
         {
             if (Visible)
             {
-				Texture2D dummyTexture = new Texture2D(MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice, 1, 1);
+                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
+                BoundingBox.HitBoxDraw(spriteBatch);
 			}
         }
 

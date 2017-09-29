@@ -85,10 +85,10 @@ namespace MarioClone.Collision
         public void AddToGrid(ICollidable obj)
         {
             ISet<Point> squares = new HashSet<Point>();
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Left, obj.BoundingBox.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Right, obj.BoundingBox.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Left, obj.BoundingBox.Bottom)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Right, obj.BoundingBox.Bottom)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Top)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Bottom)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Bottom)));
 
             //should have a rectangle to easily access all four points
             foreach(Point bucket in squares)
@@ -143,10 +143,10 @@ namespace MarioClone.Collision
             ISet<ICollidable> neighbours = new HashSet<ICollidable>();
 
             ISet<Point> squares = new HashSet<Point>();
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Left, obj.BoundingBox.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Right, obj.BoundingBox.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Left, obj.BoundingBox.Bottom)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Right, obj.BoundingBox.Bottom)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Top)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Bottom)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Bottom)));
 
             foreach(Point pt in squares)
             {

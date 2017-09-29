@@ -30,7 +30,7 @@ namespace MarioClone.GameObjects
         {
             SpriteFactory = MovingEnemySpriteFactory.Instance;
             Sprite = SpriteFactory.Create(EnemyType.Goomba);
-			BoundingBox = new HitBox(-4, 0);
+			BoundingBox = new HitBox(-4, 0, Color.Red);
             Velocity = velocity;
             Position = position;
             Visible = true;
@@ -41,6 +41,7 @@ namespace MarioClone.GameObjects
             if (Visible)
             {
 				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+                BoundingBox.HitBoxDraw(spriteBatch);
 			}
         }
    

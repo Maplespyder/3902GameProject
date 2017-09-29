@@ -31,14 +31,15 @@ namespace MarioClone.GameObjects
             Velocity = new Vector2(0, 0);
             Position = position;
             Visible = true;
-			BoundingBox = new HitBox(2, 0);
+			BoundingBox = new HitBox(2, 0, Color.Green);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Visible)
             {
-				Texture2D dummyTexture = new Texture2D(MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice, 1, 1);
+                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
+                BoundingBox.HitBoxDraw(spriteBatch);
             }
         }
 		public bool Update(GameTime gameTime)

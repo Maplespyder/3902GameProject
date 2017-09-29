@@ -30,7 +30,7 @@ namespace MarioClone.GameObjects
             Position = position;
             Visible = true;
             DrawOrder = 1;
-			BoundingBox = new HitBox(0, 0);
+			BoundingBox = new HitBox(0, 0, Color.Green);
 			BoundingBox.UpdateHitBox(Position, Sprite);
         }
 
@@ -39,6 +39,7 @@ namespace MarioClone.GameObjects
             if (Visible)
             {
                 Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+                BoundingBox.HitBoxDraw(spriteBatch);
             }
         }
 
