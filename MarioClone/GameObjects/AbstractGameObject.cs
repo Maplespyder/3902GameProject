@@ -34,7 +34,7 @@ namespace MarioClone.GameObjects
             Orientation = Facing.Left;
             Visible = true;
             DrawOrder = 1;
-            BoundingBox = new HitBox(0, 0, hitBoxColor);
+            BoundingBox = new HitBox(0, 0, 0, 0, hitBoxColor);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)

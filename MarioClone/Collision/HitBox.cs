@@ -15,22 +15,35 @@ namespace MarioClone.Collision
 
 		public Rectangle Dimensions { get; protected set; }
 
-		public int X_OffSet { get; protected set; }
-		public int Y_OffSet { get; protected set; }
+		public int LeftX_OffSet { get; protected set; }
+        public int RightX_OffSet { get; protected set; }
+        public int TopY_OffSet { get; protected set; }
+        public int BottomY_OffSet { get; protected set; }
 
-		public HitBox(int x_offSet, int y_offSet, Color hitBoxColor)
+		public HitBox(int leftX_offSet, int rightX_offset, int topY_offSet, int bottomY_offset, Color hitBoxColor)
 		{
-			X_OffSet = x_offSet;
-			Y_OffSet = y_offSet;
+			LeftX_OffSet = leftX_offSet;
+            RightX_OffSet = rightX_offset;
+
+            TopY_OffSet = topY_offSet;
+			BottomY_OffSet = bottomY_offset;
             pixel = new Texture2D(MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice, 1, 1);
             pixel.SetData(new[] { hitBoxColor });
 		}
 
 		public void UpdateHitBox(Vector2 Position, ISprite Sprite)
 		{
-			Dimensions = new Rectangle((int)Position.X - X_OffSet, (int)Position.Y - Y_OffSet,
-				Sprite.SourceRectangle.Width + (2 * X_OffSet), Sprite.SourceRectangle.Height + (2 * Y_OffSet));
+			Dimensions = new Rectangle((int)Position.X - LeftX_OffSet, (int)Position.Y - TopY_OffSet,
+				Sprite.SourceRectangle.Width + (LeftX_OffSet + RightX_OffSet), Sprite.SourceRectangle.Height + (TopY_OffSet + BottomY_OffSet));
 		}
+
+        public void UpdateOffSets(int leftXOffSet, int rightXOffSet, int topYOffSet, int bottomYOffSet)
+        {
+            LeftX_OffSet = leftXOffSet;
+            RightX_OffSet = rightXOffSet;
+            TopY_OffSet = topYOffSet;
+            BottomY_OffSet = bottomYOffSet;
+        }
 
         public void HitBoxDraw(SpriteBatch spriteBatch)
         {
