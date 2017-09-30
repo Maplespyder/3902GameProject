@@ -32,7 +32,18 @@ namespace MarioClone.States
             {
                 Context.ActionState = MarioCrouch.Instance;
                 Context.PreviousActionState = this;
-                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch); 
+                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
+            }
+        }
+        public override void UpdateHitBox()
+        {
+            if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Normal)
+            {
+                Context.BoundingBox.UpdateOffSets(0, -8, 0, 0);
+            }
+            else if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Fire)
+            {
+                Context.BoundingBox.UpdateOffSets(-10, -10, -10, 0);
             }
         }
 

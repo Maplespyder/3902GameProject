@@ -29,6 +29,11 @@ namespace MarioClone.States
         {
         }
 
+        public override void UpdateHitBox()
+        {
+            Context.BoundingBox.UpdateOffSets(-10, -10, -28, 0);
+        }
+
         public override void BecomeJump()
         {
             Context.ActionState = Context.PreviousActionState;

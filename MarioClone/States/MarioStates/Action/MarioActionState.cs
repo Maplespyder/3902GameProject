@@ -36,5 +36,7 @@ namespace MarioClone.States
         public abstract void BecomeWalk(Facing orientation);
         public abstract void BecomeJump();
         public abstract void BecomeCrouch();
+        public abstract void UpdateHitBox();
+
     }
 }

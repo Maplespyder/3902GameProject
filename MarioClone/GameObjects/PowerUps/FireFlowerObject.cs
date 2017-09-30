@@ -16,7 +16,7 @@ namespace MarioClone.GameObjects
 	{
         public FireFlowerObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green)
         {
-			BoundingBox = new HitBox(2, 0, Color.Green);
+			BoundingBox = new HitBox(2,2,0, 0, Color.Green);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MarioClone.GameObjects
     {
 		public GoombaObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Red)
         {
-			BoundingBox = new HitBox(-4, -4, 0, 0,Color.Red);
+			BoundingBox = new HitBox(-4, -4, -4, -4,Color.Red);
         }
     }
 }

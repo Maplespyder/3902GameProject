@@ -25,6 +25,18 @@ namespace MarioClone.States
             }
         }
 
+        public override void UpdateHitBox()
+        {
+            if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Normal)
+            {
+                Context.BoundingBox.UpdateOffSets(0, 0, 0, 0);
+            }
+            else if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Fire)
+            {
+                Context.BoundingBox.UpdateOffSets(-6, -10, -12, 0);
+            }
+        }
+
         public override void BecomeCrouch()
         {
             Context.ActionState = Context.PreviousActionState;

@@ -92,6 +92,7 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime)
         {
+            ActionState.UpdateHitBox();
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
             return base.Update(gameTime);
         }
