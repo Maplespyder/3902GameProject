@@ -31,7 +31,14 @@ namespace MarioClone.States
 
         public override void UpdateHitBox()
         {
-            Context.BoundingBox.UpdateOffSets(-10, -10, -28, 0);
+            if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Normal)
+            {
+                Context.BoundingBox.UpdateOffSets(0, 0, 0, 0);
+            }
+            else if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Fire)
+            {
+                Context.BoundingBox.UpdateOffSets(-10, -10, -28, 0);
+            }
         }
 
         public override void BecomeJump()
