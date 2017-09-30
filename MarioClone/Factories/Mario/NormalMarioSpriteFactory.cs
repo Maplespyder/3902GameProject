@@ -29,20 +29,20 @@ namespace MarioClone.Factories
             switch (action)
             {
                 case MarioAction.Idle:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 32));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 64));
                 case MarioAction.Walk:
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 32),
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 64),
                         1, 6, 0, 1, 4);
                 /*case MarioAction.RunRight:
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(128, 0, 32, 32),
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(128, 0, 32, 64),
                         1, 6, 4, 5, 6); */
                 case MarioAction.Jump:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(96, 0, 32, 32));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(96, 0, 32, 64));
                 case MarioAction.Dead:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(160, 0, 32, 32));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(160, 0, 32, 64));
                 default:
                     //default will be idling
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 32));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(0, 0, 32, 64));
             }
         }
     }
