@@ -12,7 +12,7 @@ using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.GameObjects
 {
-    public class Mario : IGameObject, IMoveable
+    public class Mario : AbstractGameObject
     {
         private static Mario _mario;
 
@@ -35,39 +35,19 @@ namespace MarioClone.GameObjects
         public MarioActionState PreviousActionState { get; set; }
 
         public MarioPowerupState PowerupState { get; set; }
-
-        public ISprite Sprite { get; set; }
-
+        
         public MarioSpriteFactory SpriteFactory { get; set; }
-
-        public Vector2 Position { get; protected set; }
-
-        public int DrawOrder { get; protected set; }
-
-        public bool Visible { get; protected set; }
-
-        public Vector2 Velocity { get; protected set; }
-
-        public Facing Orientation { get; set; }
-
-        /// <summary>
-        /// This constructor should only ever be called by the Mario factory.
-        /// </summary>
-        /// <param name="velocity"></param>
-        /// <param name="position"></param>
-        public Mario(Vector2 velocity, Vector2 position)
+        
+        //passing null sprite because mario's states control his sprite
+        public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
             _mario = this;
             PowerupState = MarioNormal.Instance;
+            SpriteFactory = NormalMarioSpriteFactory.Instance;
             ActionState = MarioIdle.Instance;
+            Sprite = SpriteFactory.Create(MarioAction.Idle);
             PreviousActionState = MarioIdle.Instance;
             Orientation = Facing.Right;
-            SpriteFactory = NormalMarioSpriteFactory.Instance;
-            Sprite = SpriteFactory.Create(MarioAction.Idle);
-            Velocity = velocity;
-            Position = position;
-            Visible = true;
-            DrawOrder = 1;
         }
 
 		public void MoveLeft()
@@ -110,20 +90,10 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
         }
 
-        public bool Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-            return false;
+            return base.Update(gameTime);
         }
-
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            if (Visible)
-            {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Orientation);
-            }           
-        }
-
-     
     }
 }

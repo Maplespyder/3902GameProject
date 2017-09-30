@@ -9,7 +9,7 @@ namespace MarioClone.Factories
         {
             if (Mario.Instance == null)
             {
-                return new Mario(new Vector2(0, 0), position);
+                return new Mario(position);
             }
             return Mario.Instance;
         }

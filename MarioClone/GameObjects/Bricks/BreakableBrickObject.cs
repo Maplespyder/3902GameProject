@@ -15,7 +15,7 @@ namespace MarioClone.GameObjects
 		List<BrickPieceObject> invisiblePiece = new List<BrickPieceObject>();
 
 
-		public BreakableBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base( sprite, position, drawOrder)
+		public BreakableBrickObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             State = new BreakableBrickStatic(this);
         }
@@ -70,17 +70,16 @@ namespace MarioClone.GameObjects
 
 		public override bool Update(GameTime gameTime)
         {
-			BoundingBox.UpdateHitBox(Position, Sprite);
+            if (Visible)
+            {
+                base.Update(gameTime);
+            }
 			return State.Action() && Pieces(gameTime);
         }
 
 		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
 		{
-            if (Visible)
-            {
-                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
-                BoundingBox.HitBoxDraw(spriteBatch);
-			}
+            base.Draw(spriteBatch, gameTime);
 			foreach (BrickPieceObject piece in pieceList)
 			{
 				piece.Draw(spriteBatch,  gameTime);

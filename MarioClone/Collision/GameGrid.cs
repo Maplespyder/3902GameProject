@@ -8,7 +8,7 @@ namespace MarioClone.Collision
 {
     public class GameGrid
     {
-        private List<ICollidable>[,] gameGrid;
+        private List<IGameObject>[,] gameGrid;
         public int Rows { get; }
         public int Columns { get; }
         public int ScreenWidth { get; }
@@ -25,19 +25,19 @@ namespace MarioClone.Collision
             GridSquareWidth = ScreenWidth / Columns;
             GridSquareHeight = ScreenHeight / Rows;
 
-            gameGrid = new List<ICollidable>[Rows, Columns];
+            gameGrid = new List<IGameObject>[Rows, Columns];
             for(int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    gameGrid[i, j] = new List<ICollidable>();
+                    gameGrid[i, j] = new List<IGameObject>();
                 }
             }
         }
 
         public void ClearGrid()
         {
-            foreach(List<ICollidable> li in gameGrid)
+            foreach(List<IGameObject> li in gameGrid)
             {
                 li.Clear();
             }
@@ -82,7 +82,7 @@ namespace MarioClone.Collision
             return squares;
         }
 
-        public void AddToGrid(ICollidable obj)
+        public void AddToGrid(IGameObject obj)
         {
             ISet<Point> squares = new HashSet<Point>();
             squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
@@ -97,9 +97,9 @@ namespace MarioClone.Collision
             }
         }
 
-        private ISet<ICollidable> GetNeighbours(Point square)
+        private ISet<IGameObject> GetNeighbours(Point square)
         {
-            ISet<ICollidable> neighbours = new HashSet<ICollidable>();
+            ISet<IGameObject> neighbours = new HashSet<IGameObject>();
             neighbours.UnionWith(gameGrid[square.X, square.Y]);
             
             if(square.X > 0)
@@ -138,9 +138,9 @@ namespace MarioClone.Collision
             return neighbours;
         }
 
-        public List<ICollidable> FindNeighbours(ICollidable obj)
+        public List<IGameObject> FindNeighbours(IGameObject obj)
         {
-            ISet<ICollidable> neighbours = new HashSet<ICollidable>();
+            ISet<IGameObject> neighbours = new HashSet<IGameObject>();
 
             ISet<Point> squares = new HashSet<Point>();
             squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));

@@ -9,24 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MarioClone.GameObjects
 {
-    public interface IGameObject : IDraw
-    { 
-       ISprite Sprite { get; }
-
-       Vector2 Position { get; }
-
-       bool Update(GameTime gameTime);
-
-        HitBox BoundingBox { get; }
-
-        Vector2 Velocity { get; }
-    }
-
-    public enum Facing
-    {
-        Left,
-        Right
+	public class FireFlowerObject : AbstractGameObject
+	{
+        public FireFlowerObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green)
+        {
+			BoundingBox = new HitBox(2, 0, Color.Green);
+        }
     }
 }

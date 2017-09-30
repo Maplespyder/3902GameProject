@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.Factories.Enemies
+namespace MarioClone.Factories
 {
-    public class DeadEnemySpriteFactory : EnemySpriteFactory
+    public class DeadEnemySpriteFactory
     {
         static DeadEnemySpriteFactory _factory;
         private static DeadEnemySpriteFactory Instance
@@ -31,7 +31,7 @@ namespace MarioClone.Factories.Enemies
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public override ISprite Create(EnemyType type)
+        public ISprite Create(EnemyType type)
         {
             switch (type)
             {

@@ -8,10 +8,7 @@ namespace MarioClone.GameObjects
 	public class BrickPieceObject : AbstractBlock
 	{
 
-        public BrickPieceObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
-        {
- 
-        }
+        public BrickPieceObject(ISprite sprite, Vector2 position) : base(sprite, position) { }
 
         public override bool Update(GameTime gameTime)
 		{
@@ -35,23 +32,14 @@ namespace MarioClone.GameObjects
 		private void Move()
 		{
 			//Movement will also need to be tested and likely refactored late
-				Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-				Velocity = new Vector2(Velocity.X, Velocity.Y + .2f);
+			Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
+			Velocity = new Vector2(Velocity.X, Velocity.Y + .2f);
 			
 		}
 
 		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-		{
-			if (Visible)
-			{
-				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
-                BoundingBox.HitBoxDraw(spriteBatch);
-            }
-		}
-
-        public override void Bump()
         {
-            // do nothing
+            Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation);
         }
     }
 }

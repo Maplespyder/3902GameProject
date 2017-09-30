@@ -33,17 +33,16 @@ namespace MarioClone.Factories
 
         public IGameObject Create(EnemyType type, Vector2 position)
         {
-            Vector2 velocity = new Vector2(0, 0);
             switch(type)
             {
                 case EnemyType.Goomba:
-                    return new GoombaObject(velocity, position);
+                    return new GoombaObject(MovingEnemySpriteFactory.Instance.Create(type), position);
                 case EnemyType.GreenKoopa:
-                    return new GreenKoopaObject(velocity, position);
+                    return new GreenKoopaObject(MovingEnemySpriteFactory.Instance.Create(type), position);
                 case EnemyType.RedKoopa:
-                    return new RedKoopaObject(velocity, position);
+                    return new RedKoopaObject(MovingEnemySpriteFactory.Instance.Create(type), position);
                 default:
-                    return new GoombaObject(velocity, position);
+                    return new GoombaObject(MovingEnemySpriteFactory.Instance.Create(type), position);
             }
         }
     }
