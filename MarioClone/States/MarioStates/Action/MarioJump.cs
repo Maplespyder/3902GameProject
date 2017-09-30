@@ -33,7 +33,8 @@ namespace MarioClone.States
             }
             else if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Fire)
             {
-                Context.BoundingBox.UpdateOffSets(-6, -10, -12, 0);
+                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-6, -10, -12, 0);
+                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-10, -6, -12, 0);
             }
         }
 
