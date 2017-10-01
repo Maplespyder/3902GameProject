@@ -20,7 +20,12 @@ namespace MarioClone.Collision
         public int TopY_OffSet { get; protected set; }
         public int BottomY_OffSet { get; protected set; }
 
-		public HitBox(int leftX_offSet, int rightX_offset, int topY_offSet, int bottomY_offset, Color hitBoxColor)
+        public Point TopLeft { get; protected set; }
+        public Point TopRight { get; protected set; }
+        public Point BottomLeft { get; protected set; }
+        public Point BottomRight { get; protected set; }
+
+        public HitBox(int leftX_offSet, int rightX_offset, int topY_offSet, int bottomY_offset, Color hitBoxColor)
 		{
 			LeftX_OffSet = leftX_offSet;
             RightX_OffSet = rightX_offset;
@@ -35,7 +40,12 @@ namespace MarioClone.Collision
 		{
 			Dimensions = new Rectangle((int)Position.X - LeftX_OffSet, (int)Position.Y - TopY_OffSet,
 				Sprite.SourceRectangle.Width + (LeftX_OffSet + RightX_OffSet), Sprite.SourceRectangle.Height + (TopY_OffSet + BottomY_OffSet));
-		}
+
+            TopLeft = new Point(Dimensions.X, Dimensions.Y);
+            TopRight = new Point(Dimensions.X + (Dimensions.Width), Dimensions.Y);
+            BottomLeft = new Point(Dimensions.X + Dimensions.Y + Dimensions.Height);
+            BottomRight = new Point(Dimensions.X + Dimensions.Width, Dimensions.Y + Dimensions.Height);
+        }
 
         public void UpdateOffSets(int leftXOffSet, int rightXOffSet, int topYOffSet, int bottomYOffSet)
         {
