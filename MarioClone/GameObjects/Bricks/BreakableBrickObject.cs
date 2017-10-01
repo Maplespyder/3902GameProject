@@ -11,7 +11,7 @@ namespace MarioClone.GameObjects
 {
     public class BreakableBrickObject : AbstractBlock
 	{
-		private List<IGameObject> pieceList = new List<IGameObject>();
+		private List<AbstractGameObject> pieceList = new List<AbstractGameObject>();
 		List<BrickPieceObject> invisiblePiece = new List<BrickPieceObject>();
 
 

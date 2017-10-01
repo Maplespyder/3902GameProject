@@ -9,7 +9,7 @@ namespace MarioClone.Factories
 {
     public static class PowerUpFactory
     {
-        public static IGameObject Create(PowerUpType type, Vector2 position)
+        public static AbstractGameObject Create(PowerUpType type, Vector2 position)
         {
             switch (type)
             {

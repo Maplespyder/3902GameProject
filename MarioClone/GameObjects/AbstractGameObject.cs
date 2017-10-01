@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MarioClone.Collision;
+﻿using MarioClone.Collision;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.GameObjects
 {
-    public abstract class AbstractGameObject : IGameObject
+    public enum Facing
+    {
+        Left,
+        Right
+    }
+
+    public abstract class AbstractGameObject : IDraw
     {
         public HitBox BoundingBox { get; protected set; }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MarioClone.Controllers
 {
-    public abstract class AbstractController : IController
+    public abstract class AbstractController
     {
         private Dictionary<int, ICommand> inputToCommandMap;
 

@@ -31,7 +31,7 @@ namespace MarioClone.Factories
             }
         }
 
-        public IGameObject Create(EnemyType type, Vector2 position)
+        public AbstractGameObject Create(EnemyType type, Vector2 position)
         {
             switch(type)
             {

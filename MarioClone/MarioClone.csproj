@@ -88,9 +88,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\GamepadController.cs" />
-    <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\KeyboardController.cs" />
-    <Compile Include="GameObjects\IGameObject.cs" />
     <Compile Include="GameObjects\Mario.cs" />
     <Compile Include="GameObjects\PowerUps\FireFlowerObject.cs" />
     <Compile Include="GameObjects\PowerUps\GreenMushroomObject.cs" />

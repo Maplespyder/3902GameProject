@@ -20,9 +20,8 @@ namespace MarioClone
 		SpriteBatch spriteBatch;
         
         static ContentManager _content;
-        List<IGameObject> gameObjects;
-        List<GamepadController> gamepads;
-        KeyboardController keyboard;
+        List<AbstractGameObject> gameObjects;
+        List<AbstractController> controllerList;
 
 		public MarioCloneGame()
 		{
@@ -39,9 +38,7 @@ namespace MarioClone
 		/// </summary>
 		protected override void Initialize()
 		{
-            keyboard = new KeyboardController();
-
-            gamepads = new List<GamepadController>
+            controllerList = new List<AbstractController>
             {
                 new GamepadController(PlayerIndex.One),
                 new GamepadController(PlayerIndex.Two),
@@ -49,7 +46,7 @@ namespace MarioClone
                 new GamepadController(PlayerIndex.Four)
             };
 
-            gameObjects = new List<IGameObject>();
+            gameObjects = new List<AbstractGameObject>();
 
 			base.Initialize();
 		}
@@ -77,6 +74,8 @@ namespace MarioClone
 
         protected override void BeginRun()
         {
+            AbstractController keyboard = new KeyboardController();
+
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
@@ -160,6 +159,8 @@ namespace MarioClone
 
             var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(350, 400));
             gameObjects.Add(redMushroom);
+
+            controllerList.Add(keyboard);
         }
 
 		/// <summary>
@@ -180,17 +181,15 @@ namespace MarioClone
 		{
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
-
-
-            keyboard.UpdateAndExecuteInputs();
-			foreach(var gamepad in gamepads)
+            
+			foreach(var controller in controllerList)
             {
-                gamepad.UpdateAndExecuteInputs();
+                controller.UpdateAndExecuteInputs();
             }
   
 			if (!paused)
 			{
-                var removed = new List<IGameObject>();
+                var removed = new List<AbstractGameObject>();
                 foreach (var obj in gameObjects)
 				{
 					if (obj.Update(gameTime))
@@ -249,7 +248,7 @@ namespace MarioClone
 
         private void AddCommandToAllGamepads(Buttons button, ICommand command)
         {
-            foreach (var gamepad in gamepads)
+            foreach (var gamepad in controllerList)
             {
                 gamepad.AddInputCommand((int)button, command);
             }

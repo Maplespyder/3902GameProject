@@ -8,7 +8,7 @@ namespace MarioClone.Collision
 {
     public class GameGrid
     {
-        private List<IGameObject>[,] gameGrid;
+        private List<AbstractGameObject>[,] gameGrid;
         public int Rows { get; }
         public int Columns { get; }
         public int ScreenWidth { get; }
@@ -25,19 +25,19 @@ namespace MarioClone.Collision
             GridSquareWidth = ScreenWidth / Columns;
             GridSquareHeight = ScreenHeight / Rows;
 
-            gameGrid = new List<IGameObject>[Rows, Columns];
+            gameGrid = new List<AbstractGameObject>[Rows, Columns];
             for(int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    gameGrid[i, j] = new List<IGameObject>();
+                    gameGrid[i, j] = new List<AbstractGameObject>();
                 }
             }
         }
 
         public void ClearGrid()
         {
-            foreach(List<IGameObject> li in gameGrid)
+            foreach(List<AbstractGameObject> li in gameGrid)
             {
                 li.Clear();
             }
@@ -82,7 +82,7 @@ namespace MarioClone.Collision
             return squares;
         }
 
-        public void AddToGrid(IGameObject obj)
+        public void AddToGrid(AbstractGameObject obj)
         {
             ISet<Point> squares = new HashSet<Point>();
             squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
@@ -97,9 +97,24 @@ namespace MarioClone.Collision
             }
         }
 
-        private ISet<IGameObject> GetNeighbours(Point square)
+        public void RemoveFromGrid(AbstractGameObject obj)
         {
-            ISet<IGameObject> neighbours = new HashSet<IGameObject>();
+            ISet<Point> squares = new HashSet<Point>();
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Top)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Bottom)));
+            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Bottom)));
+
+            //should have a rectangle to easily access all four points
+            foreach (Point bucket in squares)
+            {
+                gameGrid[bucket.X, bucket.Y].Remove(obj);
+            }
+        }
+
+        private ISet<AbstractGameObject> GetNeighbours(Point square)
+        {
+            ISet<AbstractGameObject> neighbours = new HashSet<AbstractGameObject>();
             neighbours.UnionWith(gameGrid[square.X, square.Y]);
             
             if(square.X > 0)
@@ -138,9 +153,9 @@ namespace MarioClone.Collision
             return neighbours;
         }
 
-        public List<IGameObject> FindNeighbours(IGameObject obj)
+        public List<AbstractGameObject> FindNeighbours(AbstractGameObject obj)
         {
-            ISet<IGameObject> neighbours = new HashSet<IGameObject>();
+            ISet<AbstractGameObject> neighbours = new HashSet<AbstractGameObject>();
 
             ISet<Point> squares = new HashSet<Point>();
             squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
@@ -155,7 +170,8 @@ namespace MarioClone.Collision
 
             if(!neighbours.Remove(obj))
             {
-                //the given object was never in the grid in the first place, because neighbors includes stuff in its own bucket, including itself
+                //the given object was never in the grid in the first place, because neighbors
+                //includes stuff in its own bucket, including itself
                 throw new NotSupportedException();
             }
             return neighbours.ToList();
