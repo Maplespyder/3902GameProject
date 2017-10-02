@@ -49,12 +49,12 @@ namespace MarioClone.Collision
             int xBucket = corner.X / GridSquareWidth;
             int yBucket = (corner.Y / GridSquareHeight) * Columns;
 
-            if(corner.Y == ScreenHeight)
+            if(corner.Y >= ScreenHeight)
             {
                 yBucket -= Columns;
             }
             
-            if (corner.X == ScreenWidth)
+            if (corner.X >= ScreenWidth)
             {
                 xBucket -= 1;
             }
@@ -82,15 +82,19 @@ namespace MarioClone.Collision
             return squares;
         }
 
-        public void AddToGrid(AbstractGameObject obj)
+        private ISet<Point> GetSquaresFromObject(HitBox hitBox)
         {
             ISet<Point> squares = new HashSet<Point>();
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Bottom)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Bottom)));
+            squares.UnionWith(GetSquaresFromPoint(hitBox.TopLeft));
+            squares.UnionWith(GetSquaresFromPoint(hitBox.TopRight));
+            squares.UnionWith(GetSquaresFromPoint(hitBox.BottomLeft));
+            squares.UnionWith(GetSquaresFromPoint(hitBox.BottomRight));
+            return squares;
+        }
 
-            //should have a rectangle to easily access all four points
+        public void AddToGrid(AbstractGameObject obj)
+        {
+            ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach(Point bucket in squares)
             {
                 gameGrid[bucket.X, bucket.Y].Add(obj);
@@ -99,16 +103,39 @@ namespace MarioClone.Collision
 
         public void RemoveFromGrid(AbstractGameObject obj)
         {
-            ISet<Point> squares = new HashSet<Point>();
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Bottom)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Bottom)));
-
-            //should have a rectangle to easily access all four points
+            ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach (Point bucket in squares)
             {
                 gameGrid[bucket.X, bucket.Y].Remove(obj);
+            }
+        }
+
+        public void UpdateObjectGridPosition(AbstractGameObject obj, HitBox oldHitbox)
+        {
+            if(!obj.BoundingBox.Dimensions.Location.Equals(oldHitbox.Dimensions.Location) 
+                || obj.BoundingBox.Dimensions.Width != oldHitbox.Dimensions.Width 
+                || obj.BoundingBox.Dimensions.Height != oldHitbox.Dimensions.Height)
+            {
+                ISet<Point> newSquares = GetSquaresFromObject(obj.BoundingBox);
+                ISet<Point> oldSquares = GetSquaresFromObject(oldHitbox);
+                ISet<Point> difference = (ISet<Point>)newSquares.Intersect(oldSquares);
+                if(difference.Count > 0)
+                {
+                    foreach(Point pt in difference)
+                    {
+                        //either old squares or new squares must contain
+                        //the point, if it's in old that means it's not in new,
+                        //so it should be removed, and vice versa
+                        if(newSquares.Contains(pt))
+                        {
+                            gameGrid[pt.X, pt.Y].Add(obj);
+                        }
+                        else
+                        {
+                            gameGrid[pt.X, pt.Y].Remove(obj);
+                        }
+                    }
+                }
             }
         }
 
@@ -157,12 +184,7 @@ namespace MarioClone.Collision
         {
             ISet<AbstractGameObject> neighbours = new HashSet<AbstractGameObject>();
 
-            ISet<Point> squares = new HashSet<Point>();
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Top)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Left, obj.BoundingBox.Dimensions.Bottom)));
-            squares.UnionWith(GetSquaresFromPoint(new Point(obj.BoundingBox.Dimensions.Right, obj.BoundingBox.Dimensions.Bottom)));
-
+            ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach(Point pt in squares)
             {
                 neighbours.UnionWith(GetNeighbours(pt));
