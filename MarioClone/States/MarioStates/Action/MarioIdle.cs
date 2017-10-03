@@ -58,6 +58,7 @@ namespace MarioClone.States
         {
             if (Context.Orientation == orientation)
             {
+                Context.Velocity = new Vector2(0.2f, 0);
                 Context.ActionState = MarioWalk.Instance;
                 Context.PreviousActionState = this;
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
