@@ -2,6 +2,7 @@ using MarioClone.GameObjects;
 using MarioClone.Factories;
 using System;
 using static MarioClone.States.MarioPowerupState;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -58,7 +59,7 @@ namespace MarioClone.States
         {
             if (Context.Orientation == orientation)
             {
-                Context.Velocity = new Vector2(0.2f, 0);
+                Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, 0) : new Vector2(Mario.HorizontalMovementSpeed, 0);
                 Context.ActionState = MarioWalk.Instance;
                 Context.PreviousActionState = this;
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);

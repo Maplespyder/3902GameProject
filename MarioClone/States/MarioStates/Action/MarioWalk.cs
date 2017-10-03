@@ -1,6 +1,7 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
