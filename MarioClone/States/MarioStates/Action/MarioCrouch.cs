@@ -1,6 +1,7 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -27,6 +28,10 @@ namespace MarioClone.States
 
         public override void BecomeCrouch()
         {
+            Context.Velocity = new Vector2(0, 0);
+            Context.ActionState = MarioIdle.Instance;
+            Context.PreviousActionState = this;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
         }
 
         public override void UpdateHitBox()
