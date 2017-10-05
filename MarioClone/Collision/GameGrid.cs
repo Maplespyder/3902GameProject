@@ -9,6 +9,8 @@ namespace MarioClone.Collision
     public class GameGrid
     {
         private List<AbstractGameObject>[,] gameGrid;
+        private List<AbstractGameObject> currentObjects;
+
         public int Rows { get; }
         public int Columns { get; }
         public int ScreenWidth { get; }
@@ -33,6 +35,7 @@ namespace MarioClone.Collision
                     gameGrid[i, j] = new List<AbstractGameObject>();
                 }
             }
+            currentObjects = new List<AbstractGameObject>();
         }
 
         public void ClearGrid()
@@ -40,6 +43,42 @@ namespace MarioClone.Collision
             foreach(List<AbstractGameObject> li in gameGrid)
             {
                 li.Clear();
+            }
+        }
+
+        public void Add(AbstractGameObject obj)
+        {
+            currentObjects.Add(obj);
+            if (obj.BoundingBox != null)
+            {
+                AddToGrid(obj);
+            }
+        }
+
+        public void Remove(AbstractGameObject obj)
+        {
+            currentObjects.Remove(obj);
+            if (obj.BoundingBox != null)
+            {
+                RemoveFromGrid(obj);
+            }
+        }
+
+        private void AddToGrid(AbstractGameObject obj)
+        {
+            ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
+            foreach (Point bucket in squares)
+            {
+                gameGrid[bucket.X, bucket.Y].Add(obj);
+            }
+        }
+
+        private void RemoveFromGrid(AbstractGameObject obj)
+        {
+            ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
+            foreach (Point bucket in squares)
+            {
+                gameGrid[bucket.X, bucket.Y].Remove(obj);
             }
         }
 
@@ -92,26 +131,20 @@ namespace MarioClone.Collision
             return squares;
         }
 
-        public void AddToGrid(AbstractGameObject obj)
+        private void UpdateObjectGridPosition(AbstractGameObject obj, HitBox oldHitbox)
         {
-            ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
-            foreach(Point bucket in squares)
+            //should end up in a future Update() method that handles all updates
+            if(obj.BoundingBox == null)
             {
-                gameGrid[bucket.X, bucket.Y].Add(obj);
+                RemoveFromGrid(obj);
+                return;
             }
-        }
 
-        public void RemoveFromGrid(AbstractGameObject obj)
-        {
-            ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
-            foreach (Point bucket in squares)
+            if (obj.BoundingBox.Equals(oldHitbox))
             {
-                gameGrid[bucket.X, bucket.Y].Remove(obj);
+                return;
             }
-        }
 
-        public void UpdateObjectGridPosition(AbstractGameObject obj, HitBox oldHitbox)
-        {
             if(!obj.BoundingBox.Dimensions.Location.Equals(oldHitbox.Dimensions.Location) 
                 || obj.BoundingBox.Dimensions.Width != oldHitbox.Dimensions.Width 
                 || obj.BoundingBox.Dimensions.Height != oldHitbox.Dimensions.Height)
@@ -180,7 +213,7 @@ namespace MarioClone.Collision
             return neighbours;
         }
 
-        public List<AbstractGameObject> FindNeighbours(AbstractGameObject obj)
+        private List<AbstractGameObject> FindNeighbours(AbstractGameObject obj)
         {
             ISet<AbstractGameObject> neighbours = new HashSet<AbstractGameObject>();
 
@@ -197,6 +230,21 @@ namespace MarioClone.Collision
                 throw new NotSupportedException();
             }
             return neighbours.ToList();
+        }
+
+        public bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            Vector2 relativeVelocity = obj2.Velocity - obj1.Velocity;
+            if(obj1.Position.X < obj2.Position.X)
+            {
+                relativeVelocity = new Vector2(-relativeVelocity.X, relativeVelocity.Y);
+            }
+            if(obj1.Position.Y < obj2.Position.Y)
+            {
+                relativeVelocity = new Vector2(relativeVelocity.X, -relativeVelocity.Y);
+            }
+
+            return (relativeVelocity.X <= 0 && relativeVelocity.Y < 0) || (relativeVelocity.X < 0 && relativeVelocity.Y <= 0);
         }
     }
 }
