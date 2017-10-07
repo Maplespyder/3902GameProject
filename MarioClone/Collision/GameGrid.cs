@@ -354,10 +354,11 @@ namespace MarioClone.Collision
             }
         }
 
-        public float IfCollisionWithSweep(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
+        public float IfCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
             Rectangle obj1Sweep = GetSweptBox(obj1);
             Rectangle obj2Sweep = GetSweptBox(obj2);
+			side = Side.None;
             float collisionTime = -1;
             if (CollisionCheck(obj1Sweep, obj2Sweep))
             {
@@ -417,7 +418,7 @@ namespace MarioClone.Collision
                         if (MightCollide(obj, neighbour))
                         {
                             Side side = Side.None;
-                            int percent = IfCollisionWithSweep(obj, neighbour, percentCompleted, out side);
+                            float percent = IfCollisionCheck(obj, neighbour, percentCompleted, out side);
                             if ((side != Side.None) && percent < earliestCollisionPercent)
                             {
                                 firstCollision = new Tuple<Side, AbstractGameObject, AbstractGameObject>(side, obj, neighbour);
