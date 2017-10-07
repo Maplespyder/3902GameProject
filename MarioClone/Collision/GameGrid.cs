@@ -9,7 +9,6 @@ namespace MarioClone.Collision
     public class GameGrid
     {
         private List<AbstractGameObject>[,] gameGrid;
-        private List<AbstractGameObject> currentObjects;
 
         public int Rows { get; }
         public int Columns { get; }
@@ -17,8 +16,16 @@ namespace MarioClone.Collision
         public int ScreenHeight { get; }
         public int GridSquareWidth { get; }
         public int GridSquareHeight { get; }
-
-        public GameGrid(int rows, int columns)
+        public int FullGameWidth { get; }
+        public int CurrentLeftSideViewPort { get; set; }
+        public int CurrentRightSideViewPort
+        {
+            get
+            {
+                return CurrentLeftSideViewPort + ScreenWidth;
+            }
+        }
+        public GameGrid(int rows, int columns, int widthOfGame)
         {
             Rows = rows;
             Columns = columns;
@@ -26,6 +33,8 @@ namespace MarioClone.Collision
             ScreenHeight = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
             GridSquareWidth = ScreenWidth / Columns;
             GridSquareHeight = ScreenHeight / Rows;
+            FullGameWidth = widthOfGame;
+            CurrentLeftSideViewPort = 0;
 
             gameGrid = new List<AbstractGameObject>[Rows, Columns];
             for(int i = 0; i < Rows; i++)
@@ -35,7 +44,6 @@ namespace MarioClone.Collision
                     gameGrid[i, j] = new List<AbstractGameObject>();
                 }
             }
-            currentObjects = new List<AbstractGameObject>();
         }
 
         public void ClearGrid()
@@ -48,24 +56,6 @@ namespace MarioClone.Collision
 
         public void Add(AbstractGameObject obj)
         {
-            currentObjects.Add(obj);
-            if (obj.BoundingBox != null)
-            {
-                AddToGrid(obj);
-            }
-        }
-
-        public void Remove(AbstractGameObject obj)
-        {
-            currentObjects.Remove(obj);
-            if (obj.BoundingBox != null)
-            {
-                RemoveFromGrid(obj);
-            }
-        }
-
-        private void AddToGrid(AbstractGameObject obj)
-        {
             ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach (Point bucket in squares)
             {
@@ -73,7 +63,7 @@ namespace MarioClone.Collision
             }
         }
 
-        private void RemoveFromGrid(AbstractGameObject obj)
+        public void Remove(AbstractGameObject obj)
         {
             ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach (Point bucket in squares)
@@ -93,20 +83,23 @@ namespace MarioClone.Collision
                 yBucket -= Columns;
             }
             
-            if (corner.X >= ScreenWidth)
+            if (corner.X >= FullGameWidth)
             {
                 xBucket -= 1;
             }
-            squares.Add(new Point(yBucket, xBucket));
+            squares.Add(new Point(xBucket, yBucket));
 
-            if((corner.X > 0) && (corner.X < ScreenWidth))
+            if((corner.X > 0) && (corner.X < FullGameWidth))
             {
                 if((corner.X % GridSquareWidth) == 0)
                 {
                     squares.Add(new Point(xBucket - 1, yBucket));
                     if((corner.Y > 0) && (corner.Y < ScreenHeight))
                     {
-                        squares.Add(new Point(xBucket - 1, yBucket - Columns));
+                        if ((corner.Y % GridSquareHeight) == 0)
+                        {
+                            squares.Add(new Point(xBucket - 1, yBucket - Columns));
+                        }
                     }
                 }
             }
@@ -134,11 +127,6 @@ namespace MarioClone.Collision
         private void UpdateObjectGridPosition(AbstractGameObject obj, HitBox oldHitbox)
         {
             //should end up in a future Update() method that handles all updates
-            if(obj.BoundingBox == null)
-            {
-                RemoveFromGrid(obj);
-                return;
-            }
 
             if (obj.BoundingBox.Equals(oldHitbox))
             {
@@ -232,6 +220,27 @@ namespace MarioClone.Collision
             return neighbours.ToList();
         }
 
+        private List<AbstractGameObject> GetCollidableGameObjects()
+        {
+            int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
+            int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
+            if (rightHandColumn == Columns)
+            {
+                rightHandColumn -= 1;
+            }
+            List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+            for (int rows = 0; rows < Rows - 1; rows++)
+            {
+                for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                {
+                    objectList.Union(gameGrid[rows, columns].Where((obj) => obj.BoundingBox != null));
+                }
+            }
+
+            return objectList;
+        }
+
         public bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
         {
             Vector2 relativeVelocity = obj2.Velocity - obj1.Velocity;
@@ -245,6 +254,15 @@ namespace MarioClone.Collision
             }
 
             return (relativeVelocity.X <= 0 && relativeVelocity.Y < 0) || (relativeVelocity.X < 0 && relativeVelocity.Y <= 0);
+        }
+
+        public void UpdateWorld()
+        {
+            List<AbstractGameObject> collidables = GetCollidableGameObjects();
+            foreach(AbstractGameObject obj in collidables)
+            {
+
+            }
         }
     }
 }
