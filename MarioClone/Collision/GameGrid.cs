@@ -246,5 +246,115 @@ namespace MarioClone.Collision
 
             return (relativeVelocity.X <= 0 && relativeVelocity.Y < 0) || (relativeVelocity.X < 0 && relativeVelocity.Y <= 0);
         }
+
+        public void IfCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            Vector2 futureObj1Position = new Vector2(obj1.BoundingBox.BottomLeft.X + obj1.Velocity.X, obj1.BoundingBox.BottomLeft.Y + obj1.Velocity.Y);
+            Vector2 futureObj2Position = new Vector2(obj2.BoundingBox.BottomLeft.X + obj2.Velocity.X, obj2.BoundingBox.BottomLeft.Y + obj2.Velocity.Y);
+
+            Rectangle obj1Sweep = new Rectangle(obj1.BoundingBox.BottomLeft.X, obj1.BoundingBox.BottomLeft.Y, (int)futureObj1Position.X-(int)obj1.BoundingBox.BottomLeft.X,
+                 (int)futureObj1Position.Y - (int)obj2.BoundingBox.BottomLeft.Y);
+        }
+
+        public float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+
+            float xTestEntry, yTestEntry, xEntry, yEntry, entryPercentage;
+            Point o1 = obj1.BoundingBox.BottomLeft;
+            Point o2 = obj2.BoundingBox.BottomLeft;
+
+            /*determined, relative on OBJ1, that:
+            * -X relativeVelocity -> Obj1 is hit on the left 
+            * +X relVel -> Obj1 hit on right
+            * -Y relVel -> Obj1 hit on top
+            * +Y relVel -> Obj1 hit on bottom
+            * 
+            * I didn't look at it for too long, so it might not be totally correct, but it worked on all paper tests I made up. 
+            */
+            Vector2 relativeVelocity = obj1.Velocity - obj2.Velocity;
+            
+            //distances of X and Y axis of both objects
+            if(relativeVelocity.X > 0f)
+            {
+                xTestEntry = obj2.BoundingBox.BottomLeft.X - (obj1.BoundingBox.BottomLeft.X + obj1.BoundingBox.Dimensions.Width);
+            }
+            else
+            {
+                xTestEntry = (obj2.BoundingBox.BottomLeft.X + obj2.BoundingBox.Dimensions.Width) - obj1.BoundingBox.BottomLeft.X;
+            }
+
+            if (relativeVelocity.Y > 0f)
+            {
+                yTestEntry = (obj2.BoundingBox.BottomLeft.Y - obj2.BoundingBox.Dimensions.Height) - obj1.BoundingBox.BottomLeft.Y;
+            }
+            else
+            {
+                yTestEntry = obj2.BoundingBox.BottomLeft.Y - (obj1.BoundingBox.BottomLeft.Y - obj1.BoundingBox.Dimensions.Height);
+            }          
+
+            //determine times when X and Y axis hit
+            if(relativeVelocity.X == 0f) 
+            {
+                xEntry = float.PositiveInfinity;
+            }
+            else
+            {
+                xEntry = xTestEntry / relativeVelocity.X
+            }
+
+            if (relativeVelocity.Y == 0f) 
+            {
+                yEntry = float.PositiveInfinity;
+            }
+            else
+            {
+                yEntry = yTestEntry / relativeVelocity.Y;
+            }
+
+            
+
+            if(xTestEntry < 0f && yTestEntry < 0f || xTestEntry > 1.0f || yTestEntry > 1.0f) //no collision
+            {
+                return 1.0f; //no collision; not sure what to return
+            }
+            else
+            {
+                return Math.Max(xTestEntry, yTestEntry);
+            }
+        }
+
+        public float IfCollisionWithSweep(AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            Rectangle obj1Sweep = GetSweptBox(obj1);
+            Rectangle obj2Sweep = GetSweptBox(obj2);
+            float collisionTime = -1;
+            if(CollisionCheck(obj1Sweep, obj2Sweep))
+            {
+                collisionTime = WhenCollisionCheck(obj1, obj2);
+            }
+            return collisionTime;
+        }
+
+        public Rectangle GetSweptBox(AbstractGameObject obj)
+        {
+            Rectangle sweptBox;
+            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.BottomLeft.X : obj.BoundingBox.BottomLeft.X + obj.BoundingBox.Dimensions.Width;
+            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.BottomLeft.Y : obj.BoundingBox.BottomLeft.Y + obj.BoundingBox.Dimensions.Height;
+            sweptBox.Width = obj.Velocity.X > 0 ? (int)obj.Velocity.X + obj.BoundingBox.Dimensions.Width : obj.BoundingBox.Dimensions.Width - (int)obj.Velocity.X;
+            sweptBox.Height = obj.Velocity.Y > 0 ? (int)obj.Velocity.Y + obj.BoundingBox.Dimensions.Height : obj.BoundingBox.Dimensions.Height - (int)obj.Velocity.Y;
+            return sweptBox;
+        }
+
+        public bool CollisionCheck(Rectangle obj1, Rectangle obj2)
+        {
+            if (!(obj1.X + obj1.Width < obj2.X || obj1.X > obj2.X + obj2.Width || obj1.Y + obj1.Height < obj2.Y || obj1.Y > obj2.Y + obj2.Height))
+            {
+                return false;
+            } 
+            else
+            {
+                return true;
+            }
+        }
     }
 }
