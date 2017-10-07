@@ -320,30 +320,29 @@ namespace MarioClone.Collision
                 yEntry = yTestEntry / relativeVelocity.Y;
             }
 
-			if (xEntry < yEntry)
+			if (xEntry > yEntry)
 			{
-				if (relativeVelocity.X < 0)
-				{
-					side = Side.Left;
-				}
-				else if (relativeVelocity.X > 0)
-				{
-					side = Side.Right;
-				}
-			}
-			else
-			{
-				if (relativeVelocity.Y < 0)
+				if (xTestEntry < 0)
 				{
 					side = Side.Top;
 				}
-				else if (relativeVelocity.Y > 0)
+				else if (xTestEntry > 0)
 				{
 					side = Side.Bottom;
 				}
 			}
+			else
+			{
+				if (yTestEntry < 0)
+				{
+					side = Side.Left;
+				}
+				else if (yTestEntry > 0)
+				{
+					side = Side.Right;
+				}
+			}
             
-
             if (xTestEntry < 0f && yTestEntry < 0f || xTestEntry > 1.0f || yTestEntry > 1.0f) //no collision
             {
                 return 1.0f; //no collision
