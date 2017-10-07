@@ -256,19 +256,10 @@ namespace MarioClone.Collision
             return (relativeVelocity.X <= 0 && relativeVelocity.Y < 0) || (relativeVelocity.X < 0 && relativeVelocity.Y <= 0);
         }
 
-        public void IfCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2)
-        {
-            Vector2 futureObj1Position = new Vector2(obj1.BoundingBox.BottomLeft.X + obj1.Velocity.X, obj1.BoundingBox.BottomLeft.Y + obj1.Velocity.Y);
-            Vector2 futureObj2Position = new Vector2(obj2.BoundingBox.BottomLeft.X + obj2.Velocity.X, obj2.BoundingBox.BottomLeft.Y + obj2.Velocity.Y);
-
-            Rectangle obj1Sweep = new Rectangle(obj1.BoundingBox.BottomLeft.X, obj1.BoundingBox.BottomLeft.Y, (int)futureObj1Position.X-(int)obj1.BoundingBox.BottomLeft.X,
-                 (int)futureObj1Position.Y - (int)obj2.BoundingBox.BottomLeft.Y);
-        }
-
-        public float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2)
+        public float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
 
-            float xTestEntry, yTestEntry, xEntry, yEntry, entryPercentage;
+			float xTestEntry, yTestEntry, xEntry, yEntry;
             Point o1 = obj1.BoundingBox.BottomLeft;
             Point o2 = obj2.BoundingBox.BottomLeft;
 
@@ -280,8 +271,8 @@ namespace MarioClone.Collision
             * 
             * I didn't look at it for too long, so it might not be totally correct, but it worked on all paper tests I made up. 
             */
-            Vector2 relativeVelocity = obj1.Velocity - obj2.Velocity;
-            
+            Vector2 relativeVelocity = (obj1.Velocity - obj2.Velocity) * (1 - percentCompleted);
+			side = Side.None;
             //distances of X and Y axis of both objects
             if(relativeVelocity.X > 0f)
             {
@@ -320,11 +311,33 @@ namespace MarioClone.Collision
                 yEntry = yTestEntry / relativeVelocity.Y;
             }
 
+			if (xEntry < yEntry)
+			{
+				if (relativeVelocity.X < 0)
+				{
+					side = Side.Left;
+				}
+				else if (relativeVelocity.X > 0)
+				{
+					side = Side.Right;
+				}
+			}
+			else
+			{
+				if (relativeVelocity.Y < 0)
+				{
+					side = Side.Top;
+				}
+				else if (relativeVelocity.Y > 0)
+				{
+					side = Side.Bottom;
+				}
+			}
             
 
             if(xTestEntry < 0f && yTestEntry < 0f || xTestEntry > 1.0f || yTestEntry > 1.0f) //no collision
             {
-                return 1.0f; //no collision; not sure what to return
+                return 1.0f; //no collision
             }
             else
             {
@@ -332,14 +345,14 @@ namespace MarioClone.Collision
             }
         }
 
-        public float IfCollisionWithSweep(AbstractGameObject obj1, AbstractGameObject obj2)
+        public float IfCollisionWithSweep(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
             Rectangle obj1Sweep = GetSweptBox(obj1);
             Rectangle obj2Sweep = GetSweptBox(obj2);
             float collisionTime = -1;
             if(CollisionCheck(obj1Sweep, obj2Sweep))
             {
-                collisionTime = WhenCollisionCheck(obj1, obj2);
+                collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
             }
             return collisionTime;
         }

@@ -14,6 +14,7 @@ namespace MarioClone.States.BlockStates
             initialPosition = context.Position;
             maxHeightReached = false;
             State = BlockStates.Action;
+			Context.Velocity = new Vector2(0f, -1f);
         }
 
         public override void Bump()
@@ -23,21 +24,17 @@ namespace MarioClone.States.BlockStates
 
         public override bool Action()
         {
-            if (Context.Position.Y > (initialPosition.Y - 10) && !maxHeightReached) //if Position hasnt reached max height
+            if (Context.Position.Y > (initialPosition.Y - 10) ) //if Position hasnt reached max height
             {
-                Context.Position = new Vector2(Context.Position.X, Context.Position.Y - 1f);
-                if (Context.Position.Y == (initialPosition.Y - 10))
+                Context.Position = new Vector2(Context.Position.X, Context.Position.Y + Context.Velocity.Y);
+                if (Context.Position.Y >= (initialPosition.Y - 10))
                 {
-                    maxHeightReached = true;
+					Context.Velocity = new Vector2(0f, 1f);
                 }
             }
-            else //lower back down to normal height otherwise
+            if (Context.Position.Y <= initialPosition.Y) //back to static position
             {
-                Context.Position = new Vector2(Context.Position.X, Context.Position.Y + 1f);
-            }
-
-            if (Context.Position.Y == initialPosition.Y) //back to static position
-            {
+				Context.Position = initialPosition;
                 Context.State = new Used(Context);
             }
             return false;
