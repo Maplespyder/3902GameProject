@@ -299,7 +299,7 @@ namespace MarioClone.Collision
             }
             else
             {
-                xEntry = xTestEntry / relativeVelocity.X
+                xEntry = xTestEntry / relativeVelocity.X;
             }
 
             if (relativeVelocity.Y == 0f) 
