@@ -30,8 +30,9 @@ namespace MarioClone.States
         public override void BecomeCrouch()
         {
             Context.Velocity = new Vector2(0, Mario.VerticalMovementSpeed);
+
             if (Context.PowerupState.Powerup == MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerup.Fire)
-            { 
+            {
                 Context.ActionState = MarioCrouch.Instance;
                 Context.PreviousActionState = this;
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
@@ -51,7 +52,6 @@ namespace MarioClone.States
 
         public override void BecomeJump()
         {
-
             Context.Velocity = new Vector2(0, -Mario.VerticalMovementSpeed);
             Context.ActionState = MarioJump.Instance;
             Context.PreviousActionState = this;
