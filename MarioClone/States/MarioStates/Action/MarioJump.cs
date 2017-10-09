@@ -60,15 +60,7 @@ namespace MarioClone.States
             Context.Orientation = orientation;
         }
 
-          /*if (Context.ActionState.Action == MarioActionState.MarioAction.Idle)
-            {
-                Context.Velocity = new Vector2(0, Mario.VerticalMovementSpeed);
+
+
     }
-            else if (Context.ActionState.Action == MarioActionState.MarioAction.Jump)
-            {
-                Context.ActionState = MarioIdle.Instance;
-                Context.PreviousActionState = this;
-                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
-            }*/
-}
 }
