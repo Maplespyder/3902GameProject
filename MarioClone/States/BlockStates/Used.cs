@@ -20,7 +20,7 @@ namespace MarioClone.States.BlockStates
             // no bump on used blocks
         }
 
-        public override bool Action()
+        public override bool Action(float percent)
         {
             return false;
         }

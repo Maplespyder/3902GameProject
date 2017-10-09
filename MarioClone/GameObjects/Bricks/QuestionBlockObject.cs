@@ -15,10 +15,10 @@ namespace MarioClone.GameObjects
             State = new QuestionBlockStatic(this);
         }
 
-		public override bool Update(GameTime gameTime)
+		public override bool Update(GameTime gameTime, float percent)
         {
 			BoundingBox.UpdateHitBox(Position, Sprite);
-			return State.Action();
+			return State.Action(percent);
         }
 
         public override void Bump()

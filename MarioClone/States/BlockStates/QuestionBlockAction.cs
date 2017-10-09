@@ -7,12 +7,10 @@ namespace MarioClone.States.BlockStates
     public class QuestionBlockAction : BlockState
     {
         private Vector2 initialPosition;
-        private bool maxHeightReached;
 
         public QuestionBlockAction(AbstractBlock context) : base(context)
         {
             initialPosition = context.Position;
-            maxHeightReached = false;
             State = BlockStates.Action;
 			Context.Velocity = new Vector2(0f, -1f);
         }
@@ -22,11 +20,11 @@ namespace MarioClone.States.BlockStates
             // do nothing
         }
 
-        public override bool Action()
+        public override bool Action(float percent)
         {
             if (Context.Position.Y > (initialPosition.Y - 10) ) //if Position hasnt reached max height
             {
-                Context.Position = new Vector2(Context.Position.X, Context.Position.Y + Context.Velocity.Y);
+                Context.Position = new Vector2(Context.Position.X, Context.Position.Y + Context.Velocity.Y * percent);
                 if (Context.Position.Y >= (initialPosition.Y - 10))
                 {
 					Context.Velocity = new Vector2(0f, 1f);

@@ -8,6 +8,7 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework.Content;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.Collision;
 
 namespace MarioClone
 {
@@ -20,7 +21,7 @@ namespace MarioClone
 		SpriteBatch spriteBatch;
         
         static ContentManager _content;
-        List<AbstractGameObject> gameObjects;
+        GameGrid gameGrid;
         List<AbstractController> controllerList;
 
 		public MarioCloneGame()
@@ -46,7 +47,7 @@ namespace MarioClone
                 new GamepadController(PlayerIndex.Four)
             };
 
-            gameObjects = new List<AbstractGameObject>();
+            gameGrid = new GameGrid(10, 10, 800);
 
 			base.Initialize();
 		}
@@ -111,54 +112,54 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(mario));
             AddCommandToAllGamepads(Buttons.DPadRight, new JumpCommand(mario));
 
-			gameObjects.Add(mario);
+			gameGrid.Add(mario);
 
             var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
             keyboard.AddInputCommand((int)Keys.B, new BlockBumpCommand(BrickBlock));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new BlockBumpCommand(BrickBlock));
-            gameObjects.Add(BrickBlock);
+            gameGrid.Add(BrickBlock);
 
             var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(250, 200));
             keyboard.AddInputCommand((int)Keys.OemQuestion, new BlockBumpCommand(QuestionBlock));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.OemQuestion, new BlockBumpCommand(QuestionBlock));
-            gameObjects.Add(QuestionBlock);
+            gameGrid.Add(QuestionBlock);
 
             var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(300, 200));
             keyboard.AddInputCommand((int)Keys.H, new ShowHiddenBrickCommand(HiddenBlock));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.H, new ShowHiddenBrickCommand(HiddenBlock));
-            gameObjects.Add(HiddenBlock);
+            gameGrid.Add(HiddenBlock);
 
             var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(350, 200));
-            gameObjects.Add(FloorBlock);
+            gameGrid.Add(FloorBlock);
 
             var StairBlock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(400, 200));
-            gameObjects.Add(StairBlock);
+            gameGrid.Add(StairBlock);
 
             var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(450, 200));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.X, new BlockBumpCommand(UsedBlock));
             keyboard.AddInputCommand((int)Keys.X, new BlockBumpCommand(UsedBlock));
-            gameObjects.Add(UsedBlock);
+            gameGrid.Add(UsedBlock);
 
             var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(200, 300));
-            gameObjects.Add(goomba);
+            gameGrid.Add(goomba);
 
             var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(250, 300));
-            gameObjects.Add(GreenKoopa);
+            gameGrid.Add(GreenKoopa);
 
             var RedKoopa = EnemyFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(300, 300));
-            gameObjects.Add(RedKoopa);
+            gameGrid.Add(RedKoopa);
 
             var coin = PowerUpFactory.Create(PowerUpType.Coin, new Vector2(200, 400));
-            gameObjects.Add(coin);
+            gameGrid.Add(coin);
 
             var flower = PowerUpFactory.Create(PowerUpType.Flower, new Vector2(250, 400));
-            gameObjects.Add(flower);
+            gameGrid.Add(flower);
 
             var GreenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(300, 400));
-            gameObjects.Add(GreenMushroom);
+            gameGrid.Add(GreenMushroom);
 
             var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(350, 400));
-            gameObjects.Add(redMushroom);
+            gameGrid.Add(redMushroom);
 
             controllerList.Add(keyboard);
         }
@@ -189,16 +190,7 @@ namespace MarioClone
   
 			if (!paused)
 			{
-                var removed = new List<AbstractGameObject>();
-                foreach (var obj in gameObjects)
-				{
-					if (obj.Update(gameTime))
-					{
-                        removed.Add(obj);
-                    }
-				}
-
-                gameObjects.RemoveAll(x => removed.Contains(x));
+                gameGrid.UpdateWorld(gameTime);
 				base.Update(gameTime);
 			}
 		}
@@ -214,10 +206,7 @@ namespace MarioClone
 			{
 				GraphicsDevice.Clear(Color.CornflowerBlue);
 				spriteBatch.Begin();
-				foreach (var obj in gameObjects)
-				{
-					obj.Draw(spriteBatch, gameTime);
-				}
+                gameGrid.DrawWorld(spriteBatch, gameTime);
 				spriteBatch.End();
 
 				base.Draw(gameTime);

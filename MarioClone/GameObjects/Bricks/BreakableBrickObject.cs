@@ -12,8 +12,6 @@ namespace MarioClone.GameObjects
     public class BreakableBrickObject : AbstractBlock
 	{
 		private List<AbstractGameObject> pieceList = new List<AbstractGameObject>();
-		List<BrickPieceObject> invisiblePiece = new List<BrickPieceObject>();
-
 
 		public BreakableBrickObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
@@ -39,12 +37,13 @@ namespace MarioClone.GameObjects
 			}
         }
 
-		public bool Pieces(GameTime gameTime)
+		public bool Pieces(GameTime gameTime, float percent)
 		{
+            List<BrickPieceObject> invisiblePiece = new List<BrickPieceObject>();
             bool disposeMe = false;
 			foreach(BrickPieceObject piece in pieceList)
 			{
-				if (piece.Update(gameTime))
+				if (piece.Update(gameTime, percent))
 				{
 					invisiblePiece.Add(piece);
 				}
@@ -68,13 +67,13 @@ namespace MarioClone.GameObjects
             return disposeMe;
 		}
 
-		public override bool Update(GameTime gameTime)
+		public override bool Update(GameTime gameTime, float percent)
         {
             if (Visible)
             {
-                base.Update(gameTime);
+                base.Update(gameTime, percent);
             }
-			return State.Action() && Pieces(gameTime);
+			return State.Action(percent) && Pieces(gameTime, percent);
         }
 
 		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)

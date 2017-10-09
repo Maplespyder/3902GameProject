@@ -1,5 +1,6 @@
 ﻿using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,11 +86,11 @@ namespace MarioClone.Collision
         {
             List<Point> squares = new List<Point>();
             int xBucket = corner.X / GridSquareWidth;
-            int yBucket = (corner.Y / GridSquareHeight) * Columns;
+            int yBucket = corner.Y / GridSquareHeight;
 
             if (corner.Y >= ScreenHeight)
             {
-                yBucket -= Columns;
+                yBucket -= 1;
             }
 
             if (corner.X >= FullGameWidth)
@@ -107,7 +108,7 @@ namespace MarioClone.Collision
                     {
                         if ((corner.Y % GridSquareHeight) == 0)
                         {
-                            squares.Add(new Point(xBucket - 1, yBucket - Columns));
+                            squares.Add(new Point(xBucket - 1, yBucket - 1));
                         }
                     }
                 }
@@ -117,7 +118,7 @@ namespace MarioClone.Collision
             {
                 if ((corner.Y % GridSquareHeight) == 0)
                 {
-                    squares.Add(new Point(xBucket, yBucket - Columns));
+                    squares.Add(new Point(xBucket, yBucket - 1));
                 }
             }
             return squares;
@@ -428,9 +429,18 @@ namespace MarioClone.Collision
                     }
                 }
 
+                var removed = new List<AbstractGameObject>();
                 foreach (AbstractGameObject obj in collidables)
                 {
-                    obj.Update(gameTime, earliestCollisionPercent - percentCompleted);
+                    if (obj.Update(gameTime, earliestCollisionPercent - percentCompleted))
+                    {
+                        removed.Add(obj);
+                    }
+                }
+
+                foreach(var obj in removed)
+                {
+                    Remove(obj);
                 }
 
                 if (firstCollision != null)
@@ -440,6 +450,15 @@ namespace MarioClone.Collision
                 }
 
                 percentCompleted += earliestCollisionPercent;
+            }
+        }
+
+        public void DrawWorld(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            List<AbstractGameObject> collidables = GetCollidableGameObjects();
+            foreach(var obj in collidables)
+            {
+                obj.Draw(spriteBatch, gameTime);
             }
         }
     }

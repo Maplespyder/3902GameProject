@@ -92,11 +92,11 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
         }
 
-        public override bool Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime, float percent)
         {
+            Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
-            Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-            return base.Update(gameTime);
+            return base.Update(gameTime, percent);
         }
     }
 }

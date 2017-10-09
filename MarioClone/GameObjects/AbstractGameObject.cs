@@ -36,6 +36,10 @@ namespace MarioClone.GameObjects
             Visible = true;
             DrawOrder = 1;
             BoundingBox = new HitBox(0, 0, 0, 0, hitBoxColor);
+            if (sprite != null)
+            {
+                BoundingBox.UpdateHitBox(Position, Sprite);
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -47,7 +51,7 @@ namespace MarioClone.GameObjects
             }
         }
 
-        public virtual bool Update(GameTime gameTime)
+        public virtual bool Update(GameTime gameTime, float percent)
         {
             BoundingBox.UpdateHitBox(Position, Sprite);
             return false;
