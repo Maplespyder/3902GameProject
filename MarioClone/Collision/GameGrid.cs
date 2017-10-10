@@ -143,31 +143,19 @@ namespace MarioClone.Collision
                 return;
             }
 
-            if (!obj.BoundingBox.Dimensions.Location.Equals(oldHitbox.Dimensions.Location)
-                || obj.BoundingBox.Dimensions.Width != oldHitbox.Dimensions.Width
-                || obj.BoundingBox.Dimensions.Height != oldHitbox.Dimensions.Height)
+            ISet<Point> newSquares = GetSquaresFromObject(obj.BoundingBox);
+            ISet<Point> oldSquares = GetSquaresFromObject(oldHitbox);
+
+            foreach (Point pt in oldSquares)
             {
-                ISet<Point> newSquares = GetSquaresFromObject(obj.BoundingBox);
-                ISet<Point> oldSquares = GetSquaresFromObject(oldHitbox);
-                ISet<Point> difference = (ISet<Point>)newSquares.Intersect(oldSquares);
-                if (difference.Count > 0)
-                {
-                    foreach (Point pt in difference)
-                    {
-                        //either old squares or new squares must contain
-                        //the point, if it's in old that means it's not in new,
-                        //so it should be removed, and vice versa
-                        if (newSquares.Contains(pt))
-                        {
-                            gameGrid[pt.X, pt.Y].Add(obj);
-                        }
-                        else
-                        {
-                            gameGrid[pt.X, pt.Y].Remove(obj);
-                        }
-                    }
-                }
+                gameGrid[pt.X, pt.Y].Remove(obj);
             }
+
+            foreach (Point pt in newSquares)
+            {
+                gameGrid[pt.X, pt.Y].Add(obj);
+            }
+
         }
 
         private ISet<AbstractGameObject> GetNeighbours(Point square)
@@ -234,17 +222,13 @@ namespace MarioClone.Collision
         {
             int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
             int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
-            if (rightHandColumn == Columns)
-            {
-                rightHandColumn -= 1;
-            }
             List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
             for (int rows = 0; rows < Rows - 1; rows++)
             {
                 for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
                 {
-                    objectList.Union(gameGrid[rows, columns]);
+                    objectList = objectList.Union(gameGrid[rows, columns]).ToList();
                 }
             }
 
@@ -254,22 +238,22 @@ namespace MarioClone.Collision
         public bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
         {
             Vector2 relativeVelocity = obj2.Velocity - obj1.Velocity;
-            if (obj1.Position.X < obj2.Position.X)
+            if (obj2.Position.X < obj1.Position.X)
             {
                 relativeVelocity = new Vector2(-relativeVelocity.X, relativeVelocity.Y);
             }
-            if (obj1.Position.Y < obj2.Position.Y)
+            if (obj2.Position.Y < obj1.Position.Y)
             {
                 relativeVelocity = new Vector2(relativeVelocity.X, -relativeVelocity.Y);
             }
 
-            return (relativeVelocity.X <= 0 || relativeVelocity.Y <= 0) && !(relativeVelocity.X == 0 && relativeVelocity.Y == 0);
+            return (relativeVelocity.X < 0 || relativeVelocity.Y < 0);
         }
 
         public float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
 
-			float xTestEntry, yTestEntry, xEntry, yEntry;
+            float xTestEntry, yTestEntry, xEntry, yEntry;
             Point o1 = obj1.BoundingBox.BottomLeft;
             Point o2 = obj2.BoundingBox.BottomLeft;
 
@@ -282,7 +266,7 @@ namespace MarioClone.Collision
             * I didn't look at it for too long, so it might not be totally correct, but it worked on all paper tests I made up. 
             */
             Vector2 relativeVelocity = (obj1.Velocity - obj2.Velocity) * (1 - percentCompleted);
-			side = Side.None;
+            side = Side.None;
             //distances of X and Y axis of both objects
             if (relativeVelocity.X > 0f)
             {
@@ -321,29 +305,29 @@ namespace MarioClone.Collision
                 yEntry = yTestEntry / relativeVelocity.Y;
             }
 
-			if (xEntry > yEntry)
-			{
-				if (xTestEntry < 0)
-				{
-					side = Side.Top;
-				}
-				else if (xTestEntry > 0)
-				{
-					side = Side.Bottom;
-				}
-			}
-			else
-			{
-				if (yTestEntry < 0)
-				{
-					side = Side.Left;
-				}
-				else if (yTestEntry > 0)
-				{
-					side = Side.Right;
-				}
-			}
-            
+            if (xEntry > yEntry)
+            {
+                if (xTestEntry < 0)
+                {
+                    side = Side.Top;
+                }
+                else if (xTestEntry > 0)
+                {
+                    side = Side.Bottom;
+                }
+            }
+            else
+            {
+                if (yTestEntry < 0)
+                {
+                    side = Side.Left;
+                }
+                else if (yTestEntry > 0)
+                {
+                    side = Side.Right;
+                }
+            }
+
             if (xTestEntry < 0f && yTestEntry < 0f || xTestEntry > 1.0f || yTestEntry > 1.0f) //no collision
             {
                 return 1.0f; //no collision
@@ -358,8 +342,8 @@ namespace MarioClone.Collision
         {
             Rectangle obj1Sweep = GetSweptBox(obj1);
             Rectangle obj2Sweep = GetSweptBox(obj2);
-			side = Side.None;
-            float collisionTime = -1;
+            side = Side.None;
+            float collisionTime = 1;
             if (CollisionCheck(obj1Sweep, obj2Sweep))
             {
                 collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
@@ -379,14 +363,7 @@ namespace MarioClone.Collision
 
         public bool CollisionCheck(Rectangle obj1, Rectangle obj2)
         {
-            if (!(obj1.X + obj1.Width < obj2.X || obj1.X > obj2.X + obj2.Width || obj1.Y + obj1.Height < obj2.Y || obj1.Y > obj2.Y + obj2.Height))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return obj1.Intersects(obj2);
         }
 
         public void UpdateWorld(GameTime gameTime)
@@ -428,16 +405,26 @@ namespace MarioClone.Collision
                     }
                 }
 
+                if (firstCollision == null)
+                {
+                    earliestCollisionPercent = 1;
+                }
+
                 var removed = new List<AbstractGameObject>();
                 foreach (AbstractGameObject obj in collidables)
                 {
+                    HitBox oldHitbox = new HitBox(obj.BoundingBox);
                     if (obj.Update(gameTime, earliestCollisionPercent - percentCompleted))
                     {
                         removed.Add(obj);
                     }
+                    else
+                    {
+                        UpdateObjectGridPosition(obj, oldHitbox);
+                    }
                 }
 
-                foreach(var obj in removed)
+                foreach (var obj in removed)
                 {
                     Remove(obj);
                 }
@@ -447,7 +434,6 @@ namespace MarioClone.Collision
                     //firstCollision.Item2.Process(firstCollision.Item3, firstCollision.Item1); //if side is left, do side.right for object2
                     //firstCollision.Item3.Process(firstCollision.Item2, firstCollision.Item1); //and vice versa
                 }
-
                 percentCompleted += earliestCollisionPercent;
             }
         }
@@ -455,9 +441,25 @@ namespace MarioClone.Collision
         public void DrawWorld(SpriteBatch spriteBatch, GameTime gameTime)
         {
             List<AbstractGameObject> collidables = GetCollidableGameObjects();
-            foreach(var obj in collidables)
+            foreach (var obj in collidables)
             {
                 obj.Draw(spriteBatch, gameTime);
+            }
+
+            int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
+            int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
+
+            Texture2D pixel = new Texture2D(MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice, 1, 1);
+            pixel.SetData(new[] { Color.Orange });
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = leftHandColumn; j < rightHandColumn; j++)
+                {
+                    Rectangle line = new Rectangle(j * GridSquareWidth, 0, 1, ScreenHeight);
+                    spriteBatch.Draw(pixel, line, Color.White);
+                }
+                Rectangle rowline = new Rectangle(0, i * GridSquareHeight, ScreenWidth, 1);
+                spriteBatch.Draw(pixel, rowline, Color.White);
             }
         }
     }

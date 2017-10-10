@@ -36,14 +36,35 @@ namespace MarioClone.Collision
             pixel.SetData(new[] { hitBoxColor });
 		}
 
-		public void UpdateHitBox(Vector2 Position, ISprite Sprite)
+        public HitBox(HitBox copy)
+        {
+            this.LeftX_OffSet = copy.LeftX_OffSet;
+            this.RightX_OffSet = copy.RightX_OffSet;
+
+            this.TopY_OffSet = copy.TopY_OffSet;
+            this.BottomY_OffSet = copy.BottomY_OffSet;
+
+            this.Dimensions = new Rectangle(copy.Dimensions.X, copy.Dimensions.Y, copy.Dimensions.Width, copy.Dimensions.Height);
+
+            TopLeft = new Point(Dimensions.X, Dimensions.Y);
+            TopRight = new Point(Dimensions.X + (Dimensions.Width), Dimensions.Y);
+            BottomLeft = new Point(Dimensions.X, Dimensions.Y + Dimensions.Height);
+            BottomRight = new Point(Dimensions.X + Dimensions.Width, Dimensions.Y + Dimensions.Height);
+
+            pixel = new Texture2D(MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice, 1, 1);
+            Color[] pixelColor = new Color[1];
+            copy.pixel.GetData(pixelColor);
+            pixel.SetData(pixelColor);
+        }
+
+        public void UpdateHitBox(Vector2 Position, ISprite Sprite)
 		{
 			Dimensions = new Rectangle((int)Position.X - LeftX_OffSet, (int)Position.Y - TopY_OffSet,
 				Sprite.SourceRectangle.Width + (LeftX_OffSet + RightX_OffSet), Sprite.SourceRectangle.Height + (TopY_OffSet + BottomY_OffSet));
 
             TopLeft = new Point(Dimensions.X, Dimensions.Y);
             TopRight = new Point(Dimensions.X + (Dimensions.Width), Dimensions.Y);
-            BottomLeft = new Point(Dimensions.X + Dimensions.Y + Dimensions.Height);
+            BottomLeft = new Point(Dimensions.X, Dimensions.Y + Dimensions.Height);
             BottomRight = new Point(Dimensions.X + Dimensions.Width, Dimensions.Y + Dimensions.Height);
         }
 
@@ -62,5 +83,17 @@ namespace MarioClone.Collision
             spriteBatch.Draw(pixel, new Rectangle(Dimensions.X + Dimensions.Width, Dimensions.Y, 2, Dimensions.Height), Color.White);
             spriteBatch.Draw(pixel, new Rectangle(Dimensions.X, Dimensions.Y + Dimensions.Height, Dimensions.Width, 2), Color.White);
         }
-	}
+
+        public override bool Equals(object obj)
+        {
+            if (obj is HitBox)
+            {
+                HitBox box = (HitBox)obj;
+                return box.Dimensions.X == this.Dimensions.X && box.Dimensions.Y == this.Dimensions.Y
+                    && box.Dimensions.Width == this.Dimensions.Width && box.Dimensions.Height == this.Dimensions.Height;
+                
+            }
+            return base.Equals(obj);
+        }
+    }
 }

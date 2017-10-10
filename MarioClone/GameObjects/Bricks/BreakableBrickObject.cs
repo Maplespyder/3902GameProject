@@ -69,11 +69,12 @@ namespace MarioClone.GameObjects
 
 		public override bool Update(GameTime gameTime, float percent)
         {
+            bool retVal = State.Action(percent) && Pieces(gameTime, percent);
             if (Visible)
             {
                 base.Update(gameTime, percent);
             }
-			return State.Action(percent) && Pieces(gameTime, percent);
+			return retVal;
         }
 
 		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)

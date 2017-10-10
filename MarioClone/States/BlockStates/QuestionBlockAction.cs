@@ -33,6 +33,7 @@ namespace MarioClone.States.BlockStates
             if (Context.Position.Y <= initialPosition.Y) //back to static position
             {
 				Context.Position = initialPosition;
+                Context.Velocity = new Vector2(0, 0);
                 Context.State = new Used(Context);
             }
             return false;
