@@ -1,4 +1,5 @@
-﻿using MarioClone.Factories;
+﻿using MarioClone.Collision;
+using MarioClone.Factories;
 using MarioClone.Sprites;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
@@ -48,8 +49,12 @@ namespace MarioClone.GameObjects
             SpriteFactory = NormalMarioSpriteFactory.Instance;
             ActionState = MarioIdle.Instance;
             Sprite = SpriteFactory.Create(MarioAction.Idle);
-            PreviousActionState = MarioIdle.Instance;
             Orientation = Facing.Right;
+
+            PreviousActionState = MarioIdle.Instance;
+            
+            ActionState.UpdateHitBox();
+            BoundingBox.UpdateHitBox(position, Sprite);
         }
 
 		public void MoveLeft()

@@ -16,23 +16,23 @@ namespace MarioClone.States.BlockStates
 
         public override void Bump()
         {
-            Context.Position = new Vector2(initialPosition.X, initialPosition.Y);
+            /* Context.Position = new Vector2(initialPosition.X, initialPosition.Y);
             Context.State = new BreakableBrickStatic(Context);
-            Context.State.Bump();
+            Context.State.Bump(); */
         }
 
         public override bool Action(float percent)
         {
-            if (Context.Position.Y > (initialPosition.Y - 10)) //if Position hasnt reached max height
+            if (Context.Position.Y >= (initialPosition.Y - 10)) //if Position hasnt reached max height
             {
                 Context.Position = new Vector2(Context.Position.X, Context.Position.Y + Context.Velocity.Y * percent);
-                if (Context.Position.Y == (initialPosition.Y - 10))
+                if (Context.Position.Y <= (initialPosition.Y - 10))
                 {
 					Context.Velocity = new Vector2(0f, 1f);
 				}
             }
 
-            if (Context.Position.Y <= initialPosition.Y) //back to static position
+            if (Context.Position.Y >= initialPosition.Y) //back to static position
             {
 				Context.Position = initialPosition;
 				Context.State = new BreakableBrickStatic(Context);
