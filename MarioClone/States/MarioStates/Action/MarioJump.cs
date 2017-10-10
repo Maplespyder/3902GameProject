@@ -41,6 +41,7 @@ namespace MarioClone.States
 
         public override void BecomeCrouch()
         {
+            Context.Velocity = new Vector2(0, 0);
             Context.ActionState = Context.PreviousActionState;
             Context.Sprite = Context.SpriteFactory.Create(Context.PreviousActionState.Action);
             Context.PreviousActionState = this;
@@ -48,7 +49,7 @@ namespace MarioClone.States
 
         public override void BecomeJump()
         {
-            Context.Velocity = new Vector2(0, 0);
+            
             Context.ActionState = MarioIdle.Instance;
             Context.PreviousActionState = this;
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
