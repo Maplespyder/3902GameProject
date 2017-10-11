@@ -253,7 +253,7 @@ namespace MarioClone.Collision
         public float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
 
-            float xTestEntry, yTestEntry, xEntry, yEntry;
+            float xDirectionDistance, yDirectionDistance, xEntry, yEntry;
             Point o1 = obj1.BoundingBox.BottomLeft;
             Point o2 = obj2.BoundingBox.BottomLeft;
 
@@ -270,20 +270,20 @@ namespace MarioClone.Collision
             //distances of X and Y axis of both objects
             if (relativeVelocity.X > 0f)
             {
-                xTestEntry = obj2.BoundingBox.BottomLeft.X - (obj1.BoundingBox.BottomLeft.X + obj1.BoundingBox.Dimensions.Width);
+                xDirectionDistance = obj2.BoundingBox.TopLeft.X - (obj1.BoundingBox.TopLeft.X + obj1.BoundingBox.Dimensions.Width);
             }
             else
             {
-                xTestEntry = (obj2.BoundingBox.BottomLeft.X + obj2.BoundingBox.Dimensions.Width) - obj1.BoundingBox.BottomLeft.X;
+                xDirectionDistance = (obj2.BoundingBox.TopLeft.X + obj2.BoundingBox.Dimensions.Width) - obj1.BoundingBox.TopLeft.X;
             }
 
             if (relativeVelocity.Y > 0f)
             {
-                yTestEntry = (obj2.BoundingBox.BottomLeft.Y - obj2.BoundingBox.Dimensions.Height) - obj1.BoundingBox.BottomLeft.Y;
+                yDirectionDistance = (obj2.BoundingBox.TopLeft.Y - (obj1.BoundingBox.Dimensions.Height + obj1.BoundingBox.TopLeft.Y));
             }
             else
             {
-                yTestEntry = obj2.BoundingBox.BottomLeft.Y - (obj1.BoundingBox.BottomLeft.Y - obj1.BoundingBox.Dimensions.Height);
+                yDirectionDistance = (obj2.BoundingBox.TopLeft.Y + obj2.BoundingBox.Dimensions.Height) - obj1.BoundingBox.TopLeft.Y;
             }
 
             //determine times when X and Y axis hit
@@ -293,7 +293,7 @@ namespace MarioClone.Collision
             }
             else
             {
-                xEntry = xTestEntry / relativeVelocity.X;
+                xEntry = xDirectionDistance / relativeVelocity.X;
             }
 
             if (relativeVelocity.Y == 0f)
@@ -302,45 +302,41 @@ namespace MarioClone.Collision
             }
             else
             {
-                yEntry = yTestEntry / relativeVelocity.Y;
+                yEntry = yDirectionDistance / relativeVelocity.Y;
             }
 
 
             if (xEntry > yEntry)
             {
-                if (xTestEntry < 0)
+                if (xDirectionDistance < 0)
                 {
                     side = Side.Top;
                 }
-                else if (xTestEntry > 0)
+                else if (xDirectionDistance > 0)
                 {
                     side = Side.Bottom;
                 }
             }
             else
             {
-                if (yTestEntry < 0)
+                if (yDirectionDistance < 0)
                 {
                     side = Side.Left;
                 }
-                else if (yTestEntry > 0)
+                else if (yDirectionDistance > 0)
                 {
                     side = Side.Right;
                 }
             }
 
-            if(yEntry > 0f && yEntry < 1f)
-            {
-                return 1.0f;
-            }
 
-            if (xEntry < 0f && yEntry < 0f || xEntry > 1.0f || yEntry > 1.0f) //no collision
+            if (xEntry < 0f && yEntry < 0f || (xEntry > 1.0f && yEntry > 1.0f)) //no collision
             {
                 return 1.0f; //no collision
             }
             else
             {
-                return Math.Max(xTestEntry, yTestEntry);
+                return Math.Max(xDirectionDistance, yDirectionDistance);
             }
         }
 
