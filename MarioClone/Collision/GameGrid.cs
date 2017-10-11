@@ -253,7 +253,7 @@ namespace MarioClone.Collision
         public float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
 
-            float xTestEntry, yTestEntry, xEntry, yEntry;
+            float xDirectionDistance, yDirectionDistance, xEntryPercent, yEntryPercent;
             Point o1 = obj1.BoundingBox.BottomLeft;
             Point o2 = obj2.BoundingBox.BottomLeft;
 
@@ -270,71 +270,73 @@ namespace MarioClone.Collision
             //distances of X and Y axis of both objects
             if (relativeVelocity.X > 0f)
             {
-                xTestEntry = obj2.BoundingBox.BottomLeft.X - (obj1.BoundingBox.BottomLeft.X + obj1.BoundingBox.Dimensions.Width);
+                xDirectionDistance = obj2.BoundingBox.TopLeft.X - (obj1.BoundingBox.TopLeft.X + obj1.BoundingBox.Dimensions.Width);
             }
             else
             {
-                xTestEntry = (obj2.BoundingBox.BottomLeft.X + obj2.BoundingBox.Dimensions.Width) - obj1.BoundingBox.BottomLeft.X;
+                xDirectionDistance = (obj2.BoundingBox.TopLeft.X + obj2.BoundingBox.Dimensions.Width) - obj1.BoundingBox.TopLeft.X;
             }
 
             if (relativeVelocity.Y > 0f)
             {
-                yTestEntry = (obj2.BoundingBox.BottomLeft.Y - obj2.BoundingBox.Dimensions.Height) - obj1.BoundingBox.BottomLeft.Y;
+                yDirectionDistance = (obj2.BoundingBox.TopLeft.Y - (obj1.BoundingBox.Dimensions.Height + obj1.BoundingBox.TopLeft.Y));
             }
             else
             {
-                yTestEntry = obj2.BoundingBox.BottomLeft.Y - (obj1.BoundingBox.BottomLeft.Y - obj1.BoundingBox.Dimensions.Height);
+                yDirectionDistance = (obj2.BoundingBox.TopLeft.Y + obj2.BoundingBox.Dimensions.Height) - obj1.BoundingBox.TopLeft.Y;
             }
 
             //determine times when X and Y axis hit
             if (relativeVelocity.X == 0f)
             {
-                xEntry = float.PositiveInfinity;
+                xEntryPercent = -(float.PositiveInfinity);
             }
             else
             {
-                xEntry = xTestEntry / relativeVelocity.X;
+                xEntryPercent = xDirectionDistance / relativeVelocity.X;
             }
 
             if (relativeVelocity.Y == 0f)
             {
-                yEntry = float.PositiveInfinity;
+                yEntryPercent = -(float.PositiveInfinity);
             }
             else
             {
-                yEntry = yTestEntry / relativeVelocity.Y;
+                yEntryPercent = yDirectionDistance / relativeVelocity.Y;
             }
 
-            if (xEntry > yEntry)
+
+            if (xEntryPercent > yEntryPercent)
             {
-                if (xTestEntry < 0)
+                if (xDirectionDistance < 0)
                 {
                     side = Side.Top;
                 }
-                else if (xTestEntry > 0)
+                else if (xDirectionDistance > 0)
                 {
                     side = Side.Bottom;
                 }
             }
             else
             {
-                if (yTestEntry < 0)
+                if (yDirectionDistance < 0)
                 {
                     side = Side.Left;
                 }
-                else if (yTestEntry > 0)
+                else if (yDirectionDistance > 0)
                 {
                     side = Side.Right;
                 }
             }
 
-            if (xTestEntry < 0f && yTestEntry < 0f || xTestEntry > 1.0f || yTestEntry > 1.0f) //no collision
+
+            if (xEntryPercent < 0f && yEntryPercent < 0f || (xEntryPercent > 1.0f || yEntryPercent > 1.0f)) //no collision
             {
                 return 1.0f; //no collision
             }
             else
             {
-                return Math.Max(xTestEntry, yTestEntry);
+                return Math.Max(xEntryPercent, yEntryPercent);
             }
         }
 
@@ -354,8 +356,8 @@ namespace MarioClone.Collision
         public Rectangle GetSweptBox(AbstractGameObject obj)
         {
             Rectangle sweptBox;
-            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.BottomLeft.X : obj.BoundingBox.BottomLeft.X + (int)obj.Velocity.X;
-            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.BottomLeft.Y : obj.BoundingBox.BottomLeft.Y + (int)obj.Velocity.Y;
+            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.TopLeft.X : obj.BoundingBox.TopLeft.X + (int)obj.Velocity.X;
+            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.TopLeft.Y: obj.BoundingBox.TopLeft.Y + (int)obj.Velocity.Y;
             sweptBox.Width = obj.Velocity.X > 0 ? (int)obj.Velocity.X + obj.BoundingBox.Dimensions.Width : obj.BoundingBox.Dimensions.Width - (int)obj.Velocity.X;
             sweptBox.Height = obj.Velocity.Y > 0 ? (int)obj.Velocity.Y + obj.BoundingBox.Dimensions.Height : obj.BoundingBox.Dimensions.Height - (int)obj.Velocity.Y;
             return sweptBox;
