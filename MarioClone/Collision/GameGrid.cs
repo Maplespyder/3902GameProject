@@ -56,6 +56,27 @@ namespace MarioClone.Collision
             }
         }
 
+        public static Side GetOppositeSide(Side side)
+        {
+            if (side == Side.Top)
+            {
+                return Side.Bottom;
+            }
+            if (side == Side.Bottom)
+            {
+                return Side.Top;
+            } 
+            if(side == Side.Left)
+            {
+                return Side.Right;
+            }
+            if (side == Side.Right)
+            {
+                return Side.Left;
+            }
+            return Side.None;
+        }
+
         public void ClearGrid()
         {
             foreach (List<AbstractGameObject> li in gameGrid)
