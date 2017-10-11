@@ -36,6 +36,11 @@ namespace MarioClone.Collision
             pixel.SetData(new[] { hitBoxColor });
 		}
 
+        /// <summary>
+        /// This is a weak copy constructor, it does NOT copy the pixel data as that was eating up 70% CPU time and causing memory leaks. 
+        /// This is just meant to be used to save the old hitbox when checking if a hitbox translated at all.
+        /// </summary>
+        /// <param name="copy"></param>
         public HitBox(HitBox copy)
         {
             this.LeftX_OffSet = copy.LeftX_OffSet;
@@ -50,11 +55,6 @@ namespace MarioClone.Collision
             TopRight = new Point(Dimensions.X + (Dimensions.Width), Dimensions.Y);
             BottomLeft = new Point(Dimensions.X, Dimensions.Y + Dimensions.Height);
             BottomRight = new Point(Dimensions.X + Dimensions.Width, Dimensions.Y + Dimensions.Height);
-
-            pixel = new Texture2D(MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice, 1, 1);
-            Color[] pixelColor = new Color[1];
-            copy.pixel.GetData(pixelColor);
-            pixel.SetData(pixelColor);
         }
 
         public void UpdateHitBox(Vector2 Position, ISprite Sprite)
