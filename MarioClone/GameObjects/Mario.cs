@@ -107,7 +107,7 @@ namespace MarioClone.GameObjects
 
         public void Process(AbstractGameObject obj, Side side)
         {
-            ActionState.BecomeCrouch();
+            Velocity = new Vector2(0, 0);
         }
     }
 }
