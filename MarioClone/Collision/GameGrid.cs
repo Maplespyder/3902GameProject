@@ -253,7 +253,7 @@ namespace MarioClone.Collision
         public float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
 
-            float xDirectionDistance, yDirectionDistance, xEntry, yEntry;
+            float xDirectionDistance, yDirectionDistance, xEntryPercent, yEntryPercent;
             Point o1 = obj1.BoundingBox.BottomLeft;
             Point o2 = obj2.BoundingBox.BottomLeft;
 
@@ -289,24 +289,24 @@ namespace MarioClone.Collision
             //determine times when X and Y axis hit
             if (relativeVelocity.X == 0f)
             {
-                xEntry = float.PositiveInfinity;
+                xEntryPercent = -(float.PositiveInfinity);
             }
             else
             {
-                xEntry = xDirectionDistance / relativeVelocity.X;
+                xEntryPercent = xDirectionDistance / relativeVelocity.X;
             }
 
             if (relativeVelocity.Y == 0f)
             {
-                yEntry = float.PositiveInfinity;
+                yEntryPercent = -(float.PositiveInfinity);
             }
             else
             {
-                yEntry = yDirectionDistance / relativeVelocity.Y;
+                yEntryPercent = yDirectionDistance / relativeVelocity.Y;
             }
 
 
-            if (xEntry > yEntry)
+            if (xEntryPercent > yEntryPercent)
             {
                 if (xDirectionDistance < 0)
                 {
@@ -330,13 +330,13 @@ namespace MarioClone.Collision
             }
 
 
-            if (xEntry < 0f && yEntry < 0f || (xEntry > 1.0f && yEntry > 1.0f)) //no collision
+            if (xEntryPercent < 0f && yEntryPercent < 0f || (xEntryPercent > 1.0f || yEntryPercent > 1.0f)) //no collision
             {
                 return 1.0f; //no collision
             }
             else
             {
-                return Math.Max(xDirectionDistance, yDirectionDistance);
+                return Math.Max(xEntryPercent, yEntryPercent);
             }
         }
 
@@ -349,7 +349,6 @@ namespace MarioClone.Collision
             if (CollisionCheck(obj1Sweep, obj2Sweep))
             {
                 collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
-                int p = 50;
             }
             return collisionTime;
         }

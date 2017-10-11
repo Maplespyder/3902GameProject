@@ -17,7 +17,7 @@ namespace MarioClone.GameObjects
     public class Mario : AbstractGameObject
     {
         public const float HorizontalMovementSpeed = 1f;
-        public const float VerticalMovementSpeed = 1f;
+        public const float VerticalMovementSpeed = 5f;
         private static Mario _mario;
 
         /// <summary>
