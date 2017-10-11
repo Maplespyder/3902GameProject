@@ -419,6 +419,7 @@ namespace MarioClone.Collision
                         {
                             Side side = Side.None;
                             float percent = IfCollisionCheck(obj, neighbour, percentCompleted, out side);
+
                             if ((side != Side.None) && percent < earliestCollisionPercent)
                             {
                                 firstCollision = new Tuple<Side, AbstractGameObject, AbstractGameObject>(side, obj, neighbour);
@@ -456,7 +457,8 @@ namespace MarioClone.Collision
                 {
                     if(firstCollision.Item2 is Mario)
                     ((Mario)firstCollision.Item2).Process(firstCollision.Item3, firstCollision.Item1); //if side is left, do side.right for object2
-                    //firstCollision.Item3.Process(firstCollision.Item2, firstCollision.Item1); //and vice versa
+                    if (firstCollision.Item3 is Mario)
+                    ((Mario)firstCollision.Item3).Process(firstCollision.Item3, firstCollision.Item1); //and vice versa
                 }
                 percentCompleted += earliestCollisionPercent;
             }
