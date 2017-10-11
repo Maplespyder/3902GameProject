@@ -431,7 +431,8 @@ namespace MarioClone.Collision
 
                 if (firstCollision != null)
                 {
-                    //firstCollision.Item2.Process(firstCollision.Item3, firstCollision.Item1); //if side is left, do side.right for object2
+                    if(firstCollision.Item2 is Mario)
+                    ((Mario)firstCollision.Item2).Process(firstCollision.Item3, firstCollision.Item1); //if side is left, do side.right for object2
                     //firstCollision.Item3.Process(firstCollision.Item2, firstCollision.Item1); //and vice versa
                 }
                 percentCompleted += earliestCollisionPercent;

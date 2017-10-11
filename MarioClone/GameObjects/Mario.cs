@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MarioClone.Collision.GameGrid;
 using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.GameObjects
@@ -102,6 +103,11 @@ namespace MarioClone.GameObjects
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
             return base.Update(gameTime, percent);
+        }
+
+        public void Process(AbstractGameObject obj, Side side)
+        {
+            ActionState.BecomeCrouch();
         }
     }
 }
