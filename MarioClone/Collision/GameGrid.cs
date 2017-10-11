@@ -305,6 +305,7 @@ namespace MarioClone.Collision
                 yEntry = yTestEntry / relativeVelocity.Y;
             }
 
+
             if (xEntry > yEntry)
             {
                 if (xTestEntry < 0)
@@ -328,7 +329,12 @@ namespace MarioClone.Collision
                 }
             }
 
-            if (xTestEntry < 0f && yTestEntry < 0f || xTestEntry > 1.0f || yTestEntry > 1.0f) //no collision
+            if(yEntry > 0f && yEntry < 1f)
+            {
+                return 1.0f;
+            }
+
+            if (xEntry < 0f && yEntry < 0f || xEntry > 1.0f || yEntry > 1.0f) //no collision
             {
                 return 1.0f; //no collision
             }
@@ -347,6 +353,7 @@ namespace MarioClone.Collision
             if (CollisionCheck(obj1Sweep, obj2Sweep))
             {
                 collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
+                int p = 50;
             }
             return collisionTime;
         }
@@ -354,8 +361,8 @@ namespace MarioClone.Collision
         public Rectangle GetSweptBox(AbstractGameObject obj)
         {
             Rectangle sweptBox;
-            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.BottomLeft.X : obj.BoundingBox.BottomLeft.X + (int)obj.Velocity.X;
-            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.BottomLeft.Y : obj.BoundingBox.BottomLeft.Y + (int)obj.Velocity.Y;
+            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.TopLeft.X : obj.BoundingBox.TopLeft.X + (int)obj.Velocity.X;
+            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.TopLeft.Y: obj.BoundingBox.TopLeft.Y + (int)obj.Velocity.Y;
             sweptBox.Width = obj.Velocity.X > 0 ? (int)obj.Velocity.X + obj.BoundingBox.Dimensions.Width : obj.BoundingBox.Dimensions.Width - (int)obj.Velocity.X;
             sweptBox.Height = obj.Velocity.Y > 0 ? (int)obj.Velocity.Y + obj.BoundingBox.Dimensions.Height : obj.BoundingBox.Dimensions.Height - (int)obj.Velocity.Y;
             return sweptBox;
