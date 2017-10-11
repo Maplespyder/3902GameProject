@@ -306,7 +306,7 @@ namespace MarioClone.Collision
             }
 
 
-            if (xEntryPercent > yEntryPercent)
+            if (xEntryPercent < yEntryPercent)
             {
                 if (xDirectionDistance < 0)
                 {
