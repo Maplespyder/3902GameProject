@@ -354,8 +354,8 @@ namespace MarioClone.Collision
         public Rectangle GetSweptBox(AbstractGameObject obj)
         {
             Rectangle sweptBox;
-            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.BottomLeft.X : obj.BoundingBox.BottomLeft.X + obj.BoundingBox.Dimensions.Width;
-            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.BottomLeft.Y : obj.BoundingBox.BottomLeft.Y + obj.BoundingBox.Dimensions.Height;
+            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.BottomLeft.X : obj.BoundingBox.BottomLeft.X + (int)obj.Velocity.X;
+            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.BottomLeft.Y : obj.BoundingBox.BottomLeft.Y + (int)obj.Velocity.Y;
             sweptBox.Width = obj.Velocity.X > 0 ? (int)obj.Velocity.X + obj.BoundingBox.Dimensions.Width : obj.BoundingBox.Dimensions.Width - (int)obj.Velocity.X;
             sweptBox.Height = obj.Velocity.Y > 0 ? (int)obj.Velocity.Y + obj.BoundingBox.Dimensions.Height : obj.BoundingBox.Dimensions.Height - (int)obj.Velocity.Y;
             return sweptBox;
