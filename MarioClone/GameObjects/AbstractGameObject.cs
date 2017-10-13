@@ -27,6 +27,8 @@ namespace MarioClone.GameObjects
 
         public Vector2 Velocity { get; set; }
 
+        public static bool DrawHitbox { get; set; }
+
         public AbstractGameObject(ISprite sprite, Vector2 position, Color hitBoxColor)
         {
             Sprite = sprite;
@@ -47,14 +49,25 @@ namespace MarioClone.GameObjects
             if (Visible)
             {
                 Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation);
-                BoundingBox.HitBoxDraw(spriteBatch);
+                if (BoundingBox != null && DrawHitbox)
+                {
+                    BoundingBox.HitBoxDraw(spriteBatch);
+                }
             }
         }
 
         public virtual bool Update(GameTime gameTime, float percent)
         {
-            BoundingBox.UpdateHitBox(Position, Sprite);
+            if (BoundingBox != null)
+            {
+                BoundingBox.UpdateHitBox(Position, Sprite);
+            }
             return false;
+        }
+
+        public static void DisplayHitbox()
+        {
+            DrawHitbox = !DrawHitbox;
         }
     }
 }

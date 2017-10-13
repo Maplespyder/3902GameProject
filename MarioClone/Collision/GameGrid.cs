@@ -35,6 +35,7 @@ namespace MarioClone.Collision
                 return CurrentLeftSideViewPort + ScreenWidth;
             }
         }
+
         public GameGrid(int rows, int columns, int widthOfGame)
         {
             Rows = rows;
@@ -46,12 +47,12 @@ namespace MarioClone.Collision
             FullGameWidth = widthOfGame;
             CurrentLeftSideViewPort = 0;
 
-            gameGrid = new List<AbstractGameObject>[Rows, Columns];
+            gameGrid = new List<AbstractGameObject>[Columns, Rows];
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    gameGrid[i, j] = new List<AbstractGameObject>();
+                    gameGrid[j, i] = new List<AbstractGameObject>();
                 }
             }
         }
@@ -245,11 +246,11 @@ namespace MarioClone.Collision
             int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
             List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
-            for (int rows = 0; rows < Rows - 1; rows++)
+            for (int rows = 0; rows < Rows; rows++)
             {
                 for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
                 {
-                    objectList = objectList.Union(gameGrid[rows, columns]).ToList();
+                    objectList = objectList.Union(gameGrid[columns, rows]).ToList();
                 }
             }
 

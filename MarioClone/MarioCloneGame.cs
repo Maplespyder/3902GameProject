@@ -47,7 +47,7 @@ namespace MarioClone
                 new GamepadController(PlayerIndex.Four)
             };
 
-            gameGrid = new GameGrid(10, 10, 800);
+            gameGrid = new GameGrid(12, 16, 800);
 
 			base.Initialize();
 		}
@@ -79,6 +79,8 @@ namespace MarioClone
 
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
+            keyboard.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
             
             var mario = MarioFactory.Create(new Vector2(200, 100));
@@ -120,8 +122,8 @@ namespace MarioClone
             gameGrid.Add(BrickBlock);
 
             var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(250, 200));
-            keyboard.AddInputCommand((int)Keys.OemQuestion, new BlockBumpCommand(QuestionBlock));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.OemQuestion, new BlockBumpCommand(QuestionBlock));
+            keyboard.AddInputCommand((int)Keys.X, new BlockBumpCommand(QuestionBlock));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.X, new BlockBumpCommand(QuestionBlock));
             gameGrid.Add(QuestionBlock);
 
             var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(300, 200));

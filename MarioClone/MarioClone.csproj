@@ -48,6 +48,7 @@
     <Compile Include="Commands\BecomeFireMarioCommand.cs" />
     <Compile Include="Commands\BecomeSuperMarioCommand.cs" />
     <Compile Include="Commands\CrouchCommand.cs" />
+    <Compile Include="Commands\DisplayHitboxCommand.cs" />
     <Compile Include="Commands\DummyCommand.cs" />
     <Compile Include="Commands\JumpCommand.cs" />
     <Compile Include="Commands\MoveLeftCommand.cs" />
