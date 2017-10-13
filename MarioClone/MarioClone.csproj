@@ -126,7 +126,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bitmap\Sprint2Attempt1.bmp" />
+    <Content Include="Bitmap\Sprint2Attempt2.bmp" />
     <Content Include="Bitmap\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
