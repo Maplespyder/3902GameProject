@@ -22,15 +22,15 @@ namespace MarioClone.States.BlockStates
 
         public override bool Action(float percent)
         {
-            if (Context.Position.Y > (initialPosition.Y - 10) ) //if Position hasnt reached max height
+            if (Context.Position.Y >= (initialPosition.Y - 10) ) //if Position hasnt reached max height
             {
                 Context.Position = new Vector2(Context.Position.X, Context.Position.Y + Context.Velocity.Y * percent);
-                if (Context.Position.Y >= (initialPosition.Y - 10))
+                if (Context.Position.Y <= (initialPosition.Y - 10))
                 {
 					Context.Velocity = new Vector2(0f, 1f);
                 }
             }
-            if (Context.Position.Y <= initialPosition.Y) //back to static position
+            if (Context.Position.Y >= initialPosition.Y) //back to static position
             {
 				Context.Position = initialPosition;
                 Context.Velocity = new Vector2(0, 0);
