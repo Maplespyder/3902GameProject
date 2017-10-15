@@ -50,5 +50,10 @@ namespace MarioClone.States
             Context.SpriteFactory = FireMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);            
         }
+
+        public override void TakeDamage()
+        {
+            BecomeDead();
+        }
     }
 }
