@@ -47,13 +47,13 @@ namespace MarioClone.GameObjects
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            if (BoundingBox != null && DrawHitbox)
+            {
+                BoundingBox.HitBoxDraw(spriteBatch);
+            }
             if (Visible)
             {
                 Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation);
-                if (BoundingBox != null && DrawHitbox)
-                {
-                    BoundingBox.HitBoxDraw(spriteBatch);
-                }
             }
         }
 
