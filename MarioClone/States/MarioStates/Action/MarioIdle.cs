@@ -31,12 +31,11 @@ namespace MarioClone.States
         {
 
             Context.Velocity = new Vector2(0, Mario.VerticalMovementSpeed);
+            Context.ActionState = MarioCrouch.Instance;
+            Context.PreviousActionState = this;
 
             if (Context.PowerupState.Powerup == MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerup.Fire)
-            {
-                
-                Context.ActionState = MarioCrouch.Instance;
-                Context.PreviousActionState = this;
+            {         
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
             }
 
@@ -55,20 +54,10 @@ namespace MarioClone.States
 
         public override void BecomeJump()
         {
-            if (Context.Velocity.Y > 0)
-            {
-                Context.Velocity = new Vector2(0, 0);
-                Context.ActionState = MarioIdle.Instance;
-                Context.PreviousActionState = this;
-                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
-            }
-            else
-            {
-                Context.Velocity = new Vector2(0, Context.Velocity.Y - Mario.VerticalMovementSpeed);
-                Context.ActionState = MarioJump.Instance;
-                Context.PreviousActionState = this;
-                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
-            }
+            Context.Velocity = new Vector2(0, -Mario.VerticalMovementSpeed);
+            Context.ActionState = MarioJump.Instance;
+            Context.PreviousActionState = this;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
         }
 
         public override void BecomeWalk(Facing orientation)

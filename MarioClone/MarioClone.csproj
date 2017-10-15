@@ -43,6 +43,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Level\Colors.cs" />
+    <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />
     <Compile Include="Collision\HitBox.cs" />
     <Compile Include="Commands\BecomeFireMarioCommand.cs" />
@@ -128,11 +130,14 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bitmap\Sprint2Attempt2.bmp" />
-    <Content Include="Bitmap\TileMapDocumentationAttempt1.txt" />
+    <None Include="Level\Sprint2Attempt2.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 1\JacobCodeReview.txt" />

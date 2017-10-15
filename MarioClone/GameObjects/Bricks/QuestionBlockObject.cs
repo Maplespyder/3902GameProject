@@ -1,9 +1,7 @@
-﻿using MarioClone.Factories;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
 using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using static MarioClone.States.BlockStates.BlockState;
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
@@ -24,6 +22,14 @@ namespace MarioClone.GameObjects
         public override void Bump()
         {
             State.Bump();
+        }
+
+        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            if (gameObject is Mario && side == Side.Bottom)
+            {
+                State.Bump();
+            }
         }
     }
 }
