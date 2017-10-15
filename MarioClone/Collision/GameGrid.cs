@@ -278,11 +278,11 @@ namespace MarioClone.Collision
         public bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
         {
             Vector2 relativeVelocity = obj2.Velocity - obj1.Velocity;
-            if (obj2.Position.X <= obj1.Position.X)
+            if (obj2.BoundingBox.TopLeft.X <= obj1.BoundingBox.TopLeft.X)
             {
                 relativeVelocity = new Vector2(-relativeVelocity.X, relativeVelocity.Y);
             }
-            if (obj2.Position.Y <= obj1.Position.Y)
+            if (obj2.BoundingBox.TopLeft.Y <= obj1.BoundingBox.TopLeft.Y)
             {
                 relativeVelocity = new Vector2(relativeVelocity.X, -relativeVelocity.Y);
             }
