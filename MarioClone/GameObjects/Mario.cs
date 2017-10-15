@@ -121,9 +121,9 @@ namespace MarioClone.GameObjects
             {
                 TakeDamage();
             }
-            else if (gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible)
+            else if ((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) || gameObject is CoinObject || gameObject is GreenMushroomObject)
             {
-
+                // do nothing
             }
             else if (gameObject is AbstractBlock)
             {
@@ -134,17 +134,11 @@ namespace MarioClone.GameObjects
             }
             else if (gameObject is RedMushroomObject)
             {
-               if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
-               {
-                    BecomeSuper();
-               }
+                BecomeSuper();
             }
             else if (gameObject is FireFlowerObject)
             {
-                if(side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
-                {
-                    BecomeFire();
-                }
+                BecomeFire();
             }
             else
             {
