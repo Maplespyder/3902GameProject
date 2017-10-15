@@ -5,22 +5,9 @@ using System.Collections.Generic;
 
 namespace MarioClone.Factories
 {
-    public class MovingEnemySpriteFactory
+    public static class MovingEnemySpriteFactory
     {
-        static MovingEnemySpriteFactory _factory;
-        public static MovingEnemySpriteFactory Instance
-        {
-            get
-            {
-                if(_factory == null)
-                {
-                    _factory = new MovingEnemySpriteFactory();
-                }
-                return _factory;
-            }
-        }
-
-        public ISprite Create(EnemyType type)
+        public static ISprite Create(EnemyType type)
         {
             switch (type)
             {

@@ -1,22 +1,15 @@
 ﻿using MarioClone.GameObjects.Enemies;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.States.EnemyStates.Powerup
+namespace MarioClone.States
 {
    public abstract class EnemyPowerupState
     {
-        public enum EnemyPowerup
-        {
-            Dead,
-            Alive  
-        }
-
-        public EnemyPowerup Powerup { get; set; }
-
         protected AbstractEnemy Context { get; set; }
 
         protected EnemyPowerupState(AbstractEnemy context)
@@ -28,6 +21,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         public abstract void BecomeDead();
         public abstract void BecomeAlive();
+        public abstract bool Update(GameTime gameTime, float percent);
 
     }
 }

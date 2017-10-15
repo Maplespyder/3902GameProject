@@ -14,7 +14,7 @@ namespace MarioClone.GameObjects
 
     public abstract class AbstractGameObject : IDraw
     {
-        public HitBox BoundingBox { get; protected set; }
+        public HitBox BoundingBox { get; set; }
 
         public ISprite Sprite { get; set; }
 
@@ -71,10 +71,9 @@ namespace MarioClone.GameObjects
             DrawHitbox = !DrawHitbox;
         }
 
-        public virtual void CollisionResponse(AbstractGameObject gameObject, Side side)
+        public virtual void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            
-        }
 
+        }
     }
 }

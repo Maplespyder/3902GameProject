@@ -15,34 +15,20 @@ namespace MarioClone.Factories
         RedKoopa
     }
 
-    public class EnemyFactory
+    public static class EnemyFactory
     {
-        static EnemyFactory _factory;
-
-        public static EnemyFactory Instance
-        {
-            get
-            {
-                if(_factory == null)
-                {
-                    _factory = new EnemyFactory();
-                }
-                return _factory;
-            }
-        }
-
-        public AbstractGameObject Create(EnemyType type, Vector2 position)
+        public static AbstractGameObject Create(EnemyType type, Vector2 position)
         {
             switch(type)
             {
                 case EnemyType.Goomba:
-                    return new GoombaObject(MovingEnemySpriteFactory.Instance.Create(type), position);
+                    return new GoombaObject(MovingEnemySpriteFactory.Create(type), position);
                 case EnemyType.GreenKoopa:
-                    return new GreenKoopaObject(MovingEnemySpriteFactory.Instance.Create(type), position);
+                    return new GreenKoopaObject(MovingEnemySpriteFactory.Create(type), position);
                 case EnemyType.RedKoopa:
-                    return new RedKoopaObject(MovingEnemySpriteFactory.Instance.Create(type), position);
+                    return new RedKoopaObject(MovingEnemySpriteFactory.Create(type), position);
                 default:
-                    return new GoombaObject(MovingEnemySpriteFactory.Instance.Create(type), position);
+                    return new GoombaObject(MovingEnemySpriteFactory.Create(type), position);
             }
         }
     }

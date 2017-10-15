@@ -98,28 +98,33 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
         }
 
-        public override void CollisionResponse(AbstractGameObject gameObject, Side side)
+        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject)
             {
-                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right))
                 {
                     BecomeDead();
+                    Velocity = new Vector2(0, 0);
                 }
             }
             else if (gameObject is RedMushroomObject)
             {
-                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
                 {
                     BecomeSuper();
                 }
             }
             else if (gameObject is FireFlowerObject)
             {
-                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
                 {
                     BecomeFire();
                 }
+            }
+            else
+            {
+                Velocity = new Vector2(0, 0);
             }
         }
 
@@ -128,11 +133,6 @@ namespace MarioClone.GameObjects
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
             return base.Update(gameTime, percent);
-        }
-
-        public void Process(AbstractGameObject obj, Side side)
-        {
-            Velocity = new Vector2(0, 0);
         }
     }
 }

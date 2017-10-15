@@ -1,49 +1,31 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
 using MarioClone.GameObjects.Enemies;
-using MarioClone.States.EnemyStates.Powerup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
-namespace MarioClone.States.EnemyStates.Powerup
+namespace MarioClone.States
 {
-    public abstract class GoombaAlive : EnemyPowerupState
+    public class GoombaAlive : EnemyPowerupState
     {
+        public GoombaAlive(AbstractEnemy context) : base(context) { }
 
-        static GoombaAlive _state;
-
-        public GoombaAlive(AbstractEnemy context) : base(context)
-        {
-            Powerup = EnemyPowerup.Alive;
-        }
-
-        public static EnemyPowerupState Instance
-        {
-            get
-            {
-                if (_state == null)
-                {
-                    _state = new GoombaAlive(GoombaObject.Instance);
-                }
-                return _state;
-            }
-        }
+        public override void BecomeAlive() { }
 
         public override void BecomeDead()
         {
-            Context.EnemyState = EnemyPowerupState.GoombaAlive.Instance;  
-            Context.SpriteFactory = DeadEnemySpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(Context.PowerupState.Powerup);
-
-
+            Context.PowerupState = new GoombaDead(Context);
+            Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.Goomba);
+            Context.BoundingBox = null;
         }
 
-        public override void BecomeAlive()
+        public override bool Update(GameTime gameTime, float percent)
         {
-            
+            return false;
         }
     }
 }

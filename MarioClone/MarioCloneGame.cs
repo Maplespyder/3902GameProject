@@ -142,13 +142,13 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.X, new BlockBumpCommand(UsedBlock));
             gameGrid.Add(UsedBlock);
 
-            var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(200, 300));
+            var goomba = EnemyFactory.Create(EnemyType.Goomba, new Vector2(200, 300));
             gameGrid.Add(goomba);
 
-            var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(250, 300));
+            var GreenKoopa = EnemyFactory.Create(EnemyType.GreenKoopa, new Vector2(250, 300));
             gameGrid.Add(GreenKoopa);
 
-            var RedKoopa = EnemyFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(300, 300));
+            var RedKoopa = EnemyFactory.Create(EnemyType.RedKoopa, new Vector2(300, 300));
             gameGrid.Add(RedKoopa);
 
             var coin = PowerUpFactory.Create(PowerUpType.Coin, new Vector2(200, 400));
