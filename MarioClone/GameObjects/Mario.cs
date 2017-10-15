@@ -98,6 +98,31 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
         }
 
+        public override void CollisionResponse(AbstractGameObject gameObject, Side side)
+        {
+            if (gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject)
+            {
+                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                {
+                    BecomeDead();
+                }
+            }
+            else if (gameObject is RedMushroomObject)
+            {
+                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                {
+                    BecomeSuper();
+                }
+            }
+            else if (gameObject is FireFlowerObject)
+            {
+                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                {
+                    BecomeFire();
+                }
+            }
+        }
+
         public override bool Update(GameTime gameTime, float percent)
         {
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
