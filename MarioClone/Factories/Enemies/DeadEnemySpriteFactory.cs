@@ -12,15 +12,16 @@ namespace MarioClone.Factories
     public class DeadEnemySpriteFactory
     {
         static DeadEnemySpriteFactory _factory;
-        private static DeadEnemySpriteFactory Instance
+        static DeadEnemySpriteFactory _instance;
+        public static DeadEnemySpriteFactory Instance
         {
             get
             {
-                if (_factory == null)
+                if (_instance == null)
                 {
-                    _factory = new DeadEnemySpriteFactory();
+                    _instance = new DeadEnemySpriteFactory();
                 }
-                return _factory;
+                return _instance;
             }
         }
 

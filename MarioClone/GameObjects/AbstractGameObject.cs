@@ -2,6 +2,7 @@
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
@@ -69,5 +70,11 @@ namespace MarioClone.GameObjects
         {
             DrawHitbox = !DrawHitbox;
         }
+
+        public virtual void CollisionResponse(AbstractGameObject gameObject, Side side)
+        {
+            
+        }
+
     }
 }

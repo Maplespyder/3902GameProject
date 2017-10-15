@@ -81,6 +81,7 @@
     <Compile Include="GameObjects\Bricks\HiddenBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\QuestionBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\StaticBlockObject.cs" />
+    <Compile Include="GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
     <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
     <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
@@ -108,6 +109,9 @@
     <Compile Include="States\BlockStates\QuestionBlockAction.cs" />
     <Compile Include="States\BlockStates\QuestionBlockStatic.cs" />
     <Compile Include="States\BlockStates\Used.cs" />
+    <Compile Include="States\EnemyStates\Powerup\EnemyPowerupState.cs" />
+    <Compile Include="States\EnemyStates\Powerup\GoombaAlive.cs" />
+    <Compile Include="States\EnemyStates\Powerup\GoombaDead.cs" />
     <Compile Include="States\MarioStates\Action\MarioActionState.cs" />
     <Compile Include="States\MarioStates\Action\MarioCrouch.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle.cs" />
