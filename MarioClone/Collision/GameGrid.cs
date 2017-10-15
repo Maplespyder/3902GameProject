@@ -346,26 +346,26 @@ namespace MarioClone.Collision
             }
 
 
-            if (xEntryPercent < yEntryPercent)
+            if (xEntryPercent > yEntryPercent)
             {
-                if (xDirectionDistance < 0)
+                if (relativeVelocity.X < 0)
                 {
-                    side = Side.Top;
+                    side = Side.Left;
                 }
-                else if (xDirectionDistance > 0)
+                else if (relativeVelocity.X > 0)
                 {
-                    side = Side.Bottom;
+                    side = Side.Right;
                 }
             }
             else
             {
-                if (yDirectionDistance < 0)
+                if (relativeVelocity.Y < 0)
                 {
-                    side = Side.Left;
+                    side = Side.Top;
                 }
-                else if (yDirectionDistance > 0)
+                else if (relativeVelocity.Y > 0)
                 {
-                    side = Side.Right;
+                    side = Side.Bottom;
                 }
             }
 
@@ -386,9 +386,10 @@ namespace MarioClone.Collision
             Rectangle obj2Sweep = GetSweptBox(obj2);
             side = Side.None;
             float collisionTime = 1;
+
             if (CollisionCheck(obj1Sweep, obj2Sweep))
             {
-                collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
+				collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
             }
             return collisionTime;
         }
