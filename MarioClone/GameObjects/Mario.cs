@@ -100,7 +100,7 @@ namespace MarioClone.GameObjects
 
         public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if (gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject)
+            if (gameObject is GoombaObject)
             {
                 if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) && PowerupState is MarioNormal)
                 {
@@ -115,16 +115,24 @@ namespace MarioClone.GameObjects
             }
             else if (gameObject is RedMushroomObject)
             {
-               if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
+                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
                 {
                     BecomeSuper();
                 }
             }
             else if (gameObject is FireFlowerObject)
             {
-                if(side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
+                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
                 {
                     BecomeFire();
+                }
+            }
+            else if (gameObject is HiddenBrickObject)
+            {
+                if (side.Equals(Side.Bottom))
+                {
+                    Velocity = new Vector2(0, 0);
+
                 }
             }
             else
