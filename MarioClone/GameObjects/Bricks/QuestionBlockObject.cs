@@ -26,10 +26,10 @@ namespace MarioClone.GameObjects
 
         public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if (gameObject is Mario && side == Side.Bottom)
-            {
-                State.Bump();
-            }
+            //if (gameObject is Mario && side == Side.Bottom)
+            //{
+            //    State.Bump();
+            //}
         }
     }
 }
