@@ -21,9 +21,10 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is Mario)
             {
-                if(side == Side.Top || side == Side.Bottom)
+                if(side.Equals(Side.Top))
                 {
                     PowerupState.BecomeDead();
+
                 }
             }
 
@@ -31,7 +32,9 @@ namespace MarioClone.GameObjects
    
         public override bool Update(GameTime gameTime, float percent)
         {
+            //bool retVal = PowerupState.Update(gameTime, percent);
             return base.Update(gameTime, percent);
+            //return retVal;
         }
     }
 }

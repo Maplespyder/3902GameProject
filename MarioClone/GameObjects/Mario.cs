@@ -102,22 +102,26 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject)
             {
-                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right))
+                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) && PowerupState is MarioNormal)
                 {
                     BecomeDead();
                     Velocity = new Vector2(0, 0);
                 }
+                else if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) && PowerupState is MarioSuper)
+                {
+                    BecomeNormal();
+                }
             }
             else if (gameObject is RedMushroomObject)
             {
-               if (side == Side.Top || side == Side.Bottom || side == Side.Left || side == Side.Right)
+               if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
                 {
                     BecomeSuper();
                 }
             }
             else if (gameObject is FireFlowerObject)
             {
-                if(side == Side.Top || side == Side.Bottom || side == Side.Left || side == Side.Right)
+                if(side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
                 {
                     BecomeFire();
                 }
