@@ -110,14 +110,14 @@ namespace MarioClone.GameObjects
             }
             else if (gameObject is RedMushroomObject)
             {
-                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
+               if (side == Side.Top || side == Side.Bottom || side == Side.Left || side == Side.Right)
                 {
                     BecomeSuper();
                 }
             }
             else if (gameObject is FireFlowerObject)
             {
-                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
+                if(side == Side.Top || side == Side.Bottom || side == Side.Left || side == Side.Right)
                 {
                     BecomeFire();
                 }

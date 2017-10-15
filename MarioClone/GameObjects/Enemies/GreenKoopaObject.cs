@@ -5,7 +5,7 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
@@ -19,7 +19,14 @@ namespace MarioClone.GameObjects
 
         public override void CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
         {
-            
+            if (gameObject is Mario)
+            {
+                if(side == Side.Top || side == Side.Bottom)
+                {
+                    PowerupState.BecomeDead();
+                }
+            }
+
         }
    
         public override bool Update(GameTime gameTime, float percent)
