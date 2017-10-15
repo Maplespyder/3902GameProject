@@ -36,7 +36,7 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is Mario)
             {
-                if ((side == Side.Top || side == Side.Bottom)
+                if (side == Side.Top || side == Side.Bottom)
                 {
                     PowerupState.BecomeDead();
                 }
