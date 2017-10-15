@@ -1,6 +1,8 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
 using static MarioClone.States.MarioActionState;
+using System;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -36,23 +38,27 @@ namespace MarioClone.States
         public override void BecomeNormal()
         {
             Context.PowerupState = MarioNormal.Instance;
-            Context.ActionState = MarioIdle.Instance;
             Context.SpriteFactory = NormalMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
         }
 
         public override void BecomeSuper()
         {
-            Context.ActionState = MarioIdle.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
         }
 
         public override void BecomeFire()
         {
             Context.PowerupState = MarioFire.Instance;
-            Context.ActionState = MarioIdle.Instance;
             Context.SpriteFactory = FireMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
+        }
+
+        public override void TakeDamage()
+        {
+            Context.Velocity = new Vector2(0, 0);
+            Context.ActionState = MarioIdle.Instance;
+            BecomeNormal();
         }
     }
 }
