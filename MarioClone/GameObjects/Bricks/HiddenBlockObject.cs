@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MarioClone.Collision;
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
@@ -22,6 +23,14 @@ namespace MarioClone.GameObjects
         public override void Bump()
         {
             Visible = true;
+        }
+
+        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            if (gameObject is Mario && side == Side.Bottom)
+            {
+                Visible = true;
+            }
         }
     }
 }

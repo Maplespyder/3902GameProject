@@ -60,22 +60,34 @@ namespace MarioClone.GameObjects
 
 		public void MoveLeft()
 		{
-			ActionState.BecomeWalk(Facing.Left);
+            if (!(PowerupState is MarioDead))
+            {
+                ActionState.BecomeWalk(Facing.Left); 
+            }
 		}
 
         public void MoveRight()
         {
-            ActionState.BecomeWalk(Facing.Right);
+            if (!(PowerupState is MarioDead))
+            {
+                ActionState.BecomeWalk(Facing.Right); 
+            }
         }
 
 		public void BecomeJump()
         {
-            ActionState.BecomeJump();
+            if (!(PowerupState is MarioDead))
+            {
+                ActionState.BecomeJump(); 
+            }
         }
 
         public void BecomeCrouch()
         {
-            ActionState.BecomeCrouch();
+            if (!(PowerupState is MarioDead))
+            {
+                ActionState.BecomeCrouch(); 
+            }
         }
 
         public void BecomeDead()
