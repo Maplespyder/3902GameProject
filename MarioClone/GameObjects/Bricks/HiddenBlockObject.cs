@@ -29,7 +29,7 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is Mario && side == Side.Bottom)
             {
-                Visible = true;
+                Bump();
             }
         }
     }
