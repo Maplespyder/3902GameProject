@@ -17,5 +17,17 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateOffSets(-4, -4, -4, -4);
             BoundingBox.UpdateHitBox(Position, Sprite);
         }
+
+        public override void CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side)
+        {
+            if (gameObject is Mario)
+            {
+                if (side.Equals(3) || side.Equals(4))
+                {
+                    PowerupState.BecomeDead();
+                }
+            }
+
+        }
     }
 }

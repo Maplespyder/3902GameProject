@@ -102,21 +102,21 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject)
             {
-                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                if (side == Side.Top || side == Side.Bottom || side == Side.Left || side == Side.Right)
                 {
                     BecomeDead();
                 }
             }
             else if (gameObject is RedMushroomObject)
             {
-                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                (side == Side.Top || side == Side.Bottom || side == Side.Left || side == Side.Right)
                 {
                     BecomeSuper();
                 }
             }
             else if (gameObject is FireFlowerObject)
             {
-                if (side.Equals(1) || side.Equals(2) || side.Equals(3) || side.Equals(4) || side.Equals(5))
+                (side == Side.Top || side == Side.Bottom || side == Side.Left || side == Side.Right)
                 {
                     BecomeFire();
                 }
