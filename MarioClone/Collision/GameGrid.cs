@@ -240,7 +240,7 @@ namespace MarioClone.Collision
             return neighbours.ToList();
         }
 
-        private List<AbstractGameObject> GetCollidableGameObjects()
+        private List<AbstractGameObject> GetAllGameObjects()
         {
             int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
             int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
@@ -257,14 +257,32 @@ namespace MarioClone.Collision
             return objectList;
         }
 
+        private List<AbstractGameObject> GetMovingGameObjects()
+        {
+            int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
+            int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
+            List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+            for (int rows = 0; rows < Rows; rows++)
+            {
+                for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                {
+                    objectList = objectList.Union(gameGrid[columns, rows])
+                        .Where((x) => (x.Velocity.X != 0) || (x.Velocity.Y != 0)).ToList();
+                }
+            }
+
+            return objectList;
+        }
+
         public bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
         {
             Vector2 relativeVelocity = obj2.Velocity - obj1.Velocity;
-            if (obj2.Position.X < obj1.Position.X)
+            if (obj2.Position.X <= obj1.Position.X)
             {
                 relativeVelocity = new Vector2(-relativeVelocity.X, relativeVelocity.Y);
             }
-            if (obj2.Position.Y < obj1.Position.Y)
+            if (obj2.Position.Y <= obj1.Position.Y)
             {
                 relativeVelocity = new Vector2(relativeVelocity.X, -relativeVelocity.Y);
             }
@@ -397,8 +415,7 @@ namespace MarioClone.Collision
 
             while (percentCompleted < 1)
             {
-
-                List<AbstractGameObject> collidables = GetCollidableGameObjects();
+                List<AbstractGameObject> collidables = GetMovingGameObjects();
                 List<AbstractGameObject> neighbours = new List<AbstractGameObject>();
                 Tuple<Side, AbstractGameObject, AbstractGameObject> firstCollision = null;
 
@@ -436,16 +453,20 @@ namespace MarioClone.Collision
                 }
 
                 var removed = new List<AbstractGameObject>();
-                foreach (AbstractGameObject obj in collidables)
+                var allObjects = GetAllGameObjects();
+                foreach (AbstractGameObject obj in allObjects)
                 {
-                    HitBox oldHitbox = new HitBox(obj.BoundingBox);
+                    HitBox oldHitbox = (obj.BoundingBox != null) ? new HitBox(obj.BoundingBox) : null;
                     if (obj.Update(gameTime, earliestCollisionPercent - percentCompleted))
                     {
                         removed.Add(obj);
                     }
                     else
                     {
-                        UpdateObjectGridPosition(obj, oldHitbox);
+                        if (oldHitbox != null)
+                        {
+                            UpdateObjectGridPosition(obj, oldHitbox);
+                        }
                     }
                 }
 
@@ -467,8 +488,8 @@ namespace MarioClone.Collision
 
         public void DrawWorld(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            List<AbstractGameObject> collidables = GetCollidableGameObjects();
-            foreach (var obj in collidables)
+            List<AbstractGameObject> allObjects = GetAllGameObjects();
+            foreach (var obj in allObjects)
             {
                 obj.Draw(spriteBatch, gameTime);
             }
