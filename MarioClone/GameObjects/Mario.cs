@@ -121,7 +121,7 @@ namespace MarioClone.GameObjects
             {
                 TakeDamage();
             }
-            else if (gameObject is HiddenBrickObject && side != Side.Bottom)
+            else if (gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible)
             {
 
             }
