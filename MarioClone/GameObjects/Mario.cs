@@ -110,6 +110,7 @@ namespace MarioClone.GameObjects
                 else if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) && PowerupState is MarioSuper)
                 {
                     BecomeNormal();
+                    Velocity = new Vector2(0, 0);
                 }
             }
             else if (gameObject is RedMushroomObject)
