@@ -149,6 +149,9 @@ namespace MarioClone.GameObjects
             else
             {
                 Velocity = new Vector2(0, 0);
+                Sprite = SpriteFactory.Create(MarioAction.Idle);
+                PreviousActionState = ActionState;
+                ActionState = MarioIdle.Instance;
             }
         }
 

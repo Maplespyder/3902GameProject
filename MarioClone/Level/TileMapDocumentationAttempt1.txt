@@ -19,7 +19,6 @@ Power-Ups:
 • Super Mushroom: (255, 127, 127) 
 • 1-Up Mushroom: (196, 255, 14)
 • Fire Flower: (255, 86, 30)
-• Starman: ????
 
 
 Item:
