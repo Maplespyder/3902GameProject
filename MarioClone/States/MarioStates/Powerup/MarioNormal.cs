@@ -1,5 +1,6 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -26,6 +27,7 @@ namespace MarioClone.States
 
         public override void BecomeDead()
         {
+            Context.Velocity = new Vector2(0, 0);
             Context.PowerupState = MarioDead.Instance;
             Context.ActionState = MarioIdle.Instance;
             Context.SpriteFactory = DeadMarioSpriteFactory.Instance;
@@ -49,6 +51,11 @@ namespace MarioClone.States
             Context.PowerupState = MarioFire.Instance;
             Context.SpriteFactory = FireMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);            
+        }
+
+        public override void TakeDamage()
+        {
+            BecomeDead();
         }
     }
 }

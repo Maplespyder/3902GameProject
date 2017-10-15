@@ -110,46 +110,48 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
         }
 
+        private void TakeDamage()
+        {
+            PowerupState.TakeDamage();
+        }
+
         public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if (gameObject is GoombaObject)
+            if ((gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
             {
-                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) && PowerupState is MarioNormal)
-                {
-                    BecomeDead();
-                    Velocity = new Vector2(0, 0);
-                }
-                else if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) && PowerupState is MarioSuper)
-                {
-                    BecomeNormal();
-                    Velocity = new Vector2(0, 0);
-                }
+                TakeDamage();
+            }
+            else if (gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible)
+            {
+
+            }
+            else if (gameObject is AbstractBlock)
+            {
+                Velocity = new Vector2(0, 0);             
+                Sprite = SpriteFactory.Create(MarioAction.Idle);
+                PreviousActionState = ActionState;
+                ActionState = MarioIdle.Instance;
             }
             else if (gameObject is RedMushroomObject)
             {
-                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
-                {
+               if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
+               {
                     BecomeSuper();
-                }
+               }
             }
             else if (gameObject is FireFlowerObject)
             {
-                if (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
+                if(side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.Bottom))
                 {
                     BecomeFire();
-                }
-            }
-            else if (gameObject is HiddenBrickObject)
-            {
-                if (side.Equals(Side.Bottom))
-                {
-                    Velocity = new Vector2(0, 0);
-
                 }
             }
             else
             {
                 Velocity = new Vector2(0, 0);
+                Sprite = SpriteFactory.Create(MarioAction.Idle);
+                PreviousActionState = ActionState;
+                ActionState = MarioIdle.Instance;
             }
         }
 

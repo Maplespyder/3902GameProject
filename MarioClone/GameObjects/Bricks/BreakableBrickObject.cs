@@ -5,7 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-
+using MarioClone.Collision;
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
@@ -88,6 +89,14 @@ namespace MarioClone.GameObjects
         public override void Bump()
         {
             State.Bump();
+        }
+
+        public override void CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
+        {
+            if (gameObject is Mario && side == Side.Bottom)
+            {
+                Bump();
+            }
         }
     }
 }
