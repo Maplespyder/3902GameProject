@@ -1,7 +1,7 @@
-Author of Review: Myself & Jacob
+Author of Review: Allie Jett
 Date of Review: 10/17/2017
 File Under Review: GameGrid.cs
-Author(s) of File: Name(s)
+Author(s) of File: Allie and Jacob
 Comments on Code Quality:
 
 WhenCollisionCheck::
