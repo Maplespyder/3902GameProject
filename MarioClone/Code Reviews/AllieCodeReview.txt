@@ -1,4 +1,4 @@
-Author of Review: Myself
+Author of Review: Myself & Jacob
 Date of Review: 10/17/2017
 File Under Review: GameGrid.cs
 Author(s) of File: Name(s)
