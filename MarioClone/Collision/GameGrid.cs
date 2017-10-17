@@ -492,22 +492,6 @@ namespace MarioClone.Collision
             {
                 obj.Draw(spriteBatch, gameTime);
             }
-
-            int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
-            int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
-
-            Texture2D pixel = new Texture2D(MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice, 1, 1);
-            pixel.SetData(new[] { Color.Orange });
-            for (int i = 0; i < Rows; i++)
-            {
-                for (int j = leftHandColumn; j < rightHandColumn; j++)
-                {
-                    Rectangle line = new Rectangle(j * GridSquareWidth, 0, 1, ScreenHeight);
-                    spriteBatch.Draw(pixel, line, Color.White);
-                }
-                Rectangle rowline = new Rectangle(0, i * GridSquareHeight, ScreenWidth, 1);
-                spriteBatch.Draw(pixel, rowline, Color.White);
-            }
         }
     }
 }
