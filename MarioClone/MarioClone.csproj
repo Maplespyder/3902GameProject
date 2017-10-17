@@ -141,6 +141,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="Code Reviews\Sprint 2\AllieCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 2\AnnaCodeReview.txt" />
     <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
