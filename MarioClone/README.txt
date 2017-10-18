@@ -27,7 +27,10 @@ SPRINT 2 README
 This was not specified as *not* happening in the PBI, and it was an easy thing to include, so we made the Koopas deal damage to Mario
 if he hits them on the sides, and change Mario's power-up state. Also, the "A" button is the Up "Direction" for the game pad. That was never
 (to my knowledge) explicitly specified as having to be the up arrow, so I'm just leaving that as whatever someone else made it.
-Otherwise, this Sprint should follow the PBIs exactly.
+Finally, the Mario power-up responses are left unspecified in the Avatar Collision Response - "Power-Up Change" acceptance criteria. It explains
+that hitting a mushroom while in standard should change Mario to super, but nothing about the state of Mario from other powerups. So, our
+assumptions are that if Mario hits a fire flower while in any non-dead state, he becomes fire Mario, and if he hits a red mushroom while
+in ANY non-dead state, he will become super (this could downgrade him from fire). The powerup state cheats still work the same.
 
 
 Ignored code warnings:
