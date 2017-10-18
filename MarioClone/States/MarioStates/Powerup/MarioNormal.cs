@@ -43,14 +43,40 @@ namespace MarioClone.States
         {
             Context.PowerupState = MarioSuper.Instance;
             Context.SpriteFactory = SuperMarioSpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);            
+            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
+            if (MarioAction.Crouch == Context.ActionState.Action)
+            {
+                return;
+            }
+
+            if (Context.Orientation == Facing.Left)
+            {
+                Context.Position = new Vector2(Context.Position.X - 10, Context.Position.Y - 8);
+            }
+            else
+            {
+                Context.Position = new Vector2(Context.Position.X - 6, Context.Position.Y - 8);
+            }
         }
 
         public override void BecomeFire()
         {
             Context.PowerupState = MarioFire.Instance;
             Context.SpriteFactory = FireMarioSpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);            
+            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
+            if(MarioAction.Crouch == Context.ActionState.Action)
+            {
+                return;
+            }
+
+            if (Context.Orientation == Facing.Left)
+            {
+                Context.Position = new Vector2(Context.Position.X - 10, Context.Position.Y - 8);
+            }
+            else
+            {
+                Context.Position = new Vector2(Context.Position.X - 6, Context.Position.Y - 8);
+            }
         }
 
         public override void TakeDamage()

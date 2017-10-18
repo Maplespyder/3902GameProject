@@ -40,6 +40,18 @@ namespace MarioClone.States
             Context.PowerupState = MarioNormal.Instance;
             Context.SpriteFactory = NormalMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
+            if(Context.ActionState.Action == MarioAction.Crouch)
+            {
+                return;
+            }
+            if (Context.Orientation == Facing.Left)
+            {
+                Context.Position = new Vector2(Context.Position.X + 10, Context.Position.Y + 8);
+            }
+            else
+            {
+                Context.Position = new Vector2(Context.Position.X + 6, Context.Position.Y + 8);
+            }
         }
 
         public override void BecomeSuper()

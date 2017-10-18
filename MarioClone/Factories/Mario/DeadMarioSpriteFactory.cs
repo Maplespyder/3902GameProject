@@ -1,7 +1,7 @@
 ﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static MarioClone.States.MarioActionState;
+using MarioClone.States;
 
 namespace MarioClone.Factories
 {
