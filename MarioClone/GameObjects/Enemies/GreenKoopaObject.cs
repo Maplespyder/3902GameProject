@@ -1,48 +1,40 @@
-﻿using MarioClone.Factories;
+﻿using MarioClone.Collision;
+using MarioClone.Factories;
+using MarioClone.GameObjects.Enemies;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
-    public class GreenKoopaObject : IGameObject, IMoveable
+    public class GreenKoopaObject : AbstractEnemy
     {
-        public Vector2 Position { get; protected set; }
-
-        public Vector2 Velocity { get; }
-
-        public int DrawOrder { get; }
-
-        public bool Visible { get; protected set; }
-
-        public ISprite Sprite { get; set; }
-
-        public EnemySpriteFactory SpriteFactory { get; set; }
-
-        public GreenKoopaObject(Vector2 velocity, Vector2 position)
-        {
-            SpriteFactory = MovingEnemySpriteFactory.Instance;
-            Sprite = SpriteFactory.Create(EnemyType.GreenKoopa);
-            Velocity = velocity;
-            Position = position;
-            Visible = true;
+        public GreenKoopaObject(ISprite sprite, Vector2 position) : base(sprite, position)
+		{
+			BoundingBox.UpdateOffSets(-4, -4, -4, -4);
+            BoundingBox.UpdateHitBox(Position, Sprite);
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        /*public override void CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
         {
-            if (Visible)
+            if (gameObject is Mario)
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
+                if(side.Equals(Side.Top))
+                {
+                    PowerupState.BecomeDead();
+
+                }
             }
-        }
 
+        }*/
    
-
-        public bool Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime, float percent)
         {
-            return false;
+            //bool retVal = PowerupState.Update(gameTime, percent);
+            return base.Update(gameTime, percent);
+            //return retVal;
         }
     }
 }

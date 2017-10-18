@@ -7,16 +7,17 @@ using MarioClone.GameObjects;
 
 namespace MarioClone.States
 {
+    public enum MarioAction
+    {
+        Idle,
+        Walk,
+        Jump,
+        Crouch,
+        Dead
+    }
+
     public abstract class MarioActionState
     {
-        public enum MarioAction
-        {
-            Idle,
-            Walk,
-            Jump,
-            Crouch,
-            Dead
-        }
 
         protected Mario Context { get; set; }
 
@@ -36,5 +37,7 @@ namespace MarioClone.States
         public abstract void BecomeWalk(Facing orientation);
         public abstract void BecomeJump();
         public abstract void BecomeCrouch();
+        public abstract void UpdateHitBox();
+
     }
 }

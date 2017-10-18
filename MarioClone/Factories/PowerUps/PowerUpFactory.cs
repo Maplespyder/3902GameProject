@@ -9,7 +9,7 @@ namespace MarioClone.Factories
 {
     public static class PowerUpFactory
     {
-        public static IGameObject Create(PowerUpType type, Vector2 position)
+        public static AbstractGameObject Create(PowerUpType type, Vector2 position)
         {
             switch (type)
             {
@@ -18,7 +18,7 @@ namespace MarioClone.Factories
                 case PowerUpType.RedMushroom:
                     return new RedMushroomObject(PowerUpSpriteFactory.Create(type), position);
                 case PowerUpType.Flower:
-                    return new FirepowerUpObject(PowerUpSpriteFactory.Create(type), position);
+                    return new FireFlowerObject(PowerUpSpriteFactory.Create(type), position);
                 case PowerUpType.Coin:
                     return new CoinObject(PowerUpSpriteFactory.Create(type), position);
                 default:

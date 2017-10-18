@@ -1,6 +1,7 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -29,10 +30,23 @@ namespace MarioClone.States
         {
         }
 
+        public override void UpdateHitBox()
+        {
+            if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Normal)
+            {
+                Context.BoundingBox.UpdateOffSets(-4, -4, -2, 0);
+            }
+            else if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Fire)
+            {
+                Context.BoundingBox.UpdateOffSets(-10, -10, -28, 0);
+            }
+        }
+
         public override void BecomeJump()
         {
-            Context.ActionState = Context.PreviousActionState;
-            Context.Sprite = Context.SpriteFactory.Create(Context.PreviousActionState.Action);
+            Context.Velocity = new Vector2(0, 0);
+            Context.ActionState = MarioIdle.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
             Context.PreviousActionState = this;
         }
 

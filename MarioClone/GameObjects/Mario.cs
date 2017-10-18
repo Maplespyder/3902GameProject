@@ -1,4 +1,5 @@
-﻿using MarioClone.Factories;
+﻿using MarioClone.Collision;
+using MarioClone.Factories;
 using MarioClone.Sprites;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
@@ -8,12 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MarioClone.Collision.GameGrid;
 using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.GameObjects
 {
-    public class Mario : IGameObject, IMoveable
+    public class Mario : AbstractGameObject
     {
+        public const float HorizontalMovementSpeed = 1f;
+        public const float VerticalMovementSpeed = 1f;
         private static Mario _mario;
 
         /// <summary>
@@ -35,59 +39,55 @@ namespace MarioClone.GameObjects
         public MarioActionState PreviousActionState { get; set; }
 
         public MarioPowerupState PowerupState { get; set; }
-
-        public ISprite Sprite { get; set; }
-
+        
         public MarioSpriteFactory SpriteFactory { get; set; }
-
-        public Vector2 Position { get; protected set; }
-
-        public int DrawOrder { get; protected set; }
-
-        public bool Visible { get; protected set; }
-
-        public Vector2 Velocity { get; protected set; }
-
-        public Facing Orientation { get; set; }
-
-        /// <summary>
-        /// This constructor should only ever be called by the Mario factory.
-        /// </summary>
-        /// <param name="velocity"></param>
-        /// <param name="position"></param>
-        public Mario(Vector2 velocity, Vector2 position)
+        
+        //passing null sprite because mario's states control his sprite
+        public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
             _mario = this;
             PowerupState = MarioNormal.Instance;
-            ActionState = MarioIdle.Instance;
-            PreviousActionState = MarioIdle.Instance;
-            Orientation = Facing.Right;
             SpriteFactory = NormalMarioSpriteFactory.Instance;
+            ActionState = MarioIdle.Instance;
             Sprite = SpriteFactory.Create(MarioAction.Idle);
-            Velocity = velocity;
-            Position = position;
-            Visible = true;
-            DrawOrder = 1;
+            Orientation = Facing.Right;
+
+            PreviousActionState = MarioIdle.Instance;
+            
+            ActionState.UpdateHitBox();
+            BoundingBox.UpdateHitBox(position, Sprite);
         }
 
 		public void MoveLeft()
 		{
-			ActionState.BecomeWalk(Facing.Left);
+            if (!(PowerupState is MarioDead))
+            {
+                ActionState.BecomeWalk(Facing.Left); 
+            }
 		}
 
         public void MoveRight()
         {
-            ActionState.BecomeWalk(Facing.Right);
+            if (!(PowerupState is MarioDead))
+            {
+                ActionState.BecomeWalk(Facing.Right); 
+            }
         }
 
 		public void BecomeJump()
         {
-            ActionState.BecomeJump();
+            if (!(PowerupState is MarioDead))
+            {
+                ActionState.BecomeJump(); 
+            }
         }
 
         public void BecomeCrouch()
         {
-            ActionState.BecomeCrouch();
+            if (!(PowerupState is MarioDead))
+            {
+                ActionState.BecomeCrouch(); 
+            }
         }
 
         public void BecomeDead()
@@ -110,20 +110,50 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
         }
 
-        public bool Update(GameTime gameTime)
+        private void TakeDamage()
         {
-            Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-            return false;
+            PowerupState.TakeDamage();
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if (Visible)
+            if ((gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
             {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Orientation);
-            }           
+                TakeDamage();
+            }
+            else if ((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) || gameObject is CoinObject || gameObject is GreenMushroomObject)
+            {
+                // do nothing
+            }
+            else if (gameObject is AbstractBlock)
+            {
+                Velocity = new Vector2(0, 0);             
+                Sprite = SpriteFactory.Create(MarioAction.Idle);
+                PreviousActionState = ActionState;
+                ActionState = MarioIdle.Instance;
+            }
+            else if (gameObject is RedMushroomObject)
+            {
+                BecomeSuper();
+            }
+            else if (gameObject is FireFlowerObject)
+            {
+                BecomeFire();
+            }
+            else
+            {
+                Velocity = new Vector2(0, 0);
+                Sprite = SpriteFactory.Create(MarioAction.Idle);
+                PreviousActionState = ActionState;
+                ActionState = MarioIdle.Instance;
+            }
         }
 
-     
+        public override bool Update(GameTime gameTime, float percent)
+        {
+            Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
+            ActionState.UpdateHitBox();
+            return base.Update(gameTime, percent);
+        }
     }
 }

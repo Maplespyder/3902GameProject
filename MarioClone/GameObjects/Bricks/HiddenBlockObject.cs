@@ -7,34 +7,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MarioClone.Collision;
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
     public class HiddenBrickObject : AbstractBlock
     {
-        public HiddenBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
+
+		public HiddenBrickObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             Visible = false;
         }
-
-        public override bool Update(GameTime gameTime)
-        {
-            return false;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            if (Visible)
-            {
-                Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
-            }
-        }
-
-
+        
         public override void Bump()
         {
             Visible = true;
+        }
+
+        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            if (gameObject is Mario && side == Side.Bottom)
+            {
+                Bump();
+            }
         }
     }
 }

@@ -4,10 +4,12 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using MarioClone.Controllers;
 using MarioClone.Commands;
-using MarioClone.Sprites;
 using Microsoft.Xna.Framework.Content;
 using MarioClone.Factories;
+using MarioClone.Collision;
+using MarioClone.Level;
 using MarioClone.GameObjects;
+using System.IO;
 
 namespace MarioClone
 {
@@ -20,9 +22,8 @@ namespace MarioClone
 		SpriteBatch spriteBatch;
         
         static ContentManager _content;
-        List<IGameObject> gameObjects;
-        List<GamepadController> gamepads;
-        KeyboardController keyboard;
+        GameGrid gameGrid;
+        List<AbstractController> controllerList;
 
 		public MarioCloneGame()
 		{
@@ -39,9 +40,7 @@ namespace MarioClone
 		/// </summary>
 		protected override void Initialize()
 		{
-            keyboard = new KeyboardController();
-
-            gamepads = new List<GamepadController>
+            controllerList = new List<AbstractController>
             {
                 new GamepadController(PlayerIndex.One),
                 new GamepadController(PlayerIndex.Two),
@@ -49,7 +48,7 @@ namespace MarioClone
                 new GamepadController(PlayerIndex.Four)
             };
 
-            gameObjects = new List<IGameObject>();
+            gameGrid = new GameGrid(12, 16, 800);
 
 			base.Initialize();
 		}
@@ -77,89 +76,25 @@ namespace MarioClone
 
         protected override void BeginRun()
         {
+            var keyboard = new KeyboardController();
+
+            var creator = new LevelCreator(@"Level\Sprint2Attempt2.bmp", gameGrid, keyboard);
+            creator.Create();
+
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
+            keyboard.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
+
+            // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
-            
-            var mario = MarioFactory.Create(new Vector2(200, 100));
+            AddCommandToAllGamepads(Buttons.A, new JumpCommand(Mario.Instance));
+            AddCommandToAllGamepads(Buttons.DPadDown, new CrouchCommand(Mario.Instance));
+            AddCommandToAllGamepads(Buttons.DPadRight, new MoveRightCommand(Mario.Instance));
+            AddCommandToAllGamepads(Buttons.DPadLeft, new MoveLeftCommand(Mario.Instance));
 
-            keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(mario));
-            keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Y, new BecomeNormalMarioCommand(mario));
-            keyboard.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.I, new BecomeFireMarioCommand(mario));
-            keyboard.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(mario));
-
-            keyboard.AddInputCommand((int)Keys.W, new JumpCommand(mario));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(mario));
-            keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(mario));
-            AddCommandToAllGamepads(Buttons.A, new JumpCommand(mario));
-
-            keyboard.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(mario));
-            keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(mario));
-            AddCommandToAllGamepads(Buttons.DPadLeft, new JumpCommand(mario));
-
-            keyboard.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(mario));
-            keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(mario));
-            AddCommandToAllGamepads(Buttons.DPadDown, new JumpCommand(mario));
-
-            keyboard.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(mario));
-            keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(mario));
-            AddCommandToAllGamepads(Buttons.DPadRight, new JumpCommand(mario));
-
-            gameObjects.Add(mario);
-
-            var BrickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, new Vector2(200, 200));
-            keyboard.AddInputCommand((int)Keys.B, new BlockBumpCommand(BrickBlock));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new BlockBumpCommand(BrickBlock));
-            gameObjects.Add(BrickBlock);
-
-            var QuestionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, new Vector2(250, 200));
-            keyboard.AddInputCommand((int)Keys.OemQuestion, new BlockBumpCommand(QuestionBlock));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.OemQuestion, new BlockBumpCommand(QuestionBlock));
-            gameObjects.Add(QuestionBlock);
-
-            var HiddenBlock = BlockFactory.Instance.Create(BlockType.HiddenBlock, new Vector2(300, 200));
-            keyboard.AddInputCommand((int)Keys.H, new ShowHiddenBrickCommand(HiddenBlock));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.H, new ShowHiddenBrickCommand(HiddenBlock));
-            gameObjects.Add(HiddenBlock);
-
-            var FloorBlock = BlockFactory.Instance.Create(BlockType.FloorBlock, new Vector2(350, 200));
-            gameObjects.Add(FloorBlock);
-
-            var StairBlock = BlockFactory.Instance.Create(BlockType.StairBlock, new Vector2(400, 200));
-            gameObjects.Add(StairBlock);
-
-            var UsedBlock = BlockFactory.Instance.Create(BlockType.UsedBlock, new Vector2(450, 200));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.X, new BlockBumpCommand(UsedBlock));
-            keyboard.AddInputCommand((int)Keys.X, new BlockBumpCommand(UsedBlock));
-            gameObjects.Add(UsedBlock);
-
-            var goomba = EnemyFactory.Instance.Create(EnemyType.Goomba, new Vector2(200, 300));
-            gameObjects.Add(goomba);
-
-            var GreenKoopa = EnemyFactory.Instance.Create(EnemyType.GreenKoopa, new Vector2(250, 300));
-            gameObjects.Add(GreenKoopa);
-
-            var RedKoopa = EnemyFactory.Instance.Create(EnemyType.RedKoopa, new Vector2(300, 300));
-            gameObjects.Add(RedKoopa);
-
-            var coin = PowerUpFactory.Create(PowerUpType.Coin, new Vector2(200, 400));
-            gameObjects.Add(coin);
-
-            var flower = PowerUpFactory.Create(PowerUpType.Flower, new Vector2(250, 400));
-            gameObjects.Add(flower);
-
-            var GreenMushroom = PowerUpFactory.Create(PowerUpType.GreenMushroom, new Vector2(300, 400));
-            gameObjects.Add(GreenMushroom);
-
-            var redMushroom = PowerUpFactory.Create(PowerUpType.RedMushroom, new Vector2(350, 400));
-            gameObjects.Add(redMushroom);
+            // Add keyboard to list of gamepads
+            controllerList.Add(keyboard);
         }
 
 		/// <summary>
@@ -180,26 +115,15 @@ namespace MarioClone
 		{
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
-
-
-            keyboard.UpdateAndExecuteInputs();
-			foreach(var gamepad in gamepads)
+            
+			foreach(var controller in controllerList)
             {
-                gamepad.UpdateAndExecuteInputs();
+                controller.UpdateAndExecuteInputs();
             }
   
 			if (!paused)
 			{
-                var removed = new List<IGameObject>();
-                foreach (var obj in gameObjects)
-				{
-					if (obj.Update(gameTime))
-					{
-                        removed.Add(obj);
-                    }
-				}
-
-                gameObjects.RemoveAll(x => removed.Contains(x));
+                gameGrid.UpdateWorld(gameTime);
 				base.Update(gameTime);
 			}
 		}
@@ -210,14 +134,12 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
+			// Somewhere in your LoadContent() method:
 			if (!paused)
 			{
 				GraphicsDevice.Clear(Color.CornflowerBlue);
 				spriteBatch.Begin();
-				foreach (var obj in gameObjects)
-				{
-					obj.Draw(spriteBatch, gameTime);
-				}
+                gameGrid.DrawWorld(spriteBatch, gameTime);
 				spriteBatch.End();
 
 				base.Draw(gameTime);
@@ -248,7 +170,7 @@ namespace MarioClone
 
         private void AddCommandToAllGamepads(Buttons button, ICommand command)
         {
-            foreach (var gamepad in gamepads)
+            foreach (var gamepad in controllerList)
             {
                 gamepad.AddInputCommand((int)button, command);
             }

@@ -1,37 +1,35 @@
-﻿using MarioClone.Factories;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
 using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using static MarioClone.States.BlockStates.BlockState;
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
     public class QuestionBlockObject : AbstractBlock
 	{
-        public QuestionBlockObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
+
+		public QuestionBlockObject(ISprite sprite,  Vector2 position) : base(sprite,  position)
         {
             State = new QuestionBlockStatic(this);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+		public override bool Update(GameTime gameTime, float percent)
         {
-            if (Visible)
-            {
-                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
-            }
-        }
-
-   
-
-        public override bool Update(GameTime gameTime)
-        {
-			return State.Action();
+			BoundingBox.UpdateHitBox(Position, Sprite);
+			return State.Action(percent);
         }
 
         public override void Bump()
         {
             State.Bump();
+        }
+
+        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            //if (gameObject is Mario && side == Side.Bottom)
+            //{
+            //    State.Bump();
+            //}
         }
     }
 }

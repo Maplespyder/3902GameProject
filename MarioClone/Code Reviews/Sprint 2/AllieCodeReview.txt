@@ -1,0 +1,30 @@
+Author of Review: Allie Jett
+Date of Review: 10/17/2017
+File Under Review: GameGrid.cs
+Author(s) of File: Allie and Jacob
+Comments on Code Quality:
+
+WhenCollisionCheck::
+Though I wrote the WhenCollisionCheck, after reviewing over the final version, 
+I believe I can clean up this method. First and foremost, the WhenCollisionCheck 
+not only does a 'When' check, but also manages to do 'Where', as well. The method, 
+if possible, should be renamed to WhenAndWhereCheck, to account for this method's
+abilities. 
+
+Second, the WhenCollisionCheck is a long method. With several blocks of if statements,
+I might be able to minimize the length by moving blocks of code into different methods. 
+That being said, I believe the section that checks 'where' can be moved to a seperate 
+method to make the code more manageable. 
+
+CollisionCheck::
+Originally, this method had a lot more meat to it but it was simplified with Rectangle's 
+intersect method. Now, this method has literally one line of code and, no doubt, it's 
+taking up more room than need be. If we could, we should get rid of this method, and 
+replace the call to this method with the line of code, instead.  
+
+In General::
+I think most of the established properties at the top of the method can have their
+access rights changed from public to private, as many are only used within this
+very class. 
+
+Minutes to Complete: 20 min

@@ -33,11 +33,11 @@ namespace MarioClone.Sprites
 
         private void UpdateSourceRectangle()
         {
-            int width = SpriteSheet.Width / Columns;
-            int height = SpriteSheet.Height / Rows;
+            int FrameWidth = SpriteSheet.Width / Columns;
+            int FrameHeight = SpriteSheet.Height / Rows;
             int row = CurrentFrame / Columns;
             int column = CurrentFrame % Columns;
-            SourceRectangle = new Rectangle(width * column, height * row, width, height);       
+            SourceRectangle = new Rectangle(FrameWidth * column, FrameHeight * row, FrameWidth, FrameHeight);       
         }
 
         private void Update(GameTime gameTime)

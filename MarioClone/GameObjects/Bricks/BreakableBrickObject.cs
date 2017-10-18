@@ -5,16 +5,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-
+using MarioClone.Collision;
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
     public class BreakableBrickObject : AbstractBlock
 	{
-		private List<IGameObject> PieceList = new List<IGameObject>();
-		List<BrickPieceObject> InVisiblePieces = new List<BrickPieceObject>();
+		private List<AbstractGameObject> pieceList = new List<AbstractGameObject>();
 
-        public BreakableBrickObject(ISprite sprite, Vector2 position, int drawOrder) : base( sprite, position, drawOrder)
+		public BreakableBrickObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             State = new BreakableBrickStatic(this);
         }
@@ -33,33 +33,34 @@ namespace MarioClone.GameObjects
             for (int i = 0; i < 4; i++)
 			{
 				var piece = (BrickPieceObject)BlockFactory.Instance.Create(BlockType.BrickPiece, Position); 
-				PieceList.Add(piece);
+				pieceList.Add(piece);
 				piece.ChangeVelocity(velocityList[i]);
 			}
         }
 
-		public bool Pieces(GameTime gameTime)
+		public bool Pieces(GameTime gameTime, float percent)
 		{
+            List<BrickPieceObject> invisiblePiece = new List<BrickPieceObject>();
             bool disposeMe = false;
-			foreach(BrickPieceObject piece in PieceList)
+			foreach(BrickPieceObject piece in pieceList)
 			{
-				if (piece.Update(gameTime))
+				if (piece.Update(gameTime, percent))
 				{
-					InVisiblePieces.Add(piece);
+					invisiblePiece.Add(piece);
 				}
 			}
 
 			//Remove pieces from PieceList
-			foreach(BrickPieceObject piece in InVisiblePieces)
+			foreach(BrickPieceObject piece in invisiblePiece)
 			{
-				if (PieceList.Contains(piece))
+				if (pieceList.Contains(piece))
 				{
-					PieceList.Remove(piece);
+					pieceList.Remove(piece);
 				}
 			}
 
 			//If all pieces are gone
-			if(PieceList.Count == 0)
+			if(pieceList.Count == 0)
 			{
                 disposeMe = true;
 			}
@@ -67,20 +68,20 @@ namespace MarioClone.GameObjects
             return disposeMe;
 		}
 
-		public override bool Update(GameTime gameTime)
+		public override bool Update(GameTime gameTime, float percent)
         {
-            return State.Action() && Pieces(gameTime);
+            bool retVal = State.Action(percent) && Pieces(gameTime, percent);
+            if (Visible)
+            {
+                base.Update(gameTime, percent);
+            }
+			return retVal;
         }
-
-		
 
 		public override void Draw(SpriteBatch spriteBatch,  GameTime gameTime)
 		{
-            if (Visible)
-            {
-                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Facing.Left);
-            }
-			foreach (BrickPieceObject piece in PieceList)
+            base.Draw(spriteBatch, gameTime);
+			foreach (BrickPieceObject piece in pieceList)
 			{
 				piece.Draw(spriteBatch,  gameTime);
 			}
@@ -88,6 +89,14 @@ namespace MarioClone.GameObjects
         public override void Bump()
         {
             State.Bump();
+        }
+
+        public override void CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
+        {
+            //if (gameObject is Mario && side == Side.Bottom)
+            //{
+            //    Bump();
+            //}
         }
     }
 }

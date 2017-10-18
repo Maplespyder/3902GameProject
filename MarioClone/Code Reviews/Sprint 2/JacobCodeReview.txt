@@ -1,0 +1,28 @@
+﻿Code Review Template
+Author of Review: Jacob Crabtree
+Date of Review: 10/16/2017
+File Under Review: LevelCreator.cs
+Author(s) of File: Sam Trabitz
+Comments on Code Quality: I see little to no issues with this code. I just selected it because I had never looked at it, and I expected it to 
+be a fairly involved class. I'm impressed by how simple the code is. The level generator declares a local Func to compare colors, which I'm not
+sure is really necessary, but it works just as nicely as declaring an actual fuction. It's probably a little less efficient though.
+
+The interface for it is simple, and it allows us to dynamically create more levels at run time, which will be great down the line. I think
+this class could have even been static though, just accepting the parameters that the constructor takes directly into the create method. I'm 
+not really sure what declaring an object does here.
+
+The giant if statment comprising the actual meat of the class had to have happened at some point down the line, and I think just doing it
+instead of trying to turn it into switch cases, enums, etc. was a good idea, because that would probably have just made more code and more
+overhead in the end.
+
+The only thing I'm not a fan of is the const sizes. If we decide to resize any game objects, their hitboxes, or their sprite sheets, that 
+could cause problems. Although this wasn't really the responsibility of this class, perhaps all the sizes of the various game objects should
+have been stored in some kind of static data class. While data classes are supposed to be a code smell, I think it would probably managing 
+all the sizes much easier, in case we decide to resize things in the future somehow.
+
+Minutes to Complete: 20 min
+Hypothetical Change to File:
+Generating an underground Mario level with different sprites. This class is completely agnostic to the underlying sprite type returned by the
+factories. This makes it very easy to swap to a different level. Some sort of indicator in the file name or a particular color in a specific corner
+of the sheet could be used to tip off the map, then all it would have to do is set the BlockFactory's SpriteFactory to be an Underground instance.
+This is probably only a three line change, which is impressive considering the change considered is changing the entire skin of the game.

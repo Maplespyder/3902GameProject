@@ -2,6 +2,7 @@ using MarioClone.GameObjects;
 using MarioClone.Factories;
 using System;
 using static MarioClone.States.MarioPowerupState;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -28,16 +29,32 @@ namespace MarioClone.States
 
         public override void BecomeCrouch()
         {
+
+            Context.Velocity = new Vector2(0, Mario.VerticalMovementSpeed);
+            Context.ActionState = MarioCrouch.Instance;
+            Context.PreviousActionState = this;
+
             if (Context.PowerupState.Powerup == MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerup.Fire)
+            {         
+                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
+            }
+
+        }
+        public override void UpdateHitBox()
+        {
+            if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Normal)
             {
-                Context.ActionState = MarioCrouch.Instance;
-                Context.PreviousActionState = this;
-                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch); 
+               Context.BoundingBox.UpdateOffSets(-4,-4, -2, 0);
+            }
+            else if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Fire)
+            {
+                Context.BoundingBox.UpdateOffSets(-10, -10, -10, 0);
             }
         }
 
         public override void BecomeJump()
         {
+            Context.Velocity = new Vector2(0, -Mario.VerticalMovementSpeed);
             Context.ActionState = MarioJump.Instance;
             Context.PreviousActionState = this;
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
@@ -47,6 +64,7 @@ namespace MarioClone.States
         {
             if (Context.Orientation == orientation)
             {
+                Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, 0) : new Vector2(Mario.HorizontalMovementSpeed, 0);
                 Context.ActionState = MarioWalk.Instance;
                 Context.PreviousActionState = this;
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);

@@ -43,9 +43,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Level\Colors.cs" />
+    <Compile Include="Level\LevelCreator.cs" />
+    <Compile Include="Collision\GameGrid.cs" />
+    <Compile Include="Collision\HitBox.cs" />
     <Compile Include="Commands\BecomeFireMarioCommand.cs" />
     <Compile Include="Commands\BecomeSuperMarioCommand.cs" />
     <Compile Include="Commands\CrouchCommand.cs" />
+    <Compile Include="Commands\DisplayHitboxCommand.cs" />
     <Compile Include="Commands\DummyCommand.cs" />
     <Compile Include="Commands\JumpCommand.cs" />
     <Compile Include="Commands\MoveLeftCommand.cs" />
@@ -58,7 +63,6 @@
     <Compile Include="Factories\Blocks\BlockFactory.cs" />
     <Compile Include="Factories\Enemies\DeadEnemySpriteFactory.cs" />
     <Compile Include="Factories\Enemies\EnemyFactory.cs" />
-    <Compile Include="Factories\Enemies\EnemySpriteFactory.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Factories\Mario\DeadMarioSpriteFactory.cs" />
@@ -71,15 +75,15 @@
     <Compile Include="Factories\Mario\SuperMarioSpriteFactory.cs" />
     <Compile Include="Factories\PowerUps\PowerUpFactory.cs" />
     <Compile Include="Factories\PowerUps\PowerUpSpriteFactory.cs" />
+    <Compile Include="GameObjects\AbstractGameObject.cs" />
     <Compile Include="GameObjects\Bricks\AbstractBlock.cs" />
     <Compile Include="GameObjects\Bricks\BreakableBrickObject.cs" />
     <Compile Include="GameObjects\Bricks\BrickPieceObject.cs" />
     <Compile Include="GameObjects\Bricks\CoinBrickObject.cs" />
-    <Compile Include="GameObjects\Bricks\FloorBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\HiddenBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\QuestionBlockObject.cs" />
-    <Compile Include="GameObjects\Bricks\StairBlockObject.cs" />
-    <Compile Include="GameObjects\Bricks\UsedBlockObject.cs" />
+    <Compile Include="GameObjects\Bricks\StaticBlockObject.cs" />
+    <Compile Include="GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
     <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
     <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
@@ -88,12 +92,9 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\GamepadController.cs" />
-    <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\KeyboardController.cs" />
-    <Compile Include="GameObjects\IGameObject.cs" />
-    <Compile Include="GameObjects\IMoveable.cs" />
     <Compile Include="GameObjects\Mario.cs" />
-    <Compile Include="GameObjects\PowerUps\FirePowerUpObject.cs" />
+    <Compile Include="GameObjects\PowerUps\FireFlowerObject.cs" />
     <Compile Include="GameObjects\PowerUps\GreenMushroomObject.cs" />
     <Compile Include="GameObjects\PowerUps\RedMushroomObject.cs" />
     <Compile Include="MarioCloneGame.cs" />
@@ -110,6 +111,9 @@
     <Compile Include="States\BlockStates\QuestionBlockAction.cs" />
     <Compile Include="States\BlockStates\QuestionBlockStatic.cs" />
     <Compile Include="States\BlockStates\Used.cs" />
+    <Compile Include="States\EnemyStates\Powerup\EnemyPowerupState.cs" />
+    <Compile Include="States\EnemyStates\Powerup\GoombaAlive.cs" />
+    <Compile Include="States\EnemyStates\Powerup\GoombaDead.cs" />
     <Compile Include="States\MarioStates\Action\MarioActionState.cs" />
     <Compile Include="States\MarioStates\Action\MarioCrouch.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle.cs" />
@@ -126,9 +130,21 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Level\Sprint2Attempt2.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Level\funmaze.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Code Reviews\Sprint 2\JacobCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 2\AllieCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 2\AnnaCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 2\SamCodeReview.txt" />
+    <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 1\JacobCodeReview.txt" />

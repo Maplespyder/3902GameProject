@@ -9,9 +9,11 @@ namespace MarioClone.Controllers
     public class GamepadController : AbstractController
     {
         private GamePadState lastState;
+        private PlayerIndex player;
 
         public GamepadController(PlayerIndex playerIndex)
         {
+            player = playerIndex;
             lastState = GamePad.GetState(playerIndex);
             if(!lastState.IsConnected)
             {
@@ -35,7 +37,7 @@ namespace MarioClone.Controllers
         /// </summary>
         public override void UpdateAndExecuteInputs()
         {
-            GamePadState currentState = GamePad.GetState(PlayerIndex.One);
+            GamePadState currentState = GamePad.GetState(player);
 
             if (currentState.IsButtonDown(Buttons.Start)) 
             {

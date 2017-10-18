@@ -1,0 +1,29 @@
+﻿Code Review Template
+Author of Review: Anna Wolfe
+Date of Review: 10/17/17
+File Under Review: Gamegrid.cs
+Author(s) of File: Allie Jett and Jacob Crabtree
+Comments on Code Quality:
+
+So within this class there are a few variables that are never being used, so either these variables need to be removed or used later on in the class otherwise this is not best practices.
+Basically right now they are just beign assigned to something and never getting called. These variables include: Point o1, Point o2.
+
+Another way to improve the code is that the 'this' parameter in Collision check is never being used as well. 
+
+Lastly, some of these methods were kind of long so maybe they could be broken up into more logical sections of code to become more reusable.
+
+Minutes to Complete: 10 min
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Code Review Template
+Author of Review: Anna Wolfe
+Date of Review: 10/17/17
+File Under Review: AbstractEnemy.cs
+Author(s) of File: Anna Wolfe and Jacob Crabtree
+Comments on Code Quality:
+
+Right now all of the constrcutors in AbstractEnemy and being used by AbstractEnemy are public.
+It may be better to change the accessibility of the public constructors in this class to protected.
+
+Minutes to Complete: 5 min
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+

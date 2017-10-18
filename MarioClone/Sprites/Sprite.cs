@@ -17,7 +17,7 @@ namespace MarioClone.Sprites
 
 		protected Sprite(Texture2D spriteSheet, Rectangle sourceRectangle)
         {
-            SpriteSheet = spriteSheet;
+			SpriteSheet = spriteSheet;
             SourceRectangle = sourceRectangle;
         }
 

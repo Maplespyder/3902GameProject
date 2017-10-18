@@ -1,0 +1,25 @@
+Tile Map Documentation:
+
+
+Mario Spawn: (136, 0, 27)
+
+• ? (Question) Block: (140, 255, 251)
+• Used Block: (185, 122, 86)
+• Brick Block: (103, 62, 39)
+• Floor Block: (0, 0, 0)
+• Stair/Pyramid Block: (255, 127, 39)
+• Hidden Bricks: (189, 69, 0)
+
+Enemies:
+• Goomba: (81, 47, 28)
+• Green Koopa Troopa: (14, 209, 69)
+• Red Koopa Troopa: (236, 28, 36)
+
+Power-Ups:
+• Super Mushroom: (255, 127, 127) 
+• 1-Up Mushroom: (196, 255, 14)
+• Fire Flower: (255, 86, 30)
+
+
+Item:
+• Coin: (255, 242, 0)

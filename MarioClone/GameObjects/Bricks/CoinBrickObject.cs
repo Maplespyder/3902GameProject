@@ -12,25 +12,12 @@ namespace MarioClone.GameObjects
 {
     public class CoinBrickObject : AbstractBlock
     {
-        public CoinBrickObject(ISprite sprite,  Vector2 position, int drawOrder) : base(sprite,  position, drawOrder)
-        {
-
-        }
+        public CoinBrickObject(ISprite sprite,  Vector2 position) : base(sprite,  position) { }
 
         public override void Bump()
         {
             // spawn a coin, not implemented yet
             throw new NotImplementedException();
-        }
-
-        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
-        }
-
-        public override bool Update(GameTime gameTime)
-        {
-            return false;
         }
     }
 }

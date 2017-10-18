@@ -27,7 +27,7 @@ namespace MarioClone.States.BlockStates
 
         public abstract void Bump();
 
-        public virtual bool Action()
+        public virtual bool Action(float percent)
         {
             return false;
         }

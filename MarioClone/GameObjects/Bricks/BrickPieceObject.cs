@@ -8,23 +8,19 @@ namespace MarioClone.GameObjects
 	public class BrickPieceObject : AbstractBlock
 	{
 
-        public BrickPieceObject(ISprite sprite, Vector2 position, int drawOrder) : base(sprite, position, drawOrder)
-        {
- 
-        }
+        public BrickPieceObject(ISprite sprite, Vector2 position) : base(sprite, position) { }
 
-        public override bool Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime, float percent)
 		{
-            bool disposeMe = false;
-			Move();
+			Move(percent);
 
 			//Nugget off screen?
 			if(Position.Y > MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight)
 			{
-                disposeMe = true;
+                return true;
 			}
 
-            return disposeMe;
+            return false;
 		}
 
 		public void ChangeVelocity(Vector2 velocity)
@@ -32,25 +28,16 @@ namespace MarioClone.GameObjects
 			Velocity = velocity;
 		}
 
-		private void Move()
+		private void Move(float percent)
 		{
 			//Movement will also need to be tested and likely refactored late
-				Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-				Velocity = new Vector2(Velocity.X, Velocity.Y + .2f);
-			
+			Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
+			Velocity = new Vector2(Velocity.X, Velocity.Y + .2f * percent);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-		{
-			if (Visible)
-			{
-				Sprite.Draw(spriteBatch, Position, this.DrawOrder, gameTime, Facing.Left);
-			}
-		}
-
-        public override void Bump()
         {
-            // do nothing
+            Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation);
         }
     }
 }
