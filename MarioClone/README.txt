@@ -1,4 +1,5 @@
-﻿The question and used block may not behave exactly as asked in the story. The description specifies that Xx should be used for the 
+﻿SPRINT 1 README
+The question and used block may not behave exactly as asked in the story. The description specifies that Xx should be used for the 
 used block, which does nothing. It also specifies that ? be used for the question block. However, in the acceptance critera, it 
 lists ? as a bonus and says Xx should be used for the question block bump. Then, in the Canvas message, it was specified that ? was 
 bonus, and that / was the desired button for the question block. So, since the used block does nothing, but has a button mapped to it 
@@ -20,4 +21,13 @@ all block factory types.
 The 'this' parameter (or 'Me' in Visual Basic) of 'EnemyFactory.Create(EnemyType, Vector2)' is never used. Mark the member as 
 static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.
 -Same reasoning as above for this factory.
+
+
+SPRINT 2 README
+This was not specified as *not* happening in the PBI, and it was an easy thing to include, so we made the Koopas deal damage to Mario
+if he hits them on the sides, and change Mario's power-up state. Also, the "A" button is the Up "Direction" for the game pad. That was never
+(to my knowledge) explicitly specified as having to be the up arrow, so I'm just leaving that as whatever someone else made it.
+Otherwise, this Sprint should follow the PBIs exactly.
+
+
 
