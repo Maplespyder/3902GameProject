@@ -1,0 +1,32 @@
+Author of Review: Sam Trabitz
+Date of Review: 10/16/17
+File Under Review: GameGrid.cs
+Author(s) of File: Jacob, Allie
+Comments on Code Quality:
+Code quality is generally good. The problems were implemented in a good way, but I feel that the file is very disorganized.
+There are lots of methods that do different things and it's a little hard to tell where each method would be called, at least
+without going through all the code.
+
+Minutes to Complete: 10 minutes
+Hypothetical Change to File:
+This is an issue we're currently struggling with, but I would like to think of ways to avoid the problem where Mario can just
+scoot through walls and places he shouldn't be able to get through by just spamming the movement button a bunch. A preliminary
+idea I have to solve that is to push Mario back a little bit whenever he collides with blocks, in order to make sure he can't
+get through them.
+
+Author of Review: Sam Trabitz
+Date of Review: 10/16/17
+File Under Review: TileMapDocumentationAttempt1.txt
+Author(s) of File: Anna
+Comments on Code Quality:
+I think this is a good start for the tile map definition, but I'd like to see some more detail on the individual colors.
+It was a little confusing at first, because the code uses Argb values but this definition only provided RGB values. Also,
+it would also be beneficial to provide the hex codes for each of the colors.
+
+Minutes to Complete: 5
+Hypothetical Change to File:
+In the future, we will have to represent a single block that could have different items in it, such as coins or mushrooms.
+Currently, we have no way of doing this. I think a good way to solve this would be to have an R value unique to each type
+of block that has coins or mushrooms. Then, there would be two G values, one representing powerups or nothing, and one 
+representing an amount of coins. Then the B value would be used to determine what type of powerup or how many coins exist
+within the block.

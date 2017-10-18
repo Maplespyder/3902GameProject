@@ -2,7 +2,7 @@
 
 namespace MarioClone.Level
 {
-    public class Colors
+    public static class Colors
     {
         public static readonly Color Empty = Color.FromArgb(255, 255, 255);
 
