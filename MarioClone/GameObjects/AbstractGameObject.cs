@@ -30,7 +30,7 @@ namespace MarioClone.GameObjects
 
         public static bool DrawHitbox { get; set; }
 
-        public AbstractGameObject(ISprite sprite, Vector2 position, Color hitBoxColor)
+        protected AbstractGameObject(ISprite sprite, Vector2 position, Color hitBoxColor)
         {
             Sprite = sprite;
             Position = position;

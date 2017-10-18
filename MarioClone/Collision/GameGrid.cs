@@ -275,7 +275,7 @@ namespace MarioClone.Collision
             return objectList;
         }
 
-        public bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
+        public static bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
         {
             Vector2 relativeVelocity = obj2.Velocity - obj1.Velocity;
             if (obj2.BoundingBox.TopLeft.X <= obj1.BoundingBox.TopLeft.X)
@@ -290,13 +290,11 @@ namespace MarioClone.Collision
             return (relativeVelocity.X < 0 || relativeVelocity.Y < 0);
         }
 
-        public float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
+        public static float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
 
             float xDirectionDistance, yDirectionDistance, xEntryPercent, yEntryPercent;
-            Point o1 = obj1.BoundingBox.BottomLeft;
-            Point o2 = obj2.BoundingBox.BottomLeft;
-
+            
             /*determined, relative on OBJ1, that:
             * -X relativeVelocity -> Obj1 is hit on the left 
             * +X relVel -> Obj1 hit on right
@@ -380,7 +378,7 @@ namespace MarioClone.Collision
             }
         }
 
-        public float IfCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
+        public static float IfCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
             Rectangle obj1Sweep = GetSweptBox(obj1);
             Rectangle obj2Sweep = GetSweptBox(obj2);
@@ -394,7 +392,7 @@ namespace MarioClone.Collision
             return collisionTime;
         }
 
-        public Rectangle GetSweptBox(AbstractGameObject obj)
+        public static Rectangle GetSweptBox(AbstractGameObject obj)
         {
             Rectangle sweptBox;
             sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.TopLeft.X : obj.BoundingBox.TopLeft.X + (int)obj.Velocity.X;
@@ -404,7 +402,7 @@ namespace MarioClone.Collision
             return sweptBox;
         }
 
-        public bool CollisionCheck(Rectangle obj1, Rectangle obj2)
+        public static bool CollisionCheck(Rectangle obj1, Rectangle obj2)
         {
             return obj1.Intersects(obj2);
         }
