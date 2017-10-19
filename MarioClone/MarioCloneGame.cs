@@ -28,7 +28,9 @@ namespace MarioClone
 		public MarioCloneGame()
 		{
 			graphics = new GraphicsDeviceManager(this);
-            _content = Content;
+			graphics.PreferredBackBufferWidth = 1600;
+			graphics.PreferredBackBufferHeight = 960;
+			_content = Content;
 			Content.RootDirectory = "Content";
 		}
 
@@ -48,7 +50,7 @@ namespace MarioClone
                 new GamepadController(PlayerIndex.Four)
             };
 
-            gameGrid = new GameGrid(12, 16, 800);
+			gameGrid = new GameGrid(12, 16, 1600);
 
 			base.Initialize();
 		}

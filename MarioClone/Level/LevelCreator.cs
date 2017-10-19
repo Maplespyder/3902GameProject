@@ -13,13 +13,13 @@ namespace MarioClone.Level
 {
     public class LevelCreator
     {
-        private const int KoopaHeight = 56;
-        private const int GoombaHeight = 31;
-        private const int MarioHeight = 64;
+        private const int KoopaHeight = 112;
+        private const int GoombaHeight = 62;
+        private const int MarioHeight = 128;
 
 
-        private const int BlockWidth = 32;
-        private const int BlockHeight = 32;
+        private const int BlockWidth = 64;
+        private const int BlockHeight = 64;
 
         private Bitmap _image;
         private GameGrid _grid;
@@ -55,7 +55,7 @@ namespace MarioClone.Level
             {
                 if (sameColor(pixel, Colors.MarioSpawn))
                 {
-                    position = new Vector2(position.X, position.Y - (MarioHeight - 32));
+                    position = new Vector2(position.X, position.Y - (MarioHeight - 64));
                     var mario = MarioFactory.Create(position);
 
                     _controller.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
@@ -120,19 +120,19 @@ namespace MarioClone.Level
                 }
                 else if (sameColor(pixel, Colors.Goomba))
                 {
-                    position = new Vector2(position.X, position.Y - (GoombaHeight - 32));
+                    position = new Vector2(position.X, position.Y - (GoombaHeight - 64));
                     var goomba = EnemyFactory.Create(EnemyType.Goomba, position);
                     _grid.Add(goomba);
                 }
                 else if (sameColor(pixel, Colors.GreenKoopa))
                 {
-                    position = new Vector2(position.X, position.Y - (KoopaHeight - 32)); 
+                    position = new Vector2(position.X, position.Y - (KoopaHeight - 64)); 
                     var greenKoopa = EnemyFactory.Create(EnemyType.GreenKoopa, position);
                     _grid.Add(greenKoopa);
                 }
                 else if (sameColor(pixel, Colors.RedKoopa))
                 {
-                    position = new Vector2(position.X, position.Y - (KoopaHeight - 32));
+                    position = new Vector2(position.X, position.Y - (KoopaHeight - 64));
                     var redKoopa = EnemyFactory.Create(EnemyType.RedKoopa, position);
                     _grid.Add(redKoopa);
                 }

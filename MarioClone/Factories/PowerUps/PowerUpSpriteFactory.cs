@@ -24,17 +24,17 @@ namespace MarioClone.Factories
             switch(type)
             {
                 case PowerUpType.GreenMushroom:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(96, 0, 32, 32));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(192, 0, 64, 64));
                 case PowerUpType.RedMushroom:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(64, 0, 32, 32));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(128, 0, 64, 64));
                 case PowerUpType.Flower:
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireFlower"), new Rectangle(0, 0, 32, 32), 1, 4, 0, 3, 4);
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/FireFlower"), new Rectangle(0, 0, 64, 64), 1, 4, 0, 3, 4);
                 case PowerUpType.Star:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(32, 0, 32, 32));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(64, 0, 64, 64));
                 case PowerUpType.Coin:
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Coin"), new Rectangle(0, 0, 32, 32), 1, 4, 0, 3, 4);
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Coin"), new Rectangle(0, 0, 64, 64), 1, 4, 0, 3, 4);
                 default:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(96, 0, 32, 32));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(192, 0, 64, 64));
             }
         }
     }

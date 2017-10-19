@@ -13,7 +13,7 @@ namespace MarioClone.GameObjects
     {
         public GreenKoopaObject(ISprite sprite, Vector2 position) : base(sprite, position)
 		{
-			BoundingBox.UpdateOffSets(-4, -4, -4, -4);
+			BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
         }
 

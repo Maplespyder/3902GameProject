@@ -15,7 +15,7 @@ namespace MarioClone.GameObjects
         public GoombaObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             PowerupState = new GoombaAlive(this);
-            BoundingBox.UpdateOffSets(-4, -4, -4, -4);
+            BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
         }
 

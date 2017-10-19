@@ -31,28 +31,28 @@ namespace MarioClone.Factories
             {
                 case BlockType.QuestionBlock:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        new Rectangle(0, 0, 32, 32), 2, 4, 0, 3, 4);
+                        new Rectangle(0, 0, 64, 64), 2, 4, 0, 3, 4);
                 case BlockType.CoinBlock:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        new Rectangle(0, 32, 32, 32));
+                        new Rectangle(0, 64, 64, 64));
                 case BlockType.BreakableBrick:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        new Rectangle(0, 32, 32, 32));
+                        new Rectangle(0, 64, 64, 64));
                 case BlockType.FloorBlock:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        new Rectangle(32, 32, 32, 32));
+                        new Rectangle(64, 64, 64, 64));
                 case BlockType.StairBlock:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        new Rectangle(64, 32, 32, 32));
+                        new Rectangle(128, 64, 64, 64));
                 case BlockType.UsedBlock:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-						new Rectangle(96, 32, 32, 32));
+						new Rectangle(192, 64, 64, 64));
                 case BlockType.BrickPiece:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BrickPiece"),
-                        new Rectangle(0, 0, 16, 16));
+                        new Rectangle(0, 0, 32, 32));
                 case BlockType.HiddenBlock:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        new Rectangle(0, 32, 32, 32));
+                        new Rectangle(0, 64, 64, 64));
                 default:
                     return null;
             }
