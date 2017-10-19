@@ -43,6 +43,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\ResetLevelCommand.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />

@@ -24,6 +24,7 @@ namespace MarioClone
         static ContentManager _content;
         GameGrid gameGrid;
         List<AbstractController> controllerList;
+        LevelCreator level;
 
 		public MarioCloneGame()
 		{
@@ -78,13 +79,15 @@ namespace MarioClone
         {
             var keyboard = new KeyboardController();
 
-            var creator = new LevelCreator(@"Level\Sprint2Attempt2.bmp", gameGrid, keyboard);
-            creator.Create();
+            level = new LevelCreator(@"Level\Sprint2Attempt2.bmp", gameGrid, keyboard);
+            level.Create();
 
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
+            keyboard.AddInputCommand((int)Keys.R, new ResetLevelCommand(this));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.R, new ResetLevelCommand(this));
 
             // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
@@ -166,6 +169,13 @@ namespace MarioClone
 		public void ExitCommand()
         {
             Exit();
+        }
+
+        public void ResetLevelCommand()
+        {
+            gameGrid = new GameGrid(12, 16, 800);
+            level.Grid = gameGrid;
+            level.Create();
         }
 
         private void AddCommandToAllGamepads(Buttons button, ICommand command)
