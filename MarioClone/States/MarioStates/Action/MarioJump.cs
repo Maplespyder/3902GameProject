@@ -30,12 +30,12 @@ namespace MarioClone.States
         {
             if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Normal)
             {
-                Context.BoundingBox.UpdateOffSets(-4, -4, -2, 0);
+                Context.BoundingBox.UpdateOffSets(-8, -8, -4, 0);
             }
             else if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Fire)
             {
-                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-10, -10, -10, 0);
-                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-10, -10, -10, 0);
+                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-20, -20, -20, 0);
+                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-20, -20, -20, 0);
             }
         }
 

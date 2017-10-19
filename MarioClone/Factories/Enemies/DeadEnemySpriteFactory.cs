@@ -22,16 +22,16 @@ namespace MarioClone.Factories
             {
                 case EnemyType.Goomba:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
-                        new Rectangle(64, 0, 32, 31));
+                        new Rectangle(128, 0, 64, 62));
                 case EnemyType.GreenKoopa:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/GreenKoopa"),
-                        new Rectangle(0, 0, 32, 32));
+                        new Rectangle(0, 0, 64, 64));
                 case EnemyType.RedKoopa:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/RedKoopa"),
-                        new Rectangle(0, 0, 32, 32));
+                        new Rectangle(0, 0, 64, 64));
                 default:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
-                        new Rectangle(64, 0, 32, 32));
+                        new Rectangle(128, 0, 64, 64));
             }
         }
     }
