@@ -24,17 +24,18 @@ namespace MarioClone.GameObjects
                 if(side.Equals(Side.Top))
                 {
                     PowerupState.BecomeDead();
+                    TimeDead = 0;
 
                 }
             }
 
         }*/
-   
+
         public override bool Update(GameTime gameTime, float percent)
         {
-            //bool retVal = PowerupState.Update(gameTime, percent);
+            bool retVal = PowerupState.Update(gameTime, percent);
             return base.Update(gameTime, percent);
-            //return retVal;
+            return retVal;
         }
     }
 }
