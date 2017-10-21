@@ -25,12 +25,14 @@ namespace MarioClone.GameObjects
             Visible = true;
         }
 
-        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is Mario && side == Side.Bottom)
             {
                 Bump();
+                return true;
             }
+            return false;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateHitBox(Position, Sprite);
         }
 
-        /*public override void CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
+        /*public override bool CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
         {
             if (gameObject is Mario)
             {

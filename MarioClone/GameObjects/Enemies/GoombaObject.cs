@@ -19,7 +19,7 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateHitBox(Position, Sprite);
         }
 
-        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is Mario)
             {
@@ -27,9 +27,10 @@ namespace MarioClone.GameObjects
                 {
                     PowerupState.BecomeDead();
                     TimeDead = 0;
+                    return true;
                 }
             }
-
+            return false;
         }
 
         public override bool Update(GameTime gameTime, float percent)
