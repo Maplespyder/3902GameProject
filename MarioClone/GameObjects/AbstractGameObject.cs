@@ -72,10 +72,18 @@ namespace MarioClone.GameObjects
             DrawHitbox = !DrawHitbox;
         }
 
-        public virtual void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        /// <summary>
+        /// returns true if the collision was meaningful/did something that would have to be rechecked
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <param name="side"></param>
+        /// <param name="gameTime"></param>
+        /// <returns></returns>
+        public virtual bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-
+            return false;
         }
+
         public virtual void FixClipping(Vector2 correction)
         {
             Position += correction;

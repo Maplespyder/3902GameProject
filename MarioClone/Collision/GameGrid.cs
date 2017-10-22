@@ -66,8 +66,8 @@ namespace MarioClone.Collision
             if (side == Side.Bottom)
             {
                 return Side.Top;
-            } 
-            if(side == Side.Left)
+            }
+            if (side == Side.Left)
             {
                 return Side.Right;
             }
@@ -235,7 +235,7 @@ namespace MarioClone.Collision
             {
                 //the given object was never in the grid in the first place, because neighbors
                 //includes stuff in its own bucket, including itself
-                throw new NotSupportedException();
+                //throw new NotSupportedException();
             }
             return neighbours.ToList();
         }
@@ -288,15 +288,14 @@ namespace MarioClone.Collision
                 relativeVelocity = new Vector2(relativeVelocity.X, -relativeVelocity.Y);
             }
 
-            return (relativeVelocity.X < 0 || relativeVelocity.Y < 0)
-                || obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions);
+            return (relativeVelocity.X < 0 || relativeVelocity.Y < 0) || obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions);
         }
 
         public static float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
 
             float xDirectionDistance, yDirectionDistance, xEntryPercent, yEntryPercent;
-            
+
             /*determined, relative on OBJ1, that:
             * -X relativeVelocity -> Obj1 is hit on the left 
             * +X relVel -> Obj1 hit on right
@@ -382,45 +381,67 @@ namespace MarioClone.Collision
 
         public static Vector2 FindClippingCorrection(AbstractGameObject obj1, AbstractGameObject obj2)
         {
-            if (CollisionCheck(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions))
+
+            Rectangle intersect = Rectangle.Intersect(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions);
+            if(intersect.IsEmpty)
             {
-                Rectangle intersect = Rectangle.Intersect(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions);
-                if (intersect.Height < intersect.Width)
+                Side side = Side.None;
+                if(RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions, out side))
                 {
-                    if (intersect.Bottom == obj1.BoundingBox.Dimensions.Bottom)
+                    switch(side)
                     {
-                        return new Vector2(0, -intersect.Height);
+                        case Side.Left:
+                            return new Vector2(1, 0);
+                        case Side.Right:
+                            return new Vector2(-1, 0);
+                        case Side.Top:
+                            return new Vector2(0, 1);
+                        case Side.Bottom:
+                            return new Vector2(0, -1);
+                        default:
+                            return new Vector2(0, 0);
                     }
-                    else if (intersect.Top == obj1.BoundingBox.Dimensions.Top)
-                    {
-                        return new Vector2(0, intersect.Height);
-                    }
-                    else
-                    {
-                        if (intersect.Left == obj1.BoundingBox.Dimensions.Left)
-                        {
-                            return new Vector2(intersect.Width, 0);
-                        }
-                        else
-                        {
-                            return new Vector2(-intersect.Width, 0);
-                        }
-                    }
+                }
+                else
+                {
+                    return new Vector2(0, 0);
+                }
+
+            }
+
+            if (intersect.Height < intersect.Width)
+            {
+                if (intersect.Bottom == obj1.BoundingBox.Dimensions.Bottom)
+                {
+                    return new Vector2(0, -intersect.Height - 1);
+                }
+                else if (intersect.Top == obj1.BoundingBox.Dimensions.Top)
+                {
+                    return new Vector2(0, intersect.Height + 1);
                 }
                 else
                 {
                     if (intersect.Left == obj1.BoundingBox.Dimensions.Left)
                     {
-                        return new Vector2(intersect.Width, 0);
+                        return new Vector2(intersect.Width + 1, 0);
                     }
                     else
                     {
-                        return new Vector2(-intersect.Width, 0);
+                        return new Vector2(-intersect.Width - 1, 0);
                     }
                 }
             }
-
-            return new Vector2(0, 0);
+            else
+            {
+                if (intersect.Left == obj1.BoundingBox.Dimensions.Left)
+                {
+                    return new Vector2(intersect.Width + 1, 0);
+                }
+                else
+                {
+                    return new Vector2(-intersect.Width - 1, 0);
+                }
+            }
         }
 
         public static float IfCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
@@ -432,7 +453,7 @@ namespace MarioClone.Collision
 
             if (CollisionCheck(obj1Sweep, obj2Sweep))
             {
-				collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
+                collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
             }
             return collisionTime;
         }
@@ -441,7 +462,7 @@ namespace MarioClone.Collision
         {
             Rectangle sweptBox;
             sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.TopLeft.X : obj.BoundingBox.TopLeft.X + (int)obj.Velocity.X;
-            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.TopLeft.Y: obj.BoundingBox.TopLeft.Y + (int)obj.Velocity.Y;
+            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.TopLeft.Y : obj.BoundingBox.TopLeft.Y + (int)obj.Velocity.Y;
             sweptBox.Width = obj.Velocity.X > 0 ? (int)obj.Velocity.X + obj.BoundingBox.Dimensions.Width : obj.BoundingBox.Dimensions.Width - (int)obj.Velocity.X;
             sweptBox.Height = obj.Velocity.Y > 0 ? (int)obj.Velocity.Y + obj.BoundingBox.Dimensions.Height : obj.BoundingBox.Dimensions.Height - (int)obj.Velocity.Y;
             return sweptBox;
@@ -452,18 +473,200 @@ namespace MarioClone.Collision
             return obj1.Intersects(obj2);
         }
 
+        private void UpdateObjects(GameTime gameTime, float percentToUpdate)
+        {
+            var removed = new List<AbstractGameObject>();
+            var allObjects = GetAllGameObjects();
+            foreach (AbstractGameObject obj in allObjects)
+            {
+                HitBox oldHitbox = (obj.BoundingBox != null) ? new HitBox(obj.BoundingBox) : null;
+                if (obj.Update(gameTime, percentToUpdate))
+                {
+                    removed.Add(obj);
+                }
+                else
+                {
+                    if (oldHitbox != null)
+                    {
+                        UpdateObjectGridPosition(obj, oldHitbox);
+                    }
+                }
+            }
+
+            foreach (var obj in removed)
+            {
+                Remove(obj);
+            }
+        }
+
+        public static bool CollisionCompare(Tuple<float, Side, AbstractGameObject, AbstractGameObject> col1, Tuple<float, Side, AbstractGameObject, AbstractGameObject> col2)
+        {
+            if (col1.Item1 != col2.Item1)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(col1.Item3, col2.Item3) && ReferenceEquals(col1.Item4, col2.Item4))
+            {
+                if (col1.Item2 == col2.Item2)
+                {
+                    return true;
+                }
+            }
+            else if (ReferenceEquals(col1.Item3, col2.Item4) && ReferenceEquals(col1.Item4, col2.Item3))
+            {
+                if (col1.Item2 == GetOppositeSide(col2.Item2))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool RectangleSidesTouching(Rectangle rect1, Rectangle rect2, out Side side)
+        {
+            side = Side.None;
+
+            if ((rect1.Left >= rect2.Left && rect1.Left < rect2.Right)
+                    || (rect1.Right > rect2.Left && rect1.Right <= rect2.Right))
+            {
+                if (rect1.Bottom == rect2.Top)
+                {
+                    side = Side.Bottom;
+                    return true;
+                }
+                else if (rect1.Top == rect2.Bottom)
+                {
+                    side = Side.Top;
+                    return true;
+                }
+            }
+            else if (rect1.Left <= rect2.Left && rect1.Right >= rect2.Right)
+            {
+                if (rect1.Bottom == rect2.Top)
+                {
+                    side = Side.Bottom;
+                    return true;
+                }
+                else if (rect1.Top == rect2.Bottom)
+                {
+                    side = Side.Top;
+                    return true;
+                }
+            }
+            else if ((rect1.Top >= rect2.Top && rect1.Top < rect2.Bottom)
+                    || (rect1.Bottom > rect2.Top && rect1.Bottom <= rect2.Bottom))
+            {
+                if (rect1.Left == rect2.Right)
+                {
+                    side = Side.Left;
+                    return true;
+                }
+                else if (rect1.Right == rect2.Left)
+                {
+                    side = Side.Right;
+                    return true;
+                }
+            }
+            else if (rect1.Top <= rect2.Top && rect1.Bottom >= rect2.Bottom)
+            {
+                if (rect1.Left == rect2.Right)
+                {
+                    side = Side.Left;
+                    return true;
+                }
+                else if (rect1.Right == rect2.Left)
+                {
+                    side = Side.Right;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool RectangleSidesTouching(Rectangle rect1, Rectangle rect2)
+        {
+            if ((rect1.Left >= rect2.Left && rect1.Left < rect2.Right)
+                    || (rect1.Right > rect2.Left && rect1.Right <= rect2.Right))
+            {
+                if (rect1.Bottom == rect2.Top)
+                {
+                    return true;
+                }
+                else if (rect1.Top == rect2.Bottom)
+                {
+                    return true;
+                }
+            }
+            else if(rect1.Left <= rect2.Left && rect1.Right >= rect2.Right)
+            {
+                if (rect1.Bottom == rect2.Top)
+                {
+                    return true;
+                }
+                else if (rect1.Top == rect2.Bottom)
+                {
+                    return true;
+                }
+            }
+            else if ((rect1.Top >= rect2.Top && rect1.Top < rect2.Bottom)
+                    || (rect1.Bottom > rect2.Top && rect1.Bottom <= rect2.Bottom))
+            {
+                if (rect1.Left == rect2.Right)
+                {
+                    return true;
+                }
+                else if (rect1.Right == rect2.Left)
+                {
+                    return true;
+                }
+            }
+            else if(rect1.Top <= rect2.Top && rect1.Bottom >= rect2.Bottom)
+            {
+                if (rect1.Left == rect2.Right)
+                {
+                    return true;
+                }
+                else if (rect1.Right == rect2.Left)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool collided(AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            if (obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions)
+                || RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions))
+            {
+                return true;
+            }
+
+            Rectangle sweptBox1 = GetSweptBox(obj1);
+            Rectangle sweptBox2 = GetSweptBox(obj2);
+            if (sweptBox1.Intersects(sweptBox2) || RectangleSidesTouching(sweptBox1, sweptBox2))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
         public void UpdateWorld(GameTime gameTime)
         {
-            float earliestCollisionPercent = 1;
             float percentCompleted = 0;
-
+            List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>> completedCollisions
+                = new List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>>();
             while (percentCompleted < 1)
             {
-                earliestCollisionPercent = 1;
                 List<AbstractGameObject> collidables = GetMovingGameObjects();
                 List<AbstractGameObject> neighbours = new List<AbstractGameObject>();
-                List<Tuple<Side, AbstractGameObject, AbstractGameObject>> firstCollisions
-                    = new List<Tuple<Side, AbstractGameObject, AbstractGameObject>>();
+                List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>> collisions
+                    = new List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>>();
 
                 foreach (AbstractGameObject obj in collidables)
                 {
@@ -479,116 +682,118 @@ namespace MarioClone.Collision
                             continue;
                         }
 
-                        if (MightCollide(obj, neighbour))
+                        if (collided(obj, neighbour))
                         {
                             Side side = Side.None;
-                            float percent = IfCollisionCheck(obj, neighbour, percentCompleted, out side);
+                            float percent = WhenCollisionCheck(obj, neighbour, percentCompleted, out side);
 
-                            if ((side != Side.None))
+                            if (!(obj is AbstractBlock && neighbour is AbstractBlock))
                             {
-                                if (percent == earliestCollisionPercent)
+                                if (!(obj is Mario && neighbour is HiddenBrickObject)
+                                    || ((obj is Mario && neighbour is HiddenBrickObject) && !neighbour.Visible 
+                                    && obj.BoundingBox.Dimensions.Top >= neighbour.BoundingBox.Dimensions.Bottom))
                                 {
-                                    firstCollisions.Add(new Tuple<Side, AbstractGameObject, AbstractGameObject>(side, obj, neighbour));
+                                    collisions.Add(new Tuple<float, Side, AbstractGameObject, AbstractGameObject>(percent, side, obj, neighbour));
                                 }
-                                else if (percent < earliestCollisionPercent)
+                                else if((obj is HiddenBrickObject && obj.Visible) || (neighbour is HiddenBrickObject && neighbour.Visible))
                                 {
-                                    firstCollisions.Clear();
-                                    firstCollisions.Add(new Tuple<Side, AbstractGameObject, AbstractGameObject>(side, obj, neighbour));
-                                    earliestCollisionPercent = percent;
+                                    collisions.Add(new Tuple<float, Side, AbstractGameObject, AbstractGameObject>(percent, side, obj, neighbour));
                                 }
                             }
                         }
                     }
                 }
 
-                if (firstCollisions.Count == 0)
+                float earliestCollisionPercent;
+                if (collisions.Count == 0)
                 {
                     earliestCollisionPercent = 1;
                 }
-
-                var removed = new List<AbstractGameObject>();
-                var allObjects = GetAllGameObjects();
-                foreach (AbstractGameObject obj in allObjects)
+                else
                 {
-                    HitBox oldHitbox = (obj.BoundingBox != null) ? new HitBox(obj.BoundingBox) : null;
-                    if (obj.Update(gameTime, earliestCollisionPercent - percentCompleted))
-                    {
-                        removed.Add(obj);
-                    }
-                    else
-                    {
-                        if (oldHitbox != null)
-                        {
-                            UpdateObjectGridPosition(obj, oldHitbox);
-                        }
-                    }
+                    collisions.Sort((x, y) => (x.Item1.CompareTo(y.Item1)));
+                    earliestCollisionPercent = collisions[0].Item1;
                 }
 
-                foreach (var obj in removed)
-                {
-                    Remove(obj);
-                }
+                UpdateObjects(gameTime, earliestCollisionPercent - percentCompleted);
 
                 List<Tuple<AbstractGameObject, AbstractGameObject>> alreadyProcessed = new List<Tuple<AbstractGameObject, AbstractGameObject>>();
-                foreach (Tuple<Side, AbstractGameObject, AbstractGameObject> collision in firstCollisions)
+                bool anySignificantCollision = false;
+                for (int i = 0; i < collisions.Count && collisions[i].Item1 == earliestCollisionPercent; i++) //!anySignificantCollision; i++)
                 {
+                    Tuple<float, Side, AbstractGameObject, AbstractGameObject> collision = collisions[i];
+                    Side side = collision.Item2;
+                    AbstractGameObject obj1 = collision.Item3;
+                    AbstractGameObject obj2 = collision.Item4;
+
                     bool alreadyDone = false;
-                    foreach (Tuple<AbstractGameObject, AbstractGameObject> done in alreadyProcessed)
+                    foreach (Tuple<float, Side, AbstractGameObject, AbstractGameObject> done in completedCollisions)
                     {
-                        if (ReferenceEquals(done.Item1, collision.Item3) && ReferenceEquals(done.Item2, collision.Item2))
+                        //the collisions, if they reappear, will be in reverse order
+                        if (CollisionCompare(collision, done))
                         {
                             alreadyDone = true;
                             break;
                         }
                     }
 
-
                     if (!alreadyDone)
                     {
-                        HitBox oldHitbox2 = new HitBox(collision.Item2.BoundingBox);
-                        HitBox oldHitbox3 = new HitBox(collision.Item3.BoundingBox);
-                        if (earliestCollisionPercent == percentCompleted)
+                        anySignificantCollision = true;
+                        HitBox oldHitbox1 = new HitBox(obj1.BoundingBox);
+                        HitBox oldHitbox2 = new HitBox(obj2.BoundingBox);
+
+                        obj1.CollisionResponse(obj2, side, gameTime);
+                        obj2.CollisionResponse(obj1, GetOppositeSide(side), gameTime);
+
+                        if(obj1.BoundingBox != null)
                         {
-                            if (collision.Item2 is AbstractBlock)
-                            {
-                                collision.Item3.FixClipping(FindClippingCorrection(collision.Item3, collision.Item2));
-                            }
-                            else if (collision.Item3 is AbstractBlock)
-                            {
-                                collision.Item2.FixClipping(FindClippingCorrection(collision.Item2, collision.Item3));
-                            }
-                            /*if (collision.Item2 is Mario)
-                            {
-                                collision.Item2.FixClipping(FindClippingCorrection(collision.Item2, collision.Item3));
-                            }
-                            else if(collision.Item3 is Mario)
-                            {
-                                collision.Item3.FixClipping(FindClippingCorrection(collision.Item2, collision.Item3));
-                            }
-                            else if(!(collision.Item2 is AbstractBlock || collision.Item2 is CoinObject))
-                            {
-                                collision.Item2.FixClipping(FindClippingCorrection(collision.Item2, collision.Item3));
-                            }
-                            else if(!(collision.Item3 is AbstractBlock || collision.Item2 is CoinObject))
-                            {
-                                collision.Item3.FixClipping(FindClippingCorrection(collision.Item2, collision.Item3));
-                            }*/
+                            UpdateObjectGridPosition(obj1, oldHitbox1);
+                        }
+                        if (obj2.BoundingBox != null)
+                        {
+                            UpdateObjectGridPosition(obj2, oldHitbox2);
                         }
 
-                        collision.Item2.CollisionResponse(collision.Item3, collision.Item1, gameTime);
-                        collision.Item3.CollisionResponse(collision.Item2, GetOppositeSide(collision.Item1), gameTime);
+                        if (obj1.BoundingBox != null)
+                        {
+                            oldHitbox1 = obj1.BoundingBox;
+                            if ((obj2.BoundingBox != null) 
+                                && !(obj1 is AbstractBlock || obj1 is CoinObject || obj1 is FireFlowerObject)
+                                && (obj2 is AbstractEnemy || (obj2 is AbstractBlock && obj2.Visible)))
+                            {
+                                if (collided(obj1, obj2))
+                                {
+                                    obj1.FixClipping(FindClippingCorrection(obj1, obj2));
+                                    UpdateObjectGridPosition(obj1, oldHitbox1);
+                                }
+                            }
+                        }
 
-                        if (collision.Item2.BoundingBox != null)
+                        if (obj2.BoundingBox != null)
                         {
-                            UpdateObjectGridPosition(collision.Item2, oldHitbox2);
+                            oldHitbox2 = obj2.BoundingBox;
+                            if ((obj1.BoundingBox != null)
+                                && !(obj2 is AbstractBlock || obj2 is CoinObject || obj2 is FireFlowerObject)
+                                && (obj1 is AbstractEnemy || (obj1 is AbstractBlock && obj1.Visible)))
+                            {
+                                if (collided(obj2, obj1))
+                                {
+                                    obj2.FixClipping(FindClippingCorrection(obj2, obj1));
+                                    UpdateObjectGridPosition(obj2, oldHitbox2);
+                                }
+                            }
                         }
-                        if (collision.Item3.BoundingBox != null)
-                        {
-                            UpdateObjectGridPosition(collision.Item3, oldHitbox3);
-                        }
+
+                        completedCollisions.Add(collision);
                     }
                 }
 
+                if (!anySignificantCollision && !(earliestCollisionPercent == 1))
+                {
+                    earliestCollisionPercent = 1;
+                    UpdateObjects(gameTime, earliestCollisionPercent - percentCompleted);
+                } 
                 percentCompleted += (earliestCollisionPercent - percentCompleted);
             }
         }

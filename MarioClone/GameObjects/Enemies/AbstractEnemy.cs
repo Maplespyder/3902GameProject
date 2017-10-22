@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.GameObjects.Enemies
+namespace MarioClone.GameObjects
 {
     public abstract class AbstractEnemy : AbstractGameObject
     {

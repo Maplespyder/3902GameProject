@@ -1,6 +1,5 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
-using MarioClone.GameObjects.Enemies;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,7 +16,7 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateHitBox(Position, Sprite);
         }
 
-        /*public override void CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
+        /*public override bool CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
         {
             if (gameObject is Mario)
             {
