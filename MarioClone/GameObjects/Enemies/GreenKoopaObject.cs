@@ -1,10 +1,6 @@
-﻿using MarioClone.Collision;
-using MarioClone.Factories;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
+using MarioClone.States.EnemyStates;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
@@ -14,6 +10,7 @@ namespace MarioClone.GameObjects
 		{
 			BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
+            PowerupState = new KoopaAlive(this);
         }
 
         /*public override bool CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
@@ -33,8 +30,7 @@ namespace MarioClone.GameObjects
         public override bool Update(GameTime gameTime, float percent)
         {
             bool retVal = PowerupState.Update(gameTime, percent);
-            return base.Update(gameTime, percent);
-            return retVal;
+            return base.Update(gameTime, percent) || retVal;
         }
     }
 }

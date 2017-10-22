@@ -1,6 +1,5 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
-using MarioClone.GameObjects.Enemies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using MarioClone.Collision;
 
-namespace MarioClone.States.EnemyStates.Powerup
+namespace MarioClone.States.EnemyStates
 {
     class KoopaDead : EnemyPowerupState
     {
