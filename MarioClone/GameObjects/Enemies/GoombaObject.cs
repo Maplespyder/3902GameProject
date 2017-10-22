@@ -6,7 +6,6 @@ using MarioClone.Factories;
 using MarioClone.States;
 using MarioClone.Collision;
 using static MarioClone.Collision.GameGrid;
-using MarioClone.GameObjects.Enemies;
 
 namespace MarioClone.GameObjects
 {

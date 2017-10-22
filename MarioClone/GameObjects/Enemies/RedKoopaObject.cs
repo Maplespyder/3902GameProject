@@ -1,6 +1,5 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
-using MarioClone.GameObjects.Enemies;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
