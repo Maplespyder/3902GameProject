@@ -53,6 +53,12 @@ namespace MarioClone.Factories
                 case BlockType.HiddenBlock:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
                         new Rectangle(0, 64, 64, 64));
+				case BlockType.PipeTop:
+					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Pipe"), 
+						new Rectangle(0, 0, 128, 64));
+				case BlockType.PipeSegment:
+					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Pipe"),
+						new Rectangle(0, 72, 124, 108));
                 default:
                     return null;
             }

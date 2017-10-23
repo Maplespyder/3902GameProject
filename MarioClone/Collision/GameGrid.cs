@@ -1,4 +1,5 @@
-﻿using MarioClone.GameObjects;
+﻿using MarioClone.Cam;
+using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,7 +20,7 @@ namespace MarioClone.Collision
         }
 
         private List<AbstractGameObject>[,] gameGrid;
-
+		private Camera _camera;
         public int Rows { get; }
         public int Columns { get; }
         public int ScreenWidth { get; }
@@ -27,8 +28,8 @@ namespace MarioClone.Collision
         public int GridSquareWidth { get; }
         public int GridSquareHeight { get; }
         public int FullGameWidth { get; }
-        public int CurrentLeftSideViewPort { get; set; }
-        public int CurrentRightSideViewPort
+        public float CurrentLeftSideViewPort { get; set; }
+        public float CurrentRightSideViewPort
         {
             get
             {
@@ -36,16 +37,17 @@ namespace MarioClone.Collision
             }
         }
 
-        public GameGrid(int rows, int columns, int widthOfGame)
+        public GameGrid(int rows, int columns, int widthOfGame, Camera camera)
         {
             Rows = rows;
-            Columns = columns;
+			_camera = camera;
             ScreenWidth = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
             ScreenHeight = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
-            GridSquareWidth = ScreenWidth / Columns;
             GridSquareHeight = ScreenHeight / Rows;
-            FullGameWidth = widthOfGame;
-            CurrentLeftSideViewPort = 0;
+			FullGameWidth = widthOfGame;
+			GridSquareWidth = GridSquareHeight;
+			Columns = GridSquareWidth * (FullGameWidth / ScreenWidth) + 1;
+			CurrentLeftSideViewPort = _camera.Position.X;
 
             gameGrid = new List<AbstractGameObject>[Columns, Rows];
             for (int i = 0; i < Rows; i++)
@@ -242,8 +244,8 @@ namespace MarioClone.Collision
 
         private List<AbstractGameObject> GetAllGameObjects()
         {
-            int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
-            int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
+			int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+            int rightHandColumn =(int)(CurrentRightSideViewPort / GridSquareWidth);
             List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
             for (int rows = 0; rows < Rows; rows++)
@@ -259,8 +261,8 @@ namespace MarioClone.Collision
 
         private List<AbstractGameObject> GetMovingGameObjects()
         {
-            int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
-            int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
+            int leftHandColumn =(int)(CurrentLeftSideViewPort / GridSquareWidth);
+            int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
             List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
             for (int rows = 0; rows < Rows; rows++)
@@ -456,7 +458,12 @@ namespace MarioClone.Collision
                         UpdateObjectGridPosition(obj, oldHitbox);
                     }
                 }
-            }
+				if (obj is Mario)
+				{
+					_camera.LookAt(obj.Position);
+					CurrentLeftSideViewPort = _camera.Position.X;
+				}
+		}
 
             foreach (var obj in removed)
             {

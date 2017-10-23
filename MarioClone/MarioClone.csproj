@@ -43,7 +43,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Cam\Camera.cs" />
     <Compile Include="Commands\ResetLevelCommand.cs" />
+    <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />
@@ -137,9 +139,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Level\Sprint2Attempt2.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Level\funmaze.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
