@@ -8,19 +8,25 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using MarioClone.Collision;
 
-namespace MarioClone.States
+namespace MarioClone.States.EnemyStates
 {
-    public class GoombaDead : EnemyPowerupState
+    class KoopaDead : EnemyPowerupState
     {
-
-        public GoombaDead(AbstractEnemy context) : base(context) { }
+        public KoopaDead(AbstractEnemy context) : base(context) { }
 
         public override void BecomeDead() { }
 
         public override void BecomeAlive()
         {
-            Context.PowerupState = new GoombaAlive(Context);
-            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.Goomba);
+            Context.PowerupState = new KoopaAlive(Context);
+            if (Context is GreenKoopaObject)
+            {
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopa);
+            }
+            else if (Context is RedKoopaObject)
+            {
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopa);
+            }
         }
 
         public override bool Update(GameTime gameTime, float percent)
@@ -33,5 +39,6 @@ namespace MarioClone.States
             }
             return false;
         }
+
     }
 }

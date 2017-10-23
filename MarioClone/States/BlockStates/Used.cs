@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MarioClone.GameObjects;
 using MarioClone.Factories;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States.BlockStates
 {
@@ -13,16 +14,6 @@ namespace MarioClone.States.BlockStates
         public Used(AbstractBlock context) : base(context)
         {
             context.Sprite = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.UsedBlock);
-        }
-
-        public override void Bump()
-        {
-            // no bump on used blocks
-        }
-
-        public override bool Action(float percent)
-        {
-            return false;
         }
     }
 }

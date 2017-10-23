@@ -63,7 +63,7 @@ namespace MarioClone.States
 
         public override void BecomeFire()
         {
-            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
+
         }
 
         public override void TakeDamage()

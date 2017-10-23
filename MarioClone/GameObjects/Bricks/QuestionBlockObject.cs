@@ -15,8 +15,8 @@ namespace MarioClone.GameObjects
 
 		public override bool Update(GameTime gameTime, float percent)
         {
-			BoundingBox.UpdateHitBox(Position, Sprite);
-			return State.Action(percent);
+            base.Update(gameTime, percent);
+			return State.Action(percent, gameTime);
         }
 
         public override void Bump()
@@ -24,12 +24,14 @@ namespace MarioClone.GameObjects
             State.Bump();
         }
 
-        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is Mario && side == Side.Bottom)
             {
                 State.Bump();
+                return true;
             }
+            return false;
         }
     }
 }

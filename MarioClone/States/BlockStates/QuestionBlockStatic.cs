@@ -11,7 +11,6 @@ namespace MarioClone.States.BlockStates
     {
         public QuestionBlockStatic(AbstractBlock context) : base(context)
         {
-            State = BlockStates.Static;
         }
 
         public override void Bump()
