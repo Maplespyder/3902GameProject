@@ -43,6 +43,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Cam\Camera.cs" />
     <Compile Include="Commands\ResetLevelCommand.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
@@ -135,9 +136,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Level\Sprint2Attempt2.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Level\funmaze.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -145,6 +143,7 @@
     <Content Include="Code Reviews\Sprint 2\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 2\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 2\SamCodeReview.txt" />
+    <Content Include="Level\Sprint2Attempt2.bmp" />
     <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
