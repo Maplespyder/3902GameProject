@@ -37,7 +37,6 @@ namespace MarioClone.GameObjects
             Velocity = new Vector2(0, 0);
             Orientation = Facing.Left;
             Visible = true;
-            DrawHitbox = false;
             DrawOrder = 1;
             BoundingBox = new HitBox(0, 0, 0, 0, hitBoxColor);
             if (sprite != null)

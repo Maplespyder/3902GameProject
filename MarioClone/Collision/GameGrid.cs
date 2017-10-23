@@ -684,7 +684,7 @@ namespace MarioClone.Collision
 
                 List<Tuple<AbstractGameObject, AbstractGameObject>> alreadyProcessed = new List<Tuple<AbstractGameObject, AbstractGameObject>>();
                 bool anySignificantCollision = false;
-                for (int i = 0; i < collisions.Count && collisions[i].Item1 == earliestCollisionPercent; i++) //!anySignificantCollision; i++)
+                for (int i = 0; i < collisions.Count && collisions[i].Item1 == earliestCollisionPercent; i++)
                 {
                     Tuple<float, Side, AbstractGameObject, AbstractGameObject> collision = collisions[i];
                     Side side = collision.Item2;

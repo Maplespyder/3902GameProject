@@ -84,6 +84,8 @@ namespace MarioClone
             level = new LevelCreator(@"Level\Sprint2Attempt2.bmp", gameGrid, keyboard);
             level.Create();
 
+            AbstractGameObject.DrawHitbox = false;
+
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
