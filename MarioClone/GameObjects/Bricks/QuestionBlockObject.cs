@@ -15,8 +15,8 @@ namespace MarioClone.GameObjects
 
 		public override bool Update(GameTime gameTime, float percent)
         {
-			BoundingBox.UpdateHitBox(Position, Sprite);
-			return State.Action(percent);
+            base.Update(gameTime, percent);
+			return State.Action(percent, gameTime);
         }
 
         public override void Bump()

@@ -275,22 +275,6 @@ namespace MarioClone.Collision
             return objectList;
         }
 
-        public static bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
-        {
-
-            Vector2 relativeVelocity = obj2.Velocity - obj1.Velocity;
-            if (obj2.BoundingBox.TopLeft.X <= obj1.BoundingBox.TopLeft.X)
-            {
-                relativeVelocity = new Vector2(-relativeVelocity.X, relativeVelocity.Y);
-            }
-            if (obj2.BoundingBox.TopLeft.Y <= obj1.BoundingBox.TopLeft.Y)
-            {
-                relativeVelocity = new Vector2(relativeVelocity.X, -relativeVelocity.Y);
-            }
-
-            return (relativeVelocity.X < 0 || relativeVelocity.Y < 0) || obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions);
-        }
-
         public static float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
         {
 
@@ -444,20 +428,6 @@ namespace MarioClone.Collision
             }
         }
 
-        public static float IfCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
-        {
-            Rectangle obj1Sweep = GetSweptBox(obj1);
-            Rectangle obj2Sweep = GetSweptBox(obj2);
-            side = Side.None;
-            float collisionTime = 1;
-
-            if (CollisionCheck(obj1Sweep, obj2Sweep))
-            {
-                collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
-            }
-            return collisionTime;
-        }
-
         public static Rectangle GetSweptBox(AbstractGameObject obj)
         {
             Rectangle sweptBox;
@@ -466,11 +436,6 @@ namespace MarioClone.Collision
             sweptBox.Width = obj.Velocity.X > 0 ? (int)obj.Velocity.X + obj.BoundingBox.Dimensions.Width : obj.BoundingBox.Dimensions.Width - (int)obj.Velocity.X;
             sweptBox.Height = obj.Velocity.Y > 0 ? (int)obj.Velocity.Y + obj.BoundingBox.Dimensions.Height : obj.BoundingBox.Dimensions.Height - (int)obj.Velocity.Y;
             return sweptBox;
-        }
-
-        public static bool CollisionCheck(Rectangle obj1, Rectangle obj2)
-        {
-            return obj1.Intersects(obj2);
         }
 
         private void UpdateObjects(GameTime gameTime, float percentToUpdate)

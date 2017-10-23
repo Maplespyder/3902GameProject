@@ -14,19 +14,19 @@ namespace MarioClone.GameObjects
 
     public abstract class AbstractGameObject : IDraw
     {
-        public HitBox BoundingBox { get; set; }
+        public virtual HitBox BoundingBox { get; set; }
 
-        public ISprite Sprite { get; set; }
+        public virtual ISprite Sprite { get; set; }
 
-        public Vector2 Position { get; set; }
+        public virtual Vector2 Position { get; set; }
 
-        public int DrawOrder { get; protected set; }
+        public virtual int DrawOrder { get; set; }
 
-        public bool Visible { get; protected set; }
+        public virtual bool Visible { get; set; }
 
         public Facing Orientation { get; set; }
 
-        public Vector2 Velocity { get; set; }
+        public virtual Vector2 Velocity { get; set; }
 
         public static bool DrawHitbox { get; set; }
 

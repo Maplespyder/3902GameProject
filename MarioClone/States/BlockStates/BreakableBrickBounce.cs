@@ -10,18 +10,10 @@ namespace MarioClone.States.BlockStates
         public BreakableBrickBounce(AbstractBlock context) : base(context)
         {
             initialPosition = Context.Position;
-            State = BlockStates.Action;
 			Context.Velocity = new Vector2(0f, -1f);
         }
-
-        public override void Bump()
-        {
-            /* Context.Position = new Vector2(initialPosition.X, initialPosition.Y);
-            Context.State = new BreakableBrickStatic(Context);
-            Context.State.Bump(); */
-        }
-
-        public override bool Action(float percent)
+        
+        public override bool Action(float percent, GameTime gameTime)
         {
             if (Context.Position.Y >= (initialPosition.Y - 10)) //if Position hasnt reached max height
             {

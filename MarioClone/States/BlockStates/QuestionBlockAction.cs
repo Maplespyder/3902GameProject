@@ -11,16 +11,10 @@ namespace MarioClone.States.BlockStates
         public QuestionBlockAction(AbstractBlock context) : base(context)
         {
             initialPosition = context.Position;
-            State = BlockStates.Action;
 			Context.Velocity = new Vector2(0f, -1f);
         }
-
-        public override void Bump()
-        {
-            // do nothing
-        }
-
-        public override bool Action(float percent)
+        
+        public override bool Action(float percent, GameTime gameTime)
         {
             if (Context.Position.Y >= (initialPosition.Y - 10) ) //if Position hasnt reached max height
             {
