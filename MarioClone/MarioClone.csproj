@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Cam\Camera.cs" />
     <Compile Include="Commands\ResetLevelCommand.cs" />
+    <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />

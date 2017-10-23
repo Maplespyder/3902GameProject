@@ -458,7 +458,12 @@ namespace MarioClone.Collision
                         UpdateObjectGridPosition(obj, oldHitbox);
                     }
                 }
-            }
+				if (obj is Mario)
+				{
+					_camera.LookAt(obj.Position);
+					CurrentLeftSideViewPort = _camera.Position.X;
+				}
+		}
 
             foreach (var obj in removed)
             {
