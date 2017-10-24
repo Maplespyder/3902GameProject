@@ -172,9 +172,6 @@
     <None Include="Cam\bin\Windows\x86\Release\Content\Sprites\spinball.xnb" />
     <None Include="Cam\bin\Windows\x86\Release\Content\Sprites\SuperMario.xnb" />
     <None Include="Cam\bin\Windows\x86\Release\MarioClone.exe.config" />
-    <None Include="Level\Sprint2Attempt2.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Level\funmaze.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -226,6 +223,7 @@
     <Content Include="Code Reviews\Sprint 2\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 2\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 2\SamCodeReview.txt" />
+    <Content Include="Level\Sprint3Attempt2.bmp" />
     <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />

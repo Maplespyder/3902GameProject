@@ -84,7 +84,7 @@ namespace MarioClone
         {
             var keyboard = new KeyboardController();
 
-            level = new LevelCreator(@"Level\Sprint2Attempt2.bmp", gameGrid, keyboard);
+            level = new LevelCreator(@"Level\Sprint3Attempt2.bmp", gameGrid, keyboard);
             level.Create();
 
             AbstractGameObject.DrawHitbox = false;
