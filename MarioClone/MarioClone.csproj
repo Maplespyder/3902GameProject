@@ -48,6 +48,7 @@
     <Compile Include="Commands\ReleaseMoveRightCommand.cs" />
     <Compile Include="Commands\ReleaseMoveLeftCommand.cs" />
     <Compile Include="Commands\ResetLevelCommand.cs" />
+    <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />

@@ -43,16 +43,19 @@ namespace MarioClone.GameObjects
         public MarioPowerupState PowerupState { get; set; }
         
         public MarioSpriteFactory SpriteFactory { get; set; }
-        
+
+        public bool Gravity { get; set; }
+
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
             _mario = this;
             PowerupState = MarioNormal.Instance;
             SpriteFactory = NormalMarioSpriteFactory.Instance;
-            ActionState = MarioIdle.Instance;
-            Sprite = SpriteFactory.Create(MarioAction.Idle);
+            ActionState = MarioFall.Instance;
+            Sprite = SpriteFactory.Create(MarioAction.Falling);
             Orientation = Facing.Right;
+            Gravity = true;
 
             PreviousActionState = MarioIdle.Instance;
             
@@ -143,6 +146,11 @@ namespace MarioClone.GameObjects
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
+            if (side != Side.Bottom)
+            {
+                Gravity = false;
+            }
+
             if ((gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
             {
                 TakeDamage();
@@ -172,7 +180,7 @@ namespace MarioClone.GameObjects
                 Sprite = SpriteFactory.Create(MarioAction.Falling);
                 PreviousActionState = ActionState;
                 ActionState = MarioFall.Instance;
-            }
+            }            
             else
             {
                 Velocity = new Vector2(0, 0);
@@ -185,10 +193,15 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
-            Velocity = new Vector2(Velocity.X, Velocity.Y);
+            if (Gravity)
+            {
+                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration); 
+            }
+            Gravity = true;
+
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
-            return base.Update(gameTime, percent);
+            return base.Update(gameTime, percent);    
         }
     }
 }
