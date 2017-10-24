@@ -10,12 +10,15 @@ namespace MarioClone.Controllers
         protected AbstractController()
         {
             inputToCommandMap = new Dictionary<int, ICommand>();
+            ReleasedInputToCommandMap = new Dictionary<int, ICommand>();
         }
 
         protected Dictionary<int, ICommand> InputToCommandMap
         {
             get { return inputToCommandMap; }
         }
+
+        protected Dictionary<int, ICommand> ReleasedInputToCommandMap { get; set; }
 
         public abstract bool AddInputChord(int modifier, int input, ICommand command);
 
@@ -35,6 +38,16 @@ namespace MarioClone.Controllers
             return false;
         }
 
+        public bool AddReleasedInputCommand(int input, ICommand command)
+        {
+            if (!ReleasedInputToCommandMap.ContainsKey(input))
+            {
+                ReleasedInputToCommandMap.Add(input, command);
+                return true;
+            }
+            return false;
+        }
+
         public abstract bool RemoveInputChord(int modifier, int input);
 
         /// <summary>
@@ -48,6 +61,16 @@ namespace MarioClone.Controllers
             if (inputToCommandMap.ContainsKey(input))
             {
                 inputToCommandMap.Remove(input);
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemoveReleasedInputCommand(int input)
+        {
+            if (ReleasedInputToCommandMap.ContainsKey(input))
+            {
+                ReleasedInputToCommandMap.Remove(input);
                 return true;
             }
             return false;

@@ -78,7 +78,6 @@ namespace MarioClone.Level
                     _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(mario));
                     _controller.AddInputCommand((int)Keys.Left, new MoveLeftCommand(mario));
 
-
                     _controller.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
                     _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(mario));
                     _controller.AddInputCommand((int)Keys.Down, new CrouchCommand(mario));
@@ -87,6 +86,13 @@ namespace MarioClone.Level
                     _controller.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
                     _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(mario));
                     _controller.AddInputCommand((int)Keys.Right, new MoveRightCommand(mario));
+
+                    _controller.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(mario));
+                    _controller.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(mario));
+                    _controller.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(mario));
+                    _controller.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(mario));
+                    _controller.AddReleasedInputCommand((int)Keys.S, new ReleaseMoveLeftCommand(mario));
+                    _controller.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(mario));
 
                     Grid.Add(mario);
                 }

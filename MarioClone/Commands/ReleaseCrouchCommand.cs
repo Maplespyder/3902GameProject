@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Commands
 {
-    public class CrouchCommand : AbstractCommand<Mario>
+    public class ReleaseCrouchCommand : AbstractCommand<Mario>
     {
-        public CrouchCommand(Mario receiver) : base(receiver) { }
+        public ReleaseCrouchCommand(Mario receiver) : base(receiver) { }
 
         public override void InvokeCommand()
         {
-            Receiver.Crouch();
+            Receiver.ReleaseCrouch();
         }
     }
 }

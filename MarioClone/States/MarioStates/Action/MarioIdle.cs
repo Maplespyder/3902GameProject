@@ -27,32 +27,29 @@ namespace MarioClone.States
             }
         }
 
-        public override void BecomeCrouch()
+        public override void Crouch()
         {
-
-            Context.Velocity = new Vector2(0, Mario.VerticalMovementSpeed);
-            Context.ActionState = MarioCrouch.Instance;
-            Context.PreviousActionState = this;
-
-            if (Context.PowerupState.Powerup == MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerup.Fire)
-            {         
+            if (Context.PowerupState is MarioSuper || Context.PowerupState is MarioFire)
+            {
+                Context.ActionState = MarioCrouch.Instance;
+                Context.PreviousActionState = this;
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
             }
-
         }
+
         public override void UpdateHitBox()
         {
-            if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Normal)
+            if (Context.PowerupState is MarioNormal)
             {
                Context.BoundingBox.UpdateOffSets(-8,-8, -4, 0);
             }
-            else if (Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Super || Context.PowerupState.Powerup == MarioPowerupState.MarioPowerup.Fire)
+            else if (Context.PowerupState is MarioSuper || Context.PowerupState is MarioFire)
             {
                 Context.BoundingBox.UpdateOffSets(-20, -20, -20, 0);
             }
         }
 
-        public override void BecomeJump()
+        public override void Jump()
         {
             Context.Velocity = new Vector2(0, -Mario.VerticalMovementSpeed);
             Context.ActionState = MarioJump.Instance;
@@ -60,19 +57,13 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
         }
 
-        public override void BecomeWalk(Facing orientation)
+        public override void Walk(Facing orientation)
         {
-            if (Context.Orientation == orientation)
-            {
-                Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, 0) : new Vector2(Mario.HorizontalMovementSpeed, 0);
-                Context.ActionState = MarioWalk.Instance;
-                Context.PreviousActionState = this;
-                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
-            }
-            else
-            {
-                Context.Orientation = orientation;
-            }
+            Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, 0) : new Vector2(Mario.HorizontalMovementSpeed, 0);
+            Context.ActionState = MarioWalk.Instance;
+            Context.PreviousActionState = this;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
+            Context.Orientation = orientation;
         }
     }
 }

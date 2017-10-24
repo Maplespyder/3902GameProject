@@ -13,7 +13,8 @@ namespace MarioClone.States
         Walk,
         Jump,
         Crouch,
-        Dead
+        Dead,
+        Falling
     }
 
     public abstract class MarioActionState
@@ -32,11 +33,11 @@ namespace MarioClone.States
 
         // Behavior/actions
 
-    
-
-        public abstract void BecomeWalk(Facing orientation);
-        public abstract void BecomeJump();
-        public abstract void BecomeCrouch();
+        public virtual void Walk(Facing orientation) { }
+        public virtual void Jump() { }
+        public virtual void Crouch() { }
+        public virtual void ReleaseWalk(Facing orientation) { }
+        public virtual void ReleaseCrouch() { }
         public abstract void UpdateHitBox();
 
     }

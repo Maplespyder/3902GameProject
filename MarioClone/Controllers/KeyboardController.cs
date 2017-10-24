@@ -79,6 +79,18 @@ namespace MarioClone.Controllers
         {
             KeyboardState currentState = Keyboard.GetState();
 
+            foreach(Keys key in lastState.GetPressedKeys())
+            {
+                ICommand command = null;
+                if (currentState.IsKeyUp(key))
+                {
+                    if ((command == null) && ReleasedInputToCommandMap.TryGetValue((int)key, out command))
+                    {
+                        command.InvokeCommand();
+                    }
+                }
+            }
+
             foreach (Keys key in currentState.GetPressedKeys())
             {
                 if (lastState.IsKeyUp(key))
@@ -113,7 +125,6 @@ namespace MarioClone.Controllers
                     {
                         command.InvokeCommand();
                     }
-
                 }
             }
 
