@@ -1,4 +1,5 @@
 ﻿using MarioClone.GameObjects;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,6 @@ namespace MarioClone.States.BlockStates
 {
     public abstract class BlockState
     {
-        public enum BlockStates
-        {
-            Static,
-            Action,
-            Used
-        }
-
-        public BlockStates State { get; set; }
-
         protected AbstractBlock Context { get; set; }
 
         protected BlockState(AbstractBlock context)
@@ -25,9 +17,12 @@ namespace MarioClone.States.BlockStates
             Context = context;
         }
 
-        public abstract void Bump();
+        public virtual void Bump()
+        {
+            //default do nothing
+        }
 
-        public virtual bool Action(float percent)
+        public virtual bool Action(float percent, GameTime gameTime)
         {
             return false;
         }

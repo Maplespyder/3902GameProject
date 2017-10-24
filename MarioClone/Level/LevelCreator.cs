@@ -46,7 +46,7 @@ namespace MarioClone.Level
                     MakeObject(_image.GetPixel(i, j), i * BlockWidth, j * BlockHeight);
                 }
             }
-        }
+		}
 
         private void MakeObject(System.Drawing.Color pixel, int x, int y)
         {
@@ -208,6 +208,7 @@ namespace MarioClone.Level
                     Grid.Add(coin);
                 }
             }
-        }
+
+		}
     }
 }

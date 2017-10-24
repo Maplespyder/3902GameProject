@@ -31,7 +31,6 @@ namespace MarioClone.States.BlockStates
 
         public BreakableBrickStatic(AbstractBlock context) : base(context)
         {
-            State = BlockStates.Static;
         }
 
         public override void Bump()
@@ -42,7 +41,7 @@ namespace MarioClone.States.BlockStates
             }
             else if (IsMarioSuper || IsMarioFire)
             {
-                Context.State = new BreakableBrickBreak(Context);
+                Context.State = new BreakableBrickBreak((BreakableBrickObject)Context);
             }
         }
     }

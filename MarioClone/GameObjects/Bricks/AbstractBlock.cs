@@ -13,7 +13,6 @@ namespace MarioClone.GameObjects
 
 		public virtual void Bump()
         {
-
         }
 
         public BlockState State { get; set; }

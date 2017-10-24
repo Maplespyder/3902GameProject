@@ -3,11 +3,13 @@ Tile Map Documentation:
 
 Mario Spawn: (136, 0, 27)
 
-• ? (Question) Block: (140, 255, 251)
+• ? (Question) Block with Red Mushroom: (180, 68, 71)
+• ? (Question) Block with Green Mushroom: (91, 137, 112)
+• ? (Question) Block with Fire flower: (255, 127, 39)
 • Used Block: (185, 122, 86)
 • Brick Block: (103, 62, 39)
 • Floor Block: (0, 0, 0)
-• Stair/Pyramid Block: (255, 127, 39)
+• Stair/Pyramid Block: (255, 178, 100)
 • Hidden Bricks: (189, 69, 0)
 
 Enemies:
@@ -19,7 +21,9 @@ Power-Ups:
 • Super Mushroom: (255, 127, 127) 
 • 1-Up Mushroom: (196, 255, 14)
 • Fire Flower: (255, 86, 30)
+• Starman: ????
 
 
 Item:
 • Coin: (255, 242, 0)
+• Pipe: (18, 117, 46)

@@ -141,7 +141,7 @@ namespace MarioClone.GameObjects
             PowerupState.TakeDamage();
         }
 
-        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if ((gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
             {
@@ -149,11 +149,11 @@ namespace MarioClone.GameObjects
             }
             else if ((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) || gameObject is CoinObject || gameObject is GreenMushroomObject)
             {
-                // do nothing
+                return false;
             }
             else if (gameObject is AbstractBlock)
             {
-                Velocity = new Vector2(0, 0);             
+                Velocity = new Vector2(0, 0);
                 Sprite = SpriteFactory.Create(MarioAction.Idle);
                 PreviousActionState = ActionState;
                 ActionState = MarioIdle.Instance;
@@ -180,6 +180,7 @@ namespace MarioClone.GameObjects
                 PreviousActionState = ActionState;
                 ActionState = MarioIdle.Instance;
             }
+            return true;
         }
 
         public override bool Update(GameTime gameTime, float percent)

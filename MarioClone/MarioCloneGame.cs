@@ -10,6 +10,7 @@ using MarioClone.Collision;
 using MarioClone.Level;
 using MarioClone.GameObjects;
 using System.IO;
+using MarioClone.Cam;
 
 namespace MarioClone
 {
@@ -20,6 +21,7 @@ namespace MarioClone
 	{
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+		Camera camera;
         
         static ContentManager _content;
         GameGrid gameGrid;
@@ -51,8 +53,9 @@ namespace MarioClone
                 new GamepadController(PlayerIndex.Four)
             };
 
-			gameGrid = new GameGrid(12, 16, 1600);
-
+			camera = new Camera(GraphicsDevice.Viewport);
+			camera.Limits = new Rectangle(0, 0, 2167, 960); //set limit of world
+			gameGrid = new GameGrid(12, 16, 1600, camera);
 			base.Initialize();
 		}
 
@@ -83,6 +86,8 @@ namespace MarioClone
 
             level = new LevelCreator(@"Level\Sprint2Attempt2.bmp", gameGrid, keyboard);
             level.Create();
+
+            AbstractGameObject.DrawHitbox = false;
 
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
@@ -142,8 +147,9 @@ namespace MarioClone
 			// Somewhere in your LoadContent() method:
 			if (!paused)
 			{
+				Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.CornflowerBlue);
-				spriteBatch.Begin();
+				spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(parallax));
                 gameGrid.DrawWorld(spriteBatch, gameTime);
 				spriteBatch.End();
 
@@ -175,7 +181,7 @@ namespace MarioClone
 
         public void ResetLevelCommand()
         {
-            gameGrid = new GameGrid(12, 16, 800);
+            gameGrid = new GameGrid(12, 16, 2176, camera);
             level.Grid = gameGrid;
             level.Create();
         }
