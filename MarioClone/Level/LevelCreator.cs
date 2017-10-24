@@ -139,7 +139,17 @@ namespace MarioClone.Level
 
                     Grid.Add(mario);
                 }
-                else if (sameColor(pixel, Colors.QuestionBlock))
+                else if (sameColor(pixel, Colors.QuestionBlockRedMushroom))
+                {
+                    var questionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+                    Grid.Add(questionBlock);
+                }
+                else if (sameColor(pixel, Colors.QuestionBlockGreenMushroom))
+                {
+                    var questionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+                    Grid.Add(questionBlock);
+                }
+                else if (sameColor(pixel, Colors.QuestionBlockFireFlower))
                 {
                     var questionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
                     Grid.Add(questionBlock);
@@ -207,6 +217,11 @@ namespace MarioClone.Level
                     var coin = PowerUpFactory.Create(PowerUpType.Coin, position);
                     Grid.Add(coin);
                 }
+                /*else if (sameColor(pixel, Colors.Pipe))
+                {
+                    var coin = PowerUpFactory.Create(PowerUpType.Coin, position);
+                    Grid.Add(coin);
+                }*/
             }
 
 		}
