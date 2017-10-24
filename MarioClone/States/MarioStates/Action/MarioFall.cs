@@ -1,17 +1,18 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
 using System;
+using static MarioClone.States.MarioPowerupState;
 using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
-    public class MarioJump : MarioActionState
+    public class MarioFall : MarioActionState
     {
-        static MarioJump _state;
+        static MarioFall _state;
 
-        private MarioJump(Mario context) : base(context)
+        private MarioFall(Mario context) : base(context)
         {
-            Action = MarioAction.Jump;
+            Action = MarioAction.Falling;
         }
 
         public static MarioActionState Instance
@@ -20,7 +21,7 @@ namespace MarioClone.States
             {
                 if (_state == null)
                 {
-                    _state = new MarioJump(Mario.Instance);
+                    _state = new MarioFall(Mario.Instance);
                 }
                 return _state;
             }
@@ -34,19 +35,22 @@ namespace MarioClone.States
             }
             else if (Context.PowerupState is MarioSuper || Context.PowerupState is MarioFire)
             {
-                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-20, -20, -20, 0);
-                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-20, -20, -20, 0);
+                Context.BoundingBox.UpdateOffSets(-20, -20, -20, 0);
             }
         }
 
         public override void Walk(Facing orientation)
         {
-            Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, Context.Velocity.Y) : new Vector2(Mario.HorizontalMovementSpeed, Context.Velocity.Y);
+            Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, 0) : new Vector2(Mario.HorizontalMovementSpeed, 0);
+            Context.Orientation = orientation;
         }
 
         public override void ReleaseWalk(Facing orientation)
         {
-            Context.Velocity = new Vector2(0, Context.Velocity.Y);
+            if (Context.Orientation == orientation)
+            {
+                Context.Velocity = new Vector2(0, 0);
+            }
         }
     }
 }
