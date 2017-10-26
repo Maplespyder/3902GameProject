@@ -39,7 +39,10 @@ namespace MarioClone.States
 
         public override void Jump()
         {
-
+            Context.Velocity = new Vector2(Context.Velocity.X, -Mario.VerticalMovementSpeed);
+            Context.ActionState = MarioJump.Instance;
+            Context.PreviousActionState = this;
+            Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
         }
 
         public override void UpdateHitBox()
@@ -56,7 +59,14 @@ namespace MarioClone.States
 
         public override void Walk(Facing orientation)
         {
-
+            if (Context.Orientation != orientation)
+            {
+                Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, 0) : new Vector2(Mario.HorizontalMovementSpeed, 0);
+                Context.ActionState = MarioWalk.Instance;
+                Context.PreviousActionState = this;
+                Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
+                Context.Orientation = orientation;
+            }
         }
 
         public override void ReleaseWalk(Facing orientation)
