@@ -290,6 +290,12 @@ namespace MarioClone.Collision
             * 
             * I didn't look at it for too long, so it might not be totally correct, but it worked on all paper tests I made up. 
             */
+            
+            if (RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions, out side))
+            {
+                return percentCompleted;
+            }
+
             Vector2 relativeVelocity = (obj1.Velocity - obj2.Velocity) * (1 - percentCompleted);
             side = Side.None;
             //distances of X and Y axis of both objects
@@ -392,7 +398,6 @@ namespace MarioClone.Collision
                 {
                     return new Vector2(0, 0);
                 }
-
             }
 
             if (intersect.Height < intersect.Width)
@@ -423,20 +428,42 @@ namespace MarioClone.Collision
                 {
                     return new Vector2(intersect.Width + 1, 0);
                 }
-                else
+                else if(intersect.Right == obj1.BoundingBox.Dimensions.Right)
                 {
                     return new Vector2(-intersect.Width - 1, 0);
+                }
+                else
+                {
+                    if (intersect.Top == obj1.BoundingBox.Dimensions.Top)
+                    {
+                        return new Vector2(intersect.Width + 1, 0);
+                    }
+                    else
+                    {
+                        return new Vector2(-intersect.Width - 1, 0);
+                    }
                 }
             }
         }
 
         public static Rectangle GetSweptBox(AbstractGameObject obj)
         {
+
             Rectangle sweptBox;
-            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.TopLeft.X : obj.BoundingBox.TopLeft.X + (int)obj.Velocity.X;
-            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.TopLeft.Y : obj.BoundingBox.TopLeft.Y + (int)obj.Velocity.Y;
+            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.TopLeft.X : (int)(obj.BoundingBox.TopLeft.X + obj.Velocity.X);
+            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.TopLeft.Y : (int)(obj.BoundingBox.TopLeft.Y + obj.Velocity.Y);
+
             sweptBox.Width = obj.Velocity.X > 0 ? (int)obj.Velocity.X + obj.BoundingBox.Dimensions.Width : obj.BoundingBox.Dimensions.Width - (int)obj.Velocity.X;
+            if ((int)(obj.Position.X + (obj.Velocity.X - (int)obj.Velocity.X)) > (int)(obj.Position.X))
+            {
+                sweptBox.Width += 1;
+            }
+
             sweptBox.Height = obj.Velocity.Y > 0 ? (int)obj.Velocity.Y + obj.BoundingBox.Dimensions.Height : obj.BoundingBox.Dimensions.Height - (int)obj.Velocity.Y;
+            if ((int)(obj.Position.Y + (obj.Velocity.Y - (int)obj.Velocity.Y)) > (int)(obj.Position.Y))
+            {
+                sweptBox.Height = sweptBox.Height + 1;
+            }
             return sweptBox;
         }
 
@@ -500,8 +527,8 @@ namespace MarioClone.Collision
         {
             side = Side.None;
 
-            if ((rect1.Left >= rect2.Left && rect1.Left < rect2.Right)
-                    || (rect1.Right > rect2.Left && rect1.Right <= rect2.Right))
+            if ((rect1.Left >= rect2.Left && rect1.Left <= rect2.Right)
+                    || (rect1.Right >= rect2.Left && rect1.Right <= rect2.Right))
             {
                 if (rect1.Bottom == rect2.Top)
                 {
@@ -527,8 +554,8 @@ namespace MarioClone.Collision
                     return true;
                 }
             }
-            else if ((rect1.Top >= rect2.Top && rect1.Top < rect2.Bottom)
-                    || (rect1.Bottom > rect2.Top && rect1.Bottom <= rect2.Bottom))
+            else if ((rect1.Top >= rect2.Top && rect1.Top <= rect2.Bottom)
+                    || (rect1.Bottom >= rect2.Top && rect1.Bottom <= rect2.Bottom))
             {
                 if (rect1.Left == rect2.Right)
                 {
@@ -560,8 +587,8 @@ namespace MarioClone.Collision
 
         private static bool RectangleSidesTouching(Rectangle rect1, Rectangle rect2)
         {
-            if ((rect1.Left >= rect2.Left && rect1.Left < rect2.Right)
-                    || (rect1.Right > rect2.Left && rect1.Right <= rect2.Right))
+            if ((rect1.Left >= rect2.Left && rect1.Left <= rect2.Right)
+                    || (rect1.Right >= rect2.Left && rect1.Right <= rect2.Right))
             {
                 if (rect1.Bottom == rect2.Top)
                 {
@@ -572,7 +599,7 @@ namespace MarioClone.Collision
                     return true;
                 }
             }
-            else if(rect1.Left <= rect2.Left && rect1.Right >= rect2.Right)
+            else if (rect1.Left <= rect2.Left && rect1.Right >= rect2.Right)
             {
                 if (rect1.Bottom == rect2.Top)
                 {
@@ -583,8 +610,8 @@ namespace MarioClone.Collision
                     return true;
                 }
             }
-            else if ((rect1.Top >= rect2.Top && rect1.Top < rect2.Bottom)
-                    || (rect1.Bottom > rect2.Top && rect1.Bottom <= rect2.Bottom))
+            else if ((rect1.Top >= rect2.Top && rect1.Top <= rect2.Bottom)
+                    || (rect1.Bottom >= rect2.Top && rect1.Bottom <= rect2.Bottom))
             {
                 if (rect1.Left == rect2.Right)
                 {
@@ -595,7 +622,7 @@ namespace MarioClone.Collision
                     return true;
                 }
             }
-            else if(rect1.Top <= rect2.Top && rect1.Bottom >= rect2.Bottom)
+            else if (rect1.Top <= rect2.Top && rect1.Bottom >= rect2.Bottom)
             {
                 if (rect1.Left == rect2.Right)
                 {
@@ -734,7 +761,8 @@ namespace MarioClone.Collision
                                 && !(obj1 is AbstractBlock || obj1 is CoinObject || obj1 is FireFlowerObject)
                                 && (obj2 is AbstractEnemy || (obj2 is AbstractBlock && obj2.Visible)))
                             {
-                                if (collided(obj1, obj2))
+                                if (RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions) 
+                                    || obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions))
                                 {
                                     obj1.FixClipping(FindClippingCorrection(obj1, obj2));
                                     UpdateObjectGridPosition(obj1, oldHitbox1);
@@ -749,7 +777,8 @@ namespace MarioClone.Collision
                                 && !(obj2 is AbstractBlock || obj2 is CoinObject || obj2 is FireFlowerObject)
                                 && (obj1 is AbstractEnemy || (obj1 is AbstractBlock && obj1.Visible)))
                             {
-                                if (collided(obj2, obj1))
+                                if (RectangleSidesTouching(obj2.BoundingBox.Dimensions, obj1.BoundingBox.Dimensions)
+                                    || (obj2.BoundingBox.Dimensions.Intersects(obj1.BoundingBox.Dimensions)))
                                 {
                                     obj2.FixClipping(FindClippingCorrection(obj2, obj1));
                                     UpdateObjectGridPosition(obj2, oldHitbox2);

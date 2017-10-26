@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MarioClone.GameObjects;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -36,7 +37,10 @@ namespace MarioClone.States
         public virtual void Walk(Facing orientation) { }
         public virtual void Jump() { }
         public virtual void Crouch() { }
-        public virtual void ReleaseWalk(Facing orientation) { }
+        public virtual void ReleaseWalk(Facing orientation)
+        {
+            Context.Velocity = new Vector2(0, Context.Velocity.Y);
+        }
         public virtual void ReleaseCrouch() { }
         public abstract void UpdateHitBox();
 
