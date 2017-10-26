@@ -16,10 +16,10 @@ namespace MarioClone.GameObjects
 {
     public class Mario : AbstractGameObject
     {
-        public const float GravityAcceleration = .1f;
+        public const float GravityAcceleration = .4f;
 
-        public const float HorizontalMovementSpeed = 2f;
-        public const float VerticalMovementSpeed = 2f;
+        public const float HorizontalMovementSpeed = 3f;
+        public const float VerticalMovementSpeed = 15f;
         private static Mario _mario;
 
         /// <summary>
@@ -146,7 +146,8 @@ namespace MarioClone.GameObjects
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if ((gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
+
+            if ((gameObject is AbstractEnemy) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
             {
                 TakeDamage();
             }
@@ -156,19 +157,44 @@ namespace MarioClone.GameObjects
             }
             else if (gameObject is AbstractBlock)
             {
-                if (side == Side.Bottom || side == Side.Top)
+                if (side == Side.Bottom)
                 {
                     Gravity = false;
                     Velocity = new Vector2(Velocity.X, 0);
+
+                    if ((ActionState is MarioFall || ActionState is MarioJump))
+                    {
+                        if (Velocity.X > 0)
+                        {
+                            Sprite = SpriteFactory.Create(MarioAction.Walk);
+                            PreviousActionState = ActionState;
+                            ActionState = MarioWalk.Instance;
+                        }
+                        else if (Velocity.X < 0)
+                        {
+                            Sprite = SpriteFactory.Create(MarioAction.Walk);
+                            PreviousActionState = ActionState;
+                            ActionState = MarioWalk.Instance;
+                        }
+                        else
+                        {
+                            Sprite = SpriteFactory.Create(MarioAction.Idle);
+                            PreviousActionState = ActionState;
+                            ActionState = MarioIdle.Instance;
+                        } 
+                    }
                 }
-                else if(side == Side.Left || side == Side.Right)
+                else if (side == Side.Left || side == Side.Right)
                 {
                     Velocity = new Vector2(0, Velocity.Y);
                 }
-                
-                Sprite = SpriteFactory.Create(MarioAction.Idle);
-                PreviousActionState = ActionState;
-                ActionState = MarioIdle.Instance;
+                else if (side == Side.Top)
+                {
+                    Velocity = new Vector2(Velocity.X, 0);
+                    Sprite = SpriteFactory.Create(MarioAction.Falling);
+                    PreviousActionState = ActionState;
+                    ActionState = MarioFall.Instance;
+                }
             }
             else if (gameObject is RedMushroomObject)
             {
@@ -177,14 +203,7 @@ namespace MarioClone.GameObjects
             else if (gameObject is FireFlowerObject)
             {
                 BecomeFire();
-            }
-            else if (ActionState is MarioJump)
-            {
-                Velocity = new Vector2(0, 0);
-                Sprite = SpriteFactory.Create(MarioAction.Falling);
-                PreviousActionState = ActionState;
-                ActionState = MarioFall.Instance;
-            }            
+            }         
             else
             {
                 Velocity = new Vector2(0, 0);
