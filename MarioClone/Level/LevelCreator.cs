@@ -25,16 +25,14 @@ namespace MarioClone.Level
 
         private Bitmap _image;
         public GameGrid Grid { get; set; }
-        private KeyboardController _controller;
 
-        public LevelCreator (string file, GameGrid grid, KeyboardController controller)
+        public LevelCreator (string file, GameGrid grid)
         {
             using (var stream = new FileStream(file, FileMode.Open))
             {
                 _image = new Bitmap(stream);
             }   
             Grid = grid;
-            _controller = controller;
         }
 
         public void Create()
@@ -60,45 +58,11 @@ namespace MarioClone.Level
                     position = new Vector2(position.X, position.Y - (MarioHeight - 64));
                     var mario = MarioFactory.Create(position);
 
-                    _controller.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.Y, new BecomeNormalMarioCommand(mario));
-                    _controller.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.I, new BecomeFireMarioCommand(mario));
-                    _controller.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(mario));
-
-                    _controller.AddInputCommand((int)Keys.W, new JumpCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Up, new JumpCommand(mario));
-
-
-                    _controller.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Left, new MoveLeftCommand(mario));
-
-                    _controller.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Down, new CrouchCommand(mario));
-
-
-                    _controller.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Right, new MoveRightCommand(mario));
-
-                    _controller.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(mario));
-                    _controller.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(mario));
-                    _controller.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(mario));
-                    _controller.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(mario));
-                    _controller.AddReleasedInputCommand((int)Keys.S, new ReleaseMoveLeftCommand(mario));
-                    _controller.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(mario));
-
                     Grid.Add(mario);
                 }
                 else if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance != null)
                 {
-                    Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 32));
+                    Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
                     Mario.Instance.ActionState = MarioIdle.Instance;
                     Mario.Instance.Velocity = new Vector2(0, 0);
                     Mario.Instance.PowerupState = MarioNormal.Instance;
@@ -107,35 +71,7 @@ namespace MarioClone.Level
                     Mario.Instance.Sprite = NormalMarioSpriteFactory.Instance.Create(MarioAction.Idle);
                     Mario.Instance.Orientation = Facing.Right;
 
-                    var mario = Mario.Instance;
-
-                    _controller.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.Y, new BecomeNormalMarioCommand(mario));
-                    _controller.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.I, new BecomeFireMarioCommand(mario));
-                    _controller.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(mario));
-
-                    _controller.AddInputCommand((int)Keys.W, new JumpCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Up, new JumpCommand(mario));
-
-
-                    _controller.AddInputCommand((int)Keys.A, new MoveLeftCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Left, new MoveLeftCommand(mario));
-
-
-                    _controller.AddInputCommand((int)Keys.S, new CrouchCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Down, new CrouchCommand(mario));
-
-
-                    _controller.AddInputCommand((int)Keys.D, new MoveRightCommand(mario));
-                    _controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(mario));
-                    _controller.AddInputCommand((int)Keys.Right, new MoveRightCommand(mario));
+                    var mario = Mario.Instance;        
 
                     Grid.Add(mario);
                 }
