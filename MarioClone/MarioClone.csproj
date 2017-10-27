@@ -43,6 +43,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Cam\Background.cs" />
     <Compile Include="Cam\Camera.cs" />
     <Compile Include="Commands\ReleaseCrouchCommand.cs" />
     <Compile Include="Commands\ReleaseMoveRightCommand.cs" />
