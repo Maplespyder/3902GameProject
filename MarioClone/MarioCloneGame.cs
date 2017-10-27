@@ -86,10 +86,47 @@ namespace MarioClone
         {
             var keyboard = new KeyboardController();
 
-            level = new LevelCreator(@"Level\Sprint3Attempt2.bmp", gameGrid, keyboard);
+            level = new LevelCreator(@"Level\Sprint3Attempt2.bmp", gameGrid);
             level.Create();
 
             AbstractGameObject.DrawHitbox = false;
+
+            keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(Mario.Instance));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(Mario.Instance));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Y, new BecomeNormalMarioCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(Mario.Instance));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.I, new BecomeFireMarioCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(Mario.Instance));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(Mario.Instance));
+
+            keyboard.AddInputCommand((int)Keys.W, new JumpCommand(Mario.Instance));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(Mario.Instance));
+
+
+            keyboard.AddInputCommand((int)Keys.A, new MoveLeftCommand(Mario.Instance));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Mario.Instance));
+
+
+            keyboard.AddInputCommand((int)Keys.S, new CrouchCommand(Mario.Instance));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(Mario.Instance));
+
+
+            keyboard.AddInputCommand((int)Keys.D, new MoveRightCommand(Mario.Instance));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(Mario.Instance));
+
+            keyboard.AddReleasedInputCommand((int)Keys.S, new ReleaseCrouchCommand(Mario.Instance));
+            keyboard.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Mario.Instance));
+
+            keyboard.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Mario.Instance));
+            keyboard.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Mario.Instance));
+
+            keyboard.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Mario.Instance));
+            keyboard.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Mario.Instance));
 
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));

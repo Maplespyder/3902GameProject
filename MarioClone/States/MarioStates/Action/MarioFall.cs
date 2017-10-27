@@ -31,17 +31,18 @@ namespace MarioClone.States
         {
             if (Context.PowerupState is MarioNormal)
             {
-                Context.BoundingBox.UpdateOffSets(-8, -8, -4, 0);
+                Context.BoundingBox.UpdateOffSets(-8, -8, -4, -1);
             }
             else if (Context.PowerupState is MarioSuper || Context.PowerupState is MarioFire)
             {
-                Context.BoundingBox.UpdateOffSets(-20, -20, -20, 0);
+                Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
             }
         }
 
         public override void Walk(Facing orientation)
         {
             Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, Context.Velocity.Y) : new Vector2(Mario.HorizontalMovementSpeed, Context.Velocity.Y);
+            Context.Orientation = orientation;
         }
 
         public override void ReleaseWalk(Facing orientation)

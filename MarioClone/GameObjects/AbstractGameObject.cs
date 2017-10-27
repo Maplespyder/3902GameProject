@@ -85,7 +85,7 @@ namespace MarioClone.GameObjects
 
         public virtual void FixClipping(Vector2 correction)
         {
-            Position += correction;
+            Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
             BoundingBox.UpdateHitBox(Position, Sprite);
         }
     }

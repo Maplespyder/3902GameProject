@@ -224,7 +224,9 @@
     <Content Include="Code Reviews\Sprint 2\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 2\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 2\SamCodeReview.txt" />
-    <Content Include="Level\Sprint3Attempt2.bmp" />
+    <Content Include="Level\Sprint3Attempt2.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />
