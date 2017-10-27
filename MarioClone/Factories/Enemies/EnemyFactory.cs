@@ -1,4 +1,5 @@
 ﻿using MarioClone.GameObjects;
+using MarioClone.GameObjects.Enemies;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace MarioClone.Factories
     {
         Goomba,
         GreenKoopa,
-        RedKoopa
+        RedKoopa,
+		Piranha
     }
 
     public static class EnemyFactory
@@ -27,6 +29,8 @@ namespace MarioClone.Factories
                     return new GreenKoopaObject(MovingEnemySpriteFactory.Create(type), position);
                 case EnemyType.RedKoopa:
                     return new RedKoopaObject(MovingEnemySpriteFactory.Create(type), position);
+				case EnemyType.Piranha:
+					return new PiranhaObject(MovingEnemySpriteFactory.Create(type), position);
                 default:
                     return new GoombaObject(MovingEnemySpriteFactory.Create(type), position);
             }
