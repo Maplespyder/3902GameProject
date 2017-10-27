@@ -117,6 +117,15 @@ namespace MarioClone
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Mario.Instance));
             keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(Mario.Instance));
 
+            keyboard.AddReleasedInputCommand((int)Keys.S, new ReleaseCrouchCommand(Mario.Instance));
+            keyboard.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Mario.Instance));
+
+            keyboard.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Mario.Instance));
+            keyboard.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Mario.Instance));
+
+            keyboard.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Mario.Instance));
+            keyboard.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Mario.Instance));
+
             keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());

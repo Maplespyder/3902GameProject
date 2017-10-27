@@ -42,6 +42,7 @@ namespace MarioClone.States
         public override void Walk(Facing orientation)
         {
             Context.Velocity = orientation == Facing.Left ? new Vector2(-Mario.HorizontalMovementSpeed, Context.Velocity.Y) : new Vector2(Mario.HorizontalMovementSpeed, Context.Velocity.Y);
+            Context.Orientation = orientation;
         }
 
         public override void ReleaseWalk(Facing orientation)
