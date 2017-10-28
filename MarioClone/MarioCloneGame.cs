@@ -180,7 +180,9 @@ namespace MarioClone
                     gameGrid.Remove(obj);
                 }
 
-				base.Update(gameTime);
+                camera.LookAt(Mario.Instance.Position);
+                gameGrid.CurrentLeftSideViewPort = camera.Position.X;
+                base.Update(gameTime);
 			}
 		}
 
