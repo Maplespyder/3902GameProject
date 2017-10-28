@@ -170,7 +170,14 @@ namespace MarioClone
   
 			if (!paused)
 			{
-                gameGrid.UpdateWorld(gameTime);
+                List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects();
+                List<AbstractGameObject> removed = CollisionManager.ProcessFrame(gameTime, collidables, gameGrid);
+
+                foreach(AbstractGameObject obj in removed)
+                {
+                    gameGrid.Remove(obj);
+                }
+
 				base.Update(gameTime);
 			}
 		}
@@ -187,12 +194,21 @@ namespace MarioClone
 				Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.CornflowerBlue);
 				spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(parallax));
-                gameGrid.DrawWorld(spriteBatch, gameTime);
+                DrawWorld(gameTime);
 				spriteBatch.End();
 
 				base.Draw(gameTime);
 			}
 		}
+
+        private void DrawWorld(GameTime gameTime)
+        {
+            List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects();
+            foreach (var obj in allObjects)
+            {
+                obj.Draw(spriteBatch, gameTime);
+            }
+        }
 
         public static ContentManager GameContent
         {
