@@ -1,16 +1,7 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
-using MarioClone.Sprites;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static MarioClone.Collision.GameGrid;
-using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.GameObjects
 {
@@ -230,6 +221,13 @@ namespace MarioClone.GameObjects
                 Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration);
             }
             Gravity = true;
+
+            if (!(ActionState is MarioFall) && Velocity.Y > 1.5)
+            {
+                Sprite = SpriteFactory.Create(MarioAction.Falling);
+                PreviousActionState = ActionState;
+                ActionState = MarioFall.Instance;
+            }
 
             return base.Update(gameTime, percent);    
         }

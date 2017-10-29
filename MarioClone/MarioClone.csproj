@@ -51,6 +51,7 @@
     <Compile Include="Commands\ReleaseMoveLeftCommand.cs" />
     <Compile Include="Commands\ResetLevelCommand.cs" />
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
+    <Compile Include="GameObjects\Bricks\PipeTop.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
     <Compile Include="Level\Colors.cs" />
