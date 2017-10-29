@@ -17,6 +17,11 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            if (isCollided)
+            {
+                return true;
+            }
+
             bool retval = State.Update(gameTime, percent);
             Position = new Vector2((percent * Velocity.X) + Position.X, (percent * Velocity.Y) + Position.Y);
 
@@ -25,7 +30,11 @@ namespace MarioClone.GameObjects
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            return State.CollisionResponse(gameObject);
+            if (gameObject is Mario)
+            {
+                isCollided = true;
+            }
+            return isCollided || State.CollisionResponse(gameObject);
         }
     }
 }

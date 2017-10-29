@@ -9,6 +9,7 @@ namespace MarioClone.Level
         public static readonly Color MarioSpawn = Color.FromArgb(136, 0, 27);
 
         // For the amount of coins in block, we should use one of the RGB values as a way to track how many coins.
+        public static readonly Color QuestionBlock = Color.FromArgb(140, 255, 251);
         public static readonly Color QuestionBlockRedMushroom = Color.FromArgb(180, 68, 71);
         public static readonly Color QuestionBlockGreenMushroom = Color.FromArgb(91, 137, 112);
         public static readonly Color QuestionBlockFireFlower = Color.FromArgb(255, 127, 39);

@@ -1,4 +1,5 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.Collision;
+using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 
 

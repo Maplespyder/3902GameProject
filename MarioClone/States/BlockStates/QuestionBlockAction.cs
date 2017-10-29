@@ -1,6 +1,7 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
 using Microsoft.Xna.Framework;
+using MarioClone.Collision;
 
 namespace MarioClone.States.BlockStates
 {
@@ -16,7 +17,7 @@ namespace MarioClone.States.BlockStates
             if (Context.ContainedPowerup != PowerUpType.None)
             {
                 //do some powerup reveal related thing
-
+                GameGrid.Instance.Add(PowerUpFactory.Create(Context.ContainedPowerup, Context.Position));
                 Context.ContainedPowerup = PowerUpType.None;
             }
         }

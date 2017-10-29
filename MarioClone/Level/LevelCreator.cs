@@ -75,7 +75,7 @@ namespace MarioClone.Level
 
                     Grid.Add(mario);
                 }
-                else if (sameColor(pixel, Colors.QuestionBlockRedMushroom))
+                else if (sameColor(pixel, Colors.QuestionBlock))
                 {
                     var questionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
                     Grid.Add(questionBlock);
@@ -83,11 +83,13 @@ namespace MarioClone.Level
                 else if (sameColor(pixel, Colors.QuestionBlockGreenMushroom))
                 {
                     var questionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+                    questionBlock.ContainedPowerup = PowerUpType.GreenMushroom;
                     Grid.Add(questionBlock);
                 }
                 else if (sameColor(pixel, Colors.QuestionBlockFireFlower))
                 {
                     var questionBlock = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+                    questionBlock.ContainedPowerup = PowerUpType.Flower;
                     Grid.Add(questionBlock);
                 }
                 else if (sameColor(pixel, Colors.BrickBlock))
