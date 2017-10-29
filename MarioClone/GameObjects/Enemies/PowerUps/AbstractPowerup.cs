@@ -8,6 +8,7 @@ namespace MarioClone.GameObjects
     public class AbstractPowerup : AbstractGameObject
     {
         public PowerupState State { get; set; }
+        public bool isCollided { get; set; }
 
         public AbstractPowerup(ISprite sprite, Vector2 position, Color hitboxColor) : base(sprite, position, hitboxColor)
         {

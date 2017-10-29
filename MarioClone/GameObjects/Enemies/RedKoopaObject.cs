@@ -19,7 +19,7 @@ namespace MarioClone.GameObjects
             PowerupState = new KoopaAlive(this);
         }
 
-        /*public override bool CollisionResponse(AbstractGameObject gameObject, GameGrid.Side side, GameTime gameTime)
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is Mario)
             {
@@ -27,15 +27,20 @@ namespace MarioClone.GameObjects
                 {
                     PowerupState.BecomeDead();
                     TimeDead = 0;
-                }
-            }
+                    return true;
 
-        }*/
+                }
+
+            }
+            return false;
+
+        }
 
         public override bool Update(GameTime gameTime, float percent)
         {
             bool retVal = PowerupState.Update(gameTime, percent);
-            return base.Update(gameTime, percent) || retVal;
+            return base.Update(gameTime, percent);
+            return retVal;
         }
     }
 }

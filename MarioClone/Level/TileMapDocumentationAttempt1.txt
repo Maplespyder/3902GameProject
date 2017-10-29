@@ -21,9 +21,9 @@ Power-Ups:
 • Super Mushroom: (255, 127, 127) 
 • 1-Up Mushroom: (196, 255, 14)
 • Fire Flower: (255, 86, 30)
-• Starman: ????
 
 
 Item:
 • Coin: (255, 242, 0)
-• Pipe: (18, 117, 46)
+• Pipe Segment: (18, 117, 46)
+• Pipe Top: (39, 242, 94)
