@@ -32,8 +32,8 @@ namespace MarioClone.GameObjects
              {
                  return true;
              }
-             base.Update(gameTime, percent);
-             return false;
+             return base.Update(gameTime, percent);
+             
            
         }
     }
