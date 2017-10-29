@@ -231,6 +231,13 @@ namespace MarioClone.GameObjects
             }
             Gravity = true;
 
+            if (!(ActionState is MarioFall) && Velocity.Y > 1.5)
+            {
+                Sprite = SpriteFactory.Create(MarioAction.Falling);
+                PreviousActionState = ActionState;
+                ActionState = MarioFall.Instance;
+            }
+
             return base.Update(gameTime, percent);    
         }
     }
