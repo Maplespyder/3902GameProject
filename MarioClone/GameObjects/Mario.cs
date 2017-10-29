@@ -214,6 +214,12 @@ namespace MarioClone.GameObjects
             return true;
         }
 
+        public override void FixClipping(Vector2 correction)
+        {
+            Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+            BoundingBox.UpdateHitBox(Position, Sprite);
+        }
+
         public override bool Update(GameTime gameTime, float percent)
         {
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);

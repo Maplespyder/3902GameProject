@@ -1,14 +1,16 @@
-﻿using MarioClone.Collision;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 
 
 namespace MarioClone.GameObjects
 {
-	public class GreenMushroomObject : AbstractGameObject
+    public class GreenMushroomObject : AbstractPowerup
 	{
         public GreenMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green) { }
+
+        public override bool Update(GameTime gameTime, float percent)
+        {
+            return base.Update(gameTime, percent);
+        }
     }
 }

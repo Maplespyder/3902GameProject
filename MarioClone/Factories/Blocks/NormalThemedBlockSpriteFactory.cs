@@ -32,9 +32,6 @@ namespace MarioClone.Factories
                 case BlockType.QuestionBlock:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
                         new Rectangle(0, 0, 64, 64), 2, 4, 0, 3, 4);
-                case BlockType.CoinBlock:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
-                        new Rectangle(0, 64, 64, 64));
                 case BlockType.BreakableBrick:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/AllBlocks"),
                         new Rectangle(0, 64, 64, 64));

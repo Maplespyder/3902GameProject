@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using MarioClone.Collision;
-using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {

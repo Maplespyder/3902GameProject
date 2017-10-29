@@ -7,7 +7,7 @@ using System;
 
 namespace MarioClone.GameObjects
 {
-	public class RedMushroomObject : AbstractGameObject
+	public class RedMushroomObject : AbstractPowerup
 	{
         public RedMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green) { }
     }

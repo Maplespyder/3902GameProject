@@ -10,7 +10,7 @@ using MarioClone.Collision;
 
 namespace MarioClone.GameObjects
 {
-    class CoinObject : AbstractGameObject
+    public class CoinObject : AbstractPowerup
     {
 
         public CoinObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green) { }

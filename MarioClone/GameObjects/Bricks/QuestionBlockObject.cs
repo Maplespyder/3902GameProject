@@ -28,7 +28,7 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is Mario && side == Side.Bottom)
             {
-                State.Bump();
+                State.Bump(); 
                 return true;
             }
             return false;
