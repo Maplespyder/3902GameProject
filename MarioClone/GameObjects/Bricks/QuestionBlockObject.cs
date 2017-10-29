@@ -1,7 +1,7 @@
-﻿using MarioClone.Sprites;
+﻿using MarioClone.Collision;
+using MarioClone.Sprites;
 using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
-using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {

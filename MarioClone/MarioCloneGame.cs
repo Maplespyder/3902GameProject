@@ -27,6 +27,7 @@ namespace MarioClone
         GameGrid gameGrid;
         List<AbstractController> controllerList;
         LevelCreator level;
+		private Background _background;
 
 		public MarioCloneGame()
 		{
@@ -67,8 +68,9 @@ namespace MarioClone
 		{
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+			_background = new Background(spriteBatch, camera, graphics);
 
-            GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
+			GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
             GameContent.Load<Texture2D>("Sprites/Coin");
             GameContent.Load<Texture2D>("Sprites/SmallMario");
@@ -170,8 +172,17 @@ namespace MarioClone
   
 			if (!paused)
 			{
-                gameGrid.UpdateWorld(gameTime);
-				base.Update(gameTime);
+                List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects();
+                List<AbstractGameObject> removed = CollisionManager.ProcessFrame(gameTime, collidables, gameGrid);
+
+                foreach(AbstractGameObject obj in removed)
+                {
+                    gameGrid.Remove(obj);
+                }
+
+                camera.LookAt(Mario.Instance.Position);
+                gameGrid.CurrentLeftSideViewPort = camera.Position.X;
+                base.Update(gameTime);
 			}
 		}
 
@@ -186,13 +197,23 @@ namespace MarioClone
 			{
 				Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.CornflowerBlue);
+				_background.Draw();
 				spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(parallax));
-                gameGrid.DrawWorld(spriteBatch, gameTime);
+                DrawWorld(gameTime);
 				spriteBatch.End();
 
 				base.Draw(gameTime);
 			}
 		}
+
+        private void DrawWorld(GameTime gameTime)
+        {
+            List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects();
+            foreach (var obj in allObjects)
+            {
+                obj.Draw(spriteBatch, gameTime);
+            }
+        }
 
         public static ContentManager GameContent
         {
