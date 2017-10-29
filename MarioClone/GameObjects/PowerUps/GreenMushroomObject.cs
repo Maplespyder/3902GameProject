@@ -24,7 +24,7 @@ namespace MarioClone.GameObjects
                 Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration); 
             }
             Gravity = true;
-            return base.Update(gameTime, percent);
+            return isCollided || base.Update(gameTime, percent);
         }
 
         public override void FixClipping(Vector2 correction)
@@ -35,7 +35,11 @@ namespace MarioClone.GameObjects
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if (gameObject is AbstractBlock)
+            if (gameObject is Mario)
+            {
+                isCollided = true;
+            }
+            else if (gameObject is AbstractBlock)
             {
                 if (side == Side.Bottom)
                 {
