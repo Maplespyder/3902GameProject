@@ -160,6 +160,11 @@ namespace MarioClone.Level
                     var pipeSegment = BlockFactory.Instance.Create(BlockType.PipeSegment, position);
                     Grid.Add(pipeSegment);
                 }
+                else if (sameColor(pixel, Colors.PipeTop))
+                {
+                    var pipeTop = BlockFactory.Instance.Create(BlockType.PipeTop, position);
+                    Grid.Add(pipeTop);
+                }
             }
 
 		}
