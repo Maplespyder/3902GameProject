@@ -393,8 +393,7 @@ namespace MarioClone.Collision
             {
                 HitBox oldHitbox = (obj.BoundingBox != null) ? new HitBox(obj.BoundingBox) : null;
                 if (obj.Update(gameTime, percentToUpdate))
-                {
-                    
+                {   
                     removed.Add(obj);
                 }
 
@@ -585,6 +584,29 @@ namespace MarioClone.Collision
             }
 
             return removedGameObjects;
+        }
+
+        public static Vector2 ScreenClamp(Vector2 newPosition, Rectangle objectDimensions)
+        {
+            if ((newPosition.X + objectDimensions.Width) > GameGrid.Instance.FullGameWidth)
+            {
+                newPosition.X = GameGrid.Instance.CurrentRightSideViewPort - objectDimensions.Width;
+            }
+            else if (newPosition.X < 0) 
+            {
+                newPosition.X = 0;
+            }
+
+            if ((newPosition.Y + objectDimensions.Height) > GameGrid.Instance.ScreenHeight)
+            {
+                newPosition.Y = GameGrid.Instance.ScreenHeight - objectDimensions.Height;
+            }
+            else if (newPosition.Y < 0)
+            {
+                newPosition.Y = 0;
+            }
+
+            return newPosition;
         }
     }
 }

@@ -29,6 +29,6 @@ namespace MarioClone.Level
 
         public static readonly Color Coin = Color.FromArgb(255, 242, 0);
         public static readonly Color PipeSegment = Color.FromArgb(18, 117, 46);
-        public static readonly Color PipeTop = Color.FromArgb(18, 117, 46);
+        public static readonly Color PipeTop = Color.FromArgb(39, 242, 34);
     }
 }

@@ -18,7 +18,33 @@ namespace MarioClone.GameObjects
 
         public virtual ISprite Sprite { get; set; }
 
-        public virtual Vector2 Position { get; set; }
+        private Vector2 position;
+        public virtual Vector2 Position
+        {
+            get
+            {
+                return position;
+            }
+            set
+            {
+                if(BoundingBox != null)
+                {
+                    position = CollisionManager.ScreenClamp(value, BoundingBox.Dimensions);
+                }
+                else if(Sprite != null)
+                {
+                    position = CollisionManager.ScreenClamp(value, new Rectangle(0, 0, Sprite.SourceRectangle.Width, Sprite.SourceRectangle.Height));
+                }
+                else
+                {
+                    position = CollisionManager.ScreenClamp(value, new Rectangle(0, 0, 0, 0));
+                }
+                if(position != value)
+                {
+                    //do something later?
+                }
+            }
+        }
 
         public virtual int DrawOrder { get; set; }
 
