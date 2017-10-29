@@ -16,7 +16,7 @@ namespace MarioClone.GameObjects
 
         public CoinObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green) { }
 
-        /*public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is Mario && (side == Side.Top || side == Side.Bottom || side == Side.Right || side == Side.Left))
             {
@@ -28,14 +28,14 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
-            /* if (BoundingBox == null)
+            if (BoundingBox == null)
              {
                  return true;
              }
              base.Update(gameTime, percent);
              return false;
-            return true;
-        }*/
+           
+        }
     }
 
 
