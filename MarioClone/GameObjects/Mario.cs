@@ -218,7 +218,7 @@ namespace MarioClone.GameObjects
 
             if (Gravity)
             {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration);
+                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
             }
             Gravity = true;
 
