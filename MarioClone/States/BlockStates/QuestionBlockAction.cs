@@ -12,11 +12,18 @@ namespace MarioClone.States.BlockStates
         {
             initialPosition = context.Position;
 			Context.Velocity = new Vector2(0f, -1f);
+            
+            if (Context.ContainedPowerup != PowerUpType.None)
+            {
+                //do some powerup reveal related thing
+
+                Context.ContainedPowerup = PowerUpType.None;
+            }
         }
         
         public override bool Action(float percent, GameTime gameTime)
         {
-            if (Context.Position.Y >= (initialPosition.Y - 10) ) //if Position hasnt reached max height
+            if (Context.Position.Y >= (initialPosition.Y - 10)) //if Position hasnt reached max height
             {
                 Context.Position = new Vector2(Context.Position.X, Context.Position.Y + Context.Velocity.Y * percent);
                 if (Context.Position.Y <= (initialPosition.Y - 10))
@@ -29,7 +36,8 @@ namespace MarioClone.States.BlockStates
                 Context.Position = new Vector2(Context.Position.X, Context.Position.Y + Context.Velocity.Y * percent);
                 Context.Velocity = new Vector2(0f, 1f);
             }
-            if (Context.Position.Y >= initialPosition.Y) //back to static position
+
+            if (Context.Position.Y >= initialPosition.Y && percent != 0) //back to static position
             {
 				Context.Position = initialPosition;
                 Context.Velocity = new Vector2(0, 0);

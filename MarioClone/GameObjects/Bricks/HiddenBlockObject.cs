@@ -173,7 +173,60 @@ namespace MarioClone.GameObjects
                 }
             }
         }
-#endregion
+
+        public new int CoinCount
+        {
+            get
+            {
+                if (revealedBrick == null)
+                {
+                    return base.CoinCount;
+                }
+                else
+                {
+                    return revealedBrick.CoinCount;
+                }
+            }
+            set
+            {
+                if (revealedBrick == null)
+                {
+                    base.CoinCount = value;
+                }
+                else
+                {
+                    revealedBrick.CoinCount = value;
+                }
+            }
+        }
+
+        public new PowerUpType ContainedPowerup
+        {
+            get
+            {
+                if (revealedBrick == null)
+                {
+                    return base.ContainedPowerup;
+                }
+                else
+                {
+                    return revealedBrick.ContainedPowerup;
+                }
+            }
+            set
+            {
+                if (revealedBrick == null)
+                {
+                    base.ContainedPowerup = value;
+                }
+                else
+                {
+                    revealedBrick.ContainedPowerup = value;
+                }
+            }
+        }
+        #endregion
+
 
         public HiddenBrickObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
@@ -183,7 +236,7 @@ namespace MarioClone.GameObjects
         public override void Bump()
         {
             Visible = true;
-            revealedBrick = BlockFactory.Instance.Create(BlockType.BreakableBrick, Position);  
+            revealedBrick = BlockFactory.Instance.Create(BlockType.BreakableBrick, Position);
         }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)

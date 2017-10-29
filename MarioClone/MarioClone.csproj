@@ -52,6 +52,7 @@
     <Compile Include="Commands\ResetLevelCommand.cs" />
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />
+    <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="GameObjects\Bricks\AbstractBlock.cs" />
     <Compile Include="GameObjects\Bricks\BreakableBrickObject.cs" />
     <Compile Include="GameObjects\Bricks\BrickPieceObject.cs" />
-    <Compile Include="GameObjects\Bricks\CoinBrickObject.cs" />
     <Compile Include="GameObjects\Bricks\HiddenBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\QuestionBlockObject.cs" />
     <Compile Include="GameObjects\Bricks\StaticBlockObject.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
     <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
-    <Compile Include="GameObjects\Coins\CoinObject.cs" />
+    <Compile Include="GameObjects\PowerUps\CoinObject.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\GamepadController.cs" />
@@ -138,6 +138,11 @@
     <Compile Include="States\MarioStates\Powerup\MarioNormal.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioPowerupState.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioSuper.cs" />
+    <Compile Include="States\PowerupStates\CoinStaticState.cs" />
+    <Compile Include="States\PowerupStates\FireFlowerStaticState.cs" />
+    <Compile Include="States\PowerupStates\MushroomMovingState.cs" />
+    <Compile Include="States\PowerupStates\PowerupState.cs" />
+    <Compile Include="States\PowerupStates\PowerupRevealState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

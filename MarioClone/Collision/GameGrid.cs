@@ -12,6 +12,7 @@ namespace MarioClone.Collision
     {
         private List<AbstractGameObject>[,] gameGrid;
 		private Camera _camera;
+        private static GameGrid gridInstance;
 
         public int Rows { get; }
         public int Columns { get; }
@@ -29,8 +30,18 @@ namespace MarioClone.Collision
             }
         }
 
+        public static GameGrid Instance
+        {
+            get
+            {
+                return gridInstance;
+            }
+        }
+
         public GameGrid(int rows, int columns, int widthOfGame, Camera camera)
         {
+            gridInstance = this;
+
             Rows = rows;
 			_camera = camera;
             ScreenWidth = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
@@ -242,6 +253,24 @@ namespace MarioClone.Collision
                 {
                     objectList = objectList.Union(gameGrid[columns, rows])
                         .Where((x) => (x.Velocity.X != 0) || (x.Velocity.Y != 0) || (x is Mario)).ToList();
+                }
+            }
+
+            return objectList;
+        }
+
+        public List<AbstractGameObject> GetAllCurrenStaticGameObjects()
+        {
+            int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+            int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+            List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+            for (int rows = 0; rows < Rows; rows++)
+            {
+                for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                {
+                    objectList = objectList.Union(gameGrid[columns, rows])
+                        .Where((x) => ((x.Velocity.X == 0) && (x.Velocity.Y == 0)) && !(x is Mario)).ToList();
                 }
             }
 

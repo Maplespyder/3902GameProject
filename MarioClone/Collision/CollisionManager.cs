@@ -51,7 +51,8 @@ namespace MarioClone.Collision
             * I didn't look at it for too long, so it might not be totally correct, but it worked on all paper tests I made up. 
             */
 
-            if (RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions, out side))
+            if (RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions, out side) 
+                || obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions))
             {
                 return percentCompleted;
             }
@@ -393,19 +394,70 @@ namespace MarioClone.Collision
                 HitBox oldHitbox = (obj.BoundingBox != null) ? new HitBox(obj.BoundingBox) : null;
                 if (obj.Update(gameTime, percentToUpdate))
                 {
+                    
                     removed.Add(obj);
                 }
-                else
+
+                if (oldHitbox != null && obj.BoundingBox != null)
                 {
                     grid.UpdateObjectGridPosition(obj, oldHitbox);
                 }
             }
 
-            foreach (var obj in removed)
-            {
-                objects.Remove(obj);
-            }
             return removed;
+        }
+
+        private static List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>> filterCollisions
+            (List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>> completed,
+            List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>> collisions,
+            out float earliestCollisionPercent)
+        {
+            if (collisions.Count > 0)
+            {
+                earliestCollisionPercent = collisions[0].Item1;
+            }
+            else
+            {
+                earliestCollisionPercent = 1;
+                return collisions;
+            }
+
+            List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>> removed =
+                new List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>>();
+
+            bool repeatCollision = true;
+
+            for (int i = 0; i < collisions.Count && repeatCollision; i++)
+            {
+                Tuple<float, Side, AbstractGameObject, AbstractGameObject> collision = collisions[i];
+                Side side = collision.Item2;
+                AbstractGameObject obj1 = collision.Item3;
+                AbstractGameObject obj2 = collision.Item4;
+
+                repeatCollision = false;
+                foreach (Tuple<float, Side, AbstractGameObject, AbstractGameObject> done in completed)
+                {
+                    if (CollisionCompare(collision, done))
+                    {
+                        repeatCollision = true;
+                        removed.Add(collision);
+                        if ((i + 1) < collisions.Count)
+                        {
+                            earliestCollisionPercent = collisions[i + 1].Item1;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            collisions.RemoveAll((x) => removed.Contains(x));
+
+            if (collisions.Count == 0)
+            {
+                earliestCollisionPercent = 1;
+            }
+
+            return collisions;
         }
 
         public static List<AbstractGameObject> ProcessFrame(GameTime gameTime, List<AbstractGameObject> collidables, GameGrid grid)
@@ -465,14 +517,15 @@ namespace MarioClone.Collision
                 else
                 {
                     collisions.Sort((x, y) => (x.Item1.CompareTo(y.Item1)));
-                    earliestCollisionPercent = collisions[0].Item1;
+                    filterCollisions(completedCollisions, collisions, out earliestCollisionPercent);
                 }
 
-
-                removedGameObjects.AddRange(UpdateObjects(collidables, grid, gameTime, earliestCollisionPercent - percentCompleted));
-                collidables.RemoveAll((x) => removedGameObjects.Contains(x));
-
-                List<Tuple<AbstractGameObject, AbstractGameObject>> alreadyProcessed = new List<Tuple<AbstractGameObject, AbstractGameObject>>();
+                if ((earliestCollisionPercent - percentCompleted ) != 0)
+                {
+                    removedGameObjects.AddRange(UpdateObjects(collidables, grid, gameTime, earliestCollisionPercent - percentCompleted));
+                    collidables.RemoveAll((x) => removedGameObjects.Contains(x));
+                }
+                
                 bool anySignificantCollision = false;
                 for (int i = 0; i < collisions.Count && collisions[i].Item1 == earliestCollisionPercent; i++)
                 {
@@ -481,58 +534,45 @@ namespace MarioClone.Collision
                     AbstractGameObject obj1 = collision.Item3;
                     AbstractGameObject obj2 = collision.Item4;
 
-                    bool alreadyDone = false;
-                    foreach (Tuple<float, Side, AbstractGameObject, AbstractGameObject> done in completedCollisions)
+
+                    anySignificantCollision = true;
+                    HitBox oldHitbox1 = new HitBox(obj1.BoundingBox);
+                    HitBox oldHitbox2 = new HitBox(obj2.BoundingBox);
+
+                    obj1.CollisionResponse(obj2, side, gameTime);
+                    obj2.CollisionResponse(obj1, GetOppositeSide(side), gameTime);
+
+                    if (obj1.BoundingBox != null)
                     {
-                        //the collisions, if they reappear, will be in reverse order
-                        if (CollisionCompare(collision, done))
+                        oldHitbox1 = obj1.BoundingBox;
+                        if ((obj2.BoundingBox != null)
+                            && !(obj1 is AbstractBlock || obj1 is CoinObject || obj1 is FireFlowerObject)
+                            && (obj2 is AbstractEnemy || (obj2 is AbstractBlock && obj2.Visible)))
                         {
-                            alreadyDone = true;
-                            break;
+                            if (RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions)
+                                || obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions))
+                            {
+                                obj1.FixClipping(FindClippingCorrection(obj1, obj2));
+                            }
                         }
                     }
 
-                    if (!alreadyDone)
+                    if (obj2.BoundingBox != null)
                     {
-                        anySignificantCollision = true;
-                        HitBox oldHitbox1 = new HitBox(obj1.BoundingBox);
-                        HitBox oldHitbox2 = new HitBox(obj2.BoundingBox);
-
-                        obj1.CollisionResponse(obj2, side, gameTime);
-                        obj2.CollisionResponse(obj1, GetOppositeSide(side), gameTime);
-                        
-                        if (obj1.BoundingBox != null)
+                        oldHitbox2 = obj2.BoundingBox;
+                        if ((obj1.BoundingBox != null)
+                            && !(obj2 is AbstractBlock || obj2 is CoinObject || obj2 is FireFlowerObject)
+                            && (obj1 is AbstractEnemy || (obj1 is AbstractBlock && obj1.Visible)))
                         {
-                            oldHitbox1 = obj1.BoundingBox;
-                            if ((obj2.BoundingBox != null)
-                                && !(obj1 is AbstractBlock || obj1 is CoinObject || obj1 is FireFlowerObject)
-                                && (obj2 is AbstractEnemy || (obj2 is AbstractBlock && obj2.Visible)))
+                            if (RectangleSidesTouching(obj2.BoundingBox.Dimensions, obj1.BoundingBox.Dimensions)
+                                || (obj2.BoundingBox.Dimensions.Intersects(obj1.BoundingBox.Dimensions)))
                             {
-                                if (RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions)
-                                    || obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions))
-                                {
-                                    obj1.FixClipping(FindClippingCorrection(obj1, obj2));
-                                }
+                                obj2.FixClipping(FindClippingCorrection(obj2, obj1));
                             }
                         }
-
-                        if (obj2.BoundingBox != null)
-                        {
-                            oldHitbox2 = obj2.BoundingBox;
-                            if ((obj1.BoundingBox != null)
-                                && !(obj2 is AbstractBlock || obj2 is CoinObject || obj2 is FireFlowerObject)
-                                && (obj1 is AbstractEnemy || (obj1 is AbstractBlock && obj1.Visible)))
-                            {
-                                if (RectangleSidesTouching(obj2.BoundingBox.Dimensions, obj1.BoundingBox.Dimensions)
-                                    || (obj2.BoundingBox.Dimensions.Intersects(obj1.BoundingBox.Dimensions)))
-                                {
-                                    obj2.FixClipping(FindClippingCorrection(obj2, obj1));
-                                }
-                            }
-                        }
-
-                        completedCollisions.Add(collision);
                     }
+
+                    completedCollisions.Add(collision);
                 }
 
                 if (!anySignificantCollision && !(earliestCollisionPercent == 1))

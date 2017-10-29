@@ -9,14 +9,6 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Factories
 {
-    public enum PowerUpType
-    {
-        GreenMushroom,
-        RedMushroom,
-        Flower,
-        Star,
-        Coin
-    }
     public static class PowerUpSpriteFactory
     {
         public static ISprite Create(PowerUpType type)

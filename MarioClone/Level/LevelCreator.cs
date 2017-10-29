@@ -93,6 +93,7 @@ namespace MarioClone.Level
                 else if (sameColor(pixel, Colors.BrickBlock))
                 {
                     var brickBlock = BlockFactory.Instance.Create(BlockType.BreakableBrick, position);
+                    brickBlock.CoinCount = 3;
                     Grid.Add(brickBlock);
                 }
                 else if (sameColor(pixel, Colors.UsedBlock))
@@ -151,6 +152,7 @@ namespace MarioClone.Level
                 else if (sameColor(pixel, Colors.Coin))
                 {
                     var coin = PowerUpFactory.Create(PowerUpType.Coin, position);
+                    coin.State = new CoinStaticState(coin);
                     Grid.Add(coin);
                 }
                 /*else if (sameColor(pixel, Colors.Pipe))

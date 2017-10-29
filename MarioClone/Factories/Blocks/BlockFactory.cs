@@ -9,7 +9,6 @@ namespace MarioClone.Factories
         StairBlock,
         UsedBlock,
         QuestionBlock,
-        CoinBlock,
         BreakableBrick,
         FloorBlock,
         BrickPiece,
@@ -48,8 +47,6 @@ namespace MarioClone.Factories
             {
                 case BlockType.BreakableBrick:
                     return new BreakableBrickObject(SpriteFactory.Create(type), position);
-                case BlockType.CoinBlock:
-                    return new CoinBrickObject(SpriteFactory.Create(type), position);
                 case BlockType.BrickPiece:
                     return new BrickPieceObject(SpriteFactory.Create(type),position);
                 case BlockType.FloorBlock:

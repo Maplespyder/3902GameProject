@@ -55,8 +55,8 @@ namespace MarioClone
             };
 
 			camera = new Camera(GraphicsDevice.Viewport);
-			camera.Limits = new Rectangle(0, 0, 2167, 960); //set limit of world
-			gameGrid = new GameGrid(12, 16, 1600, camera);
+			camera.Limits = new Rectangle(0, 0, 4800, 960); //set limit of world
+			gameGrid = new GameGrid(12, 48, 4800, camera);
 			base.Initialize();
 		}
 
@@ -174,6 +174,15 @@ namespace MarioClone
 			{
                 List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects();
                 List<AbstractGameObject> removed = CollisionManager.ProcessFrame(gameTime, collidables, gameGrid);
+
+                List<AbstractGameObject> otherObjects = gameGrid.GetAllCurrenStaticGameObjects();
+                foreach(AbstractGameObject obj in otherObjects)
+                {
+                    if(obj.Update(gameTime, 1))
+                    {
+                        removed.Add(obj);
+                    }
+                }
 
                 foreach(AbstractGameObject obj in removed)
                 {
