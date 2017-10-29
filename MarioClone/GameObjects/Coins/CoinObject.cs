@@ -7,6 +7,7 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MarioClone.Collision;
+using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
@@ -14,5 +15,28 @@ namespace MarioClone.GameObjects
     {
 
         public CoinObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green) { }
+
+        /*public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            if (gameObject is Mario && (side == Side.Top || side == Side.Bottom || side == Side.Right || side == Side.Left))
+            {
+                BoundingBox = null;
+            }
+            return true;
+
+        }
+
+        public override bool Update(GameTime gameTime, float percent)
+        {
+            /* if (BoundingBox == null)
+             {
+                 return true;
+             }
+             base.Update(gameTime, percent);
+             return false;
+            return true;
+        }*/
     }
+
+
 }
