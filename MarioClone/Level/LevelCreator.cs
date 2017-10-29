@@ -155,11 +155,11 @@ namespace MarioClone.Level
                     coin.State = new CoinStaticState(coin);
                     Grid.Add(coin);
                 }
-                /*else if (sameColor(pixel, Colors.Pipe))
+                else if (sameColor(pixel, Colors.PipeSegment))
                 {
-                    var coin = PowerUpFactory.Create(PowerUpType.Coin, position);
-                    Grid.Add(coin);
-                }*/
+                    var pipeSegment = BlockFactory.Instance.Create(BlockType.PipeSegment, position);
+                    Grid.Add(pipeSegment);
+                }
             }
 
 		}
