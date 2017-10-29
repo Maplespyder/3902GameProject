@@ -20,7 +20,7 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is Mario && (side == Side.Top || side == Side.Bottom || side == Side.Right || side == Side.Left))
             {
-                BoundingBox = null;
+                isCollided = true;
             }
             return true;
 
@@ -28,7 +28,7 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
-            if (BoundingBox == null)
+            if (isCollided)
              {
                  return true;
              }
