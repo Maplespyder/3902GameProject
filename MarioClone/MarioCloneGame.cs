@@ -248,7 +248,7 @@ namespace MarioClone
 
         public void ResetLevelCommand()
         {
-            gameGrid = new GameGrid(12, 16, 2176, camera);
+            gameGrid = new GameGrid(12, 192, 4800, camera);
             level.Grid = gameGrid;
             level.Create();
         }

@@ -46,9 +46,13 @@ namespace MarioClone.GameObjects
                     Velocity = new Vector2(Velocity.X, 0);
                     Gravity = false;
                 }
-                else if (side == Side.Left || side == Side.Right)
+                else if (side == Side.Left)
                 {
-                    Velocity = new Vector2(-Velocity.X, Velocity.Y);
+                    Velocity = new Vector2(2, Velocity.Y);
+                }
+                else if (side == Side.Right)
+                {
+                    Velocity = new Vector2(-2, Velocity.Y);
                 }
             }
 

@@ -28,15 +28,15 @@ namespace MarioClone.States
                 {
                     return true;
                 }
-                else if(Context is RedMushroomObject)
+                else if (Context is RedMushroomObject)
                 {
                     Context.State = new MushroomMovingState(Context);
                 }
-                else if(Context is GreenMushroomObject)
+                else if (Context is GreenMushroomObject)
                 {
                     Context.State = new MushroomMovingState(Context);
                 }
-                else if(Context is FireFlowerObject)
+                else if (Context is FireFlowerObject)
                 {
                     Context.State = new FireFlowerStaticState(Context);
                 }
