@@ -38,7 +38,7 @@ namespace MarioClone.Collision
             }
         }
 
-        public GameGrid(int rows, int columns, int widthOfGame, Camera camera)
+        public GameGrid(int rows, int widthOfGame, Camera camera)
         {
             gridInstance = this;
 

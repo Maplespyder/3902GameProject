@@ -56,7 +56,7 @@ namespace MarioClone
 
 			camera = new Camera(GraphicsDevice.Viewport);
 			camera.Limits = new Rectangle(0, 0, 4800, 960); //set limit of world
-			gameGrid = new GameGrid(12, 48, 4800, camera);
+			gameGrid = new GameGrid(12, 4800, camera);
 			base.Initialize();
 		}
 
@@ -248,7 +248,7 @@ namespace MarioClone
 
         public void ResetLevelCommand()
         {
-            gameGrid = new GameGrid(12, 192, 4800, camera);
+            gameGrid = new GameGrid(12, 4800, camera);
             level.Grid = gameGrid;
             level.Create();
         }

@@ -13,13 +13,11 @@ namespace MarioClone.Cam
 		private SpriteBatch _spriteBatch;
 		private Camera _camera;
 		private Dictionary<Texture2D, Vector2> sprites = new Dictionary<Texture2D, Vector2>();
-		private GraphicsDeviceManager _graphics;
 
 		public Background(SpriteBatch spriteBatch, Camera camera, GraphicsDeviceManager graphics)
 		{
 			_spriteBatch = spriteBatch;
 			_camera = camera;
-			_graphics = graphics;
 			initializeSprites();
 			//add sprites here
 		}
