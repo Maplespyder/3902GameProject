@@ -28,7 +28,6 @@ namespace MarioClone.States.EnemyStates
                 Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.RedKoopa);
             }
 
-            Context.BoundingBox = null;
         }
 
         public override bool Update(GameTime gameTime, float percent)
