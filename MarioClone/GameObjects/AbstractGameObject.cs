@@ -109,7 +109,7 @@ namespace MarioClone.GameObjects
             return false;
         }
 
-        public virtual void FixClipping(Vector2 correction)
+        public virtual void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
         {
             //most things don't actually fix any clipping
         }

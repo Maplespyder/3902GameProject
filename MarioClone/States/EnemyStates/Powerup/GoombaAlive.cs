@@ -19,7 +19,6 @@ namespace MarioClone.States
         {
             Context.PowerupState = new GoombaDead(Context);
             Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.Goomba);
-            Context.BoundingBox = null;
         }
 
         public override bool Update(GameTime gameTime, float percent)

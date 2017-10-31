@@ -205,7 +205,7 @@ namespace MarioClone.GameObjects
             return true;
         }
 
-        public override void FixClipping(Vector2 correction)
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
         {
             Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
             BoundingBox.UpdateHitBox(Position, Sprite);

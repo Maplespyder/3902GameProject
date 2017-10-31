@@ -393,7 +393,7 @@ namespace MarioClone.Collision
             {
                 HitBox oldHitbox = (obj.BoundingBox != null) ? new HitBox(obj.BoundingBox) : null;
                 if (obj.Update(gameTime, percentToUpdate))
-                {   
+                { 
                     removed.Add(obj);
                 }
 
@@ -551,7 +551,7 @@ namespace MarioClone.Collision
                             if (RectangleSidesTouching(obj1.BoundingBox.Dimensions, obj2.BoundingBox.Dimensions)
                                 || obj1.BoundingBox.Dimensions.Intersects(obj2.BoundingBox.Dimensions))
                             {
-                                obj1.FixClipping(FindClippingCorrection(obj1, obj2));
+                                obj1.FixClipping(FindClippingCorrection(obj1, obj2), obj1, obj2);
                             }
                         }
                     }
@@ -566,7 +566,7 @@ namespace MarioClone.Collision
                             if (RectangleSidesTouching(obj2.BoundingBox.Dimensions, obj1.BoundingBox.Dimensions)
                                 || (obj2.BoundingBox.Dimensions.Intersects(obj1.BoundingBox.Dimensions)))
                             {
-                                obj2.FixClipping(FindClippingCorrection(obj2, obj1));
+                                obj2.FixClipping(FindClippingCorrection(obj2, obj1), obj1, obj2);
                             }
                         }
                     }

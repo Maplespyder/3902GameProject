@@ -16,9 +16,11 @@ namespace MarioClone.GameObjects
             PowerupState = new GoombaAlive(this);
             BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
-        }
+			Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
 
-        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+		}
+
+		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is Mario)
             {
@@ -29,20 +31,23 @@ namespace MarioClone.GameObjects
                     return true;
                 }
             }
+			else if(gameObject is AbstractBlock)
+			{
+				if (side == Side.Left)
+				{
+					Velocity = new Vector2(EnemyHorizontalMovementSpeed, Velocity.Y);
+				}else if(side == Side.Right)
+				{
+					Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
+				}
+			}
             return false;
         }
 
         public override bool Update(GameTime gameTime, float percent)
         {
-            if (Mario.Instance.Position.X <= Position.X)
-            {
-                Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
-            }
-            else
-            {
-                Velocity = new Vector2(EnemyHorizontalMovementSpeed, 0);
-            }
-            bool retVal = PowerupState.Update(gameTime, percent);
+			Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
+			bool retVal = PowerupState.Update(gameTime, percent);
             base.Update(gameTime, percent);
             return retVal;
         }

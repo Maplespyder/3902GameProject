@@ -25,13 +25,27 @@ namespace MarioClone.GameObjects
             }
             
             Gravity = true;
-            return isCollided || base.Update(gameTime, percent);
+			return isCollided || base.Update(gameTime, percent);
         }
 
-        public override void FixClipping(Vector2 correction)
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
         {
-            Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-            BoundingBox.UpdateHitBox(Position, Sprite);
+			if(!(obj1 is GreenMushroomObject))
+			{
+				if(obj1 is AbstractBlock || obj1 is Mario)
+				{
+					Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+					BoundingBox.UpdateHitBox(Position, Sprite);
+				}
+			}
+			else
+			{
+				if(obj2 is AbstractBlock || obj2 is Mario)
+				{
+					Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+					BoundingBox.UpdateHitBox(Position, Sprite);
+				}
+			}
         }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
