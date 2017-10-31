@@ -14,12 +14,12 @@ namespace MarioClone.GameObjects
 
     public abstract class AbstractGameObject : IDraw
     {
-        public HitBox BoundingBox { get; set; }
+        public virtual HitBox BoundingBox { get; set; }
 
-        public ISprite Sprite { get; set; }
+        public virtual ISprite Sprite { get; set; }
 
         private Vector2 position;
-        public Vector2 Position
+        public virtual Vector2 Position
         {
             get
             {

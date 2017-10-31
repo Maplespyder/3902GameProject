@@ -18,7 +18,7 @@ namespace MarioClone.GameObjects
         private AbstractBlock revealedBrick = null;
 
         #region Property Overrides
-        public new HitBox BoundingBox
+        public override HitBox BoundingBox
         {
             get
             {
@@ -44,7 +44,7 @@ namespace MarioClone.GameObjects
             }
         }
 
-        public new ISprite Sprite
+        public override ISprite Sprite
         {
             get
             {
@@ -70,7 +70,7 @@ namespace MarioClone.GameObjects
             }
         }
 
-        public new Vector2 Position
+        public override Vector2 Position
         {
             get
             {

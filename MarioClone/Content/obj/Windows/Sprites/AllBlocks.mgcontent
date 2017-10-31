@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/AllBlocks.png</SourceFile>
-  <SourceTime>2017-10-21T14:46:47.1621143-04:00</SourceTime>
-  <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/Sprites/AllBlocks.xnb</DestFile>
-  <DestTime>2017-10-31T10:19:33.6829675-04:00</DestTime>
+  <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/Sprites/AllBlocks.png</SourceFile>
+  <SourceTime>2017-10-19T10:55:27.3036107-04:00</SourceTime>
+  <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/Sprites/AllBlocks.xnb</DestFile>
+  <DestTime>2017-10-31T17:04:17.5093769-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
