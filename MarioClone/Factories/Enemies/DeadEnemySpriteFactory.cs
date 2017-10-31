@@ -24,11 +24,11 @@ namespace MarioClone.Factories
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
                         new Rectangle(128, 0, 64, 62));
                 case EnemyType.GreenKoopa:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/GreenKoopa"),
-                        new Rectangle(0, 0, 64, 64));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/GreenKoopaShell"),
+                        new Rectangle(0, 0, 72, 68));
                 case EnemyType.RedKoopa:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/RedKoopa"),
-                        new Rectangle(0, 0, 64, 64));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/RedKoopaShell"),
+                        new Rectangle(0, 0, 72, 68));
                 default:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
                         new Rectangle(128, 0, 64, 64));
