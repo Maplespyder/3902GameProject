@@ -54,6 +54,7 @@ namespace MarioClone.GameObjects
                 {
                     Velocity = new Vector2(-2, Velocity.Y);
                 }
+               
             }
 
             return true;

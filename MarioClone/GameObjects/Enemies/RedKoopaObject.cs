@@ -39,8 +39,7 @@ namespace MarioClone.GameObjects
         public override bool Update(GameTime gameTime, float percent)
         {
             bool retVal = PowerupState.Update(gameTime, percent);
-            return base.Update(gameTime, percent);
-            return retVal;
+            return base.Update(gameTime, percent) || retVal;
         }
     }
 }
