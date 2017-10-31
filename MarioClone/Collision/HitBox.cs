@@ -59,6 +59,9 @@ namespace MarioClone.Collision
 
         public void UpdateHitBox(Vector2 Position, ISprite Sprite)
 		{
+
+
+			Position = new Vector2(Position.X, Position.Y - Sprite.SourceRectangle.Height);
 			Dimensions = new Rectangle((int)Position.X - LeftX_OffSet, (int)Position.Y - TopY_OffSet,
 				Sprite.SourceRectangle.Width + (LeftX_OffSet + RightX_OffSet), Sprite.SourceRectangle.Height + (TopY_OffSet + BottomY_OffSet));
 
