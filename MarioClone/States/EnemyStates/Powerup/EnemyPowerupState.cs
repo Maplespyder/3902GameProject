@@ -12,6 +12,7 @@ namespace MarioClone.States
     {
         protected AbstractEnemy Context { get; set; }
 
+
         protected EnemyPowerupState(AbstractEnemy context)
         {
             Context = context;
