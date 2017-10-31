@@ -35,7 +35,18 @@ namespace MarioClone.States.EnemyStates
             if (Context.TimeDead >= AbstractEnemy.MaxTimeShell)
             {
                 BecomeAlive();
-                return true;
+                if (Context.Orientation == Facing.Right)
+                {
+                    Context.Velocity = new Vector2(1f, Context.Velocity.Y);
+                    
+
+                }
+                else if (Context.Orientation == Facing.Left)
+                {
+                    Context.Velocity = new Vector2(-1f, Context.Velocity.Y);
+                   
+                }
+                Context.Position = new Vector2(Context.Position.X + Context.Velocity.X, Context.Position.Y + Context.Velocity.Y);
             }
             return false;
         }
