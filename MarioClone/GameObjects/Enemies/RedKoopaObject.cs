@@ -17,6 +17,7 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
             PowerupState = new KoopaAlive(this);
+            Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
         }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
@@ -32,12 +33,26 @@ namespace MarioClone.GameObjects
                 }
 
             }
+            else if (gameObject is AbstractBlock)
+            {
+                if (side == Side.Left)
+                {
+                    Velocity = new Vector2(EnemyHorizontalMovementSpeed, Velocity.Y);
+                    Orientation = Facing.Right;
+                }
+                else if (side == Side.Right)
+                {
+                    Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
+                    Orientation = Facing.Left;
+                }
+            }
             return false;
 
         }
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
             bool retVal = PowerupState.Update(gameTime, percent);
             return base.Update(gameTime, percent) || retVal;
         }

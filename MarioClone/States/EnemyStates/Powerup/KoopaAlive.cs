@@ -27,6 +27,7 @@ namespace MarioClone.States.EnemyStates
             {
                 Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.RedKoopa);
             }
+            
 
         }
 

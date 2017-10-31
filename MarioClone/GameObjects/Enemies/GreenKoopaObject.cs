@@ -34,10 +34,12 @@ namespace MarioClone.GameObjects
                 if (side == Side.Left)
                 {
                     Velocity = new Vector2(EnemyHorizontalMovementSpeed, Velocity.Y);
+                    Orientation = Facing.Right;
                 }
                 else if (side == Side.Right)
                 {
                     Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
+                    Orientation = Facing.Left;
                 }
             }
                 return false;
