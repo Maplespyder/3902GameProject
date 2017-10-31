@@ -34,6 +34,14 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            if (Mario.Instance.Position.X <= Position.X)
+            {
+                Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
+            }
+            else
+            {
+                Velocity = new Vector2(EnemyHorizontalMovementSpeed, 0);
+            }
             bool retVal = PowerupState.Update(gameTime, percent);
             base.Update(gameTime, percent);
             return retVal;

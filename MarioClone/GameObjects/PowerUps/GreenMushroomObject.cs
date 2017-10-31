@@ -23,6 +23,7 @@ namespace MarioClone.GameObjects
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration); 
             }
+            
             Gravity = true;
             return isCollided || base.Update(gameTime, percent);
         }
