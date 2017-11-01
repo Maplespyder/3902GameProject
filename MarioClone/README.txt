@@ -82,6 +82,17 @@ Warnings ignored for same reasona as the previous sprints:
 -CA1014: Mark 'MarioClone.exe' with CLSCompliant(true) because it exposes externally visible types.
 -CA1001: Implement IDisposable on 'HitBox'
 -CA1001: Implement IDisposable on 'LevelCreator'
+-CA 1814: Replace gamegrid with jagged array
+
+
+-Warning	CA1804	'CollisionManager.filterCollisions(List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>>, List<Tuple<float, Side, AbstractGameObject, AbstractGameObject>>, out float)' declares a variable, 'side', of type 'Side', which is never used or is only assigned to. Use this variable or remove it.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Collision\CollisionManager.cs	452	Active
+			-we will need this variable 
+-Warning	CA1502	'CollisionManager.ProcessFrame(GameTime, List<AbstractGameObject>, GameGrid)' has a cyclomatic complexity of 57. Rewrite or refactor the method to reduce complexity to 25.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Collision\CollisionManager.cs	496	Active
+			-our current implementation is working well and we need all of the logic for each type of gameobject represented in our bitmap. 
+-Warning	CA1051	Because field 'BreakableBrickObject.PieceList' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Bricks\BreakableBrickObject.cs	14	Active
+			-its okay that it is not private and we need to keep it public so it
+-Warning	CA1002	Change 'List<AbstractGameObject>' in 'BreakableBrickObject.PieceList' to use Collection<T>, ReadOnlyCollection<T> or KeyedCollection<K,V>	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Bricks\BreakableBrickObject.cs	14	Active
+
 
 Additional Ignores:
 -CA2214: (There are ~38 of these): 
