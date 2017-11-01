@@ -137,7 +137,7 @@ namespace MarioClone
 
             // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
-            AddCommandToAllGamepads(Buttons.A, new JumpCommand(Mario.Instance));
+            AddCommandToAllGamepads(Buttons.DPadUp, new JumpCommand(Mario.Instance));
             AddCommandToAllGamepads(Buttons.DPadDown, new CrouchCommand(Mario.Instance));
             AddCommandToAllGamepads(Buttons.DPadRight, new MoveRightCommand(Mario.Instance));
             AddCommandToAllGamepads(Buttons.DPadLeft, new MoveLeftCommand(Mario.Instance));
