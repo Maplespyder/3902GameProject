@@ -69,3 +69,9 @@ object would want to hold a reference to a particular kind of block factory. I t
 all block factory types.
 
 SPRINT 3 README
+
+There are no major concerns for this sprint; however, there are some things I would like to point out. So when the mushrooms are within the viewport window
+they are currently floating up before gravity makes them fall down. Also, we did add in a pipe but we have yet to add in a pirahna but I do not believe
+it was explicitly listed in any stories for this sprint. 
+
+
