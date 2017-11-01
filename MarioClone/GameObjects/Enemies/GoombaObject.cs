@@ -21,7 +21,23 @@ namespace MarioClone.GameObjects
 
 		}
 
-		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            if (obj1 is AbstractBlock && obj1.Visible)
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+
+            }
+            else if (obj2 is AbstractBlock && obj2.Visible)
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+            }
+
+        }
+
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (side == Side.Bottom)
             {
