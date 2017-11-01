@@ -79,7 +79,7 @@ Warnings ignored for same reason as previous sprints:
 -CA1001: Implement IDisposable on 'LevelCreator'
 
 Additional Ignores:
--CA2214: (There are ~30 of these): 
+-CA2214: (There are ~38 of these): 
 As Anna discussed in class with Scott, we're ignoring this because we could not devise a work around. 
 
 

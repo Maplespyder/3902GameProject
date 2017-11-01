@@ -18,7 +18,7 @@ namespace MarioClone.Controllers
             get { return inputToCommandMap; }
         }
 
-        protected Dictionary<int, ICommand> ReleasedInputToCommandMap { get; set; }
+        protected Dictionary<int, ICommand> ReleasedInputToCommandMap { get; }
 
         public abstract bool AddInputChord(int modifier, int input, ICommand command);
 

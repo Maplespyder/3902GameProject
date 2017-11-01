@@ -450,8 +450,6 @@ namespace MarioClone.Collision
             {
                 Tuple<float, Side, AbstractGameObject, AbstractGameObject> collision = collisions[i];
                 Side side = collision.Item2;
-                AbstractGameObject obj1 = collision.Item3;
-                AbstractGameObject obj2 = collision.Item4;
 
                 repeatCollision = false;
                 foreach (Tuple<float, Side, AbstractGameObject, AbstractGameObject> done in completed)
@@ -579,14 +577,14 @@ namespace MarioClone.Collision
 
 
                     anySignificantCollision = true;
-                    HitBox oldHitbox1 = new HitBox(obj1.BoundingBox);
-                    HitBox oldHitbox2 = new HitBox(obj2.BoundingBox);
+                  
 
                     obj1.CollisionResponse(obj2, side, gameTime);
                     obj2.CollisionResponse(obj1, GetOppositeSide(side), gameTime);
 
                     if (obj1.BoundingBox != null)
                     {
+                        HitBox oldHitbox1 = new HitBox(obj1.BoundingBox);
                         oldHitbox1 = obj1.BoundingBox;
                         if ((obj2.BoundingBox != null)
                             && !(obj1 is AbstractBlock || obj1 is CoinObject || obj1 is FireFlowerObject)
@@ -602,6 +600,7 @@ namespace MarioClone.Collision
 
                     if (obj2.BoundingBox != null)
                     {
+                        HitBox oldHitbox2 = new HitBox(obj2.BoundingBox);
                         oldHitbox2 = obj2.BoundingBox;
                         if ((obj1.BoundingBox != null)
                             && !(obj2 is AbstractBlock || obj2 is CoinObject || obj2 is FireFlowerObject)
