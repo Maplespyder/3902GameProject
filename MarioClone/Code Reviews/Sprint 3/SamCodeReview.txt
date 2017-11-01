@@ -1,0 +1,16 @@
+﻿Code Review Template
+Author of Review: Sam Trabitz
+Date of Review: 10/31/2017
+File Under Review: GreenMushroomObject.cs
+Author(s) of File: Everyone?
+Comments on Code Quality:
+
+Looking specifically on FixClipping and CollisionResponse. I think this is fairly clean, but I am not sure if clipping should be fixed specifically on this level
+for Mushrooms. I think a lot of powerups can have the same clipping cases and can be handled in some sort of parent class. I think we need to change the draw order
+on this class, because a lot of the time I can see the mushroom clip in front of and behind the same object multiple times, which is definitely not intended.
+The collision response is a little messy, since a lot of the if statements seem to be tackling specific bugs that aren't apparent just from looking at the function.
+We should change it to make more sense from a quick glance.
+
+Minutes to Complete: 10 min
+Hypothetical Change to File:
+We probably need to start moving stuff to constants elsewhere, because the specific values are getting a little messy.

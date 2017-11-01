@@ -159,6 +159,11 @@ namespace MarioClone.Collision
 
             foreach (Point pt in newSquares)
             {
+                if((pt.X >= Columns || pt.X < 0) || (pt.Y >= Rows || pt.Y < 0))
+                {
+                    continue;
+                }
+                
                 gameGrid[pt.X, pt.Y].Add(obj);
             }
 
@@ -226,8 +231,12 @@ namespace MarioClone.Collision
 
         public List<AbstractGameObject> GetAllCurrentGameObjects()
         {
-			int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
-            int rightHandColumn =(int)(CurrentRightSideViewPort / GridSquareWidth);
+            int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+            if (leftHandColumn > 0) { leftHandColumn--; }
+
+            int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+            if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
             List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
             for (int rows = 0; rows < Rows; rows++)
@@ -243,8 +252,12 @@ namespace MarioClone.Collision
 
         public List<AbstractGameObject> GetCurrentMovingAndPlayerGameObjects()
         {
-            int leftHandColumn =(int)(CurrentLeftSideViewPort / GridSquareWidth);
+            int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+            if (leftHandColumn > 0) { leftHandColumn--; }
+
             int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+            if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
             List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
             for (int rows = 0; rows < Rows; rows++)
@@ -262,7 +275,10 @@ namespace MarioClone.Collision
         public List<AbstractGameObject> GetAllCurrenStaticGameObjects()
         {
             int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+            if (leftHandColumn > 0) { leftHandColumn--; }
+
             int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+            if (rightHandColumn < Columns - 1) { rightHandColumn ++; }
             List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
             for (int rows = 0; rows < Rows; rows++)

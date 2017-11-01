@@ -238,6 +238,7 @@
     <Content Include="Code Reviews\Sprint 3\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\JacobCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 3\SamCodeReview.txt" />
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

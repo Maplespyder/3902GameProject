@@ -641,11 +641,7 @@ namespace MarioClone.Collision
                 newPosition.X = 0;
             }
 
-            if ((newPosition.Y) > GameGrid.Instance.ScreenHeight)
-            {
-                newPosition.Y = GameGrid.Instance.ScreenHeight - objectDimensions.Height;
-            }
-            else if (newPosition.Y < 0)
+            if (newPosition.Y < 0)
             {
                 newPosition.Y = 0;
             }
