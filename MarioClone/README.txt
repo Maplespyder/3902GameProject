@@ -97,5 +97,17 @@ Warnings ignored for same reasona as the previous sprints:
 Additional Ignores:
 -CA2214: (There are ~38 of these): 
 As Anna discussed in class with Scott, we're ignoring this because we could not devise a work around. 
-
+-CA1002: These lists were never intended to be subclassed, and the CA1002 explanation on Microsoft's
+website https://msdn.microsoft.com/en-us/library/ms182142.aspx says the following: 
+"System.Collections.Generic.List<T> is a generic collection that is
+designed for performance and not inheritance. 
+System.Collections.Generic.List<T> does not contain virtual members 
+that make it easier to change the behavior of an inherited class. 
+The following generic collections are designed for inheritance and 
+should be exposed instead of System.Collections.Generic.List<T>."
+As a matter of fact, these lists were exactly intended for performance,
+as they were what managed all the objects and sorted, searched, etc. the
+collisions. The fact that they are passed around does not change the fact
+that there was no intent to inherit them, and in fact they never appear
+in an inheritable or inherited class.
 
