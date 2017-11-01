@@ -172,7 +172,7 @@ namespace MarioClone.GameObjects
                             Sprite = SpriteFactory.Create(MarioAction.Idle);
                             PreviousActionState = ActionState;
                             ActionState = MarioIdle.Instance;
-                        } 
+                        }
                     }
                 }
                 else if (side == Side.Left || side == Side.Right)
@@ -194,7 +194,7 @@ namespace MarioClone.GameObjects
             else if (gameObject is FireFlowerObject)
             {
                 BecomeFire();
-            }         
+            }
             else
             {
                 Velocity = new Vector2(0, 0);
