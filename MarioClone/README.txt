@@ -67,3 +67,11 @@ static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at l
 -Don't want to do this in case block factory is later subclassed to provide different versions of block factory, in which case an
 object would want to hold a reference to a particular kind of block factory. I think making the create static would push it out across
 all block factory types.
+
+SPRINT 3 README
+
+There are no major concerns for this sprint; however, there are some things I would like to point out. So when the mushrooms are within the viewport window
+they are currently floating up before gravity makes them fall down. Also, we did add in a pipe but we have yet to add in a pirahna but I do not believe
+it was explicitly listed in any stories for this sprint. 
+
+
