@@ -228,6 +228,24 @@ namespace MarioClone.Collision
             return sweptBox;
         }
 
+        public static bool CollisionCompareOpposites(Tuple<float, Side, AbstractGameObject, AbstractGameObject> col1, Tuple<float, Side, AbstractGameObject, AbstractGameObject> col2)
+        {
+            if (col1.Item1 != col2.Item1)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(col1.Item3, col2.Item4) && ReferenceEquals(col1.Item4, col2.Item3))
+            {
+                if (col1.Item2 == GetOppositeSide(col2.Item2))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static bool CollisionCompare(Tuple<float, Side, AbstractGameObject, AbstractGameObject> col1, Tuple<float, Side, AbstractGameObject, AbstractGameObject> col2)
         {
             if (col1.Item1 != col2.Item1)
@@ -284,7 +302,8 @@ namespace MarioClone.Collision
                     return true;
                 }
             }
-            else if ((rect1.Top >= rect2.Top && rect1.Top <= rect2.Bottom)
+
+            if ((rect1.Top >= rect2.Top && rect1.Top <= rect2.Bottom)
                     || (rect1.Bottom >= rect2.Top && rect1.Bottom <= rect2.Bottom))
             {
                 if (rect1.Left == rect2.Right)
@@ -426,7 +445,8 @@ namespace MarioClone.Collision
 
             bool repeatCollision = true;
 
-            for (int i = 0; i < collisions.Count && repeatCollision; i++)
+            for (int i = 0; i < collisions.Count 
+                && (repeatCollision || ((i + 1 < collisions.Count) && (collisions[i+1].Item1 == earliestCollisionPercent))); i++)
             {
                 Tuple<float, Side, AbstractGameObject, AbstractGameObject> collision = collisions[i];
                 Side side = collision.Item2;
@@ -437,6 +457,21 @@ namespace MarioClone.Collision
                 foreach (Tuple<float, Side, AbstractGameObject, AbstractGameObject> done in completed)
                 {
                     if (CollisionCompare(collision, done))
+                    {
+                        repeatCollision = true;
+                        removed.Add(collision);
+                        if ((i + 1) < collisions.Count)
+                        {
+                            earliestCollisionPercent = collisions[i + 1].Item1;
+                        }
+                        break;
+                    }
+                }
+
+                for (int j = i; j < collisions.Count; j++)
+                {
+                    Tuple<float, Side, AbstractGameObject, AbstractGameObject> coll = collisions[j];
+                    if (CollisionCompareOpposites(collision, coll))
                     {
                         repeatCollision = true;
                         removed.Add(collision);
@@ -521,8 +556,17 @@ namespace MarioClone.Collision
 
                 if ((earliestCollisionPercent - percentCompleted ) != 0)
                 {
-                    removedGameObjects.AddRange(UpdateObjects(collidables, grid, gameTime, earliestCollisionPercent - percentCompleted));
-                    collidables.RemoveAll((x) => removedGameObjects.Contains(x));
+                    int numRemoved = 1;
+                    while (numRemoved != 0)
+                    {
+                        removedGameObjects.AddRange(UpdateObjects(collidables, grid, gameTime, earliestCollisionPercent - percentCompleted));
+                        percentCompleted += (earliestCollisionPercent - percentCompleted);
+                        collidables.RemoveAll((x) => removedGameObjects.Contains(x));
+
+                        numRemoved = collisions.RemoveAll((x) => (removedGameObjects.Contains(x.Item3) || removedGameObjects.Contains(x.Item4)));
+                        filterCollisions(completedCollisions, collisions, out earliestCollisionPercent);
+                        collisions.Sort((x, y) => (x.Item1.CompareTo(y.Item1)));
+                    }
                 }
                 
                 bool anySignificantCollision = false;

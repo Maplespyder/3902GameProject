@@ -154,7 +154,7 @@ namespace MarioClone.Collision
 
             foreach (Point pt in oldSquares)
             {
-                gameGrid[pt.X, pt.Y].Remove(obj);
+                gameGrid[pt.X, pt.Y].RemoveAll((x) => ReferenceEquals(x, obj));
             }
 
             foreach (Point pt in newSquares)
