@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using MarioClone.Collision;
 
-namespace MarioClone.States.EnemyStates
+namespace MarioClone.States
 {
-    class KoopaDead : EnemyPowerupState
+    public class KoopaDead : EnemyPowerupState
     {
         public KoopaDead(AbstractEnemy context) : base(context) { }
 
@@ -18,38 +18,26 @@ namespace MarioClone.States.EnemyStates
 
         public override void BecomeAlive()
         {
-            Context.PowerupState = new KoopaAlive(Context);
+            Context.PowerupState = new GoombaAlive(Context);
             if (Context is GreenKoopaObject)
             {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopa);
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopaShell);
             }
             else if (Context is RedKoopaObject)
             {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopa);
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopaShell);
             }
         }
 
         public override bool Update(GameTime gameTime, float percent)
         {
             Context.TimeDead += gameTime.ElapsedGameTime.Milliseconds;
-            if (Context.TimeDead >= AbstractEnemy.MaxTimeShell)
+            if (Context.TimeDead >= AbstractEnemy.MaxTimeDead)
             {
-                BecomeAlive();
-                if (Context.Orientation == Facing.Right)
-                {
-                    Context.Velocity = new Vector2(1f, Context.Velocity.Y);
-                    
-
-                }
-                else if (Context.Orientation == Facing.Left)
-                {
-                    Context.Velocity = new Vector2(-1f, Context.Velocity.Y);
-                   
-                }
-                Context.Position = new Vector2(Context.Position.X + Context.Velocity.X, Context.Position.Y + Context.Velocity.Y);
+                Context.BoundingBox = new HitBox(-4, -4, -4, -4, Color.Red);
+                return true;
             }
             return false;
         }
-
     }
 }

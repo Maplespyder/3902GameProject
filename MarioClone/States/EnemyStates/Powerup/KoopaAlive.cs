@@ -18,15 +18,15 @@ namespace MarioClone.States.EnemyStates
 
         public override void BecomeDead()
         {
-            Context.PowerupState = new KoopaDead(Context);
+            Context.PowerupState = new KoopaShell(Context);
             Context.Velocity = new Vector2(0, 0);
             if (Context is GreenKoopaObject)
             {
-                Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.GreenKoopa);
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopaShell);
             }
             else if (Context is RedKoopaObject)
             {
-                Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.RedKoopa);
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopaShell);
             }
             
 
