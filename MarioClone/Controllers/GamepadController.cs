@@ -39,6 +39,8 @@ namespace MarioClone.Controllers
         {
             GamePadState currentState = GamePad.GetState(player);
 
+            Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+
             if (currentState.IsButtonDown(Buttons.Start)) 
             {
                 MarioCloneGame.Paused = !MarioCloneGame.Paused;
@@ -46,9 +48,23 @@ namespace MarioClone.Controllers
 
             if (!MarioCloneGame.Paused)
             {
+                foreach (Buttons button in buttonList)
+                {
+                    if (lastState.IsButtonDown(button))
+                    {
+                        ICommand command = null;
+                        if (currentState.IsButtonUp(button))
+                        {
+                            if ((command == null) && ReleasedInputToCommandMap.TryGetValue((int)button, out command))
+                            {
+                                command.InvokeCommand();
+                            }
+                        } 
+                    }
+                }
+
                 if (currentState.IsConnected)
                 {
-                    Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
                     foreach (Buttons button in buttonList)
                     {
                         if (lastState.IsButtonUp(button) && currentState.IsButtonDown(button))
