@@ -111,7 +111,7 @@ namespace MarioClone.Level
 				else if (sameColor(pixel, Colors.FloorBlock))
 				{
 					var initializer = BlockFactory.Instance.Create(BlockType.FloorBlock, position);
-					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+					initializer.Position = new Vector2(initializer.Position.X, (initializer.Position.Y + initializer.Sprite.SourceRectangle.Height));
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.StairBlock))
