@@ -229,68 +229,77 @@ namespace MarioClone.Collision
             return neighbours.ToList();
         }
 
-        public List<AbstractGameObject> GetAllCurrentGameObjects()
+        public List<AbstractGameObject> GetAllCurrentGameObjects
         {
-            int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
-            if (leftHandColumn > 0) { leftHandColumn--; }
-
-            int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
-            if (rightHandColumn < Columns - 1) { rightHandColumn++; }
-
-            List<AbstractGameObject> objectList = new List<AbstractGameObject>();
-
-            for (int rows = 0; rows < Rows; rows++)
+            get
             {
-                for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
-                {
-                    objectList = objectList.Union(gameGrid[columns, rows]).ToList();
-                }
-            }
+                int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+                if (leftHandColumn > 0) { leftHandColumn--; }
 
-            return objectList;
+                int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+                if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
+                List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+                for (int rows = 0; rows < Rows; rows++)
+                {
+                    for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                    {
+                        objectList = objectList.Union(gameGrid[columns, rows]).ToList();
+                    }
+                }
+
+                return objectList;
+            }
         }
 
-        public List<AbstractGameObject> GetCurrentMovingAndPlayerGameObjects()
+        public List<AbstractGameObject> GetCurrentMovingAndPlayerGameObjects
         {
-            int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
-            if (leftHandColumn > 0) { leftHandColumn--; }
-
-            int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
-            if (rightHandColumn < Columns - 1) { rightHandColumn++; }
-
-            List<AbstractGameObject> objectList = new List<AbstractGameObject>();
-
-            for (int rows = 0; rows < Rows; rows++)
+            get 
             {
-                for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
-                {
-                    objectList = objectList.Union(gameGrid[columns, rows])
-                        .Where((x) => (x.Velocity.X != 0) || (x.Velocity.Y != 0) || (x is Mario)).ToList();
-                }
-            }
+                int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+                if (leftHandColumn > 0) { leftHandColumn--; }
 
-            return objectList;
+                int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+                if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
+                List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+                for (int rows = 0; rows < Rows; rows++)
+                {
+                    for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                    {
+                        objectList = objectList.Union(gameGrid[columns, rows])
+                            .Where((x) => (x.Velocity.X != 0) || (x.Velocity.Y != 0) || (x is Mario)).ToList();
+                    }
+                }
+
+                return objectList;
+            }
         }
 
-        public List<AbstractGameObject> GetAllCurrenStaticGameObjects()
+        public List<AbstractGameObject> GetAllCurrentStaticGameObjects
         {
-            int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
-            if (leftHandColumn > 0) { leftHandColumn--; }
-
-            int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
-            if (rightHandColumn < Columns - 1) { rightHandColumn ++; }
-            List<AbstractGameObject> objectList = new List<AbstractGameObject>();
-
-            for (int rows = 0; rows < Rows; rows++)
+            get
             {
-                for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
-                {
-                    objectList = objectList.Union(gameGrid[columns, rows])
-                        .Where((x) => ((x.Velocity.X == 0) && (x.Velocity.Y == 0)) && !(x is Mario)).ToList();
-                }
-            }
+                int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+                if (leftHandColumn > 0) { leftHandColumn--; }
 
-            return objectList;
+                int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+                if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+                List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+                for (int rows = 0; rows < Rows; rows++)
+                {
+                    for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                    {
+                        objectList = objectList.Union(gameGrid[columns, rows])
+                            .Where((x) => ((x.Velocity.X == 0) && (x.Velocity.Y == 0)) && !(x is Mario)).ToList();
+                    }
+                }
+
+                return objectList;
+            }
         }
     }
 }

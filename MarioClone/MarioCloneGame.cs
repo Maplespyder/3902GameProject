@@ -68,7 +68,7 @@ namespace MarioClone
 		{
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-			_background = new Background(spriteBatch, camera, graphics);
+			_background = new Background(spriteBatch, camera);
 
 			GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
@@ -179,10 +179,10 @@ namespace MarioClone
   
 			if (!paused)
 			{
-                List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects();
+                List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
                 List<AbstractGameObject> removed = CollisionManager.ProcessFrame(gameTime, collidables, gameGrid);
 
-                List<AbstractGameObject> otherObjects = gameGrid.GetAllCurrenStaticGameObjects();
+                List<AbstractGameObject> otherObjects = gameGrid.GetAllCurrentStaticGameObjects;
                 foreach(AbstractGameObject obj in otherObjects)
                 {
                     if(obj.Update(gameTime, 1))
@@ -224,7 +224,7 @@ namespace MarioClone
 
         private void DrawWorld(GameTime gameTime)
         {
-            List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects();
+            List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects;
             foreach (var obj in allObjects)
             {
                 obj.Draw(spriteBatch, gameTime);

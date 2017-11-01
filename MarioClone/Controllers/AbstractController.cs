@@ -6,11 +6,11 @@ namespace MarioClone.Controllers
     public abstract class AbstractController
     {
         private Dictionary<int, ICommand> inputToCommandMap;
-
+        private Dictionary<int, ICommand> releasedInputToCommandMap;
         protected AbstractController()
         {
             inputToCommandMap = new Dictionary<int, ICommand>();
-            ReleasedInputToCommandMap = new Dictionary<int, ICommand>();
+            releasedInputToCommandMap = new Dictionary<int, ICommand>();
         }
 
         protected Dictionary<int, ICommand> InputToCommandMap
@@ -18,7 +18,10 @@ namespace MarioClone.Controllers
             get { return inputToCommandMap; }
         }
 
-        protected Dictionary<int, ICommand> ReleasedInputToCommandMap { get; set; }
+        protected Dictionary<int, ICommand> ReleasedInputToCommandMap
+        {
+            get { return releasedInputToCommandMap; }
+        }
 
         public abstract bool AddInputChord(int modifier, int input, ICommand command);
 
