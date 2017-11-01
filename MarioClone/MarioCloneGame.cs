@@ -142,6 +142,13 @@ namespace MarioClone
             AddCommandToAllGamepads(Buttons.DPadRight, new MoveRightCommand(Mario.Instance));
             AddCommandToAllGamepads(Buttons.DPadLeft, new MoveLeftCommand(Mario.Instance));
 
+            foreach (var gamepad in controllerList)
+            {
+                AddCommandToAllGamepads(Buttons.DPadDown, new ReleaseCrouchCommand(Mario.Instance));
+                AddCommandToAllGamepads(Buttons.DPadRight, new ReleaseMoveRightCommand(Mario.Instance));
+                AddCommandToAllGamepads(Buttons.DPadLeft, new ReleaseMoveLeftCommand(Mario.Instance));
+            }
+
             // Add keyboard to list of gamepads
             controllerList.Add(keyboard);
         }
