@@ -75,3 +75,16 @@ they are currently floating up before gravity makes them fall down. Also, we did
 it was explicitly listed in any stories for this sprint. 
 
 
+Ignored code warnings:
+
+Warnings ignored for same reasona as the previous sprints:
+-CA1822 : 'this' parameter (or 'Me' in Visual Basic) of 'EnemyFactory.Create(EnemyType, Vector2)'
+-CA1014: Mark 'MarioClone.exe' with CLSCompliant(true) because it exposes externally visible types.
+-CA1001: Implement IDisposable on 'HitBox'
+-CA1001: Implement IDisposable on 'LevelCreator'
+
+Additional Ignores:
+-CA2214: (There are ~38 of these): 
+As Anna discussed in class with Scott, we're ignoring this because we could not devise a work around. 
+
+
