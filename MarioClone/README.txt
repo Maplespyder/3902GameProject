@@ -67,3 +67,19 @@ static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at l
 -Don't want to do this in case block factory is later subclassed to provide different versions of block factory, in which case an
 object would want to hold a reference to a particular kind of block factory. I think making the create static would push it out across
 all block factory types.
+
+SPRINT 3:
+
+Ignored code warnings:
+
+Warnings ignored for same reason as previous sprints:
+-CA1822 : 'this' parameter (or 'Me' in Visual Basic) of 'EnemyFactory.Create(EnemyType, Vector2)'
+-CA1014: Mark 'MarioClone.exe' with CLSCompliant(true) because it exposes externally visible types.
+-CA1001: Implement IDisposable on 'HitBox'
+-CA1001: Implement IDisposable on 'LevelCreator'
+
+Additional Ignores:
+-CA2214: (There are ~30 of these): 
+As Anna discussed in class with Scott, we're ignoring this because we could not devise a work around. 
+
+

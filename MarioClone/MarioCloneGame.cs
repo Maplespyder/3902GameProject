@@ -68,7 +68,7 @@ namespace MarioClone
 		{
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-			_background = new Background(spriteBatch, camera, graphics);
+			_background = new Background(spriteBatch, camera);
 
 			GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
