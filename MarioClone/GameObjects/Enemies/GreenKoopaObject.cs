@@ -10,6 +10,7 @@ namespace MarioClone.GameObjects
     {
         public GreenKoopaObject(ISprite sprite, Vector2 position) : base(sprite, position)
 		{
+            Gravity = false;
 			BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
             PowerupState = new KoopaAlive(this);
@@ -31,7 +32,11 @@ namespace MarioClone.GameObjects
             }
             else if (gameObject is AbstractBlock)
             {
-                if (side == Side.Left)
+                if (side == Side.Bottom)
+                {
+                    Gravity = false;
+                }
+                else if (side == Side.Left)
                 {
                     Velocity = new Vector2(EnemyHorizontalMovementSpeed, Velocity.Y);
                     Orientation = Facing.Right;
@@ -49,6 +54,10 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            if (Gravity)
+            {
+                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration);
+            }
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
             bool retVal = PowerupState.Update(gameTime, percent);
             return base.Update(gameTime, percent) || retVal;

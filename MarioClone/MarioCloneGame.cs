@@ -137,10 +137,17 @@ namespace MarioClone
 
             // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
-            AddCommandToAllGamepads(Buttons.A, new JumpCommand(Mario.Instance));
+            AddCommandToAllGamepads(Buttons.DPadUp, new JumpCommand(Mario.Instance));
             AddCommandToAllGamepads(Buttons.DPadDown, new CrouchCommand(Mario.Instance));
             AddCommandToAllGamepads(Buttons.DPadRight, new MoveRightCommand(Mario.Instance));
             AddCommandToAllGamepads(Buttons.DPadLeft, new MoveLeftCommand(Mario.Instance));
+
+            foreach (var gamepad in controllerList)
+            {
+                gamepad.AddReleasedInputCommand((int)Buttons.DPadDown, new ReleaseCrouchCommand(Mario.Instance));
+                gamepad.AddReleasedInputCommand((int)Buttons.DPadRight, new ReleaseMoveRightCommand(Mario.Instance));
+                gamepad.AddReleasedInputCommand((int)Buttons.DPadLeft, new ReleaseMoveLeftCommand(Mario.Instance));
+            }
 
             // Add keyboard to list of gamepads
             controllerList.Add(keyboard);
@@ -205,7 +212,7 @@ namespace MarioClone
 			if (!paused)
 			{
 				Vector2 parallax = new Vector2(1.0f);
-				GraphicsDevice.Clear(Color.CornflowerBlue);
+				GraphicsDevice.Clear(Color.LightSkyBlue);
 				_background.Draw();
 				spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(parallax));
                 DrawWorld(gameTime);

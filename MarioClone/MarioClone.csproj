@@ -126,6 +126,7 @@
     <Compile Include="States\EnemyStates\Powerup\GoombaDead.cs" />
     <Compile Include="States\EnemyStates\Powerup\KoopaAlive.cs" />
     <Compile Include="States\EnemyStates\Powerup\KoopaDead.cs" />
+    <Compile Include="States\EnemyStates\Powerup\KoopaShell.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaAlive.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaDead.cs" />
     <Compile Include="States\MarioStates\Action\MarioActionState.cs" />
@@ -234,7 +235,10 @@
     <Content Include="Code Reviews\Sprint 2\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 2\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 2\SamCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 3\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\AnnaCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 3\JacobCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 3\SamCodeReview.txt" />
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

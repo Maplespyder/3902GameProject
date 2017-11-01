@@ -1,0 +1,35 @@
+Author of Review: Allie Jett
+Date of Review: 10/31/2017
+File Under Review: HitBox.cs
+Author(s) of File: Allie Jett
+Comments on Code Quality:
+All properties that are solely used in this class should really be set to private. 
+
+Minutes to Complete: 1 min
+
+Author of Review: Allie Jett
+Date of Review: 10/31/2017
+File Under Review: MarioNormal.cs MarioSuper.cs MarioFire.cs
+Author(s) of File: Jake
+Comments on Code Quality:
+There are instances of magic numbers lying around in BecomeSuper() BecomeNormal() and BecomeFire().
+For someone who isn't familiar with the code, this can be very confusing. I understand now these 
+numbers are being used (primarily in the X direction) to prevent shifting between states. 
+
+For clarity (and considering we're still using them), these numbers should be put into variables. 
+Minutes to Complete: 5 min
+
+
+Author of Review: Allie Jett
+Date of Review: 10/31/2017
+File Under Review: LevelCreator.cs
+Author(s) of File: Sam
+Comments on Code Quality:
+In this file, three constants, KoopaHeight, GoombaHeight and MarioHeight are defined. However, this doesn't allow much flexibility if, 
+for whatever instance, sprite sheets  were to change or sizes of individual sprites were altered. It's fairly prone to error 
+and problems. 
+
+Instead of manually tapping in those numbers. It'd be cleaner if, after initiliazing each object, you edit the Position and add in the 
+height via Sprite.SourceRectangle.Height. That way, if Koopas or such were to ever change, there would be less code that need be 
+refactored.
+Minutes to Complete: 5 min
