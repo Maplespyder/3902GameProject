@@ -14,12 +14,12 @@ namespace MarioClone.GameObjects
 
     public abstract class AbstractGameObject : IDraw
     {
-        public HitBox BoundingBox { get; set; }
+        public virtual HitBox BoundingBox { get; set; }
 
-        public ISprite Sprite { get; set; }
+        public virtual ISprite Sprite { get; set; }
 
         private Vector2 position;
-        public Vector2 Position
+        public virtual Vector2 Position
         {
             get
             {
@@ -43,7 +43,12 @@ namespace MarioClone.GameObjects
                 {
                     //do something later?
                 }
-            }
+
+				if (Sprite != null && BoundingBox !=null )
+				{
+					BoundingBox.UpdateHitBox(Position, Sprite);
+				}
+			}
         }
 
         public virtual int DrawOrder { get; set; }
@@ -58,17 +63,13 @@ namespace MarioClone.GameObjects
 
         protected AbstractGameObject(ISprite sprite, Vector2 position, Color hitBoxColor)
         {
-            Sprite = sprite;
+			BoundingBox = new HitBox(0, 0, 0, 0, hitBoxColor);
+			Sprite = sprite;
             Position = position;
             Velocity = new Vector2(0, 0);
             Orientation = Facing.Left;
             Visible = true;
             DrawOrder = 1;
-            BoundingBox = new HitBox(0, 0, 0, 0, hitBoxColor);
-            if (sprite != null)
-            {
-                BoundingBox.UpdateHitBox(Position, Sprite);
-            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)

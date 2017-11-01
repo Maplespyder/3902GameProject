@@ -8,8 +8,7 @@ namespace MarioClone.GameObjects
 {
     public class GreenMushroomObject : AbstractPowerup
 	{
-        private readonly float GravityAcceleration = .4f;
-        
+        public const float GravityAcceleration = 0.4f;
         public bool Gravity { get; set; }
 
         public GreenMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green) { }

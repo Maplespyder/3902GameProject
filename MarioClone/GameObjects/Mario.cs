@@ -141,6 +141,9 @@ namespace MarioClone.GameObjects
             if ((gameObject is AbstractEnemy) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
             {
                 TakeDamage();
+            }else if((gameObject is AbstractEnemy) && side.Equals(Side.Bottom))
+            {
+                Velocity = new Vector2(Velocity.X, -7);
             }
             else if ((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) || gameObject is CoinObject || gameObject is GreenMushroomObject)
             {
@@ -228,7 +231,8 @@ namespace MarioClone.GameObjects
                 PreviousActionState = ActionState;
                 ActionState = MarioFall.Instance;
             }
-
+            
+           
             return base.Update(gameTime, percent);    
         }
     }
