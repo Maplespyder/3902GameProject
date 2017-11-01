@@ -6,6 +6,7 @@ namespace MarioClone.GameObjects
 {
     public abstract class AbstractEnemy : AbstractGameObject
     {
+        public bool Gravity { get; set; }
         public static int MaxTimeDead { get { return 250; } }
         public static int MaxTimeShell {  get { return 2000;  } }
         public int TimeDead { get; set; }

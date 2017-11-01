@@ -53,21 +53,24 @@ namespace MarioClone.GameObjects
 
         public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
         {
-            if (!(obj1 is GreenMushroomObject))
+            if (State is MushroomMovingState)
             {
-                if (obj1 is AbstractBlock || obj1 is Mario)
+                if (!(obj1 is GreenMushroomObject))
                 {
-                    Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-                    BoundingBox.UpdateHitBox(Position, Sprite);
+                    if (obj1 is AbstractBlock || obj1 is Mario)
+                    {
+                        Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                        BoundingBox.UpdateHitBox(Position, Sprite);
+                    }
                 }
-            }
-            else
-            {
-                if (obj2 is AbstractBlock || obj2 is Mario)
+                else
                 {
-                    Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-                    BoundingBox.UpdateHitBox(Position, Sprite);
-                }
+                    if (obj2 is AbstractBlock || obj2 is Mario)
+                    {
+                        Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                        BoundingBox.UpdateHitBox(Position, Sprite);
+                    }
+                } 
             }
         }
     }
