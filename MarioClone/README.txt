@@ -72,8 +72,7 @@ SPRINT 3 README
 
 There are no major concerns for this sprint; however, there are some things I would like to point out. So when the mushrooms are within the viewport window
 they are currently floating up before gravity makes them fall down. Also, we did add in a pipe but we have yet to add in a pirahna but I do not believe
-it was explicitly listed in any stories for this sprint. Also, please don't knock down the goomba. It was a last minute error that appeared, so the goomba
-currently will fall through the floor and cause an exception.
+it was explicitly listed in any stories for this sprint. 
 
 
 Ignored code warnings:
