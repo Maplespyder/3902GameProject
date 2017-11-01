@@ -159,6 +159,11 @@ namespace MarioClone.Collision
 
             foreach (Point pt in newSquares)
             {
+                if((pt.X >= Columns || pt.X < 0) || (pt.Y >= Rows || pt.Y < 0))
+                {
+                    continue;
+                }
+                
                 gameGrid[pt.X, pt.Y].Add(obj);
             }
 
