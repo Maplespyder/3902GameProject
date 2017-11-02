@@ -9,6 +9,7 @@ namespace MarioClone.Sounds
 {
 	public enum SoundType
 	{
+		Background,
 		Stomp,
 		Bump,
 		UP1,
@@ -119,6 +120,9 @@ namespace MarioClone.Sounds
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Down");
 				case SoundType.RevealPowerUp:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/RevealPowerUp");
+				case SoundType.Background:
+					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Overworld");
+
 				default:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Coin");
 			}

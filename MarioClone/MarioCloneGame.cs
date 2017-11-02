@@ -90,7 +90,7 @@ namespace MarioClone
             level = new LevelCreator(@"Level\Sprint3Attempt2.bmp", gameGrid);
             level.Create();
 
-            AbstractGameObject.DrawHitbox = false;
+			AbstractGameObject.DrawHitbox = false;
 
             keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(Mario.Instance));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(Mario.Instance));
@@ -152,7 +152,8 @@ namespace MarioClone
 
             // Add keyboard to list of gamepads
             controllerList.Add(keyboard);
-        }
+			SoundPool.Instance.GetAndPlay(SoundType.Background);
+		}
 
 		/// <summary>
 		/// UnloadContent will be called once per game and is the place to unload

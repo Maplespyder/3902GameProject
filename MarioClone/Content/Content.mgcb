@@ -307,3 +307,9 @@
 /processorParam:Quality=Best
 /build:SoundEffects/RevealPowerUp.wav
 
+#begin SoundEffects/Overworld.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Overworld.wav
+
