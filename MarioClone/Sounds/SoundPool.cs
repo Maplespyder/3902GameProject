@@ -41,24 +41,33 @@ namespace MarioClone.Sounds
 		}
 
 	private List<SoundEffect> PoolList = new List<SoundEffect>();
+	public bool Muted { get; set; }
+	SoundEffectInstance mainBackground;
 	private Dictionary<SoundEffectInstance, SoundEffect> UnPoolList = new Dictionary<SoundEffectInstance, SoundEffect>();
 	private Dictionary<SoundEffectInstance, SoundEffect> RemoveList = new Dictionary<SoundEffectInstance, SoundEffect>();
 
 		public SoundPool()
 		{
 			InitializeSoundPool();
+			mainBackground = GetAndPlay(SoundType.Background);
+			Muted = false;
 		}
-		public void GetAndPlay(SoundType sound)
+		public SoundEffectInstance GetAndPlay(SoundType sound)
 		{
 			CheckAvailability();
 			SoundEffect effect = SoundFactory(sound);
-			if (PoolList.Contains(effect))
+			if (PoolList.Contains(effect) && !Muted)
 			{
 				PoolList.Remove(effect);
 				SoundEffectInstance soundEffectInstance = effect.CreateInstance();
-				soundEffectInstance.Play();
 				UnPoolList.Add(soundEffectInstance, effect);
+				if (!Muted)
+				{
+					soundEffectInstance.Play();
+				}
+				return soundEffectInstance;
 			}
+			return null;
 		}
 
 		public void CheckAvailability()
@@ -77,6 +86,20 @@ namespace MarioClone.Sounds
 			}
 			RemoveList.Clear();
 		}
+
+		public void MuteCommand()
+		{
+			Muted = !Muted;
+			if (Muted)
+			{
+				mainBackground.Pause();
+			}
+			else
+			{
+				mainBackground.Resume();
+			}
+
+		}
 		public void AddObject(SoundEffect sound)
 		{
 			if (!PoolList.Contains(sound))
@@ -93,6 +116,7 @@ namespace MarioClone.Sounds
 				PoolList.Add(SoundFactory(sound));
 			}
 			//add additional sounds
+			
 		}
 		public SoundEffect SoundFactory(SoundType sound)
 		{

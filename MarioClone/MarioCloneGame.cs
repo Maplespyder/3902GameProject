@@ -129,7 +129,9 @@ namespace MarioClone
             keyboard.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Mario.Instance));
             keyboard.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Mario.Instance));
 
-            keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
+			keyboard.AddInputCommand((int)Keys.M, new MuteCommand(SoundPool.Instance));
+			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.M, new MuteCommand(SoundPool.Instance));
+			keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
             keyboard.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
@@ -152,7 +154,6 @@ namespace MarioClone
 
             // Add keyboard to list of gamepads
             controllerList.Add(keyboard);
-			SoundPool.Instance.GetAndPlay(SoundType.Background);
 		}
 
 		/// <summary>
