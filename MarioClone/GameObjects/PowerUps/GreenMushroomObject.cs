@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.Sounds;
 using MarioClone.Sprites;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
@@ -54,7 +55,8 @@ namespace MarioClone.GameObjects
             if (gameObject is Mario)
             {
                 isCollided = true;
-            }
+				SoundPool.Instance.GetAndPlay(SoundType.UP1);
+			}
             else if (gameObject is AbstractBlock)
             {
                 if (side == Side.Bottom)

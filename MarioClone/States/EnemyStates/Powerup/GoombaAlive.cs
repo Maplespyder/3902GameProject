@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using MarioClone.Sounds;
 
 namespace MarioClone.States
 {
@@ -19,7 +20,8 @@ namespace MarioClone.States
         {
             Context.PowerupState = new GoombaDead(Context);
             Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.Goomba);
-        }
+			SoundPool.Instance.GetAndPlay(SoundType.Stomp);
+		}
 
         public override bool Update(GameTime gameTime, float percent)
         {

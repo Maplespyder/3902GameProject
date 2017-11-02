@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using MarioClone.Collision;
+using MarioClone.Sounds;
 
 namespace MarioClone.States.EnemyStates
 {
@@ -16,7 +17,8 @@ namespace MarioClone.States.EnemyStates
 
         public override void BecomeDead() {
             Context.PowerupState = new KoopaDead(Context);
-            if (Context is GreenKoopaObject)
+			SoundPool.Instance.GetAndPlay(SoundType.Kick);
+			if (Context is GreenKoopaObject)
             {
                 Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.GreenKoopa);
             }

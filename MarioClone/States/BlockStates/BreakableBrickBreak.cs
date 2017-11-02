@@ -1,5 +1,6 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.Sounds;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using static MarioClone.States.MarioPowerupState;
@@ -14,8 +15,8 @@ namespace MarioClone.States.BlockStates
         {
             Context = context;
             Context.BoundingBox = null;
-
-            Context.Visible = false;
+			SoundPool.Instance.GetAndPlay(SoundType.Break);
+			Context.Visible = false;
             List<Vector2> velocityList = new List<Vector2>
             {
                 new Vector2(1, 0),

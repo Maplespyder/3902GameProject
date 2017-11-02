@@ -229,3 +229,81 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/AllBlocks.png
 
+#begin SoundEffects/Coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Coin.wav
+
+#begin SoundEffects/beep1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/beep1.mp3
+
+#begin SoundEffects/Bump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Bump.wav
+
+#begin SoundEffects/Jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Jump.wav
+
+#begin SoundEffects/Pause.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Pause.wav
+
+#begin SoundEffects/PowerUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/PowerUp.wav
+
+#begin SoundEffects/Stomp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Stomp.wav
+
+#begin SoundEffects/1DOWN.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/1DOWN.wav
+
+#begin SoundEffects/1UP.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/1UP.wav
+
+#begin SoundEffects/Kick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Kick.wav
+
+#begin SoundEffects/Break.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Break.wav
+
+#begin SoundEffects/Down.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Down.wav
+
+#begin SoundEffects/RevealPowerUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/RevealPowerUp.wav
+

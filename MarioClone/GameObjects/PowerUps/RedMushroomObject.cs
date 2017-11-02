@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.Sounds;
 using MarioClone.Sprites;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
@@ -25,7 +26,7 @@ namespace MarioClone.GameObjects
             if (gameObject is Mario)
             {
                 isCollided = true;
-            }
+			}
             else if (gameObject is AbstractBlock && gameObject.Visible)
             {
                 if (side == Side.Bottom)

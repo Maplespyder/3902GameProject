@@ -1,6 +1,7 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
 using Microsoft.Xna.Framework;
+using MarioClone.Sounds;
 
 namespace MarioClone.States
 {
@@ -44,7 +45,8 @@ namespace MarioClone.States
             Context.PowerupState = MarioSuper.Instance;
             Context.SpriteFactory = SuperMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
-            if (MarioAction.Crouch == Context.ActionState.Action)
+			SoundPool.Instance.GetAndPlay(SoundType.PowerUp);
+			if (MarioAction.Crouch == Context.ActionState.Action)
             {
                 return;
             }
@@ -64,7 +66,8 @@ namespace MarioClone.States
             Context.PowerupState = MarioFire.Instance;
             Context.SpriteFactory = FireMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
-            if(MarioAction.Crouch == Context.ActionState.Action)
+			SoundPool.Instance.GetAndPlay(SoundType.PowerUp);
+			if (MarioAction.Crouch == Context.ActionState.Action)
             {
                 return;
             }

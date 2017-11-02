@@ -1,6 +1,7 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.Sounds;
 using Microsoft.Xna.Framework;
 
 namespace MarioClone.States.BlockStates
@@ -14,10 +15,11 @@ namespace MarioClone.States.BlockStates
         {
             initialPosition = Context.Position;
 			Context.Velocity = new Vector2(0f, -1f);
-
-            if(Context.CoinCount > 0)
+			SoundPool.Instance.GetAndPlay(SoundType.Bump);
+			if (Context.CoinCount > 0)
             {
-                Context.CoinCount -= 1;
+				SoundPool.Instance.GetAndPlay(SoundType.Coin);
+				Context.CoinCount -= 1;
                 //do some coin related thing
                 
                 GameGrid.Instance.Add(PowerUpFactory.Create(PowerUpType.Coin, Context.Position));
@@ -29,8 +31,9 @@ namespace MarioClone.States.BlockStates
             }
             else if(Context.ContainedPowerup != PowerUpType.None)
             {
-                //do some powerup reveal related thing
-                GameGrid.Instance.Add(PowerUpFactory.Create(Context.ContainedPowerup, Context.Position));
+				//do some powerup reveal related thing
+				SoundPool.Instance.GetAndPlay(SoundType.RevealPowerUp);
+				GameGrid.Instance.Add(PowerUpFactory.Create(Context.ContainedPowerup, Context.Position));
                 
                 Context.ContainedPowerup = PowerUpType.None;
                 GoToUsed = true;

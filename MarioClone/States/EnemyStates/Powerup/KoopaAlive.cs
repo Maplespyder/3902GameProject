@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using MarioClone.Collision;
+using MarioClone.Sounds;
+using Microsoft.Xna.Framework.Audio;
 
 namespace MarioClone.States.EnemyStates
 {
@@ -20,6 +22,8 @@ namespace MarioClone.States.EnemyStates
         {
             Context.PowerupState = new KoopaShell(Context);
             Context.Velocity = new Vector2(0, 0);
+			SoundPool.Instance.GetAndPlay(SoundType.Stomp);
+	
             if (Context is GreenKoopaObject)
             {
                 Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopaShell);

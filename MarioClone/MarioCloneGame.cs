@@ -11,6 +11,7 @@ using MarioClone.Level;
 using MarioClone.GameObjects;
 using System.IO;
 using MarioClone.Cam;
+using MarioClone.Sounds;
 
 namespace MarioClone
 {
