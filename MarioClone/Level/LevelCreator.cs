@@ -18,6 +18,8 @@ namespace MarioClone.Level
 		private const int KoopaHeight = 112;
 		private const int GoombaHeight = 62;
 		private const int MarioHeight = 128;
+		private const int PipeTopHeight = 64;
+		private const int PipeTopWidth = 128;
 
 
 		private const int BlockWidth = 64;
@@ -131,6 +133,13 @@ namespace MarioClone.Level
 					position = new Vector2(position.X, position.Y - (GoombaHeight - 64));
 					var initializer = EnemyFactory.Create(EnemyType.Goomba, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+					Grid.Add(initializer);
+				}
+				else if (sameColor(pixel, Colors.Piranha))
+				{
+					var initializer = EnemyFactory.Create(EnemyType.Piranha, position);
+					initializer.Position = new Vector2(initializer.Position.X + (PipeTopWidth/4), initializer.Position.Y +
+						(initializer.Sprite.SourceRectangle.Height) + PipeTopHeight);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.GreenKoopa))

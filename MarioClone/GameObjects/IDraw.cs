@@ -10,7 +10,7 @@ namespace MarioClone.GameObjects
 {
     public interface IDraw 
     {
-        int DrawOrder { get; }
+        float DrawOrder { get; }
         bool Visible { get; }
 
         void Draw(SpriteBatch spriteBatch, GameTime gameTime);

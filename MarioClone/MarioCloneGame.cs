@@ -217,7 +217,7 @@ namespace MarioClone
 				Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.LightSkyBlue);
 				_background.Draw();
-				spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(parallax));
+				spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.GetViewMatrix(parallax));
                 DrawWorld(gameTime);
 				spriteBatch.End();
 

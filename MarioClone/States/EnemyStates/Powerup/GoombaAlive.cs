@@ -14,7 +14,14 @@ namespace MarioClone.States
     {
         public GoombaAlive(AbstractEnemy context) : base(context) { }
 
-        public override void BecomeAlive() { }
+		public override void BecomeHide()
+		{
+		}
+		public override void BecomeReveal()
+		{
+		}
+
+		public override void BecomeAlive() { }
 
         public override void BecomeDead()
         {

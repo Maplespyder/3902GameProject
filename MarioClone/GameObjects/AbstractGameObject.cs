@@ -51,7 +51,7 @@ namespace MarioClone.GameObjects
 			}
         }
 
-        public virtual int DrawOrder { get; set; }
+        public virtual float DrawOrder { get; set; }
 
         public virtual bool Visible { get; set; }
 
@@ -69,7 +69,7 @@ namespace MarioClone.GameObjects
             Velocity = new Vector2(0, 0);
             Orientation = Facing.Left;
             Visible = true;
-            DrawOrder = 1;
+            DrawOrder = .5f;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)

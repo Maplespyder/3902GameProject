@@ -96,7 +96,7 @@ namespace MarioClone.GameObjects
             }
         }
 
-        public override int DrawOrder
+        public override float DrawOrder
         {
             get
             {

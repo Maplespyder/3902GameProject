@@ -16,20 +16,14 @@ namespace MarioClone.GameObjects.Enemies
 		{
 			BoundingBox.UpdateOffSets(-8, -8, -8, -8);
 			BoundingBox.UpdateHitBox(Position, Sprite);
-			PowerupState = new PiranhaAlive(this);
+			DrawOrder = .52f;
+			PowerupState = new PiranhaHide(this);
+			Velocity = new Vector2(0, 0);
 		}
 
 		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
 		{
-			if (gameObject is Mario)
-			{
-				if (side.Equals(Side.Top))
-				{
-					PowerupState.BecomeDead();
-					TimeDead = 0;
-					return true;
-				}
-			}
+			//None Yet
 			return false;
 		}
 

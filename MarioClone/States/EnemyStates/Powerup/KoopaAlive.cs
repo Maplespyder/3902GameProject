@@ -16,7 +16,14 @@ namespace MarioClone.States.EnemyStates
     {
         public KoopaAlive(AbstractEnemy context) : base(context) { }
 
-        public override void BecomeAlive() { }
+		public override void BecomeHide()
+		{
+		}
+		public override void BecomeReveal()
+		{
+		}
+
+		public override void BecomeAlive() { }
 
         public override void BecomeDead()
         {
