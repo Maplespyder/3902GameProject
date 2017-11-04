@@ -26,7 +26,7 @@ namespace MarioClone.Cam
 			foreach (KeyValuePair<Texture2D, Vector2> item in sprites)
 			{
 				_spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.LinearWrap, null, null, null, _camera.GetViewMatrix(item.Value));
-				_spriteBatch.Draw(item.Key, Vector2.Zero, new Rectangle((int)(_camera.Position.X * 0.5f), 
+				_spriteBatch.Draw(item.Key, Vector2.Zero, new Rectangle((int)(_camera.Position.X * 0.5f),
 					(int)(_camera.Position.Y * 0.5f), _camera.Limits.Value.Width, item.Key.Height), Color.White);
 				_spriteBatch.End();
 			}
@@ -34,6 +34,7 @@ namespace MarioClone.Cam
 
 		private void initializeSprites()
 		{
+			//sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Sky"), new Vector2(.20f));
 			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BackMountains"), new Vector2(.30f));
 			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ForeMountains"), new Vector2(.40f));
 			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/clouds"), new Vector2(.60f));

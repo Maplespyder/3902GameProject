@@ -14,6 +14,7 @@ namespace MarioClone.GameObjects
 
         public GreenMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green)
         {
+            DrawOrder = .51f;
             PointValue = 0;
         }
 

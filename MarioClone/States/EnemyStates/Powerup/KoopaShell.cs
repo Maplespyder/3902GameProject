@@ -63,5 +63,12 @@ namespace MarioClone.States.EnemyStates
             return false;
         }
 
-    }
+		public override void BecomeHide()
+		{
+		}
+		public override void BecomeReveal()
+		{
+		}
+
+	}
 }

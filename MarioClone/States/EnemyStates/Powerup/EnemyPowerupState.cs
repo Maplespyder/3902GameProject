@@ -23,6 +23,8 @@ namespace MarioClone.States
         public abstract void BecomeDead();
         public abstract void BecomeAlive();
         public abstract bool Update(GameTime gameTime, float percent);
+		public abstract void BecomeHide();
+		public abstract void BecomeReveal();
 
     }
 }

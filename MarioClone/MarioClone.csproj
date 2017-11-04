@@ -132,8 +132,9 @@
     <Compile Include="States\EnemyStates\Powerup\KoopaAlive.cs" />
     <Compile Include="States\EnemyStates\Powerup\KoopaDead.cs" />
     <Compile Include="States\EnemyStates\Powerup\KoopaShell.cs" />
-    <Compile Include="States\EnemyStates\Powerup\PiranhaAlive.cs" />
+    <Compile Include="States\EnemyStates\Powerup\PiranhaReveal.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaDead.cs" />
+    <Compile Include="States\EnemyStates\Powerup\PiranhaHide.cs" />
     <Compile Include="States\MarioStates\Action\MarioActionState.cs" />
     <Compile Include="States\MarioStates\Action\MarioCrouch.cs" />
     <Compile Include="States\MarioStates\Action\MarioFall.cs" />

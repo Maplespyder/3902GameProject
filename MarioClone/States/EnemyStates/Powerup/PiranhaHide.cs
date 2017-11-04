@@ -9,10 +9,21 @@ using Microsoft.Xna.Framework;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
-	public class PiranhaAlive : EnemyPowerupState
+	public class PiranhaHide : EnemyPowerupState
 	{
-		public PiranhaAlive(AbstractEnemy context) : base(context) { }
+		public PiranhaHide(AbstractEnemy context) : base(context)
+		{
+			Context.PiranhaCycleTime = 0;
+		}
 
+		public override void BecomeHide()
+		{
+		}
+		public override void BecomeReveal()
+		{
+			Context.PowerupState = new PiranhaReveal(Context);
+			Context.Velocity = new Vector2(0, -1);
+		}
 		public override void BecomeAlive() { }
 
 		public override void BecomeDead()
@@ -24,6 +35,11 @@ namespace MarioClone.States.EnemyStates.Powerup
 
 		public override bool Update(GameTime gameTime, float percent)
 		{
+			Context.PiranhaCycleTime += gameTime.ElapsedGameTime.Milliseconds;
+			if (Context.PiranhaCycleTime >= AbstractEnemy.MaxPiranhaHide)
+			{
+				BecomeReveal();
+			}
 			return false;
 		}
 	}

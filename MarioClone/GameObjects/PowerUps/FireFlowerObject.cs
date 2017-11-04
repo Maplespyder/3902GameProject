@@ -12,6 +12,7 @@ namespace MarioClone.GameObjects
             PointValue = 2000;
             BoundingBox.UpdateOffSets(4, 4, 0, 0);
             BoundingBox.UpdateHitBox(Position, Sprite);
-        }
+			DrawOrder = .51f;
+		}
     }
 }

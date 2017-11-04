@@ -33,5 +33,11 @@ namespace MarioClone.States
             }
             return false;
         }
-    }
+		public override void BecomeHide()
+		{
+		}
+		public override void BecomeReveal()
+		{
+		}
+	}
 }
