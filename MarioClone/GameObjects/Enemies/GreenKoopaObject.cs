@@ -51,5 +51,17 @@ namespace MarioClone.GameObjects
 
             return false;
         }
+        public override bool Update(GameTime gameTime, float percent)
+        {
+            bool retval = base.Update(gameTime, percent);
+
+            if (Gravity)
+            {
+                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
+            }
+            Gravity = true;
+
+            return retval;
+        }
     }
 }

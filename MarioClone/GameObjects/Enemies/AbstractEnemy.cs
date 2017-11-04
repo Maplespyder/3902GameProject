@@ -24,13 +24,7 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
-            if (Gravity)
-            {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration);
-            }
-            Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-            Gravity = true;
-
+            Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
             bool retVal = PowerupState.Update(gameTime, percent);
             Removed = base.Update(gameTime, percent) || retVal;
             return Removed;

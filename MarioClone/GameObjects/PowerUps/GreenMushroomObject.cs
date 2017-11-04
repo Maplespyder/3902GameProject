@@ -20,13 +20,15 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
+			bool retval = base.Update(gameTime, percent);
+
             if (Gravity && !(State is PowerupRevealState))
             {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent); 
+                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
             }
-            
             Gravity = true;
-			return base.Update(gameTime, percent);
+
+            return retval;
         }
 
         public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
