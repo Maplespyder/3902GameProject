@@ -12,6 +12,7 @@ namespace MarioClone.GameObjects
         public const float HorizontalMovementSpeed = 3f;
         public const float VerticalMovementSpeed = 15f;
         private static Mario _mario;
+        private bool bouncing = false;
 
         /// <summary>
         /// Do not instantiate Mario more than once. We have to make Mario before
@@ -33,7 +34,11 @@ namespace MarioClone.GameObjects
 
         public MarioPowerupState PowerupState { get; set; }
         
+        public MarioPowerupState PreviousPowerupState { get; set; }
+
         public MarioSpriteFactory SpriteFactory { get; set; }
+
+        public int BounceCount { get; set; }
 
         public bool Gravity { get; set; }
 
@@ -47,7 +52,9 @@ namespace MarioClone.GameObjects
             Sprite = SpriteFactory.Create(MarioAction.Falling);
             Orientation = Facing.Right;
             Gravity = true;
+            BounceCount = 0;
 
+            PreviousPowerupState = PowerupState;
             PreviousActionState = MarioIdle.Instance;
             
             ActionState.UpdateHitBox();
@@ -135,14 +142,36 @@ namespace MarioClone.GameObjects
             PowerupState.TakeDamage();
         }
 
+        private void ManageBouncing(AbstractGameObject gameObject, Side side)
+        {
+            if(gameObject is AbstractEnemy && side.Equals(Side.Bottom))
+            {
+                if (bouncing)
+                {
+                    BounceCount += 1;
+                }
+                else
+                {
+                    bouncing = true;
+                }
+            }
+            else
+            {
+                BounceCount = 0;
+                bouncing = false;
+            }
+        }
+
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
+            ManageBouncing(gameObject, side);
 
             if ((gameObject is AbstractEnemy) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
             {
                 TakeDamage();
-            }else if((gameObject is AbstractEnemy) && side.Equals(Side.Bottom))
-            {
+            }
+            else if ((gameObject is AbstractEnemy) && side.Equals(Side.Bottom))
+            { 
                 Velocity = new Vector2(Velocity.X, -7);
             }
             else if ((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) || gameObject is CoinObject || gameObject is GreenMushroomObject)

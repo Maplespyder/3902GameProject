@@ -51,6 +51,9 @@
     <Compile Include="Commands\ReleaseMoveRightCommand.cs" />
     <Compile Include="Commands\ReleaseMoveLeftCommand.cs" />
     <Compile Include="Commands\ResetLevelCommand.cs" />
+    <Compile Include="EventCenter\EventArgClasses.cs" />
+    <Compile Include="EventCenter\EventPublisher.cs" />
+    <Compile Include="EventCenter\EventRaiser.cs" />
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="GameObjects\Bricks\PipeTop.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />

@@ -12,7 +12,10 @@ namespace MarioClone.GameObjects
         public const float GravityAcceleration = 0.4f;
         public bool Gravity { get; set; }
 
-        public GreenMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green) { }
+        public GreenMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green)
+        {
+            PointValue = 0;
+        }
 
         public override bool Update(GameTime gameTime, float percent)
         {

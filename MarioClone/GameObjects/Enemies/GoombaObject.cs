@@ -18,24 +18,8 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
 			Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
-
+            PointValue = 200;
 		}
-
-        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
-        {
-            if (obj1 is AbstractBlock && obj1.Visible)
-            {
-                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-                BoundingBox.UpdateHitBox(Position, Sprite);
-
-            }
-            else if (obj2 is AbstractBlock && obj2.Visible)
-            {
-                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-                BoundingBox.UpdateHitBox(Position, Sprite);
-            }
-
-        }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
@@ -68,20 +52,6 @@ namespace MarioClone.GameObjects
                 }
 			}
             return false;
-        }
-
-        public override bool Update(GameTime gameTime, float percent)
-        {
-            if (Gravity)
-            {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration);
-            }
-
-            Gravity = true;
-			Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-			bool retVal = PowerupState.Update(gameTime, percent);
-            base.Update(gameTime, percent);
-            return retVal;
         }
     }
 }

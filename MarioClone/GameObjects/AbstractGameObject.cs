@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.EventCenter;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -51,6 +52,8 @@ namespace MarioClone.GameObjects
 			}
         }
 
+        protected bool Removed { get; set; }
+
         public virtual int DrawOrder { get; set; }
 
         public virtual bool Visible { get; set; }
@@ -70,6 +73,7 @@ namespace MarioClone.GameObjects
             Orientation = Facing.Left;
             Visible = true;
             DrawOrder = 1;
+            Removed = false;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -90,6 +94,13 @@ namespace MarioClone.GameObjects
             {
                 BoundingBox.UpdateHitBox(Position, Sprite);
             }
+
+            if (Removed)
+            {
+                EventManager.Instance.TriggerBadObjectRemovalEvent(this);
+                return true;
+            }
+
             return false;
         }
 

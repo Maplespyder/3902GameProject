@@ -17,6 +17,7 @@ namespace MarioClone.GameObjects.Enemies
 			BoundingBox.UpdateOffSets(-8, -8, -8, -8);
 			BoundingBox.UpdateHitBox(Position, Sprite);
 			PowerupState = new PiranhaAlive(this);
+            PointValue = 500;
 		}
 
 		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
@@ -36,8 +37,8 @@ namespace MarioClone.GameObjects.Enemies
 		public override bool Update(GameTime gameTime, float percent)
 		{
 			bool retVal = PowerupState.Update(gameTime, percent);
-			base.Update(gameTime, percent);
-			return retVal;
+            Removed = base.Update(gameTime, percent) || retVal;
+			return Removed;
 		}
 	}
 }

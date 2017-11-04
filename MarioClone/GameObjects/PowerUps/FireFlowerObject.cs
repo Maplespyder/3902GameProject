@@ -9,6 +9,7 @@ namespace MarioClone.GameObjects
 	{
         public FireFlowerObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green)
         {
+            PointValue = 2000;
             BoundingBox.UpdateOffSets(4, 4, 0, 0);
             BoundingBox.UpdateHitBox(Position, Sprite);
         }
