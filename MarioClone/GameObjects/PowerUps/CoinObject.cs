@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.EventCenter;
 using MarioClone.Sounds;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
@@ -17,9 +18,8 @@ namespace MarioClone.GameObjects
 			if (gameObject is Mario)
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Coin);
-				isCollided = true;
 			}
-			return State.CollisionResponse(gameObject) || isCollided;
+			return base.CollisionResponse(gameObject, side, gameTime);
 		}
 	}
 }

@@ -1,11 +1,8 @@
 ﻿using MarioClone.Collision;
-using MarioClone.Factories;
+using MarioClone.EventCenter;
 using MarioClone.Sprites;
 using MarioClone.States.EnemyStates;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using static MarioClone.Collision.GameGrid;
 
 namespace MarioClone.GameObjects
 {
@@ -14,10 +11,13 @@ namespace MarioClone.GameObjects
     {
         public RedKoopaObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
+            Gravity = false;
             BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
+
+            Orientation = Facing.Left;
             PowerupState = new KoopaAlive(this);
-            Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
+
             PointValue = 300;
         }
 
@@ -27,8 +27,8 @@ namespace MarioClone.GameObjects
             {
                 if (side.Equals(Side.Top))
                 {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
                     PowerupState.BecomeDead();
-                    TimeDead = 0;
                     return true;
                 }
             }

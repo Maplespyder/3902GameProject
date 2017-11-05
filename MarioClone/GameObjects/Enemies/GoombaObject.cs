@@ -1,11 +1,8 @@
-﻿using System;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MarioClone.Factories;
 using MarioClone.States;
 using MarioClone.Collision;
-using static MarioClone.Collision.GameGrid;
+using MarioClone.EventCenter;
 
 namespace MarioClone.GameObjects
 {
@@ -32,8 +29,8 @@ namespace MarioClone.GameObjects
             {
                 if (side.Equals(Side.Top))
                 {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
                     PowerupState.BecomeDead();
-                    TimeDead = 0;
                     return true;
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.EventCenter;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
 using MarioClone.Sounds;
@@ -15,6 +16,9 @@ namespace MarioClone.States.BlockStates
         {
             initialPosition = Context.Position;
 			Context.Velocity = new Vector2(0f, -1f);
+
+            EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, false);
+
 			SoundPool.Instance.GetAndPlay(SoundType.Bump);
 			if (Context.CoinCount > 0)
             {

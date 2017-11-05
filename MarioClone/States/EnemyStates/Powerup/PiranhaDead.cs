@@ -14,15 +14,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 	{
 
 		public PiranhaDead(AbstractEnemy context) : base(context) { }
-
-		public override void BecomeDead() { }
-		public override void BecomeHide()
-		{
-		}
-		public override void BecomeReveal()
-		{
-		}
-
+        
 		public override void BecomeAlive()
 		{
 			Context.PowerupState = new PiranhaReveal(Context);

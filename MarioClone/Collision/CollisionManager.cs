@@ -634,9 +634,9 @@ namespace MarioClone.Collision
                 newPosition.X = 0;
             }
 
-            if (newPosition.Y < 0)
+            if (newPosition.Y - objectDimensions.Height < 0)
             {
-                newPosition.Y = 0;
+                newPosition.Y = 0 + objectDimensions.Height;
             }
 
             return newPosition;

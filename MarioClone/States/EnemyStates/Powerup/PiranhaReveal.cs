@@ -18,9 +18,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 			initialPosition = Context.Position;
 			Context.PiranhaCycleTime = 0;
 		}
-
-		public override void BecomeAlive() { }
-
+        
 		public override void BecomeDead()
 		{
 			Context.PowerupState = new PiranhaDead(Context);
@@ -31,9 +29,6 @@ namespace MarioClone.States.EnemyStates.Powerup
 		public override void BecomeHide()
 		{
 			Context.PowerupState = new PiranhaHide(Context);
-		}
-		public override void BecomeReveal()
-		{
 		}
 
 		public override bool Update(GameTime gameTime, float percent)

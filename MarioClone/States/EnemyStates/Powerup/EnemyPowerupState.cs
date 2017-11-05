@@ -20,11 +20,15 @@ namespace MarioClone.States
 
         // Behavior/actions
 
-        public abstract void BecomeDead();
-        public abstract void BecomeAlive();
-        public abstract bool Update(GameTime gameTime, float percent);
-		public abstract void BecomeHide();
-		public abstract void BecomeReveal();
+        public virtual bool Update(GameTime gameTime, float percent)
+        {
+            return false;
+        }
+
+        public virtual void BecomeDead() { }
+        public virtual void BecomeAlive() { }
+		public virtual void BecomeHide() { }
+		public virtual void BecomeReveal() { }
 
     }
 }

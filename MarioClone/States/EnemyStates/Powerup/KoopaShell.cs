@@ -13,32 +13,32 @@ namespace MarioClone.States.EnemyStates
 {
     class KoopaShell : EnemyPowerupState
     {
-        public KoopaShell(AbstractEnemy context) : base(context) { }
+        public KoopaShell(AbstractEnemy context) : base(context)
+        {
+            Context.PointValue -= 100;
+            Context.PointValue = Context.PointValue >= 0 ? Context.PointValue : 0;
 
-        public override void BecomeDead() {
-            Context.PowerupState = new KoopaDead(Context);
-			SoundPool.Instance.GetAndPlay(SoundType.Kick);
-			if (Context is GreenKoopaObject)
+            Context.TimeDead = 0;
+            Context.Velocity = new Vector2(0, 0);
+            if (Context is GreenKoopaObject)
             {
-                Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.GreenKoopa);
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopaShell);
             }
             else if (Context is RedKoopaObject)
             {
-                Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.RedKoopa);
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopaShell);
             }
+        }
+
+        public override void BecomeDead()
+        {
+            SoundPool.Instance.GetAndPlay(SoundType.Kick);
+            Context.PowerupState = new KoopaDead(Context);
         }
 
         public override void BecomeAlive()
         {
             Context.PowerupState = new KoopaAlive(Context);
-            if (Context is GreenKoopaObject)
-            {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopa);
-            }
-            else if (Context is RedKoopaObject)
-            {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopa);
-            }
         }
 
         public override bool Update(GameTime gameTime, float percent)
@@ -47,28 +47,8 @@ namespace MarioClone.States.EnemyStates
             if (Context.TimeDead >= AbstractEnemy.MaxTimeShell)
             {
                 BecomeAlive();
-                if (Context.Orientation == Facing.Right)
-                {
-                    Context.Velocity = new Vector2(1f, Context.Velocity.Y);
-
-
-                }
-                else if (Context.Orientation == Facing.Left)
-                {
-                    Context.Velocity = new Vector2(-1f, Context.Velocity.Y);
-
-                }
-                Context.Position = new Vector2(Context.Position.X + Context.Velocity.X, Context.Position.Y + Context.Velocity.Y);
             }
             return false;
         }
-
-		public override void BecomeHide()
-		{
-		}
-		public override void BecomeReveal()
-		{
-		}
-
 	}
 }

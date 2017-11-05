@@ -13,14 +13,11 @@ namespace MarioClone.States
     public class GoombaDead : EnemyPowerupState
     {
 
-        public GoombaDead(AbstractEnemy context) : base(context) { }
-
-        public override void BecomeDead() { }
-
-        public override void BecomeAlive()
+        public GoombaDead(AbstractEnemy context) : base(context)
         {
-            Context.PowerupState = new GoombaAlive(Context);
-            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.Goomba);
+            Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.Goomba);
+            Context.PointValue = 0;
+            Context.TimeDead = 0;
         }
 
         public override bool Update(GameTime gameTime, float percent)
@@ -33,11 +30,5 @@ namespace MarioClone.States
             }
             return false;
         }
-		public override void BecomeHide()
-		{
-		}
-		public override void BecomeReveal()
-		{
-		}
 	}
 }

@@ -22,7 +22,10 @@ namespace MarioClone.GameObjects.Enemies
             PointValue = 500;
         }
 
-        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2) { }
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            //don't delete this
+        }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
 		{

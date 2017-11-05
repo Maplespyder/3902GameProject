@@ -12,27 +12,17 @@ namespace MarioClone.States
 {
     public class KoopaDead : EnemyPowerupState
     {
-        public KoopaDead(AbstractEnemy context) : base(context) { }
-
-		public override void BecomeHide()
-		{
-		}
-		public override void BecomeReveal()
-		{
-		}
-
-		public override void BecomeDead() { }
-
-        public override void BecomeAlive()
+        public KoopaDead(AbstractEnemy context) : base(context)
         {
-            Context.PowerupState = new GoombaAlive(Context);
+            Context.PointValue = 0;
+
             if (Context is GreenKoopaObject)
             {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopaShell);
+                Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.GreenKoopa);
             }
             else if (Context is RedKoopaObject)
             {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopaShell);
+                Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.RedKoopa);
             }
         }
 

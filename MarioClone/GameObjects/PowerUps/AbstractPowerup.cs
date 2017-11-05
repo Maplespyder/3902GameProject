@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using MarioClone.States;
 using MarioClone.Collision;
+using MarioClone.EventCenter;
 
 namespace MarioClone.GameObjects
 {
@@ -27,11 +28,8 @@ namespace MarioClone.GameObjects
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if (gameObject is Mario)
-            {
-                isCollided = true;
-            }
-            return isCollided || State.CollisionResponse(gameObject);
+            isCollided = State.CollisionResponse(gameObject);
+            return isCollided;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.EventCenter;
 using MarioClone.Factories;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
@@ -65,7 +66,8 @@ namespace MarioClone.GameObjects
 		{
             if (!(PowerupState is MarioDead))
             {
-                ActionState.Walk(Facing.Left); 
+                ActionState.Walk(Facing.Left);
+                EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
 		}
 
@@ -73,7 +75,8 @@ namespace MarioClone.GameObjects
         {
             if (!(PowerupState is MarioDead))
             {
-                ActionState.Walk(Facing.Right); 
+                ActionState.Walk(Facing.Right);
+                EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
         }
 
@@ -81,7 +84,8 @@ namespace MarioClone.GameObjects
         {
             if (!(PowerupState is MarioDead))
             {
-                ActionState.Jump(); 
+                ActionState.Jump();
+                EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
         }
 
@@ -89,7 +93,8 @@ namespace MarioClone.GameObjects
         {
             if (!(PowerupState is MarioDead))
             {
-                ActionState.Crouch(); 
+                ActionState.Crouch();
+                EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
         }
 
@@ -98,6 +103,7 @@ namespace MarioClone.GameObjects
             if (!(PowerupState is MarioDead))
             {
                 ActionState.ReleaseCrouch();
+                EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
         }
 
@@ -106,6 +112,7 @@ namespace MarioClone.GameObjects
             if (!(PowerupState is MarioDead))
             {
                 ActionState.ReleaseWalk(Facing.Left);
+                EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
         }
 
@@ -114,32 +121,38 @@ namespace MarioClone.GameObjects
             if (!(PowerupState is MarioDead))
             {
                 ActionState.ReleaseWalk(Facing.Right);
+                EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
         }
 
         public void BecomeDead()
         {
             PowerupState.BecomeDead();
+            EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
         public void BecomeNormal()
         {
             PowerupState.BecomeNormal();
+            EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
         public void BecomeSuper()
         {
             PowerupState.BecomeSuper();
+            EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
         public void BecomeFire()
         {
             PowerupState.BecomeFire();
+            EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
         private void TakeDamage()
         {
             PowerupState.TakeDamage();
+            EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
         private void ManageBouncing(AbstractGameObject gameObject, Side side)
@@ -192,18 +205,21 @@ namespace MarioClone.GameObjects
                             Sprite = SpriteFactory.Create(MarioAction.Walk);
                             PreviousActionState = ActionState;
                             ActionState = MarioWalk.Instance;
+                            EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
                         }
                         else if (Velocity.X < 0)
                         {
                             Sprite = SpriteFactory.Create(MarioAction.Walk);
                             PreviousActionState = ActionState;
                             ActionState = MarioWalk.Instance;
+                            EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
                         }
                         else
                         {
                             Sprite = SpriteFactory.Create(MarioAction.Idle);
                             PreviousActionState = ActionState;
                             ActionState = MarioIdle.Instance;
+                            EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
                         }
                     }
                 }
@@ -217,6 +233,7 @@ namespace MarioClone.GameObjects
                     Sprite = SpriteFactory.Create(MarioAction.Falling);
                     PreviousActionState = ActionState;
                     ActionState = MarioFall.Instance;
+                    EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
                 }
             }
             else if (gameObject is RedMushroomObject)
@@ -233,6 +250,7 @@ namespace MarioClone.GameObjects
                 Sprite = SpriteFactory.Create(MarioAction.Idle);
                 PreviousActionState = ActionState;
                 ActionState = MarioIdle.Instance;
+                EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
             return true;
         }

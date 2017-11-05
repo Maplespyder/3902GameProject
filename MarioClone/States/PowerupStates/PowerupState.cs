@@ -1,4 +1,5 @@
-﻿using MarioClone.GameObjects;
+﻿using MarioClone.EventCenter;
+using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
@@ -23,6 +24,8 @@ namespace MarioClone.States
         {
             if(obj is Mario)
             {
+                EventManager.Instance.TriggerPowerupCollectedEvent(Context, (Mario)obj);
+                Context.PointValue = 0;
                 return true;
             }
             return false;

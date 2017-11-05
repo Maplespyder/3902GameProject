@@ -25,36 +25,43 @@ namespace MarioClone.EventCenter
         public event EventHandler<PowerupCollectedEventArgs> RaisePowerupCollectedEvent;
         public event EventHandler<EnemyDefeatedEventArgs> RaiseEnemyDefeatedEvent;
         public event EventHandler<BadObjectRemovalEventArgs> RaiseBadObjectRemovalEvent;
+        public event EventHandler<BrickBumpedEventArgs> RaiseBrickBumpedEvent;
 
         protected virtual void OnRaiseMarioActionStateEvent(MarioActionStateEventArgs e)
         {
             EventHandler<MarioActionStateEventArgs> handler = RaiseMarioActionStateEvent;
-            handler(e.Sender, e);
+            handler?.Invoke(e.Sender, e);
         }
 
         protected virtual void OnRaiseMarioPowerupStateEvent(MarioPowerupStateEventArgs e)
         {
             EventHandler<MarioPowerupStateEventArgs> handler = RaiseMarioPowerupStateEvent;
-            handler(e.Sender, e);
+            handler?.Invoke(e.Sender, e);
         }
 
         protected virtual void OnRaisePowerupCollectedEvent(PowerupCollectedEventArgs e)
         {
             EventHandler<PowerupCollectedEventArgs> handler = RaisePowerupCollectedEvent;
-            handler(e.Sender, e);
+            handler?.Invoke(e.Sender, e);
         }
 
         protected virtual void OnRaiseEnemyDefeatedEvent(EnemyDefeatedEventArgs e)
         {
             EventHandler<EnemyDefeatedEventArgs> handler = RaiseEnemyDefeatedEvent;
-            handler(e.Sender, e);
+            handler?.Invoke(e.Sender, e);
         }
 
 
         protected virtual void OnRaiseBadObjectRemovalEvent(BadObjectRemovalEventArgs e)
         {
             EventHandler<BadObjectRemovalEventArgs> handler = RaiseBadObjectRemovalEvent;
-            handler(e.Sender, e);
+            handler?.Invoke(e.Sender, e);
+        }
+
+        protected virtual void OnRaiseBrickBumpedEvent(BrickBumpedEventArgs e)
+        {
+            EventHandler<BrickBumpedEventArgs> handler = RaiseBrickBumpedEvent;
+            handler?.Invoke(e.Sender, e);
         }
     }
 }

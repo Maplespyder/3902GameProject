@@ -1,4 +1,5 @@
-﻿using MarioClone.GameObjects;
+﻿using MarioClone.Factories;
+using MarioClone.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,12 @@ namespace MarioClone.EventCenter
         {
             BadObjectRemovalEventArgs args = new BadObjectRemovalEventArgs(obj);
             OnRaiseBadObjectRemovalEvent(args);
+        }
+
+        public void TriggerBrickBumpedEvent(AbstractBlock block, PowerUpType powerup, bool broken)
+        {
+            BrickBumpedEventArgs args = new BrickBumpedEventArgs(block, powerup, broken);
+            OnRaiseBrickBumpedEvent(args);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using MarioClone.Collision;
+using MarioClone.Factories;
 using MarioClone.GameObjects;
 using MarioClone.States;
+using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -74,4 +76,16 @@ namespace MarioClone.EventCenter
             Position = obj.Position;
         }
     }
+    public class BrickBumpedEventArgs : CustomEventArgs<AbstractBlock>
+    {
+        public PowerUpType PowerupRevealed;
+        public bool BrickBroken;
+
+        public BrickBumpedEventArgs(AbstractBlock obj, PowerUpType powerup, bool broken) : base(obj)
+        {
+            PowerupRevealed = powerup;
+            BrickBroken = broken;
+        }
+    }
+    
 }
