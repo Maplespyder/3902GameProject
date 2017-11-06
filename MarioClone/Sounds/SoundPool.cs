@@ -112,11 +112,11 @@ namespace MarioClone.Sounds
 			//Load in all sound effects via Factory we want 3 times max
 			foreach(SoundType sound in Enum.GetValues(typeof(SoundType))){
 				PoolList.Add(SoundFactory(sound));
-				PoolList.Add(SoundFactory(sound));
-				PoolList.Add(SoundFactory(sound));
 			}
+			PoolList.Add(SoundFactory(SoundType.Coin));
+			PoolList.Add(SoundFactory(SoundType.Coin));
 			//add additional sounds
-			
+
 		}
 		public SoundEffect SoundFactory(SoundType sound)
 		{

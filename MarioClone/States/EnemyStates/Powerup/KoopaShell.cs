@@ -32,7 +32,6 @@ namespace MarioClone.States.EnemyStates
 
         public override void BecomeDead()
         {
-            SoundPool.Instance.GetAndPlay(SoundType.Kick);
             Context.PowerupState = new KoopaDead(Context);
         }
 

@@ -18,7 +18,6 @@ namespace MarioClone.States.BlockStates
             Context.BoundingBox = null;
 
             EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, true);
-            SoundPool.Instance.GetAndPlay(SoundType.Break);
 
 			Context.Visible = false;
             List<Vector2> velocityList = new List<Vector2>

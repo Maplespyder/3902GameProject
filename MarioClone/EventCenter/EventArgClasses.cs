@@ -93,5 +93,5 @@ namespace MarioClone.EventCenter
             BrickBroken = broken;
         }
     }
-    
+
 }

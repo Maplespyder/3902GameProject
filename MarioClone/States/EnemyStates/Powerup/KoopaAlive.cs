@@ -12,9 +12,10 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace MarioClone.States.EnemyStates
 {
-    class KoopaAlive :EnemyPowerupState
+    class KoopaAlive : EnemyPowerupState
     {
-        public KoopaAlive(AbstractEnemy context) : base(context)
+
+		public KoopaAlive(AbstractEnemy context) : base(context)
         {
             if (Context.Orientation == Facing.Right)
             {
@@ -37,7 +38,7 @@ namespace MarioClone.States.EnemyStates
         
         public override void BecomeDead()
         {
-            SoundPool.Instance.GetAndPlay(SoundType.Stomp);
+
             Context.PowerupState = new KoopaShell(Context);
         }
     }

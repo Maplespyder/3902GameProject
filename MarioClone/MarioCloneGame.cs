@@ -60,6 +60,7 @@ namespace MarioClone
 			camera.Limits = new Rectangle(0, 0, 4800, 960); //set limit of world
 			gameGrid = new GameGrid(12, 4800, camera);
             HUDs = new List<HUD>();
+			EventSounds sounds = new EventSounds();
 			base.Initialize();
 		}
 

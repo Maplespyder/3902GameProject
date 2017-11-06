@@ -17,7 +17,6 @@ namespace MarioClone.GameObjects
 		{
 			if (gameObject is Mario)
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.Coin);
 			}
 			return base.CollisionResponse(gameObject, side, gameTime);
 		}

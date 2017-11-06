@@ -57,7 +57,6 @@ namespace MarioClone.States
             Context.ActionState = MarioJump.Instance;
             Context.PreviousActionState = this;
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
-			SoundPool.Instance.GetAndPlay(SoundType.Jump);
 		}
 
         public override void Walk(Facing orientation)
