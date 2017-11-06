@@ -43,6 +43,10 @@ namespace MarioClone.GameObjects
 
         public bool Gravity { get; set; }
 
+        public int Lives { get; set; }
+
+        public int CoinCount { get; set; }
+
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
@@ -54,6 +58,8 @@ namespace MarioClone.GameObjects
             Orientation = Facing.Right;
             Gravity = true;
             BounceCount = 0;
+            Lives = 3;
+            CoinCount = 0;
 
             PreviousPowerupState = PowerupState;
             PreviousActionState = MarioIdle.Instance;
@@ -168,12 +174,13 @@ namespace MarioClone.GameObjects
                     bouncing = true;
                 }
             }
-            else
+            else if (side.Equals(Side.Bottom))
             {
                 BounceCount = 0;
                 bouncing = false;
             }
         }
+        
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {

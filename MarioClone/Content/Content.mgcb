@@ -313,3 +313,10 @@
 /processorParam:Quality=Best
 /build:SoundEffects/Overworld.wav
 
+#begin Fonts/Name.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Name.spritefont
+

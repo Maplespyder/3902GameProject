@@ -49,8 +49,11 @@ namespace MarioClone.EventCenter
     public class PowerupCollectedEventArgs : CustomEventArgs<AbstractPowerup>
     {
         public Mario Collector { get; }
+        public int PointValue { get; }
+
         public PowerupCollectedEventArgs(AbstractPowerup powerup, Mario collector) : base(powerup)
         {
+            PointValue = powerup.PointValue;
             Collector = collector;
         }
     }
@@ -59,9 +62,12 @@ namespace MarioClone.EventCenter
     {
         public Mario Killer { get; }
         public int BounceCount { get; }
+        public int PointValue { get; }
+
         public EnemyDefeatedEventArgs(AbstractEnemy enemy, Mario killer) : base(enemy)
         {
-            killer = Killer;
+            Killer = killer;
+            PointValue = enemy.PointValue;
             BounceCount = Mario.Instance.BounceCount;
         }
     }

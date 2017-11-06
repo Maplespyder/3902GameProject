@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.EventCenter;
 using MarioClone.Sounds;
 using MarioClone.Sprites;
 using MarioClone.States;
@@ -29,6 +30,7 @@ namespace MarioClone.GameObjects
 
             if (gameObject is Mario)
             {
+                EventManager.Instance.TriggerPowerupCollectedEvent(this, (Mario)gameObject);
                 isCollided = true;
 			}
             else if (gameObject is AbstractBlock && gameObject.Visible)
