@@ -194,7 +194,9 @@ namespace MarioClone.GameObjects
             { 
                 Velocity = new Vector2(Velocity.X, -7);
             }
-            else if ((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) || gameObject is CoinObject || gameObject is GreenMushroomObject)
+            else if ((((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) 
+                || (gameObject is HiddenBrickObject && side == Side.Top && !gameObject.Visible && (ActionState is MarioFall)))
+                || gameObject is CoinObject || gameObject is GreenMushroomObject))
             {
                 return false;
             }
