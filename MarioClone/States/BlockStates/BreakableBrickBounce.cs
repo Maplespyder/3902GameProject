@@ -19,10 +19,8 @@ namespace MarioClone.States.BlockStates
 
             EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, false);
 
-			SoundPool.Instance.GetAndPlay(SoundType.Bump);
 			if (Context.CoinCount > 0)
             {
-				SoundPool.Instance.GetAndPlay(SoundType.Coin);
 				Context.CoinCount -= 1;
                 //do some coin related thing
                 
@@ -36,7 +34,6 @@ namespace MarioClone.States.BlockStates
             else if(Context.ContainedPowerup != PowerUpType.None)
             {
 				//do some powerup reveal related thing
-				SoundPool.Instance.GetAndPlay(SoundType.RevealPowerUp);
 				GameGrid.Instance.Add(PowerUpFactory.Create(Context.ContainedPowerup, Context.Position));
                 
                 Context.ContainedPowerup = PowerUpType.None;

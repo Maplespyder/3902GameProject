@@ -41,7 +41,6 @@ namespace MarioClone.States
             Context.PowerupState = MarioNormal.Instance;
             Context.SpriteFactory = NormalMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
-			SoundPool.Instance.GetAndPlay(SoundType.Down);
 			if (Context.ActionState.Action == MarioAction.Crouch)
             {
                 return;
@@ -61,7 +60,6 @@ namespace MarioClone.States
             Context.PowerupState = MarioSuper.Instance;
             Context.SpriteFactory = SuperMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
-			SoundPool.Instance.GetAndPlay(SoundType.Down);
 		}
 
         public override void BecomeFire()

@@ -41,7 +41,6 @@ namespace MarioClone.States
             Context.PowerupState = MarioNormal.Instance;
             Context.SpriteFactory = NormalMarioSpriteFactory.Instance;
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
-			SoundPool.Instance.GetAndPlay(SoundType.Down);
 			if (Context.ActionState.Action == MarioAction.Crouch)
             {
                 return;
@@ -65,8 +64,7 @@ namespace MarioClone.States
         {
             Context.PowerupState = MarioFire.Instance;
             Context.SpriteFactory = FireMarioSpriteFactory.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
-			SoundPool.Instance.GetAndPlay(SoundType.PowerUp);
+			Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
 		}
 
         public override void TakeDamage()

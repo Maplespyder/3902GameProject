@@ -16,7 +16,6 @@ namespace MarioClone.States
         
         public override void BecomeDead()
         {
-            SoundPool.Instance.GetAndPlay(SoundType.Stomp);
             Context.PowerupState = new GoombaDead(Context);
 		}
     }

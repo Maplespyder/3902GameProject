@@ -63,7 +63,6 @@ namespace MarioClone.GameObjects
             {
                 isCollided = true;
                 EventManager.Instance.TriggerPowerupCollectedEvent(this, (Mario)gameObject);
-				SoundPool.Instance.GetAndPlay(SoundType.UP1);
 			}
             else if (gameObject is AbstractBlock)
             {
