@@ -66,6 +66,8 @@ namespace MarioClone.GameObjects
             
             ActionState.UpdateHitBox();
             BoundingBox.UpdateHitBox(position, Sprite);
+
+            EventManager.Instance.RaisePowerupCollectedEvent += ReceivePowerup;
         }
 
 		public void MoveLeft()
@@ -181,6 +183,34 @@ namespace MarioClone.GameObjects
             }
         }
         
+        /// <summary>
+        /// This method is intended for when Mario receives things that change a meta-game state, i.e. he gains a life or a coin. This is
+        /// not meant for the updating of his states, that should happen in sync with Mario's update/collision response. This is less time
+        /// dependent, and therefore easier to just have this happen as a response to a notification from a powerup.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void ReceivePowerup(object sender, PowerupCollectedEventArgs e)
+        {
+            if(!ReferenceEquals(e.Collector, this))
+            {
+                return;
+            }
+
+            if(e.Sender is CoinObject)
+            {
+                CoinCount++;
+                if(CoinCount >= 100)
+                {
+                    CoinCount = 0;
+                    Lives++;
+                }
+            }
+            else if(e.Sender is GreenMushroomObject)
+            {
+                Lives++;
+            }
+        }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {

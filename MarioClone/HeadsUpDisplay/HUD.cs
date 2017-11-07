@@ -37,6 +37,7 @@ namespace MarioClone.HeadsUpDisplay
             Modules.Add(new PlayerNameModule(this));
             Modules.Add(new PlayerScoreModule(this));
             Modules.Add(new CoinCollectionModule(this));
+            Modules.Add(new PlayerLivesModule(this));
         }
 
         public void Update(Camera camera, GameTime gameTime)

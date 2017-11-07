@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MarioClone.HeadsUpDisplay
 {
-    public class CoinCollectionModule : HUDModule
+    public class PlayerLivesModule : HUDModule
     {
-        SpriteFont coinsFont;
-        ISprite coinSprite;
-        private int coinCount;
+        SpriteFont livesFont;
+        ISprite marioSprite;
+        private int lives;
 
-        private Vector2 CoinPositionShift { get; set; }
+        private Vector2 MarioPositionShift { get; set; }
 
         public Vector2 RelativePosition { get; set; }
         public Vector2 AbsolutePosition { get; set; }
@@ -20,17 +20,17 @@ namespace MarioClone.HeadsUpDisplay
         public float DrawOrder { get { return ParentHUD.DrawOrder; } }
         public bool Visible { get; set; }
 
-        public CoinCollectionModule(HUD parent)
+        public PlayerLivesModule(HUD parent)
         {
             ParentHUD = parent;
             Visible = true;
 
-            coinsFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Name");
-            coinSprite = Factories.PowerUpSpriteFactory.Create(Factories.PowerUpType.Coin);
-            coinCount = ParentHUD.Player.CoinCount;
+            livesFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Name");
+            marioSprite = Factories.NormalMarioSpriteFactory.Instance.Create(States.MarioAction.Idle);
+            lives = ParentHUD.Player.Lives;
 
-            RelativePosition = new Vector2(600, 50);
-            CoinPositionShift = new Vector2(-64, 30);
+            RelativePosition = new Vector2(1000, 50);
+            MarioPositionShift = new Vector2(-64, 30);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
 
@@ -38,20 +38,20 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (Visible)
             {
-                spriteBatch.DrawString(coinsFont, "Coins Collected: " + coinCount, AbsolutePosition, Color.Gold);
-                coinSprite.Draw(spriteBatch, AbsolutePosition + CoinPositionShift, DrawOrder, gameTime, Facing.Left);
+                spriteBatch.DrawString(livesFont, "Lives: " + lives, AbsolutePosition, Color.Green);
+                marioSprite.Draw(spriteBatch, AbsolutePosition + MarioPositionShift, DrawOrder, gameTime, Facing.Left);
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            coinCount = ParentHUD.Player.CoinCount;
+            lives = ParentHUD.Player.Lives;
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
 
         public void Dispose()
         {
-            coinSprite = null;
+            marioSprite = null;
             ParentHUD = null;
         }
     }

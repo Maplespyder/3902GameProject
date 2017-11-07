@@ -61,6 +61,7 @@
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
     <Compile Include="HeadsUpDisplay\HUD.cs" />
     <Compile Include="HeadsUpDisplay\HUDModule.cs" />
+    <Compile Include="HeadsUpDisplay\PlayerLivesModule.cs" />
     <Compile Include="HeadsUpDisplay\PlayerNameModule.cs" />
     <Compile Include="HeadsUpDisplay\PlayerScoreModule.cs" />
     <Compile Include="Level\Colors.cs" />
