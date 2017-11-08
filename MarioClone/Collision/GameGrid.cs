@@ -22,12 +22,21 @@ namespace MarioClone.Collision
         public int GridSquareWidth { get; }
         public int GridSquareHeight { get; }
         public int FullGameWidth { get; }
+        public int FullGameHeight { get; }
         public float CurrentLeftSideViewPort { get; set; }
         public float CurrentRightSideViewPort
         {
             get
             {
                 return CurrentLeftSideViewPort + ScreenWidth;
+            }
+        }
+        public float CurrentTopSideViewPort { get; set; }
+        public float CurrentBottomSideViewPort
+        {
+            get
+            {
+                return CurrentTopSideViewPort + ScreenHeight;
             }
         }
 
@@ -39,19 +48,23 @@ namespace MarioClone.Collision
             }
         }
         
-        public GameGrid(int rows, int widthOfGame, Camera camera)
+        public GameGrid(int rows, Camera camera)
         {
             gridInstance = this;
 
             Rows = rows;
-			_camera = camera;
+            _camera = camera;
+
+            FullGameWidth = _camera.Limits.Value.Width;
+            FullGameHeight = _camera.Limits.Value.Height * 2;
             ScreenWidth = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
             ScreenHeight = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
-            GridSquareHeight = ScreenHeight / Rows;
-			FullGameWidth = widthOfGame;
+
+            GridSquareHeight = FullGameHeight / Rows;
 			GridSquareWidth = GridSquareHeight;
 			Columns = GridSquareWidth * (FullGameWidth / ScreenWidth) + 1;
 			CurrentLeftSideViewPort = _camera.Position.X;
+            CurrentTopSideViewPort = _camera.Position.Y;
 
             gameGrid = new List<AbstractGameObject>[Columns, Rows];
             for (int i = 0; i < Rows; i++)
@@ -97,7 +110,7 @@ namespace MarioClone.Collision
             int xBucket = corner.X / GridSquareWidth;
             int yBucket = corner.Y / GridSquareHeight;
 
-            if (corner.Y >= ScreenHeight)
+            if (corner.Y >= FullGameHeight)
             {
                 yBucket -= 1;
             }
@@ -123,7 +136,7 @@ namespace MarioClone.Collision
                 }
             }
 
-            if ((corner.Y > 0) && (corner.Y < ScreenHeight))
+            if ((corner.Y > 0) && (corner.Y < FullGameHeight))
             {
                 if ((corner.Y % GridSquareHeight) == 0)
                 {
@@ -257,9 +270,15 @@ namespace MarioClone.Collision
                 int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
                 if (rightHandColumn < Columns - 1) { rightHandColumn++; }
 
+                int topRow = (int)(CurrentTopSideViewPort / GridSquareHeight);
+                if (topRow > 0) { topRow--; }
+
+                int bottomRow = (int)(CurrentBottomSideViewPort / GridSquareHeight);
+                if (bottomRow < bottomRow - 1) { bottomRow++; }
+
                 for (int i = leftHandColumn; i < rightHandColumn; i++)
                 {
-                    for (int j = 0; j < Rows; j++)
+                    for (int j = topRow; j < bottomRow; j++)
                     {
                         numFound += gameGrid[i, j].RemoveAll((obj) => ReferenceEquals(obj, e.Sender));
                     }
@@ -307,9 +326,15 @@ namespace MarioClone.Collision
                 int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
                 if (rightHandColumn < Columns - 1) { rightHandColumn++; }
 
+                int topRow = (int)(CurrentTopSideViewPort / GridSquareHeight);
+                if (topRow > 0) { topRow--; }
+
+                int bottomRow = (int)(CurrentBottomSideViewPort / GridSquareHeight);
+                if (bottomRow < bottomRow - 1) { bottomRow++; }
+
                 List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
-                for (int rows = 0; rows < Rows; rows++)
+                for (int rows = topRow; rows < bottomRow; rows++)
                 {
                     for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
                     {
@@ -331,9 +356,15 @@ namespace MarioClone.Collision
                 int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
                 if (rightHandColumn < Columns - 1) { rightHandColumn++; }
 
+                int topRow = (int)(CurrentTopSideViewPort / GridSquareHeight);
+                if (topRow > 0) { topRow--; }
+
+                int bottomRow = (int)(CurrentBottomSideViewPort / GridSquareHeight);
+                if (bottomRow < bottomRow - 1) { bottomRow++; }
+
                 List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
-                for (int rows = 0; rows < Rows; rows++)
+                for (int rows = topRow; rows < bottomRow; rows++)
                 {
                     for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
                     {
@@ -355,9 +386,16 @@ namespace MarioClone.Collision
 
                 int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
                 if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
+                int topRow = (int)(CurrentTopSideViewPort / GridSquareHeight);
+                if (topRow > 0) { topRow--; }
+
+                int bottomRow = (int)(CurrentBottomSideViewPort / GridSquareHeight);
+                if (bottomRow < bottomRow - 1) { bottomRow++; }
+
                 List<AbstractGameObject> objectList = new List<AbstractGameObject>();
 
-                for (int rows = 0; rows < Rows; rows++)
+                for (int rows = topRow; rows < bottomRow; rows++)
                 {
                     for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
                     {

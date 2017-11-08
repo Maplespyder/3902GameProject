@@ -1,5 +1,4 @@
 ﻿using MarioClone.GameObjects;
-using MarioClone.GameObjects.Bricks;
 using Microsoft.Xna.Framework;
 
 namespace MarioClone.Factories
@@ -60,7 +59,7 @@ namespace MarioClone.Factories
                 case BlockType.HiddenBlock:
                     return new HiddenBrickObject(SpriteFactory.Create(type), position);
 				case BlockType.PipeTop:
-					return new StaticBlockObject(SpriteFactory.Create(type), position);
+					return new PipeTop(SpriteFactory.Create(type), position);
 				case BlockType.PipeSegment:
 					return new PipeSegment(SpriteFactory.Create(type), position);
                 default:

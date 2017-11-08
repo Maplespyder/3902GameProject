@@ -1,7 +1,7 @@
 ﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 
-namespace MarioClone.GameObjects.Bricks
+namespace MarioClone.GameObjects
 {
     public class PipeSegment : AbstractBlock
 	{

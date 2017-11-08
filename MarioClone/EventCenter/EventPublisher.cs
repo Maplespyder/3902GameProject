@@ -26,8 +26,9 @@ namespace MarioClone.EventCenter
         public event EventHandler<EnemyDefeatedEventArgs> RaiseEnemyDefeatedEvent;
         public event EventHandler<BadObjectRemovalEventArgs> RaiseBadObjectRemovalEvent;
         public event EventHandler<BrickBumpedEventArgs> RaiseBrickBumpedEvent;
+        public event EventHandler<PlayerWarpingEventArgs> RaisePlayerWarpingEvent;
 
-		protected virtual void OnRaiseMarioActionStateEvent(MarioActionStateEventArgs e)
+        protected virtual void OnRaiseMarioActionStateEvent(MarioActionStateEventArgs e)
         {
             EventHandler<MarioActionStateEventArgs> handler = RaiseMarioActionStateEvent;
             handler?.Invoke(e.Sender, e);
@@ -63,5 +64,11 @@ namespace MarioClone.EventCenter
 			EventHandler<BrickBumpedEventArgs> handler = RaiseBrickBumpedEvent;
 			handler?.Invoke(e.Sender, e);
 		}
-	}
+
+        protected virtual void OnRaisePlayerWarpingEvent(PlayerWarpingEventArgs e)
+        {
+            EventHandler<PlayerWarpingEventArgs> handler = RaisePlayerWarpingEvent;
+            handler?.Invoke(e.Sender, e);
+        }
+    }
 }
