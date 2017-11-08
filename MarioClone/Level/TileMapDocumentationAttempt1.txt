@@ -12,6 +12,7 @@ Mario Spawn: (136, 0, 27)
 • Floor Block: (0, 0, 0)
 • Stair/Pyramid Block: (255, 178, 100)
 • Hidden Bricks: (189, 69, 0)
+• Warp Point: (255, 200, 0)
 
 Enemies:
 • Goomba: (81, 47, 28)

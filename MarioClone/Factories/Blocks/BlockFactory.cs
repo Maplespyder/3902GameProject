@@ -33,7 +33,7 @@ namespace MarioClone.Factories
                 return _factory;
             }
         }
-
+	
         protected BlockFactory()
         {
             SpriteFactory = NormalThemedBlockSpriteFactory.Instance;

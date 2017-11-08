@@ -54,6 +54,8 @@
     <Compile Include="EventCenter\EventArgClasses.cs" />
     <Compile Include="EventCenter\EventPublisher.cs" />
     <Compile Include="EventCenter\EventRaiser.cs" />
+    <Compile Include="Factories\Blocks\SubThemedBlockSpriteFactory.cs" />
+    <Compile Include="GameObjects\Bricks\Flagpole.cs" />
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="GameObjects\Bricks\PipeTop.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />
@@ -255,6 +257,7 @@
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Level\Sprint4undergroundattempt1.bmp" />
     <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />

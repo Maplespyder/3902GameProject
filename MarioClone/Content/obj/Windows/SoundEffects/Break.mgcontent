@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Break.wav</SourceFile>
   <SourceTime>2017-11-02T10:32:26.8654457-04:00</SourceTime>
   <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/SoundEffects/Break.xnb</DestFile>
-  <DestTime>2017-11-02T10:41:07.3852825-04:00</DestTime>
+  <DestTime>2017-11-08T12:20:14.350351-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
