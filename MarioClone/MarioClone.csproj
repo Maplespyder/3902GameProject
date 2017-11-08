@@ -54,6 +54,7 @@
     <Compile Include="EventCenter\EventArgClasses.cs" />
     <Compile Include="EventCenter\EventPublisher.cs" />
     <Compile Include="EventCenter\EventRaiser.cs" />
+    <Compile Include="Factories\Blocks\SubThemedBlockSpriteFactory.cs" />
     <Compile Include="GameObjects\Bricks\Flagpole.cs" />
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="GameObjects\Bricks\PipeTop.cs" />
