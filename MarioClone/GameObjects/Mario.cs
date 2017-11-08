@@ -137,6 +137,7 @@ namespace MarioClone.GameObjects
         {
             PowerupState.BecomeDead();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
+            Lives--;
         }
 
         public void BecomeNormal()
