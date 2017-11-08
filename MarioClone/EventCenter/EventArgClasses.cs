@@ -2,13 +2,8 @@
 using MarioClone.Factories;
 using MarioClone.GameObjects;
 using MarioClone.States;
-using MarioClone.States.BlockStates;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarioClone.EventCenter
 {
@@ -94,4 +89,15 @@ namespace MarioClone.EventCenter
         }
     }
 
+    public class PlayerWarpingEventArgs : CustomEventArgs<PipeTop>
+    {
+        public PipeTop WarpExit { get; }
+        public Mario Warper { get; }
+
+        public PlayerWarpingEventArgs(PipeTop obj, PipeTop exit, Mario player) : base(obj)
+        {
+            WarpExit = exit;
+            Warper = player;
+        }
+    }
 }

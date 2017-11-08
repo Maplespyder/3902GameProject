@@ -1,11 +1,8 @@
 ﻿using MarioClone.Collision;
-using MarioClone.Commands;
-using MarioClone.Controllers;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +10,7 @@ using System.IO;
 
 namespace MarioClone.Level
 {
-	public class LevelCreator
+    public class LevelCreator
 	{
 		private const int KoopaHeight = 112;
 		private const int GoombaHeight = 62;
@@ -25,12 +22,19 @@ namespace MarioClone.Level
 		private const int BlockWidth = 64;
 		private const int BlockHeight = 64;
 
+        bool aboveGround;
+        private string file;
 		private Bitmap _image;
+        private PipeTop danglingWarp;
+
+        public Dictionary<int, Microsoft.Xna.Framework.Rectangle> levelAreas { get; private set; }
+
 		public GameGrid Grid { get; set; }
 
 		public LevelCreator(string file, GameGrid grid)
 		{
-			using (var stream = new FileStream(file, FileMode.Open))
+            this.file = file;
+			using (var stream = new FileStream(this.file, FileMode.Open))
 			{
 				_image = new Bitmap(stream);
 			}
@@ -38,15 +42,24 @@ namespace MarioClone.Level
 		}
 
 		public void Create()
-		{
-			for (int i = 0; i < _image.Width; i++)
-			{
-				for (int j = 0; j < _image.Height; j++)
-				{
-					MakeObject(_image.GetPixel(i, j), i * BlockWidth, j * BlockHeight);
-				}
-			}
+        {
+            aboveGround = true;
+            levelAreas = new Dictionary<int, Microsoft.Xna.Framework.Rectangle>();
+
+            levelAreas.Add(0, new Microsoft.Xna.Framework.Rectangle(0, 0, _image.Width, _image.Height));
+            CreationLoop(0, 0);
 		}
+
+        private void CreationLoop(int startX, int startY)
+        {
+            for (int i = startX; i < _image.Width; i++)
+            {
+                for (int j = startY; j < _image.Height; j++)
+                {
+                    MakeObject(_image.GetPixel(i, j), i * BlockWidth, j * BlockHeight);
+                }
+            }
+        }
 
 		private void MakeObject(System.Drawing.Color pixel, int x, int y)
 		{
@@ -192,8 +205,68 @@ namespace MarioClone.Level
 				}
 				else if (sameColor(pixel, Colors.PipeTop))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.PipeTop, position);
-					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+                    PipeTop initializer = (PipeTop)BlockFactory.Instance.Create(BlockType.PipeTop, position);
+                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+                    if(aboveGround)
+                    {
+                        initializer.LevelArea = 0;
+                    }
+                    else
+                    {
+                        initializer.LevelArea = file[file.Length] - '0';
+                    }
+
+                    for (int i = y; i < _image.Height; i++)
+                    {
+                        //"false" will be replaced with pixel.R == Colors.WarpSpot.R && pixel.G == Colors.WarpSpot.G
+                        if(aboveGround && false)
+                        {
+                            if (danglingWarp != null)
+                            {
+                                danglingWarp.WarpEnd = initializer;
+                                initializer.WarpEnd = danglingWarp;
+                                danglingWarp = null;
+                            }
+                            else
+                            {
+                                danglingWarp = initializer;
+                                aboveGround = false;
+
+                                String newFile = file + _image.GetPixel(x, i).B;
+                                using (var stream = new FileStream(newFile, FileMode.Open))
+                                {
+                                    _image = new Bitmap(stream);
+                                }
+
+                                levelAreas.Add(pixel.B, 
+                                    new Microsoft.Xna.Framework.Rectangle(x, y, _image.Width, MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight));
+
+                                CreationLoop(x, y);
+                                aboveGround = true;
+                                using (var stream = new FileStream(file, FileMode.Open))
+                                {
+                                    _image = new Bitmap(stream);
+                                }
+                            }
+
+                            break;
+                        }
+                        //"false" will be replaced with pixel.R == Colors.WarpSpot.R && pixel.G == Colors.WarpSpot.G
+                        else if (false)
+                        {
+                            if (danglingWarp != null)
+                            {
+                                danglingWarp.WarpEnd = initializer;
+                                initializer.WarpEnd = danglingWarp;
+                                danglingWarp = null;
+                            }
+                            else
+                            {
+                                danglingWarp = initializer;
+                            }
+                        }
+                    }
+
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.QuestionBlockRedMushroom))

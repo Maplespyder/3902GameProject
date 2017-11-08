@@ -45,5 +45,11 @@ namespace MarioClone.EventCenter
             BrickBumpedEventArgs args = new BrickBumpedEventArgs(block, powerup, broken);
             OnRaiseBrickBumpedEvent(args);
         }
+
+        public void TriggerPlayerWarpingEvent(PipeTop entrance, PipeTop exit, Mario player)
+        {
+            PlayerWarpingEventArgs args = new PlayerWarpingEventArgs(entrance, exit, player);
+            OnRaisePlayerWarpingEvent(args);
+        }
     }
 }

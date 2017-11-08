@@ -13,6 +13,8 @@ using System.IO;
 using MarioClone.Cam;
 using MarioClone.Sounds;
 using MarioClone.HeadsUpDisplay;
+using MarioClone.EventCenter;
+using System;
 
 namespace MarioClone
 {
@@ -58,7 +60,7 @@ namespace MarioClone
 
 			camera = new Camera(GraphicsDevice.Viewport);
 			camera.Limits = new Rectangle(0, 0, 4800, 960); //set limit of world
-			gameGrid = new GameGrid(12, 4800, camera);
+			gameGrid = new GameGrid(24, camera);
             HUDs = new List<HUD>();
 			EventSounds sounds = new EventSounds();
 			base.Initialize();
@@ -157,13 +159,15 @@ namespace MarioClone
 
             // Add keyboard to list of gamepads
             controllerList.Add(keyboard);
+
+            EventManager.Instance.RaisePlayerWarpingEvent += UpdateCameraForWarp;
 		}
 
-		/// <summary>
-		/// UnloadContent will be called once per game and is the place to unload
-		/// game-specific content.
-		/// </summary>
-		protected override void UnloadContent()
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// game-specific content.
+        /// </summary>
+        protected override void UnloadContent()
 		{
 			// TODO: Unload any non ContentManager content here
 		}
@@ -204,6 +208,7 @@ namespace MarioClone
 
                 camera.LookAt(Mario.Instance.Position);
                 gameGrid.CurrentLeftSideViewPort = camera.Position.X;
+                gameGrid.CurrentTopSideViewPort = camera.Position.Y;
 
                 foreach(HUD hud in HUDs)
                 {
@@ -236,6 +241,23 @@ namespace MarioClone
 				base.Draw(gameTime);
 			}
 		}
+
+        
+        private void UpdateCameraForWarp(object sender, PlayerWarpingEventArgs e)
+        {
+            //this will be uncommented once the level creator is done so it doesn't crash the game.
+            /*camera.Limits = level.levelAreas[e.WarpExit.LevelArea];
+
+            e.Warper.Position = e.WarpExit.Position + new Vector2(10, 48);
+            gameGrid.Remove(e.Warper);
+            e.Warper.Update(null, 1);
+            gameGrid.Add(e.Warper);
+
+            camera.LookAt(e.Warper.Position);
+
+            gameGrid.CurrentLeftSideViewPort = camera.Position.X;
+            gameGrid.CurrentTopSideViewPort = camera.Position.Y;*/
+        }
 
         private void DrawWorld(GameTime gameTime)
         {
@@ -272,7 +294,7 @@ namespace MarioClone
 
         public void ResetLevelCommand()
         {
-            gameGrid = new GameGrid(12, 4800, camera);
+            gameGrid = new GameGrid(24, camera);
             foreach(HUD hud in HUDs)
             {
                 hud.Dispose();
