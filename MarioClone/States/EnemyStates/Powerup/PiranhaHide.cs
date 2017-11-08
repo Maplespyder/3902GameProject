@@ -15,16 +15,12 @@ namespace MarioClone.States.EnemyStates.Powerup
 		{
 			Context.PiranhaCycleTime = 0;
 		}
-
-		public override void BecomeHide()
-		{
-		}
+        
 		public override void BecomeReveal()
 		{
 			Context.PowerupState = new PiranhaReveal(Context);
 			Context.Velocity = new Vector2(0, -1);
 		}
-		public override void BecomeAlive() { }
 
 		public override void BecomeDead()
 		{

@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.EventCenter;
 using MarioClone.Sounds;
 using MarioClone.Sprites;
 using MarioClone.States;
@@ -12,19 +13,23 @@ namespace MarioClone.GameObjects
         public const float GravityAcceleration = 0.4f;
         public bool Gravity { get; set; }
 
-        public GreenMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green) {
-			DrawOrder = .51f;
-		}
+        public GreenMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green)
+        {
+            DrawOrder = .51f;
+            PointValue = 0;
+        }
 
         public override bool Update(GameTime gameTime, float percent)
         {
+			bool retval = base.Update(gameTime, percent);
+
             if (Gravity && !(State is PowerupRevealState))
             {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent); 
+                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
             }
-            
             Gravity = true;
-			return base.Update(gameTime, percent);
+
+            return retval;
         }
 
         public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
@@ -57,7 +62,7 @@ namespace MarioClone.GameObjects
             if (gameObject is Mario)
             {
                 isCollided = true;
-				SoundPool.Instance.GetAndPlay(SoundType.UP1);
+                EventManager.Instance.TriggerPowerupCollectedEvent(this, (Mario)gameObject);
 			}
             else if (gameObject is AbstractBlock)
             {

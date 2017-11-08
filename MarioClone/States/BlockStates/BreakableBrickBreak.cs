@@ -1,4 +1,5 @@
-﻿using MarioClone.Factories;
+﻿using MarioClone.EventCenter;
+using MarioClone.Factories;
 using MarioClone.GameObjects;
 using MarioClone.Sounds;
 using Microsoft.Xna.Framework;
@@ -15,7 +16,9 @@ namespace MarioClone.States.BlockStates
         {
             Context = context;
             Context.BoundingBox = null;
-			SoundPool.Instance.GetAndPlay(SoundType.Break);
+
+            EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, true);
+
 			Context.Visible = false;
             List<Vector2> velocityList = new List<Vector2>
             {

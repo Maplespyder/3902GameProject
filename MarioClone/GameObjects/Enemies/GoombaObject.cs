@@ -1,11 +1,8 @@
-﻿using System;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MarioClone.Factories;
 using MarioClone.States;
 using MarioClone.Collision;
-using static MarioClone.Collision.GameGrid;
+using MarioClone.EventCenter;
 
 namespace MarioClone.GameObjects
 {
@@ -18,24 +15,8 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
 			Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
-
+            PointValue = 200;
 		}
-
-        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
-        {
-            if (obj1 is AbstractBlock && obj1.Visible)
-            {
-                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-                BoundingBox.UpdateHitBox(Position, Sprite);
-
-            }
-            else if (obj2 is AbstractBlock && obj2.Visible)
-            {
-                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-                BoundingBox.UpdateHitBox(Position, Sprite);
-            }
-
-        }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
@@ -48,8 +29,8 @@ namespace MarioClone.GameObjects
             {
                 if (side.Equals(Side.Top))
                 {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
                     PowerupState.BecomeDead();
-                    TimeDead = 0;
                     return true;
                 }
             }
@@ -72,16 +53,15 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            bool retval = base.Update(gameTime, percent);
+
             if (Gravity)
             {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration);
+                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
-
             Gravity = true;
-			Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-			bool retVal = PowerupState.Update(gameTime, percent);
-            base.Update(gameTime, percent);
-            return retVal;
+
+            return retval;
         }
     }
 }

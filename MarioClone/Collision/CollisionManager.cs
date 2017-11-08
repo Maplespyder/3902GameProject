@@ -577,8 +577,16 @@ namespace MarioClone.Collision
 
                     anySignificantCollision = true;
 
-                    obj1.CollisionResponse(obj2, side, gameTime);
-                    obj2.CollisionResponse(obj1, GetOppositeSide(side), gameTime);
+                    if(obj2 is Mario)
+                    {
+                        obj2.CollisionResponse(obj1, GetOppositeSide(side), gameTime);
+                        obj1.CollisionResponse(obj2, side, gameTime);
+                    }
+                    else
+                    {
+                        obj1.CollisionResponse(obj2, side, gameTime);
+                        obj2.CollisionResponse(obj1, GetOppositeSide(side), gameTime);
+                    }
 
                     if (obj1.BoundingBox != null)
                     {
@@ -634,9 +642,9 @@ namespace MarioClone.Collision
                 newPosition.X = 0;
             }
 
-            if (newPosition.Y < 0)
+            if (newPosition.Y - objectDimensions.Height < 0)
             {
-                newPosition.Y = 0;
+                newPosition.Y = 0 + objectDimensions.Height;
             }
 
             return newPosition;

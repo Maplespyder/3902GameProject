@@ -12,40 +12,34 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace MarioClone.States.EnemyStates
 {
-    class KoopaAlive :EnemyPowerupState
+    class KoopaAlive : EnemyPowerupState
     {
-        public KoopaAlive(AbstractEnemy context) : base(context) { }
 
-		public override void BecomeHide()
-		{
-		}
-		public override void BecomeReveal()
-		{
-		}
-
-		public override void BecomeAlive() { }
-
-        public override void BecomeDead()
+		public KoopaAlive(AbstractEnemy context) : base(context)
         {
-            Context.PowerupState = new KoopaShell(Context);
-            Context.Velocity = new Vector2(0, 0);
-			SoundPool.Instance.GetAndPlay(SoundType.Stomp);
-	
+            if (Context.Orientation == Facing.Right)
+            {
+                Context.Velocity = new Vector2(1f, Context.Velocity.Y);
+            }
+            else if (Context.Orientation == Facing.Left)
+            {
+                Context.Velocity = new Vector2(-1f, Context.Velocity.Y);
+            }
+
             if (Context is GreenKoopaObject)
             {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopaShell);
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopa);
             }
             else if (Context is RedKoopaObject)
             {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopaShell);
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopa);
             }
-            
-
         }
-
-        public override bool Update(GameTime gameTime, float percent)
+        
+        public override void BecomeDead()
         {
-            return false;
+
+            Context.PowerupState = new KoopaShell(Context);
         }
     }
 }

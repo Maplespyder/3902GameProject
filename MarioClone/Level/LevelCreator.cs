@@ -59,8 +59,9 @@ namespace MarioClone.Level
 				{
 					position = new Vector2(position.X, position.Y - (MarioHeight - 64));
 					var mario = MarioFactory.Create(position);
+                    MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
 
-					Grid.Add(mario);
+                    Grid.Add(mario);
 				}
 				else if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance != null)
 				{
@@ -72,10 +73,12 @@ namespace MarioClone.Level
 					Mario.Instance.PreviousActionState = MarioIdle.Instance;
 					Mario.Instance.Sprite = NormalMarioSpriteFactory.Instance.Create(MarioAction.Idle);
 					Mario.Instance.Orientation = Facing.Right;
+                    Mario.Instance.Lives = 3;
+                    Mario.Instance.CoinCount = 0;
 
-					var mario = Mario.Instance;
-
-					Grid.Add(mario);
+                    var mario = Mario.Instance;
+                    MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                    Grid.Add(mario);
 				}
 				else if (sameColor(pixel, Colors.QuestionBlock))
 				{

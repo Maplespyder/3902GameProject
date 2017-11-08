@@ -19,19 +19,25 @@ namespace MarioClone.GameObjects.Enemies
 			DrawOrder = .52f;
 			PowerupState = new PiranhaHide(this);
 			Velocity = new Vector2(0, 0);
-		}
+            PointValue = 500;
+        }
 
-		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            //don't delete this
+        }
+
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
 		{
 			//None Yet
 			return false;
 		}
-
+        
 		public override bool Update(GameTime gameTime, float percent)
 		{
 			bool retVal = PowerupState.Update(gameTime, percent);
-			base.Update(gameTime, percent);
-			return retVal;
+            Removed = base.Update(gameTime, percent) || retVal;
+			return Removed;
 		}
 	}
 }

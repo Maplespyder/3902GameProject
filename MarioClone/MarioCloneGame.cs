@@ -12,6 +12,7 @@ using MarioClone.GameObjects;
 using System.IO;
 using MarioClone.Cam;
 using MarioClone.Sounds;
+using MarioClone.HeadsUpDisplay;
 
 namespace MarioClone
 {
@@ -58,6 +59,8 @@ namespace MarioClone
 			camera = new Camera(GraphicsDevice.Viewport);
 			camera.Limits = new Rectangle(0, 0, 4800, 960); //set limit of world
 			gameGrid = new GameGrid(12, 4800, camera);
+            HUDs = new List<HUD>();
+			EventSounds sounds = new EventSounds();
 			base.Initialize();
 		}
 
@@ -201,6 +204,11 @@ namespace MarioClone
 
                 camera.LookAt(Mario.Instance.Position);
                 gameGrid.CurrentLeftSideViewPort = camera.Position.X;
+
+                foreach(HUD hud in HUDs)
+                {
+                    hud.Update(camera, gameTime);
+                }
                 base.Update(gameTime);
 			}
 		}
@@ -219,7 +227,11 @@ namespace MarioClone
 				_background.Draw();
 				spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.GetViewMatrix(parallax));
                 DrawWorld(gameTime);
-				spriteBatch.End();
+                foreach (HUD hud in HUDs)
+                {
+                    hud.Draw(spriteBatch, gameTime);
+                }
+                spriteBatch.End();
 
 				base.Draw(gameTime);
 			}
@@ -251,6 +263,8 @@ namespace MarioClone
 			get { return paused; }
 		}
 
+        public static ICollection<HUD> HUDs { get; set; }
+
 		public void ExitCommand()
         {
             Exit();
@@ -259,6 +273,11 @@ namespace MarioClone
         public void ResetLevelCommand()
         {
             gameGrid = new GameGrid(12, 4800, camera);
+            foreach(HUD hud in HUDs)
+            {
+                hud.Dispose();
+            }
+            HUDs.Clear();
             level.Grid = gameGrid;
             level.Create();
         }

@@ -246,7 +246,7 @@ namespace MarioClone.GameObjects
                 return revealedBrick.CollisionResponse(gameObject, side, gameTime);
             }
 
-            if (gameObject is Mario && side == Side.Bottom)
+            if (gameObject is Mario && side == Side.Bottom && gameObject.Velocity.Y <= 0)
             {
                 Bump();
                 return true;

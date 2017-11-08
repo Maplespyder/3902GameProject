@@ -3,6 +3,7 @@ using MarioClone.Factories;
 using Microsoft.Xna.Framework;
 using MarioClone.Collision;
 using MarioClone.Sounds;
+using MarioClone.EventCenter;
 
 namespace MarioClone.States.BlockStates
 {
@@ -14,11 +15,12 @@ namespace MarioClone.States.BlockStates
         {
             initialPosition = context.Position;
 			Context.Velocity = new Vector2(0f, -1f);
-			SoundPool.Instance.GetAndPlay(SoundType.Bump);
+            
+            EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, false);
+
 			if (Context.ContainedPowerup != PowerUpType.None)
             {
 				//do some powerup reveal related thing
-				SoundPool.Instance.GetAndPlay(SoundType.RevealPowerUp);
 				GameGrid.Instance.Add(PowerUpFactory.Create(Context.ContainedPowerup, Context.Position));
                 Context.ContainedPowerup = PowerUpType.None;
             }

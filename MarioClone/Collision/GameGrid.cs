@@ -1,4 +1,5 @@
 ﻿using MarioClone.Cam;
+using MarioClone.EventCenter;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,7 +38,7 @@ namespace MarioClone.Collision
                 return gridInstance;
             }
         }
-
+        
         public GameGrid(int rows, int widthOfGame, Camera camera)
         {
             gridInstance = this;
@@ -60,6 +61,8 @@ namespace MarioClone.Collision
                     gameGrid[j, i] = new List<AbstractGameObject>();
                 }
             }
+
+            EventManager.Instance.RaiseBadObjectRemovalEvent += FixBadObjectRemoval;
         }
         
         public void ClearGrid()
@@ -210,6 +213,71 @@ namespace MarioClone.Collision
             return neighbours;
         }
 
+        private void FixBadObjectRemoval(object sender, BadObjectRemovalEventArgs e)
+        {
+            ISet<Point> potentialSquares = new HashSet<Point>();
+            ISet<Point> additionalSquares = new HashSet<Point>();
+
+            if (e.LastHitBox != null)
+            {
+                potentialSquares.UnionWith(GetSquaresFromObject(e.LastHitBox));                
+            }
+            else if(e.Position != null)
+            {
+                potentialSquares.UnionWith(GetSquaresFromPoint(new Point((int)e.Position.X, (int)e.Position.Y)));
+            }
+
+            foreach (Point p in potentialSquares)
+            {
+                for (int x = p.X - 5; x < p.X + 6; x++)
+                {
+                    for (int y = p.Y - 5; y < p.Y + 6; y++)
+                    {
+                        additionalSquares.Add(new Point(x, y));
+                    }
+                }
+            }
+
+            potentialSquares.UnionWith(additionalSquares);
+
+            int numFound = 0;
+            foreach(Point p in potentialSquares)
+            {
+                if(p.X >=0 && p.X < Columns && p.Y >= 0 && p.Y < Rows)
+                {
+                    numFound += gameGrid[p.X, p.Y].RemoveAll((obj) => ReferenceEquals(obj, e.Sender));
+                }
+            }
+
+            if (numFound == 0)
+            {
+                int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+                if (leftHandColumn > 0) { leftHandColumn--; }
+
+                int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+                if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
+                for (int i = leftHandColumn; i < rightHandColumn; i++)
+                {
+                    for (int j = 0; j < Rows; j++)
+                    {
+                        numFound += gameGrid[i, j].RemoveAll((obj) => ReferenceEquals(obj, e.Sender));
+                    }
+                }
+            }
+
+            if(numFound == 0)
+            {
+                for (int i = 0; i < Columns; i++)
+                {
+                    for (int j = 0; j < Rows; j++)
+                    {
+                        numFound += gameGrid[i, j].RemoveAll((obj) => ReferenceEquals(obj, e.Sender));
+                    }
+                }
+            }
+        }
+        
         public List<AbstractGameObject> FindNeighbours(AbstractGameObject obj)
         {
             ISet<AbstractGameObject> neighbours = new HashSet<AbstractGameObject>();

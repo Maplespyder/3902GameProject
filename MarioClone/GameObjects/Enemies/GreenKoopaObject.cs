@@ -2,7 +2,7 @@
 using MarioClone.Sprites;
 using MarioClone.States.EnemyStates;
 using Microsoft.Xna.Framework;
-using static MarioClone.Collision.GameGrid;
+using MarioClone.EventCenter;
 
 namespace MarioClone.GameObjects
 {
@@ -13,8 +13,11 @@ namespace MarioClone.GameObjects
             Gravity = false;
 			BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
+
+            Orientation = Facing.Left;
             PowerupState = new KoopaAlive(this);
-            Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
+
+            PointValue = 300;
         }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
@@ -23,10 +26,9 @@ namespace MarioClone.GameObjects
             {
                 if (side.Equals(Side.Top))
                 {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
                     PowerupState.BecomeDead();
-                    TimeDead = 0;
                     return true;
-
                 }
 
             }
@@ -35,6 +37,7 @@ namespace MarioClone.GameObjects
                 if (side == Side.Bottom)
                 {
                     Gravity = false;
+                    Velocity = new Vector2(Velocity.X, 0);
                 }
                 else if (side == Side.Left)
                 {
@@ -47,20 +50,20 @@ namespace MarioClone.GameObjects
                     Orientation = Facing.Left;
                 }
             }
-                return false;
 
-
+            return false;
         }
-
         public override bool Update(GameTime gameTime, float percent)
         {
+            bool retval = base.Update(gameTime, percent);
+
             if (Gravity)
             {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration);
+                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
-            Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-            bool retVal = PowerupState.Update(gameTime, percent);
-            return base.Update(gameTime, percent) || retVal;
+            Gravity = true;
+
+            return retval;
         }
     }
 }
