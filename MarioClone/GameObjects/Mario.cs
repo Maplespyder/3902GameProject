@@ -1,6 +1,7 @@
 ﻿using MarioClone.Collision;
 using MarioClone.EventCenter;
 using MarioClone.Factories;
+using MarioClone.GameObjects.Bricks;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 
@@ -34,7 +35,7 @@ namespace MarioClone.GameObjects
         public MarioActionState PreviousActionState { get; set; }
 
         public MarioPowerupState PowerupState { get; set; }
-        
+
         public MarioPowerupState PreviousPowerupState { get; set; }
 
         public MarioSpriteFactory SpriteFactory { get; set; }
@@ -46,6 +47,8 @@ namespace MarioClone.GameObjects
         public int Lives { get; set; }
 
         public int CoinCount { get; set; }
+
+        public int FlagPointCount { get; set; }
 
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
@@ -63,21 +66,21 @@ namespace MarioClone.GameObjects
 
             PreviousPowerupState = PowerupState;
             PreviousActionState = MarioIdle.Instance;
-            
+
             ActionState.UpdateHitBox();
             BoundingBox.UpdateHitBox(position, Sprite);
 
             EventManager.Instance.RaisePowerupCollectedEvent += ReceivePowerup;
         }
 
-		public void MoveLeft()
-		{
+        public void MoveLeft()
+        {
             if (!(PowerupState is MarioDead))
             {
                 ActionState.Walk(Facing.Left);
                 EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
-		}
+        }
 
         public void MoveRight()
         {
@@ -88,7 +91,7 @@ namespace MarioClone.GameObjects
             }
         }
 
-		public void Jump()
+        public void Jump()
         {
             if (!(PowerupState is MarioDead))
             {
@@ -163,6 +166,15 @@ namespace MarioClone.GameObjects
             PowerupState.TakeDamage();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
+
+        /*private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
+        {
+            if (gameObject is Flagpole && side.Equals(Side.Right))
+                {
+                  
+                }
+        }*/
+
 
         private void ManageBouncing(AbstractGameObject gameObject, Side side)
         {
