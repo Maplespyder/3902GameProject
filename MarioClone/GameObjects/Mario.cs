@@ -192,6 +192,7 @@ namespace MarioClone.GameObjects
                 if (Position.Y == height)
                 {
                     //plus one life
+                    Lives++;
                 }
                 else if (Position.Y >= poleHeight - increment && Position.Y < poleHeight)
                 {

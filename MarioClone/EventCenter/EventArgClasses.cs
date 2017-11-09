@@ -102,12 +102,12 @@ namespace MarioClone.EventCenter
         }
     }
 
-    public class PlayerHitPoleEventArgs : CustomEventArgs<Flagpole>
+    public class PlayerHitPoleEventArgs : CustomEventArgs<Mario>
     {
-        public int Height { get; }
-        public PlayerHitPoleEventArgs(int height, Mario mario) : base(obj)
+        public int height { get; }
+        public PlayerHitPoleEventArgs(Mario mario, int height) : base(mario)
         {
-            Height = height;
+            height = height;
         }
 
     }

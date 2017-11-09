@@ -69,13 +69,9 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (ReferenceEquals(e.height, ParentHUD.Player))
             {
-                if (e.height == 1)
-                {
-                    //add a life
-                }
-                else {
+               
                     playerScore += e.height;
-                }
+                
             }
         }
 
