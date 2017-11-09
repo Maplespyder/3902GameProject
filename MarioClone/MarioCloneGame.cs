@@ -92,7 +92,7 @@ namespace MarioClone
         {
             var keyboard = new KeyboardController();
 
-            level = new LevelCreator(@"Level\Sprint3Attempt2.bmp", gameGrid);
+            level = new LevelCreator(@"Level\Sprint4MainLevel.bmp", gameGrid);
             level.Create();
 
 			AbstractGameObject.DrawHitbox = false;
@@ -246,9 +246,9 @@ namespace MarioClone
         private void UpdateCameraForWarp(object sender, PlayerWarpingEventArgs e)
         {
             //this will be uncommented once the level creator is done so it doesn't crash the game.
-            /*camera.Limits = level.levelAreas[e.WarpExit.LevelArea];
+            camera.Limits = level.levelAreas[e.WarpExit.LevelArea];
 
-            e.Warper.Position = e.WarpExit.Position + new Vector2(10, 48);
+            e.Warper.Position = e.WarpExit.Position - new Vector2(10, 48);
             gameGrid.Remove(e.Warper);
             e.Warper.Update(null, 1);
             gameGrid.Add(e.Warper);
@@ -256,7 +256,7 @@ namespace MarioClone
             camera.LookAt(e.Warper.Position);
 
             gameGrid.CurrentLeftSideViewPort = camera.Position.X;
-            gameGrid.CurrentTopSideViewPort = camera.Position.Y;*/
+            gameGrid.CurrentTopSideViewPort = camera.Position.Y;
         }
 
         private void DrawWorld(GameTime gameTime)
@@ -294,6 +294,7 @@ namespace MarioClone
 
         public void ResetLevelCommand()
         {
+            camera.Limits = level.levelAreas[0];
             gameGrid = new GameGrid(24, camera);
             foreach(HUD hud in HUDs)
             {

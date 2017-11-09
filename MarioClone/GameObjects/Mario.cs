@@ -2,6 +2,7 @@
 using MarioClone.EventCenter;
 using MarioClone.Factories;
 using MarioClone.GameObjects.Bricks;
+using MarioClone.GameObjects.PowerUps;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 
@@ -166,8 +167,13 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
+		public void BecomeStar()
+		{
+			PowerupState.BecomeStar();
+			EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
+		}
 
-        private void TakeDamage()
+		private void TakeDamage()
         {
             PowerupState.TakeDamage();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
@@ -334,6 +340,10 @@ namespace MarioClone.GameObjects
             {
                 BecomeFire();
             }
+			else if(gameObject is StarmanObject)
+			{
+				BecomeStar();
+			}
             else
             {
                 Velocity = new Vector2(0, 0);
@@ -368,8 +378,11 @@ namespace MarioClone.GameObjects
                 PreviousActionState = ActionState;
                 ActionState = MarioFall.Instance;
             }
-            
-           
+
+			if(PowerupState is MarioStar)
+			{
+				PowerupState.Update(gameTime);
+			}
             return base.Update(gameTime, percent);    
         }
     }

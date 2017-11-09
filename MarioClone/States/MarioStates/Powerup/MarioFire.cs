@@ -66,12 +66,19 @@ namespace MarioClone.States
         {
 
         }
+		public override void BecomeStar()
+		{
+			Context.PowerupState = MarioStar.Instance;
+		}
 
-        public override void TakeDamage()
+		public override void TakeDamage()
         {
             Context.Velocity = new Vector2(0, 0);
             Context.ActionState = MarioIdle.Instance;
             BecomeSuper();
         }
-    }
+		public override void Update(GameTime gameTime)
+		{
+		}
+	}
 }

@@ -24,7 +24,10 @@ namespace MarioClone.Level
 
         bool aboveGround;
         private string file;
+        private int xOffsetFromUnderground;
+        private int yOffsetFromUnderground;
 		private Bitmap _image;
+        private Bitmap _subLevelImageSwap;
         private PipeTop danglingWarp;
 
         public Dictionary<int, Microsoft.Xna.Framework.Rectangle> levelAreas { get; private set; }
@@ -46,17 +49,18 @@ namespace MarioClone.Level
             aboveGround = true;
             levelAreas = new Dictionary<int, Microsoft.Xna.Framework.Rectangle>();
 
-            levelAreas.Add(0, new Microsoft.Xna.Framework.Rectangle(0, 0, _image.Width, _image.Height));
+            levelAreas.Add(0, new Microsoft.Xna.Framework.Rectangle(0, 0, _image.Width * BlockWidth, _image.Height * BlockHeight));
             CreationLoop(0, 0);
 		}
 
-        private void CreationLoop(int startX, int startY)
+        //rename to xOffset, yOffset
+        private void CreationLoop(int xOffset, int yOffset)
         {
-            for (int i = startX; i < _image.Width; i++)
+            for (int i = 0; i < _image.Width; i++)
             {
-                for (int j = startY; j < _image.Height; j++)
+                for (int j = 0; j < _image.Height; j++)
                 {
-                    MakeObject(_image.GetPixel(i, j), i * BlockWidth, j * BlockHeight);
+                    MakeObject(_image.GetPixel(i, j), (i + xOffset) * BlockWidth, (j + yOffset) * BlockHeight);
                 }
             }
         }
@@ -190,6 +194,12 @@ namespace MarioClone.Level
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
+				else if (sameColor(pixel, Colors.Starman))
+				{
+					var initializer = PowerUpFactory.Create(PowerUpType.Star, position);
+					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+					Grid.Add(initializer);
+				}
 				else if (sameColor(pixel, Colors.Coin))
 				{
 					var initializer = PowerUpFactory.Create(PowerUpType.Coin, position);
@@ -213,13 +223,15 @@ namespace MarioClone.Level
                     }
                     else
                     {
-                        initializer.LevelArea = file[file.Length] - '0';
+                        String temp = Path.GetFileNameWithoutExtension(file);
+                        initializer.LevelArea = temp[temp.Length - 1] - '0';
                     }
-
-                    for (int i = y; i < _image.Height; i++)
+                    
+                    for (int i = (y / BlockHeight) - yOffsetFromUnderground - 1; i < _image.Height; i++)
                     {
+                        System.Drawing.Color tempPixel = _image.GetPixel((x / BlockWidth) - xOffsetFromUnderground, i);
                         //"false" will be replaced with pixel.R == Colors.WarpSpot.R && pixel.G == Colors.WarpSpot.G
-                        if(aboveGround && false)
+                        if(aboveGround && tempPixel.R == Colors.WarpPoint.R && tempPixel.G == Colors.WarpPoint.G)
                         {
                             if (danglingWarp != null)
                             {
@@ -232,16 +244,26 @@ namespace MarioClone.Level
                                 danglingWarp = initializer;
                                 aboveGround = false;
 
-                                String newFile = file + _image.GetPixel(x, i).B;
+                                String newFile = String.Concat(Path.GetFileNameWithoutExtension(file), tempPixel.B, Path.GetExtension(file));
+                                String tempHolder = file;
+                                newFile = Path.Combine(Path.GetDirectoryName(file), newFile);
+
+                                _subLevelImageSwap = _image;
                                 using (var stream = new FileStream(newFile, FileMode.Open))
                                 {
                                     _image = new Bitmap(stream);
                                 }
 
-                                levelAreas.Add(pixel.B, 
-                                    new Microsoft.Xna.Framework.Rectangle(x, y, _image.Width, MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight));
+                                file = newFile;
+                                levelAreas.Add(tempPixel.B, 
+                                    new Microsoft.Xna.Framework.Rectangle(x, (i + 1) * BlockHeight, _image.Width * BlockWidth, MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight));
+                                xOffsetFromUnderground = x / BlockWidth;
+                                yOffsetFromUnderground = i;
+                                CreationLoop(x / BlockWidth, i + 1);
 
-                                CreationLoop(x, y);
+                                xOffsetFromUnderground = 0;
+                                yOffsetFromUnderground = 0;
+                                file = tempHolder;
                                 aboveGround = true;
                                 using (var stream = new FileStream(file, FileMode.Open))
                                 {
@@ -252,7 +274,7 @@ namespace MarioClone.Level
                             break;
                         }
                         //"false" will be replaced with pixel.R == Colors.WarpSpot.R && pixel.G == Colors.WarpSpot.G
-                        else if (false)
+                        else if (tempPixel.R == Colors.WarpPoint.R && tempPixel.G == Colors.WarpPoint.G)
                         {
                             if (danglingWarp != null)
                             {
@@ -276,6 +298,22 @@ namespace MarioClone.Level
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
+                else if(pixel.R == Colors.WarpPoint.R && pixel.G == Colors.WarpPoint.G)
+                {
+                    if((x / BlockWidth) - 1 - xOffsetFromUnderground >= 0)
+                    {
+                        //fill in the blank space with some surrounding to blend in
+                        MakeObject(_image.GetPixel((x / BlockWidth) - 1 - xOffsetFromUnderground, (y / BlockHeight) - yOffsetFromUnderground - 1), x, y);
+                    }
+                    else if((x / BlockWidth) + 1 < _image.Width)
+                    {
+                        MakeObject(_image.GetPixel((x / BlockWidth) + 1 - xOffsetFromUnderground, (y / BlockHeight) - yOffsetFromUnderground - 1), x, y);
+                    }
+                    else
+                    {
+                        MakeObject(Colors.FloorBlock, (x / BlockWidth) - xOffsetFromUnderground, (y / BlockHeight) - yOffsetFromUnderground - 1);
+                    }
+                }
 			}
 
 		}

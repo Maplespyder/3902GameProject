@@ -1,4 +1,5 @@
 ﻿using MarioClone.GameObjects;
+using MarioClone.GameObjects.PowerUps;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,9 @@ namespace MarioClone.Factories
                     return new FireFlowerObject(PowerUpSpriteFactory.Create(type), position);
                 case PowerUpType.Coin:
                     return new CoinObject(PowerUpSpriteFactory.Create(type), position);
-                default:
+				case PowerUpType.Star:
+					return new StarmanObject(PowerUpSpriteFactory.Create(type), position);
+				default:
                     return new GreenMushroomObject(PowerUpSpriteFactory.Create(type), position);
             }
         }

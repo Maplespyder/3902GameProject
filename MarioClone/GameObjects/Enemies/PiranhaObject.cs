@@ -7,6 +7,7 @@ using MarioClone.States;
 using MarioClone.Collision;
 using static MarioClone.Collision.GameGrid;
 using MarioClone.States.EnemyStates.Powerup;
+using MarioClone.EventCenter;
 
 namespace MarioClone.GameObjects.Enemies
 {
@@ -29,7 +30,16 @@ namespace MarioClone.GameObjects.Enemies
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
 		{
-			//None Yet
+			if(gameObject is Mario)
+			{
+				var mario = (Mario)gameObject;
+				if (mario.PowerupState is MarioStar)
+				{
+					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
+					PowerupState.BecomeDead();
+					return true;
+				}
+			}
 			return false;
 		}
         

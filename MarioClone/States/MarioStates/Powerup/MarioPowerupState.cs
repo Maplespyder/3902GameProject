@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MarioClone.GameObjects;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -14,10 +15,12 @@ namespace MarioClone.States
             Dead,
             Normal,
             Super,
-            Fire
+            Fire,
+			Star
         }
 
         public MarioPowerup Powerup { get; set; }
+
 
         protected Mario Context { get; set; }
 
@@ -29,7 +32,9 @@ namespace MarioClone.States
         // Behavior/actions
 
         public abstract void BecomeDead();
-        public abstract void BecomeNormal();
+		public abstract void Update(GameTime gameTime);
+		public abstract void BecomeStar();
+		public abstract void BecomeNormal();
         public abstract void BecomeSuper();
         public abstract void BecomeFire();
         public abstract void TakeDamage();
