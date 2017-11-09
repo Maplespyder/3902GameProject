@@ -3,6 +3,7 @@ using MarioClone.Sprites;
 using MarioClone.States.EnemyStates;
 using Microsoft.Xna.Framework;
 using MarioClone.EventCenter;
+using MarioClone.States;
 
 namespace MarioClone.GameObjects
 {
@@ -30,6 +31,13 @@ namespace MarioClone.GameObjects
                     PowerupState.BecomeDead();
                     return true;
                 }
+				var mario = (Mario)gameObject;
+				if (mario.PowerupState is MarioStar)
+				{
+					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
+					PowerupState.BecomeDead();
+					return true;
+				}
 
             }
             else if (gameObject is AbstractBlock)

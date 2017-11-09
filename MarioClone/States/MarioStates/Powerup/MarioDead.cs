@@ -1,6 +1,7 @@
 ﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -53,8 +54,16 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
         }
 
-        public override void TakeDamage()
+		public override void BecomeStar()
+		{
+		}
+
+		public override void TakeDamage()
         {
         }
-    }
+
+		public override void Update(GameTime gameTime)
+		{
+		}
+	}
 }

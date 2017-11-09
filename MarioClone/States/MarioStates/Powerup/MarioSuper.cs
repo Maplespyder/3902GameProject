@@ -59,8 +59,12 @@ namespace MarioClone.States
         {
 
         }
+		public override void BecomeStar()
+		{
+			Context.PowerupState = MarioStar.Instance;
+		}
 
-        public override void BecomeFire()
+		public override void BecomeFire()
         {
             Context.PowerupState = MarioFire.Instance;
             Context.SpriteFactory = FireMarioSpriteFactory.Instance;
@@ -73,5 +77,8 @@ namespace MarioClone.States
             Context.ActionState = MarioIdle.Instance;
             BecomeNormal();
         }
-    }
+		public override void Update(GameTime gameTime)
+		{
+		}
+	}
 }

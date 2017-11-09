@@ -26,7 +26,7 @@ namespace MarioClone.Level
         public static readonly Color RedMushroom = Color.FromArgb(255, 127, 127);
         public static readonly Color GreenMushroom = Color.FromArgb(196, 255, 14);
         public static readonly Color FireFlower = Color.FromArgb(255, 86, 30);
-        //public static readonly Color Starman = Color.FromArgb(255, 255, 255);
+        public static readonly Color Starman = Color.FromArgb(227, 255, 0);
 
         public static readonly Color Coin = Color.FromArgb(255, 242, 0);
         public static readonly Color PipeSegment = Color.FromArgb(18, 117, 46);
