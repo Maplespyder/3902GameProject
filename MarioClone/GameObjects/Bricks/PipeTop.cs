@@ -20,7 +20,7 @@ namespace MarioClone.GameObjects
         {
             if(gameObject is Mario && side == Side.Top)
             {
-                if(((Mario)gameObject).ActionState.Action == States.MarioAction.Crouch)
+                if(((Mario)gameObject).ActionState.Action == States.MarioAction.Crouch && WarpEnd != null)
                 {
                     EventManager.Instance.TriggerPlayerWarpingEvent(this, WarpEnd, (Mario)gameObject);
                 }
