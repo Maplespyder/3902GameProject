@@ -254,10 +254,10 @@
     <Content Include="Code Reviews\Sprint 3\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\JacobCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\SamCodeReview.txt" />
+    <Content Include="Level\Mainlevel1.bmp" />
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Level\Sprint4undergroundattempt1.bmp" />
     <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />

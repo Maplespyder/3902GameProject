@@ -65,6 +65,20 @@ namespace MarioClone.HeadsUpDisplay
             }
         }
 
+        public void UpdatePlayerScoreFromFlagHit(object sender, PlayerHitPoleEventArgs e)
+        {
+            if (ReferenceEquals(e.height, ParentHUD.Player))
+            {
+                if (e.height == 1)
+                {
+                    //add a life
+                }
+                else {
+                    playerScore += e.height;
+                }
+            }
+        }
+
         public void Dispose()
         {
             EventManager.Instance.RaiseEnemyDefeatedEvent -= UpdatePlayerScoreFromEnemy;

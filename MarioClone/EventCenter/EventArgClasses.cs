@@ -1,6 +1,7 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.GameObjects.Bricks;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 using System;
@@ -99,5 +100,15 @@ namespace MarioClone.EventCenter
             WarpExit = exit;
             Warper = player;
         }
+    }
+
+    public class PlayerHitPoleEventArgs : CustomEventArgs<Flagpole>
+    {
+        public int Height { get; }
+        public PlayerHitPoleEventArgs(int height, Mario mario) : base(obj)
+        {
+            Height = height;
+        }
+
     }
 }

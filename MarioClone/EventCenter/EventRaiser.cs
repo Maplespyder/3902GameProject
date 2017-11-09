@@ -1,5 +1,6 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.GameObjects.Bricks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,12 @@ namespace MarioClone.EventCenter
         {
             PlayerWarpingEventArgs args = new PlayerWarpingEventArgs(entrance, exit, player);
             OnRaisePlayerWarpingEvent(args);
+        }
+
+        public void TriggerPlayerHitPoleEvent(int height, Mario player)
+        {
+            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(height, player);
+            OnRaisePlayerHitPoleEvent(args);
         }
     }
 }

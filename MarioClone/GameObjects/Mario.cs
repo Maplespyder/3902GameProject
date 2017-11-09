@@ -48,7 +48,12 @@ namespace MarioClone.GameObjects
 
         public int CoinCount { get; set; }
 
-        public int FlagPointCount { get; set; }
+        public int height { get; set; }
+        public int poleHeight { get; private set; }
+
+        private int poleBottom;
+        private int poleTop;
+        private int increment;
 
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
@@ -71,6 +76,7 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateHitBox(position, Sprite);
 
             EventManager.Instance.RaisePowerupCollectedEvent += ReceivePowerup;
+             
         }
 
         public void MoveLeft()
@@ -167,13 +173,45 @@ namespace MarioClone.GameObjects
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
-        /*private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
+        private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
         {
             if (gameObject is Flagpole && side.Equals(Side.Right))
                 {
-                  
+                poleBottom = gameObject.BoundingBox.Dimensions.Bottom;
+                poleTop = gameObject.BoundingBox.Dimensions.Top;
+                poleHeight = poleTop - poleBottom;
+
+                increment = poleHeight / 5;
+
+                if (Position.Y == height)
+                {
+                    //plus one life
                 }
-        }*/
+                else if (Position.Y >= poleHeight - increment && Position.Y < poleHeight)
+                {
+                    height = 4000;
+                }
+                else if (Position.Y < poleHeight - increment && Position.Y >= poleHeight - (increment - increment))
+                {
+                    height = 2000;
+                }
+                else if ((Position.Y < (poleHeight - (increment - increment))) && (Position.Y >= poleHeight - (increment - increment - increment)))
+                {
+                    height = 800;
+                }
+                else if (Position.Y >= poleBottom + increment + 1 && Position.Y < poleHeight - (increment - increment - increment))
+                {
+                    height = 400;
+                }
+                else if (Position.Y >= poleBottom && Position.Y < poleBottom + increment + 1)
+                {
+                    height = 100;
+                }
+
+                EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
+            }
+            
+        }
 
 
         private void ManageBouncing(AbstractGameObject gameObject, Side side)
