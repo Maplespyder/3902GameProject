@@ -68,10 +68,8 @@ namespace MarioClone.HeadsUpDisplay
         public void UpdatePlayerScoreFromFlagHit(object sender, PlayerHitPoleEventArgs e)
         {
             if (ReferenceEquals(e.height, ParentHUD.Player))
-            {
-               
-                    playerScore += e.height;
-                
+            { 
+                    playerScore += e.height;   
             }
         }
 

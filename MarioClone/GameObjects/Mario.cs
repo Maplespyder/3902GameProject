@@ -2,9 +2,10 @@
 using MarioClone.EventCenter;
 using MarioClone.Factories;
 using MarioClone.GameObjects.Bricks;
-using MarioClone.GameObjects.PowerUps;
+using MarioClone.GameObjects;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
+using MarioClone.GameObjects.PowerUps;
 
 namespace MarioClone.GameObjects
 {
