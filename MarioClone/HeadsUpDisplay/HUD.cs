@@ -17,22 +17,41 @@ namespace MarioClone.HeadsUpDisplay
 
         public float DrawOrder { get; set; }
         public bool Visible { get; set; }
-        public float ScreenLeft { get; set; }
-        public float ScreenRight { get; set; }
-        public float ScreenTop { get; set; }
-        public float ScreenBottom { get; set; }
+        public float ScreenLeft
+        {
+            get
+            {
+                return MarioCloneGame.GetCamera.Position.X;
+            }
+        }
+        public float ScreenRight
+        { 
+            get
+            {
+                return ScreenLeft + MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
+            }
+        }
+        public float ScreenTop
+        {
+            get
+            {
+                return MarioCloneGame.GetCamera.Position.Y;
+            }
+        }
+        public float ScreenBottom
+        {
+            get
+            {
+                return ScreenTop + MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
+            }
+        }
 
         public HUD(Mario player)
         {
             Player = player;
             Visible = true;
             DrawOrder = 0;
-
-            ScreenLeft = 0;
-            ScreenRight = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
-            ScreenTop = 0;
-            ScreenBottom = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
-
+            
             Modules = new List<HUDModule>();
             Modules.Add(new PlayerNameModule(this));
             Modules.Add(new PlayerScoreModule(this));
@@ -42,11 +61,6 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Update(Camera camera, GameTime gameTime)
         {
-            ScreenLeft = camera.Position.X;
-            ScreenRight = camera.Position.X + camera.Limits.GetValueOrDefault().Width;
-            ScreenTop = camera.Position.Y;
-            ScreenBottom = camera.Position.Y + camera.Limits.GetValueOrDefault().Height;
-
             foreach(HUDModule module in Modules)
             {
                 module.Update(gameTime);

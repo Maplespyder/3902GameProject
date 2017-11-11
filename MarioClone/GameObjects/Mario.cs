@@ -2,7 +2,6 @@
 using MarioClone.EventCenter;
 using MarioClone.Factories;
 using MarioClone.GameObjects.Bricks;
-using MarioClone.GameObjects.PowerUps;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 

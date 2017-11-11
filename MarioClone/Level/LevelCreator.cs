@@ -30,7 +30,7 @@ namespace MarioClone.Level
         private Bitmap _subLevelImageSwap;
         private PipeTop danglingWarp;
 
-        public Dictionary<int, Microsoft.Xna.Framework.Rectangle> levelAreas { get; private set; }
+        public Dictionary<int, Microsoft.Xna.Framework.Rectangle> LevelAreas { get; private set; }
 
 		public GameGrid Grid { get; set; }
 
@@ -47,9 +47,9 @@ namespace MarioClone.Level
 		public void Create()
         {
             aboveGround = true;
-            levelAreas = new Dictionary<int, Microsoft.Xna.Framework.Rectangle>();
+            LevelAreas = new Dictionary<int, Microsoft.Xna.Framework.Rectangle>();
 
-            levelAreas.Add(0, new Microsoft.Xna.Framework.Rectangle(0, 0, _image.Width * BlockWidth, _image.Height * BlockHeight));
+            LevelAreas.Add(0, new Microsoft.Xna.Framework.Rectangle(0, 0, _image.Width * BlockWidth, _image.Height * BlockHeight));
             CreationLoop(0, 0);
 		}
 
@@ -255,7 +255,7 @@ namespace MarioClone.Level
                                 }
 
                                 file = newFile;
-                                levelAreas.Add(tempPixel.B, 
+                                LevelAreas.Add(tempPixel.B, 
                                     new Microsoft.Xna.Framework.Rectangle(x, (i + 1) * BlockHeight, _image.Width * BlockWidth, MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight));
                                 xOffsetFromUnderground = x / BlockWidth;
                                 yOffsetFromUnderground = i;
