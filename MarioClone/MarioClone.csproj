@@ -60,6 +60,7 @@
     <Compile Include="GameObjects\Bricks\PipeTop.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
+    <Compile Include="GameObjects\PowerUps\StarmanObject.cs" />
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
     <Compile Include="HeadsUpDisplay\HUD.cs" />
     <Compile Include="HeadsUpDisplay\HUDModule.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="States\MarioStates\Powerup\MarioFire.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioNormal.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioPowerupState.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioStar.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioSuper.cs" />
     <Compile Include="States\PowerupStates\CoinStaticState.cs" />
     <Compile Include="States\PowerupStates\FireFlowerStaticState.cs" />
