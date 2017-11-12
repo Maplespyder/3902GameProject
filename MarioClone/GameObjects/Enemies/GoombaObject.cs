@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using MarioClone.States;
 using MarioClone.Collision;
 using MarioClone.EventCenter;
+using MarioClone.GameObjects.Other;
 
 namespace MarioClone.GameObjects
 {
@@ -55,7 +56,11 @@ namespace MarioClone.GameObjects
                     Velocity = new Vector2(Velocity.X, 0);
                 }
 			}
-            return false;
+			else if (gameObject is FireBall)
+			{
+				PowerupState.BecomeDead();
+			}
+			return false;
         }
 
         public override bool Update(GameTime gameTime, float percent)

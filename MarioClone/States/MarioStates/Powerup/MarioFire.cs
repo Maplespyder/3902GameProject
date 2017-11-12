@@ -77,7 +77,16 @@ namespace MarioClone.States
             Context.ActionState = MarioIdle.Instance;
             BecomeSuper();
         }
-		public override void Update(GameTime gameTime)
+
+        public override void BecomeInvincible()
+        {
+            TakeDamage();
+            Context.PreviousPowerupState = MarioFire.Instance;
+            Context.PowerupState = MarioInvincibility.Instance;
+            
+        }
+
+        public override void Update(GameTime gameTime)
 		{
 		}
 	}
