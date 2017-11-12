@@ -4,7 +4,6 @@ using MarioClone.Factories;
 using MarioClone.GameObjects.Bricks;
 using MarioClone.GameObjects.Enemies;
 using MarioClone.GameObjects.Other;
-using MarioClone.GameObjects.PowerUps;
 using MarioClone.Projectiles;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
