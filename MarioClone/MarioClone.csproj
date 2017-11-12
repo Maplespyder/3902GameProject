@@ -47,6 +47,7 @@
     <Compile Include="Cam\Camera.cs" />
     <Compile Include="Collision\CollisionManager.cs" />
     <Compile Include="Commands\MuteCommand.cs" />
+    <Compile Include="Commands\PauseCommand.cs" />
     <Compile Include="Commands\ReleaseCrouchCommand.cs" />
     <Compile Include="Commands\ReleaseMoveRightCommand.cs" />
     <Compile Include="Commands\ReleaseMoveLeftCommand.cs" />
