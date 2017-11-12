@@ -8,7 +8,10 @@ namespace MarioClone.Commands
 
         public override void InvokeCommand()
         {
-            Receiver.ReleaseMoveRight();
+            if (MarioCloneGame.state == GameState.Playing)
+            {
+                Receiver.ReleaseMoveRight(); 
+            }
         }
     }
 }
