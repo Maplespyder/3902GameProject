@@ -25,10 +25,10 @@ namespace MarioClone.HeadsUpDisplay
         {
             ParentHUD = parent;
             Visible = true;
-            pointsFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Name");
+            pointsFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
             playerScore = 0;
 
-            RelativePosition = new Vector2(150, 50);
+            RelativePosition = new Vector2(130, 50);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
 
             EventManager.Instance.RaiseEnemyDefeatedEvent += UpdatePlayerScoreFromEnemy;
@@ -39,7 +39,8 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (Visible)
             {
-                spriteBatch.DrawString(pointsFont, "Score: " + playerScore, AbsolutePosition, Color.Red);
+                Color tint = ParentHUD.Underground ? Color.White : Color.Red;
+                spriteBatch.DrawString(pointsFont, String.Format("{0:000000}", playerScore), AbsolutePosition, tint);
             }
         }
 

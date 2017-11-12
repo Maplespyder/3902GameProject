@@ -1,4 +1,5 @@
 ﻿using MarioClone.Cam;
+using MarioClone.EventCenter;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,38 +16,71 @@ namespace MarioClone.HeadsUpDisplay
         public Mario Player { get; private set; }
         public ICollection<HUDModule> Modules { get; private set; }
 
+        public bool Underground { get; set; }
         public float DrawOrder { get; set; }
         public bool Visible { get; set; }
-        public float ScreenLeft { get; set; }
-        public float ScreenRight { get; set; }
-        public float ScreenTop { get; set; }
-        public float ScreenBottom { get; set; }
+        public float ScreenLeft
+        {
+            get
+            {
+                return MarioCloneGame.GetCamera.Position.X;
+            }
+        }
+        public float ScreenRight
+        { 
+            get
+            {
+                return ScreenLeft + MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
+            }
+        }
+        public float ScreenTop
+        {
+            get
+            {
+                return MarioCloneGame.GetCamera.Position.Y;
+            }
+        }
+        public float ScreenBottom
+        {
+            get
+            {
+                return ScreenTop + MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
+            }
+        }
 
         public HUD(Mario player)
         {
             Player = player;
             Visible = true;
+            Underground = false;
             DrawOrder = 0;
-
-            ScreenLeft = 0;
-            ScreenRight = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
-            ScreenTop = 0;
-            ScreenBottom = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
-
+            
             Modules = new List<HUDModule>();
             Modules.Add(new PlayerNameModule(this));
             Modules.Add(new PlayerScoreModule(this));
             Modules.Add(new CoinCollectionModule(this));
             Modules.Add(new PlayerLivesModule(this));
+            Modules.Add(new TimeModule(this));
+            EventManager.Instance.RaisePlayerWarpingEvent += PlayerWarped;
+        }
+
+        private void PlayerWarped(object sender, PlayerWarpingEventArgs e)
+        {
+            if(ReferenceEquals(e.Warper, Player))
+            {
+                if(e.WarpExit.LevelArea != 0)
+                {
+                    Underground = true;
+                }
+                else
+                {
+                    Underground = false;
+                }
+            }
         }
 
         public void Update(Camera camera, GameTime gameTime)
         {
-            ScreenLeft = camera.Position.X;
-            ScreenRight = camera.Position.X + camera.Limits.GetValueOrDefault().Width;
-            ScreenTop = camera.Position.Y;
-            ScreenBottom = camera.Position.Y + camera.Limits.GetValueOrDefault().Height;
-
             foreach(HUDModule module in Modules)
             {
                 module.Update(gameTime);

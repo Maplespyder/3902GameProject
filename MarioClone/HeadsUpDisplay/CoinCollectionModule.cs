@@ -25,12 +25,12 @@ namespace MarioClone.HeadsUpDisplay
             ParentHUD = parent;
             Visible = true;
 
-            coinsFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Name");
+            coinsFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
             coinSprite = Factories.PowerUpSpriteFactory.Create(Factories.PowerUpType.Coin);
             coinCount = ParentHUD.Player.CoinCount;
 
-            RelativePosition = new Vector2(600, 50);
-            CoinPositionShift = new Vector2(-64, 30);
+            RelativePosition = new Vector2(1050, 50);
+            CoinPositionShift = new Vector2(-40, 69);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
 
@@ -38,8 +38,9 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (Visible)
             {
-                spriteBatch.DrawString(coinsFont, "Coins Collected: " + coinCount, AbsolutePosition, Color.Gold);
-                coinSprite.Draw(spriteBatch, AbsolutePosition + CoinPositionShift, DrawOrder, gameTime, Facing.Left);
+                Color tint = ParentHUD.Underground ? Color.White : Color.Gold;
+                spriteBatch.DrawString(coinsFont, "X " + coinCount, AbsolutePosition, tint);
+                coinSprite.Draw(spriteBatch, AbsolutePosition + CoinPositionShift, DrawOrder, gameTime, Facing.Left, 0.6f);
             }
         }
 

@@ -57,10 +57,10 @@ namespace MarioClone.Sprites
 
 		}
 
-        public override void Draw(SpriteBatch batch, Vector2 position, float layer, GameTime gameTime, Facing facing)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth, GameTime gameTime, Facing facing, float scaling = 1)
         {
             Update(gameTime);
-            base.Draw(batch, position, layer, gameTime, facing);
+            base.Draw(spriteBatch, Position, LayerDepth, gameTime, facing, scaling);
         }
     }
 }

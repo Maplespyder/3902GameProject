@@ -5,7 +5,6 @@ using MarioClone.GameObjects.Bricks;
 using MarioClone.GameObjects;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
-using MarioClone.GameObjects.PowerUps;
 
 namespace MarioClone.GameObjects
 {

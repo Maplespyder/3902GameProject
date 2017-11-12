@@ -67,6 +67,7 @@
     <Compile Include="HeadsUpDisplay\PlayerLivesModule.cs" />
     <Compile Include="HeadsUpDisplay\PlayerNameModule.cs" />
     <Compile Include="HeadsUpDisplay\PlayerScoreModule.cs" />
+    <Compile Include="HeadsUpDisplay\TimeModule.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />
@@ -153,7 +154,6 @@
     <Compile Include="States\MarioStates\Action\MarioWalk.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioDead.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioFire.cs" />
-    <Compile Include="States\MarioStates\Powerup\MarioInvincibility.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioNormal.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioPowerupState.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioStar.cs" />
@@ -203,7 +203,6 @@
     <None Include="Cam\bin\Windows\x86\Release\Content\Sprites\spinball.xnb" />
     <None Include="Cam\bin\Windows\x86\Release\Content\Sprites\SuperMario.xnb" />
     <None Include="Cam\bin\Windows\x86\Release\MarioClone.exe.config" />
-    <None Include="Content\Fonts\Name.spritefont" />
     <None Include="Level\funmaze.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -259,47 +258,19 @@
     <Content Include="Code Reviews\Sprint 3\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\JacobCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\SamCodeReview.txt" />
-    <Content Include="Content\SoundEffects\1DOWN.wav" />
-    <Content Include="Content\SoundEffects\1UP.wav" />
-    <Content Include="Content\SoundEffects\beep1.mp3" />
-    <Content Include="Content\SoundEffects\Break.wav" />
-    <Content Include="Content\SoundEffects\Bump.wav" />
-    <Content Include="Content\SoundEffects\Coin.wav" />
-    <Content Include="Content\SoundEffects\Down.wav" />
-    <Content Include="Content\SoundEffects\Jump.wav" />
-    <Content Include="Content\SoundEffects\Kick.wav" />
-    <Content Include="Content\SoundEffects\Overworld.wav" />
-    <Content Include="Content\SoundEffects\Pause.wav" />
-    <Content Include="Content\SoundEffects\PowerUp.wav" />
-    <Content Include="Content\SoundEffects\RevealPowerUp.wav" />
-    <Content Include="Content\SoundEffects\Stomp.wav" />
-    <Content Include="Content\Sprites\AllBlocks.png" />
-    <Content Include="Content\Sprites\BackMountains.png" />
-    <Content Include="Content\Sprites\bettersonicsprites.png" />
-    <Content Include="Content\Sprites\BigMario.png" />
-    <Content Include="Content\Sprites\BrickPiece.png" />
-    <Content Include="Content\Sprites\clouds.png" />
-    <Content Include="Content\Sprites\Coin.png" />
-    <Content Include="Content\Sprites\FireFlower.png" />
-    <Content Include="Content\Sprites\ForeMountains.png" />
-    <Content Include="Content\Sprites\Goomba.png" />
-    <Content Include="Content\Sprites\GreenKoopa.png" />
-    <Content Include="Content\Sprites\GreenKoopaShell.png" />
-    <Content Include="Content\Sprites\ItemSpriteSheet.png" />
-    <Content Include="Content\Sprites\Pipe.png" />
-    <Content Include="Content\Sprites\Plant.png" />
-    <Content Include="Content\Sprites\RedKoopa.png" />
-    <Content Include="Content\Sprites\RedKoopaShell.png" />
-    <Content Include="Content\Sprites\SmallMario.png" />
-    <Content Include="Content\Sprites\Sprint2Attempt2.bmp" />
-    <Content Include="Content\Sprites\SubAllBlocks.png" />
-    <Content Include="Content\Sprites\SuperMario.png" />
     <Content Include="Level\Mainlevel1.bmp" />
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Level\Sprint4MainLevel.bmp" />
-    <Content Include="Level\Sprint4MainLevel1.bmp" />
+    <Content Include="Level\Sprint4MainLevel.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level\Sprint4MainLevel2.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level\Sprint4MainLevel1.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />

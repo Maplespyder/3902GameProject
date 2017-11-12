@@ -25,12 +25,12 @@ namespace MarioClone.HeadsUpDisplay
             ParentHUD = parent;
             Visible = true;
 
-            livesFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Name");
+            livesFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
             marioSprite = Factories.NormalMarioSpriteFactory.Instance.Create(States.MarioAction.Idle);
             lives = ParentHUD.Player.Lives;
 
-            RelativePosition = new Vector2(1000, 50);
-            MarioPositionShift = new Vector2(-64, 30);
+            RelativePosition = new Vector2(580, 50);
+            MarioPositionShift = new Vector2(-46, 69);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
 
@@ -38,8 +38,9 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (Visible)
             {
-                spriteBatch.DrawString(livesFont, "Lives: " + lives, AbsolutePosition, Color.Green);
-                marioSprite.Draw(spriteBatch, AbsolutePosition + MarioPositionShift, DrawOrder, gameTime, Facing.Left);
+                Color tint = ParentHUD.Underground ? Color.White : Color.Green;
+                spriteBatch.DrawString(livesFont, "X " + lives, AbsolutePosition, tint);
+                marioSprite.Draw(spriteBatch, AbsolutePosition + MarioPositionShift, DrawOrder, gameTime, Facing.Left, 0.6f);
             }
         }
 
