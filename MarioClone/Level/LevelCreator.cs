@@ -259,7 +259,10 @@ namespace MarioClone.Level
                                     new Microsoft.Xna.Framework.Rectangle(x, (i + 1) * BlockHeight, _image.Width * BlockWidth, MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight));
                                 xOffsetFromUnderground = x / BlockWidth;
                                 yOffsetFromUnderground = i;
+
+                                BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
                                 CreationLoop(x / BlockWidth, i + 1);
+                                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
 
                                 xOffsetFromUnderground = 0;
                                 yOffsetFromUnderground = 0;
