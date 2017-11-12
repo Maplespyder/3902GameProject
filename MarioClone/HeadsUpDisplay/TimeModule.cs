@@ -29,7 +29,7 @@ namespace MarioClone.HeadsUpDisplay
             currentTime = maxGameTime;
             timeDelta = 0;
 
-            RelativePosition = new Vector2(1400, 10);
+            RelativePosition = new Vector2(1350, 10);
             TimeRelativePosition = new Vector2(27, 40);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
