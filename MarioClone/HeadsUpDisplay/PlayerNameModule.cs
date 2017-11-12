@@ -24,10 +24,10 @@ namespace MarioClone.HeadsUpDisplay
         {
             ParentHUD = parent;
             Visible = true;
-            nameFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Name");
-            playerName = ParentHUD.Player.GetType().Name;
+            nameFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
+            playerName = ParentHUD.Player.GetType().Name.ToUpper();
 
-            RelativePosition = new Vector2(10, 50);
+            RelativePosition = new Vector2(200, 10);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
 
@@ -35,7 +35,8 @@ namespace MarioClone.HeadsUpDisplay
         {
             if(Visible)
             {
-                spriteBatch.DrawString(nameFont, "Player: " + playerName, AbsolutePosition, Color.Red);
+                Color tint = ParentHUD.Underground ? Color.White : Color.Red;
+                spriteBatch.DrawString(nameFont, playerName, AbsolutePosition, tint);
             }
         }
 

@@ -3,15 +3,10 @@ using MarioClone.EventCenter;
 using MarioClone.Sprites;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MarioClone.GameObjects.PowerUps
+namespace MarioClone.GameObjects
 {
-	public class StarmanObject : AbstractPowerup
+    public class StarmanObject : AbstractPowerup
 	{
 		public const float GravityAcceleration = 0.4f;
 		public bool Gravity { get; set; }

@@ -67,6 +67,7 @@
     <Compile Include="HeadsUpDisplay\PlayerLivesModule.cs" />
     <Compile Include="HeadsUpDisplay\PlayerNameModule.cs" />
     <Compile Include="HeadsUpDisplay\PlayerScoreModule.cs" />
+    <Compile Include="HeadsUpDisplay\TimeModule.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="States\PowerupStates\MushroomMovingState.cs" />
     <Compile Include="States\PowerupStates\PowerupState.cs" />
     <Compile Include="States\PowerupStates\PowerupRevealState.cs" />
+    <Compile Include="States\PowerupStates\StarmanMovingState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

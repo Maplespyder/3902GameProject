@@ -1,4 +1,5 @@
 ﻿using MarioClone.Cam;
+using MarioClone.EventCenter;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +16,7 @@ namespace MarioClone.HeadsUpDisplay
         public Mario Player { get; private set; }
         public ICollection<HUDModule> Modules { get; private set; }
 
+        public bool Underground { get; set; }
         public float DrawOrder { get; set; }
         public bool Visible { get; set; }
         public float ScreenLeft
@@ -50,6 +52,7 @@ namespace MarioClone.HeadsUpDisplay
         {
             Player = player;
             Visible = true;
+            Underground = false;
             DrawOrder = 0;
             
             Modules = new List<HUDModule>();
@@ -57,6 +60,23 @@ namespace MarioClone.HeadsUpDisplay
             Modules.Add(new PlayerScoreModule(this));
             Modules.Add(new CoinCollectionModule(this));
             Modules.Add(new PlayerLivesModule(this));
+            Modules.Add(new TimeModule(this));
+            EventManager.Instance.RaisePlayerWarpingEvent += PlayerWarped;
+        }
+
+        private void PlayerWarped(object sender, PlayerWarpingEventArgs e)
+        {
+            if(ReferenceEquals(e.Warper, Player))
+            {
+                if(e.WarpExit.LevelArea != 0)
+                {
+                    Underground = true;
+                }
+                else
+                {
+                    Underground = false;
+                }
+            }
         }
 
         public void Update(Camera camera, GameTime gameTime)
