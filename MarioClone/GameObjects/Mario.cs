@@ -2,9 +2,14 @@
 using MarioClone.EventCenter;
 using MarioClone.Factories;
 using MarioClone.GameObjects.Bricks;
+using MarioClone.GameObjects.Enemies;
+using MarioClone.GameObjects.Other;
 using MarioClone.GameObjects.PowerUps;
+using MarioClone.Projectiles;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace MarioClone.GameObjects
 {
@@ -16,14 +21,16 @@ namespace MarioClone.GameObjects
         public const float VerticalMovementSpeed = 15f;
         private static Mario _mario;
         private bool bouncing = false;
+		public List<FireBall> FireBalls = new List<FireBall>();
+		public List<FireBall> RemovedFireBalls = new List<FireBall>();
 
-        /// <summary>
-        /// Do not instantiate Mario more than once. We have to make Mario before
-        /// things that reference him use him, because I can't null check this getter.
-        /// If you aren't sure what you're doing comes after Mario's creation, then
-        /// null check the return on instance.
-        /// </summary>
-        public static Mario Instance
+		/// <summary>
+		/// Do not instantiate Mario more than once. We have to make Mario before
+		/// things that reference him use him, because I can't null check this getter.
+		/// If you aren't sure what you're doing comes after Mario's creation, then
+		/// null check the return on instance.
+		/// </summary>
+		public static Mario Instance
         {
             get
             {
@@ -40,10 +47,11 @@ namespace MarioClone.GameObjects
         public MarioPowerupState PreviousPowerupState { get; set; }
 
         public MarioSpriteFactory SpriteFactory { get; set; }
+		public FireballPool _FireBallPool { get; set; }
 
-        public int BounceCount { get; set; }
+		public int BounceCount { get; set; }
 
-        public bool Gravity { get; set; }
+		public bool Gravity { get; set; }
 
         public int Lives { get; set; }
 
@@ -64,8 +72,9 @@ namespace MarioClone.GameObjects
             BounceCount = 0;
             Lives = 3;
             CoinCount = 0;
+			_FireBallPool = new FireballPool();
 
-            PreviousPowerupState = PowerupState;
+			PreviousPowerupState = PowerupState;
             PreviousActionState = MarioIdle.Instance;
 
             ActionState.UpdateHitBox();
@@ -137,7 +146,32 @@ namespace MarioClone.GameObjects
             }
         }
 
-        public void BecomeDead()
+		public void FireBall()
+		{
+			if (PowerupState is MarioFire)
+			{
+				Vector2 fireBallPosition = Vector2.Zero;
+				if(Orientation == Facing.Right)
+				{
+					fireBallPosition = new Vector2(Position.X + Sprite.SourceRectangle.Width,
+						Position.Y - Sprite.SourceRectangle.Height-20);
+				}
+				else
+				{
+					fireBallPosition = new Vector2(Position.X,
+						Position.Y - Sprite.SourceRectangle.Height - 20);
+				}
+				FireBall _fireball = (FireBall)(_FireBallPool.GetAndRelease(fireBallPosition));
+				if(_fireball != null)
+				{
+					FireBalls.Add(_fireball);
+					GameGrid.Instance.Add(_fireball);
+				}
+				//EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
+			}
+		}
+
+		public void BecomeDead()
         {
             PowerupState.BecomeDead();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
@@ -163,6 +197,7 @@ namespace MarioClone.GameObjects
         }
 		public void BecomeStar()
 		{
+			PreviousPowerupState = PowerupState;
 			PowerupState.BecomeStar();
 			EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
 		}
@@ -240,8 +275,15 @@ namespace MarioClone.GameObjects
                 TakeDamage();
             }
             else if ((gameObject is AbstractEnemy) && side.Equals(Side.Bottom))
-            { 
-                Velocity = new Vector2(Velocity.X, -7);
+            {
+				if (gameObject is PiranhaObject)
+				{
+					TakeDamage();
+				}
+				else
+				{
+					Velocity = new Vector2(Velocity.X, -7);
+				}
             }
             else if ((((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) 
                 || (gameObject is HiddenBrickObject && side == Side.Top && !gameObject.Visible && (ActionState is MarioFall)))
@@ -305,6 +347,9 @@ namespace MarioClone.GameObjects
 			else if(gameObject is StarmanObject)
 			{
 				BecomeStar();
+			}else if(gameObject is FireBall)
+			{
+				//Nothing
 			}
             else
             {
@@ -345,7 +390,29 @@ namespace MarioClone.GameObjects
 			{
 				PowerupState.Update(gameTime);
 			}
-            return base.Update(gameTime, percent);    
+
+			foreach (FireBall fireball in FireBalls)
+			{
+				if (fireball.Destroyed)
+				{
+					RemovedFireBalls.Add(fireball);
+				}
+			}
+			foreach (FireBall fireball in RemovedFireBalls)
+			{
+				FireBalls.Remove(fireball);
+				_FireBallPool.Restore();
+			}
+			RemovedFireBalls.Clear();
+			return base.Update(gameTime, percent);    
         }
-    }
+		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+		{
+			base.Draw(spriteBatch, gameTime);
+			foreach (FireBall fireball in FireBalls)
+			{
+				fireball.Draw(spriteBatch, gameTime);
+			}
+		}
+	}
 }

@@ -4,6 +4,7 @@ using MarioClone.States.EnemyStates;
 using Microsoft.Xna.Framework;
 using MarioClone.EventCenter;
 using MarioClone.States;
+using MarioClone.GameObjects.Other;
 
 namespace MarioClone.GameObjects
 {
@@ -57,7 +58,10 @@ namespace MarioClone.GameObjects
                     Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
                     Orientation = Facing.Left;
                 }
-            }
+            }else if(gameObject is FireBall)
+			{
+				PowerupState.BecomeDead();
+			}
 
             return false;
         }

@@ -37,7 +37,6 @@ namespace MarioClone.States
                 Context.Sprite = Context.SpriteFactory.Create(MarioAction.Crouch);
             }
         }
-
         public override void Jump()
         {
             Context.Velocity = new Vector2(Context.Velocity.X, -Mario.VerticalMovementSpeed);

@@ -94,6 +94,7 @@ namespace MarioClone.States
 		public override void TakeDamage()
 		{
 		}
+
 		public override void Update(GameTime gameTime)
 		{
 			StarmanTime += gameTime.ElapsedGameTime.Milliseconds;
