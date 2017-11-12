@@ -48,6 +48,7 @@
     <Compile Include="Collision\CollisionManager.cs" />
     <Compile Include="Commands\FireBallCommand.cs" />
     <Compile Include="Commands\MuteCommand.cs" />
+    <Compile Include="Commands\PauseCommand.cs" />
     <Compile Include="Commands\ReleaseCrouchCommand.cs" />
     <Compile Include="Commands\ReleaseMoveRightCommand.cs" />
     <Compile Include="Commands\ReleaseMoveLeftCommand.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="States\MarioStates\Action\MarioWalk.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioDead.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioFire.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioInvincibility.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioNormal.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioPowerupState.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioStar.cs" />

@@ -81,6 +81,7 @@ namespace MarioClone.States
         public override void BecomeInvincible()
         {
             TakeDamage();
+            Context.PreviousPowerupState = MarioFire.Instance;
             Context.PowerupState = MarioInvincibility.Instance;
             
         }

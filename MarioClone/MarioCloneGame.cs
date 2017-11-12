@@ -18,11 +18,20 @@ using System;
 
 namespace MarioClone
 {
+    public enum GameState
+    {
+        Playing,
+        GameOver,
+        Paused,
+        Win
+    }
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class MarioCloneGame : Game
 	{
+        public static GameState state;
+
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Camera camera;
@@ -41,6 +50,7 @@ namespace MarioClone
 
 		public MarioCloneGame()
 		{
+            state = GameState.Playing;
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 1600;
 			graphics.PreferredBackBufferHeight = 960;
@@ -153,6 +163,8 @@ namespace MarioClone
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
             keyboard.AddInputCommand((int)Keys.R, new ResetLevelCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.R, new ResetLevelCommand(this));
+            keyboard.AddInputCommand((int)Keys.P, new PauseCommand(this));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.P, new PauseCommand(this));
 
             // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
@@ -193,8 +205,8 @@ namespace MarioClone
 		{
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
-            
-            if(!transitioningArea)
+
+            if (!transitioningArea)
             {
                 foreach (var controller in controllerList)
                 {
@@ -202,35 +214,38 @@ namespace MarioClone
                 }
             }
 
-			if (!paused && !transitioningArea)
-			{
-                List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
-                List<AbstractGameObject> removed = CollisionManager.ProcessFrame(gameTime, collidables, gameGrid);
-
-                List<AbstractGameObject> otherObjects = gameGrid.GetAllCurrentStaticGameObjects;
-                foreach(AbstractGameObject obj in otherObjects)
+            if (state == GameState.Playing)
+            {
+                if (!transitioningArea)
                 {
-                    if(obj.Update(gameTime, 1))
+                    List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
+                    List<AbstractGameObject> removed = CollisionManager.ProcessFrame(gameTime, collidables, gameGrid);
+
+                    List<AbstractGameObject> otherObjects = gameGrid.GetAllCurrentStaticGameObjects;
+                    foreach (AbstractGameObject obj in otherObjects)
                     {
-                        removed.Add(obj);
+                        if (obj.Update(gameTime, 1))
+                        {
+                            removed.Add(obj);
+                        }
                     }
-                }
 
-                foreach(AbstractGameObject obj in removed)
-                {
-                    gameGrid.Remove(obj);
-                }
+                    foreach (AbstractGameObject obj in removed)
+                    {
+                        gameGrid.Remove(obj);
+                    }
 
-                camera.LookAt(Mario.Instance.Position);
-                gameGrid.CurrentLeftSideViewPort = camera.Position.X;
-                gameGrid.CurrentTopSideViewPort = camera.Position.Y;
+                    camera.LookAt(Mario.Instance.Position);
+                    gameGrid.CurrentLeftSideViewPort = camera.Position.X;
+                    gameGrid.CurrentTopSideViewPort = camera.Position.Y;
 
-                foreach(HUD hud in HUDs)
-                {
-                    hud.Update(camera, gameTime);
-                }
-                base.Update(gameTime);
-			}
+                    foreach (HUD hud in HUDs)
+                    {
+                        hud.Update(camera, gameTime);
+                    }
+                    base.Update(gameTime);
+                } 
+            }
 		}
 
 		/// <summary>
@@ -240,7 +255,7 @@ namespace MarioClone
 		protected override void Draw(GameTime gameTime)
 		{
 			// Somewhere in your LoadContent() method:
-			//if (!paused)
+			if (state != GameState.Paused)
 			{
 				Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.LightSkyBlue);
@@ -334,13 +349,6 @@ namespace MarioClone
 		{
 			get { return graphics; }
 		}
-
-		private static bool paused = false;
-		public static bool Paused
-		{
-			set { paused = value; }
-			get { return paused; }
-		}
         
         public static Camera GetCamera { get; set; }
 
@@ -362,6 +370,20 @@ namespace MarioClone
             HUDs.Clear();
             level.Grid = gameGrid;
             level.Create();
+        }
+
+        public void PauseCommand()
+        {
+            if (state == GameState.Playing)
+            {
+                SoundPool.Instance.MuteCommand();
+                state = GameState.Paused; 
+            } 
+            else if (state == GameState.Paused)
+            {
+                SoundPool.Instance.MuteCommand();
+                state = GameState.Playing;
+            }
         }
 
         private void AddCommandToAllGamepads(Buttons button, ICommand command)

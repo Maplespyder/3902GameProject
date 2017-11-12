@@ -9,7 +9,10 @@ namespace MarioClone.Commands
 
 		public override void InvokeCommand()
 		{
-			Receiver.BecomeDead();
+            if (MarioCloneGame.state == GameState.Playing)
+            {
+                Receiver.BecomeDead(); 
+            }
 		}
 	}
 }

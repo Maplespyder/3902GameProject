@@ -13,12 +13,13 @@ namespace MarioClone.States
 
         public int InvincibleTime { get; private set; }
 
-        public static int MaxInvincibleDuration { get { return 10; } }
+        public static int MaxInvincibleDuration { get { return 3000; } }
 
 
         private MarioInvincibility(Mario context) : base(context)
         {
             InvincibleTime = 0;
+            
         }
 
         public static MarioPowerupState Instance
@@ -108,11 +109,10 @@ namespace MarioClone.States
             {
                 InvincibleTime = 0;
                 
-                BecomeNormal();
-
+               
                 if (Context.PreviousPowerupState is MarioFire)
                 {
-                    BecomeNormal();
+                    BecomeSuper();
                 }
                 else if (Context.PreviousPowerupState is MarioSuper)
                 {
