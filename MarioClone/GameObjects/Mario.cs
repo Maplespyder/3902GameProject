@@ -388,10 +388,14 @@ namespace MarioClone.GameObjects
                 ActionState = MarioFall.Instance;
             }
 
-			if(PowerupState is MarioStar)
-			{
-				PowerupState.Update(gameTime);
-			}
+            if (PowerupState is MarioStar)
+            {
+                PowerupState.Update(gameTime);
+            }
+            if (PowerupState is MarioInvincibility)
+            {
+                PowerupState.Update(gameTime);
+            }
             return base.Update(gameTime, percent);    
         }
     }

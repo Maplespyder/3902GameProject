@@ -154,6 +154,7 @@
     <Compile Include="States\MarioStates\Action\MarioWalk.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioDead.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioFire.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioInvincibility.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioNormal.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioPowerupState.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioStar.cs" />
