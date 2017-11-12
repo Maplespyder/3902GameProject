@@ -355,7 +355,8 @@ namespace MarioClone
         {
             camera.Limits = level.LevelAreas[0];
             gameGrid = new GameGrid(24, camera);
-            foreach(HUD hud in HUDs)
+			SoundPool.Instance.Reset();
+			foreach (HUD hud in HUDs)
             {
                 hud.Dispose();
             }

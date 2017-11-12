@@ -107,7 +107,7 @@ namespace MarioClone.EventCenter
         public int height { get; }
         public PlayerHitPoleEventArgs(Mario mario, int height) : base(mario)
         {
-            height = height;
+            //height = height;
         }
 
     }
