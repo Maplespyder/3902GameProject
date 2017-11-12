@@ -16,7 +16,8 @@ namespace MarioClone.States
             Normal,
             Super,
             Fire,
-			Star
+			Star,
+            Invincible
         }
 
         public MarioPowerup Powerup { get; set; }
@@ -38,5 +39,6 @@ namespace MarioClone.States
         public abstract void BecomeSuper();
         public abstract void BecomeFire();
         public abstract void TakeDamage();
+        public abstract void BecomeInvincible();
     }
 }

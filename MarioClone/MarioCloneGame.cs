@@ -114,7 +114,10 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(Mario.Instance));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(Mario.Instance));
 
-            keyboard.AddInputCommand((int)Keys.W, new JumpCommand(Mario.Instance));
+			keyboard.AddInputCommand((int)Keys.B, new FireBallCommand(Mario.Instance));
+			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new FireBallCommand(Mario.Instance));
+
+			keyboard.AddInputCommand((int)Keys.W, new JumpCommand(Mario.Instance));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(Mario.Instance));
             keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(Mario.Instance));
 

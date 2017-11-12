@@ -31,7 +31,7 @@ namespace MarioClone.States
 
         public override void Crouch()
         {
-            if (Context.PowerupState is MarioSuper || Context.PowerupState is MarioFire)
+            if (!(Context.PowerupState is MarioNormal))
             {
                 Context.ActionState = MarioCrouch.Instance;
                 Context.PreviousActionState = this;

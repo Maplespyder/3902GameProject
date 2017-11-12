@@ -8,6 +8,7 @@ using MarioClone.Collision;
 using static MarioClone.Collision.GameGrid;
 using MarioClone.States.EnemyStates.Powerup;
 using MarioClone.EventCenter;
+using MarioClone.GameObjects.Other;
 
 namespace MarioClone.GameObjects.Enemies
 {
@@ -39,6 +40,11 @@ namespace MarioClone.GameObjects.Enemies
 					PowerupState.BecomeDead();
 					return true;
 				}
+			}else if(gameObject is FireBall)
+			{
+				PowerupState.BecomeDead();
+				return true;
+
 			}
 			return false;
 		}

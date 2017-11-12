@@ -1,5 +1,6 @@
 ﻿using MarioClone.Collision;
 using MarioClone.EventCenter;
+using MarioClone.GameObjects.Other;
 using MarioClone.Sprites;
 using MarioClone.States;
 using MarioClone.States.EnemyStates;
@@ -58,8 +59,12 @@ namespace MarioClone.GameObjects
                     Orientation = Facing.Left;
                 }
             }
+			else if (gameObject is FireBall)
+			{
+				PowerupState.BecomeDead();
+			}
 
-            return false;
+			return false;
         }
         public override bool Update(GameTime gameTime, float percent)
         {
