@@ -72,6 +72,7 @@
     <Compile Include="HeadsUpDisplay\PlayerLivesModule.cs" />
     <Compile Include="HeadsUpDisplay\PlayerNameModule.cs" />
     <Compile Include="HeadsUpDisplay\PlayerScoreModule.cs" />
+    <Compile Include="HeadsUpDisplay\TimeModule.cs" />
     <Compile Include="Level\Colors.cs" />
     <Compile Include="Level\LevelCreator.cs" />
     <Compile Include="Collision\GameGrid.cs" />
@@ -190,10 +191,19 @@
     <Content Include="Code Reviews\Sprint 3\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\JacobCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\SamCodeReview.txt" />
+    <Content Include="Level\Mainlevel1.bmp" />
+    <Content Include="Level\Sprint3Attempt2.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Level\Sprint4MainLevel.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Level\Sprint4MainLevel1.bmp" />
+    <Content Include="Level\Sprint4MainLevel2.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level\Sprint4MainLevel1.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Level\TileMapDocumentationAttempt1.txt" />
     <Content Include="Code Reviews\Code Review Template.txt" />
     <Content Include="Code Reviews\Sprint 1\AllieCodeReview.txt" />

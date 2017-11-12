@@ -63,6 +63,7 @@ namespace MarioClone.States
             {
                 Context.Position = new Vector2(Context.Position.X - 6, Context.Position.Y - 8);
             }
+            
         }
 
         public override void BecomeFire()
@@ -83,6 +84,11 @@ namespace MarioClone.States
             {
                 Context.Position = new Vector2(Context.Position.X - 6, Context.Position.Y - 8);
             }
+        }
+
+        public override void BecomeInvincible()
+        {
+            TakeDamage();
         }
 
         public override void TakeDamage()
