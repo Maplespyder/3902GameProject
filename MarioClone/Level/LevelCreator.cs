@@ -74,7 +74,7 @@ namespace MarioClone.Level
 			{
 				if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance == null)
 				{
-					position = new Vector2(position.X, position.Y - (MarioHeight - 64));
+                    position = new Vector2(position.X, position.Y - (MarioHeight - 64));
 					var mario = MarioFactory.Create(position);
                     MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
 
@@ -82,7 +82,7 @@ namespace MarioClone.Level
 				}
 				else if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance != null)
 				{
-					Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
+                    Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
 					Mario.Instance.ActionState = MarioIdle.Instance;
 					Mario.Instance.Velocity = new Vector2(0, 0);
 					Mario.Instance.PowerupState = MarioNormal.Instance;
@@ -90,13 +90,19 @@ namespace MarioClone.Level
 					Mario.Instance.PreviousActionState = MarioIdle.Instance;
 					Mario.Instance.Sprite = NormalMarioSpriteFactory.Instance.Create(MarioAction.Idle);
 					Mario.Instance.Orientation = Facing.Right;
-                    Mario.Instance.Lives = 3;
+                    Mario.Instance.Lives--;
                     Mario.Instance.CoinCount = 0;
+
+                    Mario.Instance.AdjustForCheckpoint();
 
                     var mario = Mario.Instance;
                     MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
                     Grid.Add(mario);
 				}
+                else if (sameColor(pixel, Colors.MarioCheckpoint))
+                {
+                    Mario.Instance.Spawns.Add(position);
+                }
 				else if (sameColor(pixel, Colors.QuestionBlock))
 				{
 					var initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);

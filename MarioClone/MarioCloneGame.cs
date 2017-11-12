@@ -15,6 +15,7 @@ using MarioClone.Sounds;
 using MarioClone.HeadsUpDisplay;
 using MarioClone.EventCenter;
 using System;
+using MarioClone.States;
 
 namespace MarioClone
 {
@@ -45,7 +46,7 @@ namespace MarioClone
         static ContentManager _content;
         GameGrid gameGrid;
         List<AbstractController> controllerList;
-        LevelCreator level;
+        public static LevelCreator level;
 		private Background _background;
 
 		public MarioCloneGame()
@@ -216,6 +217,11 @@ namespace MarioClone
 
             if (state == GameState.Playing)
             {
+                if (Mario.Instance.PowerupState is MarioDead)
+                {
+                    ResetLevelCommand();
+                }
+
                 if (!transitioningArea)
                 {
                     List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
