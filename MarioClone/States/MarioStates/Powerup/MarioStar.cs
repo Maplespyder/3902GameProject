@@ -94,8 +94,13 @@ namespace MarioClone.States
 		public override void TakeDamage()
 		{
 		}
-		public override void Update(GameTime gameTime)
-		{
+
+        public override void BecomeInvincible()
+        {
+           
+        }
+
+        public override void Update(GameTime gameTime)		{
 			StarmanTime += gameTime.ElapsedGameTime.Milliseconds;
 			if(StarmanTime >= MaxStarManDuration)
 			{

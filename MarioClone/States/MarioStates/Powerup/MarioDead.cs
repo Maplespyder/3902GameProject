@@ -54,6 +54,7 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
         }
 
+
 		public override void BecomeStar()
 		{
 		}
@@ -62,7 +63,12 @@ namespace MarioClone.States
         {
         }
 
-		public override void Update(GameTime gameTime)
+        public override void BecomeInvincible()
+        {
+
+        }
+
+        public override void Update(GameTime gameTime)
 		{
 		}
 	}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Down.wav</SourceFile>
-  <SourceTime>2017-11-03T21:59:02.1260913-04:00</SourceTime>
+  <SourceTime>2017-11-11T12:29:50.1245615-05:00</SourceTime>
   <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/Down.xnb</DestFile>
-  <DestTime>2017-11-08T16:39:01.3551839-05:00</DestTime>
+  <DestTime>2017-11-11T15:57:30.8075681-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

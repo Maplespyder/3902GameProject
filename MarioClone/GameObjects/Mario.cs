@@ -146,9 +146,10 @@ namespace MarioClone.GameObjects
 
         public void BecomeDead()
         {
+            Lives--;
             PowerupState.BecomeDead();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
-            Lives--;
+            
         }
 
         public void BecomeNormal()
@@ -180,6 +181,12 @@ namespace MarioClone.GameObjects
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
+        private void BecomeInvincible()
+        {
+            PowerupState.BecomeInvincible();
+            EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
+        }
+
         private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
         {
             if (gameObject is Flagpole && side.Equals(Side.Right))
@@ -190,9 +197,8 @@ namespace MarioClone.GameObjects
 
                 increment = poleHeight / 5;
 
-                if (Position.Y == height)
-                {
-                    //plus one life
+                if (Position.Y == poleHeight)
+                { 
                     Lives++;
                 }
                 else if (Position.Y >= poleHeight - increment && Position.Y < poleHeight)
@@ -207,11 +213,11 @@ namespace MarioClone.GameObjects
                 {
                     height = 800;
                 }
-                else if (Position.Y >= poleBottom + increment + 1 && Position.Y < poleHeight - (increment - increment - increment))
+                else if (Position.Y >= poleBottom + increment && Position.Y < poleHeight - (increment - increment - increment))
                 {
                     height = 400;
                 }
-                else if (Position.Y >= poleBottom && Position.Y < poleBottom + increment + 1)
+                else if (Position.Y >= poleBottom && Position.Y < poleBottom + increment)
                 {
                     height = 100;
                 }
@@ -277,7 +283,9 @@ namespace MarioClone.GameObjects
 
             if ((gameObject is AbstractEnemy) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
             {
-                TakeDamage();
+                
+                BecomeInvincible();
+
             }
             else if ((gameObject is AbstractEnemy) && side.Equals(Side.Bottom))
             { 
