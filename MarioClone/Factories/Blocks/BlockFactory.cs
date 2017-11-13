@@ -1,5 +1,4 @@
 ﻿using MarioClone.GameObjects;
-using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 
 namespace MarioClone.Factories

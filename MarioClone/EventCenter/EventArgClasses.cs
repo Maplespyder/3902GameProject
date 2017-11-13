@@ -1,7 +1,6 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
-using MarioClone.GameObjects;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 using System;
@@ -112,6 +111,5 @@ namespace MarioClone.EventCenter
             _height = height;
             Mario = player;
         }
-
     }
 }

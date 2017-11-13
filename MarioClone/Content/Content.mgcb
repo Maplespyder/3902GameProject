@@ -235,12 +235,6 @@
 /processorParam:Quality=Best
 /build:SoundEffects/Coin.wav
 
-#begin SoundEffects/beep1.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:SoundEffects/beep1.mp3
-
 #begin SoundEffects/Bump.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -355,4 +349,34 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Flagpole.png
+
+#begin SoundEffects/Underworld.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Underworld.wav
+
+#begin SoundEffects/Dead.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Dead.wav
+
+#begin SoundEffects/CourseClear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/CourseClear.wav
+
+#begin SoundEffects/Starman.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Starman.wav
+
+#begin SoundEffects/Hurryup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Hurryup.wav
 

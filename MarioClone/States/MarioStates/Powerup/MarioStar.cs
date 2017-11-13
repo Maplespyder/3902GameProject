@@ -107,13 +107,13 @@ namespace MarioClone.States
 				StarmanTime = 0;
 				if (Context.PreviousPowerupState is MarioFire)
 				{
-					BecomeFire();
+					Context.BecomeFire();
 				}else if(Context.PreviousPowerupState is MarioNormal)
 				{
-					BecomeNormal();
+					Context.BecomeNormal();
 				}else if(Context.PreviousPowerupState is MarioSuper)
 				{
-					BecomeSuper();
+					Context.BecomeSuper();
 				}
 			}
 		}

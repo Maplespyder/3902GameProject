@@ -72,7 +72,7 @@ namespace MarioClone.EventCenter
             handler?.Invoke(e.Sender, e);
         }
 
-        protected virtual void OnRaisePlayerHitPoleEvent(PlayerHitPoleEventArgs e)
+		protected virtual void OnRaisePlayerHitPoleEvent(PlayerHitPoleEventArgs e)
         {
             EventHandler<PlayerHitPoleEventArgs> handler = RaisePlayerHitPoleEvent;
             handler?.Invoke(e.Sender, e);

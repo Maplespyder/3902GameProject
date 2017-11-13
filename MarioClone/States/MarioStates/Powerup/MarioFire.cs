@@ -69,6 +69,8 @@ namespace MarioClone.States
 		public override void BecomeStar()
 		{
 			Context.PowerupState = MarioStar.Instance;
+			Context.PreviousPowerupState = this;
+
 		}
 
 		public override void TakeDamage()
@@ -81,7 +83,7 @@ namespace MarioClone.States
         public override void BecomeInvincible()
         {
             TakeDamage();
-            Context.PreviousPowerupState = MarioFire.Instance;
+			Context.PreviousPowerupState = this;
             Context.PowerupState = MarioInvincibility.Instance;
             
         }

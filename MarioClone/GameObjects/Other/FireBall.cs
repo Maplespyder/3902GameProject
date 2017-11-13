@@ -16,7 +16,6 @@ namespace MarioClone.GameObjects.Other
 		public bool Destroyed { get; set; }
 		private int BounceCount = 0;
 		private int MaxBounce = 5;
-		private bool BecomeDestroyed = false;
 		public FireBall(ISprite sprite, Vector2 position) : base(sprite, position, Color.Yellow)
 		{
 			Gravity = true;
@@ -43,7 +42,7 @@ namespace MarioClone.GameObjects.Other
 				else
 				{
 					//KILL fireball
-					BecomeDestroyed = true;
+					Destroyed = true;
 					Velocity = Vector2.Zero;
 				}
 			}
@@ -61,9 +60,11 @@ namespace MarioClone.GameObjects.Other
 			}
 			Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
 
-			if(BounceCount >= MaxBounce || BecomeDestroyed)
+			if(BounceCount >= MaxBounce || Destroyed)
 			{
+				Removed = true;
 				Destroyed = true;
+				//GameGrid.Instance.Remove(this);
 				retval = true;	
 			}
 			Gravity = true;
