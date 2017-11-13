@@ -27,8 +27,7 @@ namespace MarioClone.Sounds
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
 		{
-			if ((e.CurrentPowerupState is MarioNormal && e.PreviousPowerupState is MarioSuper) ||
-				(e.CurrentPowerupState is MarioSuper && e.PreviousPowerupState is MarioFire))
+			if ((e.CurrentPowerupState is MarioInvincibility))
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Down);
 			}
