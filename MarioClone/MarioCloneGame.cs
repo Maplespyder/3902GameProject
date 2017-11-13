@@ -343,10 +343,6 @@ namespace MarioClone
             List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects;
             foreach (var obj in allObjects)
             {
-				if(obj is FireBall)
-				{
-					int k = 10;
-				}
                 obj.Draw(spriteBatch, gameTime);
             }
         }
