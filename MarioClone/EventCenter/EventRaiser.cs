@@ -1,6 +1,6 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
-using MarioClone.GameObjects.Bricks;
+using MarioClone.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
