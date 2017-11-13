@@ -62,6 +62,7 @@ namespace MarioClone.States
 		public override void BecomeStar()
 		{
 			Context.PowerupState = MarioStar.Instance;
+			Context.PreviousPowerupState = this;
 		}
 
 		public override void BecomeFire()

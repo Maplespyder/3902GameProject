@@ -68,6 +68,8 @@ namespace MarioClone.GameObjects
         private int poleBottom;
         private int poleTop;
         private int increment;
+		private Color colorChange = Color.Tomato;
+		private int colorChangeDelay = 0;
 
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
@@ -165,18 +167,18 @@ namespace MarioClone.GameObjects
 
 		public void FireBall()
 		{
-			if (PowerupState is MarioFire)
+			if (PowerupState is MarioFire || (PreviousPowerupState is MarioFire && PowerupState is MarioStar))
 			{
 				Vector2 fireBallPosition = Vector2.Zero;
 				if(Orientation == Facing.Right)
 				{
 					fireBallPosition = new Vector2(Position.X + Sprite.SourceRectangle.Width,
-						Position.Y - Sprite.SourceRectangle.Height-20);
+						Position.Y - Sprite.SourceRectangle.Height/2);
 				}
 				else
 				{
 					fireBallPosition = new Vector2(Position.X,
-						Position.Y - Sprite.SourceRectangle.Height - 20);
+						Position.Y - Sprite.SourceRectangle.Height/2);
 				}
 				FireBall _fireball = (FireBall)(_FireBallPool.GetAndRelease(fireBallPosition));
 				if(_fireball != null)
@@ -472,6 +474,7 @@ namespace MarioClone.GameObjects
 				if (fireball.Destroyed)
 				{
 					RemovedFireBalls.Add(fireball);
+					GameGrid.Instance.Remove(fireball);
 				}
 			}
 			foreach (FireBall fireball in RemovedFireBalls)
@@ -484,11 +487,46 @@ namespace MarioClone.GameObjects
         }
 		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
 		{
-			base.Draw(spriteBatch, gameTime);
-			foreach (FireBall fireball in FireBalls)
+			if (!(PowerupState is MarioStar))
 			{
-				fireball.Draw(spriteBatch, gameTime);
+				base.Draw(spriteBatch, gameTime);
+			}
+			else
+			{
+				if (BoundingBox != null && DrawHitbox)
+				{
+					BoundingBox.HitBoxDraw(spriteBatch);
+				}
+				if (Visible)
+				{ 
+					Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation, colorChange);
+					CycleColors();
+				}
 			}
 		}
+		private void CycleColors()
+		{
+			colorChangeDelay++;
+			if (colorChange == Color.Tomato && colorChangeDelay >=15)
+			{
+				colorChange = Color.Gold;
+				colorChangeDelay = 0;
+			}else if(colorChange == Color.Gold && colorChangeDelay >= 15)
+			{
+				colorChange = Color.Orange;
+				colorChangeDelay = 0;
+			}
+			else if (colorChange == Color.Orange && colorChangeDelay >= 15)
+			{
+				colorChange = Color.Yellow;
+				colorChangeDelay = 0;
+			}
+			else if (colorChange == Color.Yellow && colorChangeDelay >= 15)
+			{
+				colorChange = Color.Tomato;
+				colorChangeDelay = 0;
+			}
+		}
+
 	}
 }
