@@ -13,7 +13,10 @@ namespace MarioClone.Commands
 
         public override void InvokeCommand()
         {
-            Receiver.ReleaseCrouch();
+            if (MarioCloneGame.state == GameState.Playing)
+            {
+                Receiver.ReleaseCrouch(); 
+            }
         }
     }
 }

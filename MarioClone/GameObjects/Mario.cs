@@ -1,15 +1,15 @@
 ﻿using MarioClone.Collision;
 using MarioClone.EventCenter;
 using MarioClone.Factories;
-using MarioClone.GameObjects;
+using MarioClone.GameObjects.Bricks;
 using MarioClone.GameObjects.Enemies;
 using MarioClone.GameObjects.Other;
-using MarioClone.GameObjects;
 using MarioClone.Projectiles;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 namespace MarioClone.GameObjects
 {
@@ -51,11 +51,16 @@ namespace MarioClone.GameObjects
 
 		public int BounceCount { get; set; }
 
+        public int Spawn { get; set; }
+
 		public bool Gravity { get; set; }
 
         public int Lives { get; set; }
 
         public int CoinCount { get; set; }
+
+        public List<Vector2> Spawns { get; set; }
+        public Vector2 ActiveSpawn { get; set; }
 
         public int height { get; set; }
         public int poleHeight { get; private set; }
@@ -68,6 +73,7 @@ namespace MarioClone.GameObjects
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
             _mario = this;
+            Spawns = new List<Vector2>();
             PowerupState = MarioNormal.Instance;
             SpriteFactory = NormalMarioSpriteFactory.Instance;
             ActionState = MarioFall.Instance;
@@ -96,6 +102,11 @@ namespace MarioClone.GameObjects
                 ActionState.Walk(Facing.Left);
                 EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
             }
+        }
+
+        public void AdjustForCheckpoint()
+        {
+            Position = new Vector2(ActiveSpawn.X, ActiveSpawn.Y);
         }
 
         public void MoveRight()
@@ -315,22 +326,23 @@ namespace MarioClone.GameObjects
         {
             ManageBouncing(gameObject, side);
 
-            if ((gameObject is AbstractEnemy) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
+            if ((gameObject is AbstractEnemy) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.None)))
             {
-                
                 BecomeInvincible();
-
             }
             else if ((gameObject is AbstractEnemy) && side.Equals(Side.Bottom))
             {
-				if (gameObject is PiranhaObject)
-				{
-					TakeDamage();
-				}
-				else
-				{
-					Velocity = new Vector2(Velocity.X, -7);
-				}
+                if(!(PowerupState is MarioInvincibility))
+                {
+                    if (gameObject is PiranhaObject)
+                    {
+                        TakeDamage();
+                    }
+                    else
+                    {
+                        Velocity = new Vector2(Velocity.X, -7);
+                    }
+                }
             }
             else if ((((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) 
                 || (gameObject is HiddenBrickObject && side == Side.Top && !gameObject.Visible && (ActionState is MarioFall)))
@@ -411,12 +423,29 @@ namespace MarioClone.GameObjects
 
         public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
         {
-            Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-            BoundingBox.UpdateHitBox(Position, Sprite);
+            if(!(PowerupState is MarioInvincibility) || !(obj1 is AbstractEnemy))
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+            }
         }
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            var newSpawns = new List<Vector2>();
+            foreach (var spawn in Spawns)
+            {
+                if (spawn.X > Position.X)
+                {
+                    newSpawns.Add(spawn);
+                }
+                else
+                {
+                    ActiveSpawn = new Vector2(spawn.X, spawn.Y);
+                }
+            }
+            Spawns = newSpawns;
+
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
 
@@ -433,7 +462,7 @@ namespace MarioClone.GameObjects
                 ActionState = MarioFall.Instance;
             }
 
-			if(PowerupState is MarioStar)
+			if(PowerupState is MarioStar || PowerupState is MarioInvincibility)
 			{
 				PowerupState.Update(gameTime);
 			}

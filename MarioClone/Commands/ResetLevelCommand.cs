@@ -13,7 +13,10 @@ namespace MarioClone.Commands
 
         public override void InvokeCommand()
         {
-            Receiver.ResetLevelCommand();
+            if (MarioCloneGame.state == GameState.Playing)
+            {
+                Receiver.ResetLevelCommand(); 
+            }
         }
     }
 }

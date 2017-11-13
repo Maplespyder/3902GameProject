@@ -26,7 +26,7 @@ namespace MarioClone.Sounds
 
 	private List<SoundEffect> PoolList = new List<SoundEffect>();
 	public bool Muted { get; set; }
-	SoundEffectInstance mainBackground;
+	public SoundEffectInstance mainBackground;
 	private Dictionary<SoundEffectInstance, SoundEffect> UnPoolList = new Dictionary<SoundEffectInstance, SoundEffect>();
 	private Dictionary<SoundEffectInstance, SoundEffect> RemoveList = new Dictionary<SoundEffectInstance, SoundEffect>();
 
@@ -83,6 +83,13 @@ namespace MarioClone.Sounds
 				mainBackground.Resume();
 			}
 
+		}
+
+		public void Reset()
+		{
+			mainBackground.Stop();
+			mainBackground.Dispose();
+			mainBackground = GetAndPlay(SoundType.Background);
 		}
 		public void AddObject(SoundEffect sound)
 		{
