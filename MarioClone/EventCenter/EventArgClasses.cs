@@ -108,6 +108,5 @@ namespace MarioClone.EventCenter
         {
             //height = height;
         }
-
     }
 }

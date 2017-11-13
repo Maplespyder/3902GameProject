@@ -194,25 +194,29 @@ namespace MarioClone.GameObjects
         {
             Lives--;
             PowerupState.BecomeDead();
+			BoundingBox = null;
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
             
         }
 
         public void BecomeNormal()
         {
+			PreviousPowerupState = PowerupState;
             PowerupState.BecomeNormal();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
         public void BecomeSuper()
         {
-            PowerupState.BecomeSuper();
+			PreviousPowerupState = PowerupState;
+			PowerupState.BecomeSuper();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 
         public void BecomeFire()
         {
-            PowerupState.BecomeFire();
+			PreviousPowerupState = PowerupState;
+			PowerupState.BecomeFire();
             EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
         }
 		public void BecomeStar()
@@ -220,6 +224,7 @@ namespace MarioClone.GameObjects
 			PreviousPowerupState = PowerupState;
 			PowerupState.BecomeStar();
 			EventManager.Instance.TriggerMarioPowerupStateChangedEvent(this);
+
 		}
 
 		private void TakeDamage()

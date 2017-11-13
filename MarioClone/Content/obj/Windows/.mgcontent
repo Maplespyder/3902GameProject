@@ -23,7 +23,6 @@
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/Sprites/GreenKoopaShell.png</File>
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/Sprites/AllBlocks.png</File>
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Coin.wav</File>
-    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/beep1.mp3</File>
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Bump.wav</File>
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Jump.wav</File>
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Pause.wav</File>
@@ -40,5 +39,10 @@
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/Fonts/Letter.spritefont</File>
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/Sprites/Flag.png</File>
     <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/Sprites/Flagpole.png</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Underworld.wav</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Dead.wav</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/CourseClear.wav</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Starman.wav</File>
+    <File>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Hurryup.wav</File>
   </SourceFiles>
 </SourceFileCollection>

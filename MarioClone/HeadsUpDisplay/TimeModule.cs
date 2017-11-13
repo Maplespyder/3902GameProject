@@ -61,6 +61,10 @@ namespace MarioClone.HeadsUpDisplay
                     }
                     currentTime -= 1;
                     timeDelta = 0;
+					if(currentTime <= 100)
+					{
+						//Trigger event
+					}
                 }
             }
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);

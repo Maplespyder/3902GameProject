@@ -10,6 +10,10 @@ namespace MarioClone.Factories.Sounds
 	public enum SoundType
 	{
 		Background,
+		Hurryup,
+		Underworld,
+		CourseClear,
+		Starman,
 		Stomp,
 		Bump,
 		UP1,
@@ -20,7 +24,8 @@ namespace MarioClone.Factories.Sounds
 		Jump,
 		Coin,
 		Kick,
-		Break
+		Break, 
+		Dead
 
 		//more to come
 	}
@@ -68,6 +73,14 @@ namespace MarioClone.Factories.Sounds
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/RevealPowerUp");
 				case SoundType.Background:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Overworld");
+				case SoundType.Underworld:
+					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Underworld");
+				case SoundType.Starman:
+					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Starman");
+				case SoundType.Dead:
+					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Dead");
+				case SoundType.Hurryup:
+					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Hurryup");
 
 				default:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Coin");

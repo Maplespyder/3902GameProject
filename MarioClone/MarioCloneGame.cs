@@ -43,6 +43,7 @@ namespace MarioClone
         PlayerWarpingEventArgs warpArgs;
         int opacity;
         int opacityChange;
+		int deadDuration = 0;
 
         static ContentManager _content;
         GameGrid gameGrid;
@@ -220,7 +221,12 @@ namespace MarioClone
             {
                 if (Mario.Instance.PowerupState is MarioDead)
                 {
-                    ResetLevelCommand();
+					deadDuration += gameTime.ElapsedGameTime.Milliseconds;
+					if (deadDuration >= 3000)
+					{
+						ResetLevelCommand();
+						deadDuration = 0;
+					}
                 }
 
                 if (!transitioningArea)

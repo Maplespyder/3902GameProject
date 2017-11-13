@@ -4,6 +4,7 @@ using MarioClone.Factories.Sounds;
 using MarioClone.GameObjects;
 using MarioClone.States;
 using MarioClone.States.EnemyStates;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace MarioClone.Sounds
 {
 	public class EventSounds
 	{
-
 		public EventSounds()
 		{
 			EventManager.Instance.RaiseMarioPowerupStateEvent += PowerUpStateChangeSound;
@@ -27,9 +27,20 @@ namespace MarioClone.Sounds
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
 		{
+			if(e.PreviousPowerupState is MarioStar)
+			{
+				SoundPool.Instance.ResumeBackgroundStopSecondaryTrack();
+			}
 			if ((e.CurrentPowerupState is MarioInvincibility))
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Down);
+			}
+			else if (e.CurrentPowerupState is MarioDead)
+			{
+				SoundPool.Instance.GetAndPlay(SoundType.Dead);
+			}else if(e.CurrentPowerupState is MarioStar)
+			{
+				SoundPool.Instance.PauseBackgroundPlaySecondaryTrack(SoundType.Starman);
 			}
 			else
 			{
