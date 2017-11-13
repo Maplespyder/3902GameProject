@@ -55,7 +55,7 @@ namespace MarioClone.EventCenter
 
         public void TriggerPlayerHitPoleEvent(int height, Mario player)
         {
-            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(player, height);
+            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(height, player);
             OnRaisePlayerHitPoleEvent(args);
         }
     }
