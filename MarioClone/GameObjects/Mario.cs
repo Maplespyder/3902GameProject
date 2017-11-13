@@ -246,31 +246,31 @@ namespace MarioClone.GameObjects
                 {
                 poleBottom = gameObject.BoundingBox.Dimensions.Bottom;
                 poleTop = gameObject.BoundingBox.Dimensions.Top;
-                poleHeight = poleTop - poleBottom;
+                poleHeight = poleBottom - poleTop;
 
                 increment = poleHeight / 5;
 
-                if (Position.Y == poleHeight)
+                if (Position.Y == poleTop)
                 { 
                     Lives++;
                 }
-                else if (Position.Y >= poleHeight - increment && Position.Y < poleHeight)
+                else if (Position.Y > poleTop && Position.Y <= poleTop + increment)
                 {
                     height = 4000;
                 }
-                else if (Position.Y < poleHeight - increment && Position.Y >= poleHeight - (increment - increment))
+                else if (Position.Y > poleTop + increment && Position.Y <= poleTop + (increment + increment))
                 {
                     height = 2000;
                 }
-                else if ((Position.Y < (poleHeight - (increment - increment))) && (Position.Y >= poleHeight - (increment - increment - increment)))
+                else if ((Position.Y  > (poleTop + (increment + increment))) && (Position.Y <= poleTop + (increment + increment + increment)))
                 {
                     height = 800;
                 }
-                else if (Position.Y >= poleBottom + increment && Position.Y < poleHeight - (increment - increment - increment))
+                else if (Position.Y <= poleBottom - increment && Position.Y > poleTop + (increment + increment + increment))
                 {
                     height = 400;
                 }
-                else if (Position.Y >= poleBottom && Position.Y < poleBottom + increment)
+                else if (Position.Y <= poleBottom && Position.Y > poleBottom - increment)
                 {
                     height = 100;
                 }
@@ -333,6 +333,7 @@ namespace MarioClone.GameObjects
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             ManageBouncing(gameObject, side);
+            ManageFlagPoleCoint(gameObject, side);
 
             if ((gameObject is AbstractEnemy) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right) || side.Equals(Side.None)))
             {
