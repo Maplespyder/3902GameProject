@@ -162,8 +162,8 @@ namespace MarioClone.GameObjects
 				{
 					FireBalls.Add(_fireball);
 					GameGrid.Instance.Add(_fireball);
+					EventManager.Instance.TriggerFireballFire(_fireball);
 				}
-				//EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
 			}
 		}
 

@@ -26,15 +26,17 @@ namespace MarioClone.Sounds
 			EventManager.Instance.RaiseMarioActionStateEvent += ActionStateChangeSound;
 			EventManager.Instance.RaiseRunningOutOfTimeEvent += RunningOutOfTime;
 			EventManager.Instance.RaisePlayerWarpingEvent += Warping;
+			EventManager.Instance.RaiseFireballFireEvent += FireballFiring;
 		}
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
 		{
-			if(e.PreviousPowerupState is MarioStar2)
+			if (e.PreviousPowerupState is MarioStar2)
 			{
 				SoundPool.Instance.ResumeBackgroundStopSecondaryTrack();
+
 			}
-			if ((e.CurrentPowerupState is MarioInvincibility2))
+			if ((e.CurrentPowerupState is MarioInvincibility2) || (e.PreviousPowerupState is MarioStar2))
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Down);
 			}
@@ -62,6 +64,12 @@ namespace MarioClone.Sounds
 				SoundPool.Instance.GetAndPlay(SoundType.Coin);
 			}
 		}
+
+		public void FireballFiring(object sender, FireballFireArgs e)
+		{
+			SoundPool.Instance.GetAndPlay(SoundType.Fireball);
+		}
+
 		public void ActionStateChangeSound(object sender, MarioActionStateEventArgs e)
 		{
 			if (e.CurrentActionState is MarioJump2)
@@ -146,7 +154,7 @@ namespace MarioClone.Sounds
 				}
 
 			}
-			else if(sender is GoombaObject)
+			else if(sender is GoombaObject || sender is PiranhaObject)
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Stomp);
 			}

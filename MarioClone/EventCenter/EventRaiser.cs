@@ -29,7 +29,7 @@ namespace MarioClone.EventCenter
             OnRaisePowerupCollectedEvent(args);
         }
 
-        public void TriggerEnemyDefeatedEvent(AbstractEnemy enemy, Mario mario)
+        public void TriggerEnemyDefeatedEvent(AbstractEnemy enemy, AbstractGameObject mario)
         {
             EnemyDefeatedEventArgs args = new EnemyDefeatedEventArgs(enemy, mario);
             OnRaiseEnemyDefeatedEvent(args);
@@ -58,6 +58,12 @@ namespace MarioClone.EventCenter
             PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(height, player);
             OnRaisePlayerHitPoleEvent(args);
         }
+
+		public void TriggerFireballFire(FireBall fireball)
+		{
+			FireballFireArgs args = new FireballFireArgs(fireball);
+			OnRaiseFireballFireEvent(args);
+		}
 
 		public void TriggerRunningOutOfTimeEvent(TimeModule module)
 		{

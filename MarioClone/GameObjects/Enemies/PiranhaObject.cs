@@ -38,6 +38,7 @@ namespace MarioClone.GameObjects
 			}else if(gameObject is FireBall)
 			{
 				PowerupState.BecomeDead();
+				EventManager.Instance.TriggerEnemyDefeatedEvent(this, (FireBall)gameObject);
 				return true;
 
 			}
