@@ -5,18 +5,14 @@ using System.Collections.Generic;
 using MarioClone.Controllers;
 using MarioClone.Commands;
 using Microsoft.Xna.Framework.Content;
-using MarioClone.Factories;
 using MarioClone.Collision;
 using MarioClone.Level;
 using MarioClone.GameObjects;
-using System.IO;
 using MarioClone.Cam;
 using MarioClone.Sounds;
 using MarioClone.HeadsUpDisplay;
 using MarioClone.EventCenter;
-using System;
 using MarioClone.States;
-using MarioClone.GameObjects.Other;
 
 namespace MarioClone
 {
@@ -219,7 +215,7 @@ namespace MarioClone
 
             if (state == GameState.Playing)
             {
-                if (Mario.Instance.PowerupState is MarioDead)
+                if (Mario.Instance.PowerupState is MarioDead2)
                 {
 					deadDuration += gameTime.ElapsedGameTime.Milliseconds;
 					if (deadDuration >= 3000)

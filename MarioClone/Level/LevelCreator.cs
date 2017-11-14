@@ -86,7 +86,6 @@ namespace MarioClone.Level
                     Mario.Instance.StateMachine.Reset();
                     Mario.Instance.StateMachine.Begin();
 					Mario.Instance.Orientation = Facing.Right;
-                    Mario.Instance.Lives--;
                     Mario.Instance.CoinCount = 0;
 
                     Mario.Instance.AdjustForCheckpoint();

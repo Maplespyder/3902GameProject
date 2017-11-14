@@ -69,7 +69,7 @@ namespace MarioClone.HeadsUpDisplay
 
         public void UpdatePlayerScoreFromFlagHit(object sender, PlayerHitPoleEventArgs e)
         {
-            if (ReferenceEquals(e._height, ParentHUD.Player))
+            if (ReferenceEquals(e.Mario, ParentHUD.Player))
             { 
                     playerScore += e._height;   
             }
@@ -79,6 +79,7 @@ namespace MarioClone.HeadsUpDisplay
         {
             EventManager.Instance.RaiseEnemyDefeatedEvent -= UpdatePlayerScoreFromEnemy;
             EventManager.Instance.RaisePowerupCollectedEvent -= UpdatePlayerScoreFromPowerup;
+            EventManager.Instance.RaisePlayerHitPoleEvent -= UpdatePlayerScoreFromFlagHit;
             pointsFont = null;
             ParentHUD = null;
         }
