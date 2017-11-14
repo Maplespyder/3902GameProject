@@ -232,7 +232,7 @@ namespace MarioClone.GameObjects
                 {
                     height = 400;
                 }
-                else if (Position.Y <= poleBottom && Position.Y > poleBottom - increment)
+                else if (Position.Y <= poleBottom + 5 && Position.Y > poleBottom - increment)
                 {
                     height = 100;
                 }
