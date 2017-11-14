@@ -44,14 +44,19 @@ namespace MarioClone.Sounds
 		{
 			CheckAvailability();
 			SoundEffect effect = SoundFactory.Instance.Create(sound);
-			if (PoolList.Contains(effect) && !Muted)
+			if (PoolList.Contains(effect))
 			{
 				PoolList.Remove(effect);
 				SoundEffectInstance soundEffectInstance = effect.CreateInstance();
 				PlayingList.Add(soundEffectInstance, effect);
-				if (!Muted)
-				{		
-					soundEffectInstance.Play();
+				soundEffectInstance.Play();
+				if (Muted)
+				{
+					soundEffectInstance.Volume = 0f;
+				}
+				else
+				{
+					soundEffectInstance.Volume = 1f;
 				}
 				return soundEffectInstance;
 			}
@@ -80,11 +85,17 @@ namespace MarioClone.Sounds
 			Muted = !Muted;
 			if (Muted)
 			{
-				mainBackground.Pause();
+				foreach(SoundEffectInstance effect in PlayingList.Keys)
+				{
+					effect.Volume = 0f;
+				}
 			}
 			else
 			{
-				mainBackground.Resume();
+				foreach (SoundEffectInstance effect in PlayingList.Keys)
+				{
+					effect.Volume = 1f;
+				}
 			}
 
 		}
@@ -178,6 +189,7 @@ namespace MarioClone.Sounds
 			}
 			PoolList.Add(SoundFactory.Instance.Create(SoundType.Coin));
 			PoolList.Add(SoundFactory.Instance.Create(SoundType.Coin));
+			PoolList.Add(SoundFactory.Instance.Create(SoundType.Fireball));
 			//add additional sounds
 
 		}
