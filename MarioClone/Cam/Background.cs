@@ -8,17 +8,28 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Cam
 {
+	public enum BackgroundType{
+		Underworld, 
+		Overworld
+	}
 	public class Background
 	{
 		private SpriteBatch _spriteBatch;
 		private Camera _camera;
 		private Dictionary<Texture2D, Vector2> sprites = new Dictionary<Texture2D, Vector2>();
 
-		public Background(SpriteBatch spriteBatch, Camera camera)
+		public Background(SpriteBatch spriteBatch, Camera camera, BackgroundType type)
 		{
 			_spriteBatch = spriteBatch;
 			_camera = camera;
-			initializeSprites();
+			if(type == BackgroundType.Underworld)
+			{
+				initializeUnderWorldSprites();
+			}
+			else
+			{
+				initializeOverWorldSprites();
+			}
 			//add sprites here
 		}
 		public void Draw()
@@ -32,13 +43,18 @@ namespace MarioClone.Cam
 			}
 		}
 
-		private void initializeSprites()
+		private void initializeOverWorldSprites()
 		{
 			//sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Sky"), new Vector2(.20f));
+			sprites.Clear();
 			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BackMountains"), new Vector2(.30f));
 			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ForeMountains"), new Vector2(.40f));
 			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/clouds"), new Vector2(.60f));
-	
+		}
+		private void initializeUnderWorldSprites()
+		{
+			sprites.Clear();
+			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/UnderworldBackground"), new Vector2(.2f));
 		}
 	}
 }

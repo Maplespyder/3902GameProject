@@ -56,11 +56,11 @@ namespace MarioClone.EventCenter
 
     public class EnemyDefeatedEventArgs : CustomEventArgs<AbstractEnemy>
     {
-        public Mario Killer { get; }
+        public AbstractGameObject Killer { get; }
         public int BounceCount { get; }
         public int PointValue { get; }
 
-        public EnemyDefeatedEventArgs(AbstractEnemy enemy, Mario killer) : base(enemy)
+        public EnemyDefeatedEventArgs(AbstractEnemy enemy, AbstractGameObject killer) : base(enemy)
         {
             Killer = killer;
             PointValue = enemy.PointValue;
@@ -101,6 +101,12 @@ namespace MarioClone.EventCenter
             Warper = player;
         }
     }
+	public class FireballFireArgs : CustomEventArgs<FireBall>
+	{
+		public FireballFireArgs(FireBall obj) : base(obj)
+		{
+		}
+	}
 
 	public class RunningOutOfTimeArgs : CustomEventArgs<TimeModule>
 	{

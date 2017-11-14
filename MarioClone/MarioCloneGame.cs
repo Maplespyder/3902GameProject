@@ -91,7 +91,7 @@ namespace MarioClone
 		{
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-			_background = new Background(spriteBatch, camera);
+			_background = new Background(spriteBatch, camera, BackgroundType.Overworld);
 
 			GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
@@ -338,7 +338,16 @@ namespace MarioClone
 
             gameGrid.CurrentLeftSideViewPort = camera.Position.X;
             gameGrid.CurrentTopSideViewPort = camera.Position.Y;
-        }
+			if (e.WarpExit.LevelArea != 0)
+			{
+				_background = new Background(spriteBatch, camera, BackgroundType.Underworld);
+			}
+			else
+			{
+				_background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+			}
+
+		}
 
         private void DrawWorld(GameTime gameTime)
         {

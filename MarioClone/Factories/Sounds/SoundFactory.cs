@@ -12,6 +12,7 @@ namespace MarioClone.Factories.Sounds
 		Background,
 		Hurryup,
 		Underworld,
+		Fireball,
 		CourseClear,
 		Starman,
 		Stomp,
@@ -81,7 +82,8 @@ namespace MarioClone.Factories.Sounds
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Dead");
 				case SoundType.Hurryup:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Hurryup");
-
+				case SoundType.Fireball:
+					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Fireball");
 				default:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Coin");
 			}
