@@ -1,6 +1,5 @@
 ﻿using MarioClone.Collision;
 using MarioClone.EventCenter;
-using MarioClone.GameObjects.Other;
 using MarioClone.Sprites;
 using MarioClone.States;
 using MarioClone.States.EnemyStates;
@@ -34,7 +33,7 @@ namespace MarioClone.GameObjects
                     return true;
                 }
 				var mario = (Mario)gameObject;
-				if (mario.PowerupState is MarioStar)
+				if (mario.PowerupState is MarioStar2)
 				{
 					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
 					PowerupState.BecomeDead();

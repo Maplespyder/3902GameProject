@@ -83,12 +83,8 @@ namespace MarioClone.Level
 				else if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance != null)
 				{
 					Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
-					Mario.Instance.ActionState = MarioIdle.Instance;
-					Mario.Instance.Velocity = new Vector2(0, 0);
-					Mario.Instance.PowerupState = MarioNormal.Instance;
-					Mario.Instance.SpriteFactory = NormalMarioSpriteFactory.Instance;
-					Mario.Instance.PreviousActionState = MarioIdle.Instance;
-					Mario.Instance.Sprite = NormalMarioSpriteFactory.Instance.Create(MarioAction.Idle);
+                    Mario.Instance.StateMachine.Reset();
+                    Mario.Instance.StateMachine.Begin();
 					Mario.Instance.Orientation = Facing.Right;
                     Mario.Instance.Lives = 3;
                     Mario.Instance.CoinCount = 0;

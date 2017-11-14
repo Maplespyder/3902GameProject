@@ -12,7 +12,7 @@ namespace MarioClone.States.BlockStates
 
         public override void Bump()
         {
-            if (Mario.Instance.PowerupState is MarioNormal)
+            if (Mario.Instance.PowerupState is MarioNormal2)
             {
                 Context.State = new BreakableBrickBounce(Context);
             }

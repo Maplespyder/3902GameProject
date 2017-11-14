@@ -20,14 +20,14 @@ namespace MarioClone.GameObjects
 
 		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
 		{
-			if (State is PowerupRevealState)
+			if (State is PowerupRevealState || IsCollided)
 			{
 				return false;
 			}
 
 			if (gameObject is Mario)
 			{
-				isCollided = true;
+				IsCollided = true;
 				EventManager.Instance.TriggerPowerupCollectedEvent(this, (Mario)gameObject);
 			}
 			else if (gameObject is AbstractBlock && gameObject.Visible)

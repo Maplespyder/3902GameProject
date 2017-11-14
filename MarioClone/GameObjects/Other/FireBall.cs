@@ -1,16 +1,10 @@
 ﻿using MarioClone.Collision;
-using MarioClone.EventCenter;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MarioClone.GameObjects.Other
+namespace MarioClone.GameObjects
 {
-	public class FireBall : AbstractGameObject
+    public class FireBall : AbstractGameObject
 	{
 		public bool Gravity { get; set; }
 		public bool Destroyed { get; set; }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.Factories.Projectiles
+namespace MarioClone.Factories
 {
 	public class ProjectileSpriteFactory
 	{

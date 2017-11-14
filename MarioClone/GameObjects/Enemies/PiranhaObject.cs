@@ -1,18 +1,13 @@
-﻿using System;
-using MarioClone.Sprites;
+﻿using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MarioClone.Factories;
 using MarioClone.States;
 using MarioClone.Collision;
-using static MarioClone.Collision.GameGrid;
 using MarioClone.States.EnemyStates.Powerup;
 using MarioClone.EventCenter;
-using MarioClone.GameObjects.Other;
 
-namespace MarioClone.GameObjects.Enemies
+namespace MarioClone.GameObjects
 {
-	public class PiranhaObject : AbstractEnemy
+    public class PiranhaObject : AbstractEnemy
 	{
 		public PiranhaObject(ISprite sprite, Vector2 position) : base(sprite, position)
 		{
@@ -34,7 +29,7 @@ namespace MarioClone.GameObjects.Enemies
 			if(gameObject is Mario)
 			{
 				var mario = (Mario)gameObject;
-				if (mario.PowerupState is MarioStar)
+				if (mario.PowerupState is MarioStar2)
 				{
 					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
 					PowerupState.BecomeDead();

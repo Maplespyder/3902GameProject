@@ -27,7 +27,7 @@ namespace MarioClone.Sounds
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
 		{
-			if (e.CurrentPowerupState == MarioDead.Instance)
+			if (e.CurrentPowerupState is MarioDead2)
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Down);
 			}
@@ -49,7 +49,7 @@ namespace MarioClone.Sounds
 		}
 		public void ActionStateChangeSound(object sender, MarioActionStateEventArgs e)
 		{
-			if (e.CurrentActionState == MarioJump.Instance)
+			if (e.CurrentActionState is MarioJump2)
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Jump);
 			}

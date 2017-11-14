@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarioClone.GameObjects.Bricks
+namespace MarioClone.GameObjects
 {
     public class Flagpole : AbstractBlock
     {
