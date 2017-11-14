@@ -92,7 +92,7 @@ namespace MarioClone.Sounds
 			}
 			else
 			{
-				SoundPool.Instance.backgroundPitch = .5f;
+				SoundPool.Instance.backgroundPitch = .3f;
 				SoundPool.Instance.ResumeBackground();
 			}
 		}
