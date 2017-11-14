@@ -52,6 +52,11 @@ namespace MarioClone.GameObjects
 				}
                 else if (side == Side.Bottom || side == Side.Top)
                 {
+                    if(side == Side.Bottom && gameObject.Velocity.Y < 0)
+                    {
+                        PowerupState.BecomeDead();
+                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
+                    }
                     Velocity = new Vector2(Velocity.X, 0);
                 }
 			}

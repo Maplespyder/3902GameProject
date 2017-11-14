@@ -74,7 +74,7 @@ namespace MarioClone
             };
 
 			camera = new Camera(GraphicsDevice.Viewport);
-			camera.Limits = new Rectangle(0, 0, 4800, 960); //set limit of world
+			camera.Limits = new Rectangle(0, 0, 350 * 64, 960); //set limit of world
             gameGrid = new GameGrid(24, camera);
             GetCamera = camera;
 
@@ -252,8 +252,9 @@ namespace MarioClone
                     {
                         hud.Update(camera, gameTime);
                     }
-                    base.Update(gameTime);
-                } 
+                }
+
+                base.Update(gameTime);
             }
 		}
 
@@ -265,8 +266,22 @@ namespace MarioClone
 		{
 			// Somewhere in your LoadContent() method:
 			if (state != GameState.Paused)
-			{
-				Vector2 parallax = new Vector2(1.0f);
+            {
+                if (transitioningArea)
+                {
+                    if (opacity > 255)
+                    {
+                        opacity = 255;
+                        opacityChange = -2;
+                        UpdateCameraForWarp(gameTime, warpArgs);
+                    }
+                    else if (opacity <= 0)
+                    {
+                        UnpauseForWarp();
+                    }
+                }
+
+                Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.LightSkyBlue);
 				_background.Draw();
 				spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.GetViewMatrix(parallax));
@@ -278,17 +293,6 @@ namespace MarioClone
 
                 if(transitioningArea)
                 {
-                    if (opacity > 255)
-                    {
-                        opacity = 255;
-                        opacityChange = -2;
-                        UpdateCameraForWarp(warpArgs);
-                    }
-                    else if(opacity <= 0)
-                    {
-                        UnpauseForWarp();
-                    }
-
                     using(Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1))
                     {
                         Color[] color = { Color.Black };
@@ -323,7 +327,7 @@ namespace MarioClone
             warpArgs = null;
         }
 
-        private void UpdateCameraForWarp(PlayerWarpingEventArgs e)
+        private void UpdateCameraForWarp(GameTime gameTime, PlayerWarpingEventArgs e)
         {
 
             //this will be uncommented once the level creator is done so it doesn't crash the game.
@@ -331,7 +335,7 @@ namespace MarioClone
 
             e.Warper.Position = e.WarpExit.Position - new Vector2(0, e.Warper.Sprite.SourceRectangle.Height / 2);
             gameGrid.Remove(e.Warper);
-            e.Warper.Update(null, 1);
+            e.Warper.Update(gameTime, 1);
             gameGrid.Add(e.Warper);
 
             camera.LookAt(e.Warper.Position);
