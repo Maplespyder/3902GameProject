@@ -10,9 +10,10 @@ namespace MarioClone.GameObjects
 {
     public class Flagpole : AbstractBlock
     {
-        public Flagpole(ISprite sprite, Vector2 position) : base(sprite, position)
+        public Flagpole(ISprite sprite, ISprite sprite2, Vector2 position) : base(sprite, position)
         {
-           
+            BoundingBox.UpdateOffSets(-12, -12, 0, 0);
+
         }
     }
 }

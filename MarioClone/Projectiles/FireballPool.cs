@@ -14,7 +14,7 @@ namespace MarioClone.Projectiles
 		public int availableFireballs;
 		public FireballPool()
 		{
-			availableFireballs = 5;
+			availableFireballs = 2;
 		}
 
 		public AbstractGameObject GetAndRelease(Vector2 position)

@@ -23,7 +23,6 @@
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/GreenKoopaShell.png</File>
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/AllBlocks.png</File>
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Coin.wav</File>
-    <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/beep1.mp3</File>
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Bump.wav</File>
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Jump.wav</File>
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Pause.wav</File>
@@ -38,5 +37,12 @@
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Overworld.wav</File>
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/SubAllBlocks.png</File>
     <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/Fonts/Letter.spritefont</File>
+    <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/Flag.png</File>
+    <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/Flagpole.png</File>
+    <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Underworld.wav</File>
+    <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Dead.wav</File>
+    <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/CourseClear.wav</File>
+    <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Starman.wav</File>
+    <File>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Hurryup.wav</File>
   </SourceFiles>
 </SourceFileCollection>

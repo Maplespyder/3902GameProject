@@ -15,6 +15,8 @@ using MarioClone.Sounds;
 using MarioClone.HeadsUpDisplay;
 using MarioClone.EventCenter;
 using System;
+using MarioClone.States;
+using MarioClone.GameObjects.Other;
 
 namespace MarioClone
 {
@@ -41,11 +43,12 @@ namespace MarioClone
         PlayerWarpingEventArgs warpArgs;
         int opacity;
         int opacityChange;
+		int deadDuration = 0;
 
         static ContentManager _content;
         GameGrid gameGrid;
         List<AbstractController> controllerList;
-        LevelCreator level;
+        public static LevelCreator level;
 		private Background _background;
 
 		public MarioCloneGame()
@@ -216,6 +219,16 @@ namespace MarioClone
 
             if (state == GameState.Playing)
             {
+                if (Mario.Instance.PowerupState is MarioDead)
+                {
+					deadDuration += gameTime.ElapsedGameTime.Milliseconds;
+					if (deadDuration >= 3000)
+					{
+						ResetLevelCommand();
+						deadDuration = 0;
+					}
+                }
+
                 if (!transitioningArea)
                 {
                     List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
@@ -363,7 +376,8 @@ namespace MarioClone
         {
             camera.Limits = level.LevelAreas[0];
             gameGrid = new GameGrid(24, camera);
-            foreach(HUD hud in HUDs)
+			SoundPool.Instance.Reset();
+			foreach (HUD hud in HUDs)
             {
                 hud.Dispose();
             }

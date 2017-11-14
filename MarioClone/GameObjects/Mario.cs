@@ -6,6 +6,7 @@ using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 namespace MarioClone.GameObjects
 {
@@ -59,11 +60,16 @@ namespace MarioClone.GameObjects
 
         public int BounceCount { get; set; }
 
-        public bool Gravity { get; set; }
+        public int Spawn { get; set; }
+
+		public bool Gravity { get; set; }
 
         public int Lives { get; set; }
 
         public int CoinCount { get; set; }
+
+        public List<Vector2> Spawns { get; set; }
+        public Vector2 ActiveSpawn { get; set; }
 
         public MarioStateMachine StateMachine { get; set; }
 
@@ -73,11 +79,14 @@ namespace MarioClone.GameObjects
         private int poleBottom;
         private int poleTop;
         private int increment;
+		private Color colorChange = Color.Tomato;
+		private int colorChangeDelay = 0;
 
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
             _mario = this;
+            Spawns = new List<Vector2>();
             Orientation = Facing.Right;
             Gravity = true;
             BounceCount = 0;
@@ -96,6 +105,11 @@ namespace MarioClone.GameObjects
         public void MoveLeft()
         {
             ActionState.Walk(Facing.Left);
+        }
+
+        public void AdjustForCheckpoint()
+        {
+            Position = new Vector2(ActiveSpawn.X, ActiveSpawn.Y);
         }
 
         public void MoveRight()
@@ -128,30 +142,30 @@ namespace MarioClone.GameObjects
             ActionState.ReleaseWalk(Facing.Right);
         }
 
-        public void FireBall()
-        {
-            if (PowerupState is MarioFire2)
-            {
-                Vector2 fireBallPosition = Vector2.Zero;
-                if (Orientation == Facing.Right)
-                {
-                    fireBallPosition = new Vector2(Position.X + Sprite.SourceRectangle.Width,
-                        Position.Y - Sprite.SourceRectangle.Height - 20);
-                }
-                else
-                {
-                    fireBallPosition = new Vector2(Position.X,
-                        Position.Y - Sprite.SourceRectangle.Height - 20);
-                }
-                FireBall _fireball = (FireBall)(_FireBallPool.GetAndRelease(fireBallPosition));
-                if (_fireball != null)
-                {
-                    FireBalls.Add(_fireball);
-                    GameGrid.Instance.Add(_fireball);
-                }
-                //EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
-            }
-        }
+		public void FireBall()
+		{
+			if (PowerupState is MarioFire2 || (PreviousPowerupState is MarioFire2 && PowerupState is MarioStar2))
+			{
+				Vector2 fireBallPosition = Vector2.Zero;
+				if(Orientation == Facing.Right)
+				{
+					fireBallPosition = new Vector2(Position.X + Sprite.SourceRectangle.Width,
+						Position.Y - Sprite.SourceRectangle.Height/2);
+				}
+				else
+				{
+					fireBallPosition = new Vector2(Position.X,
+						Position.Y - Sprite.SourceRectangle.Height/2);
+				}
+				FireBall _fireball = (FireBall)(_FireBallPool.GetAndRelease(fireBallPosition));
+				if(_fireball != null)
+				{
+					FireBalls.Add(_fireball);
+					GameGrid.Instance.Add(_fireball);
+				}
+				//EventManager.Instance.TriggerMarioActionStateChangedEvent(this);
+			}
+		}
 
         public void BecomeDead()
         {
@@ -194,31 +208,31 @@ namespace MarioClone.GameObjects
             {
                 poleBottom = gameObject.BoundingBox.Dimensions.Bottom;
                 poleTop = gameObject.BoundingBox.Dimensions.Top;
-                poleHeight = poleTop - poleBottom;
+                poleHeight = poleBottom - poleTop;
 
                 increment = poleHeight / 5;
 
-                if (Position.Y == poleHeight)
-                {
+                if (Position.Y == poleTop)
+                { 
                     Lives++;
                 }
-                else if (Position.Y >= poleHeight - increment && Position.Y < poleHeight)
+                else if (Position.Y > poleTop && Position.Y <= poleTop + increment)
                 {
                     height = 4000;
                 }
-                else if (Position.Y < poleHeight - increment && Position.Y >= poleHeight - (increment - increment))
+                else if (Position.Y > poleTop + increment && Position.Y <= poleTop + (increment + increment))
                 {
                     height = 2000;
                 }
-                else if ((Position.Y < (poleHeight - (increment - increment))) && (Position.Y >= poleHeight - (increment - increment - increment)))
+                else if ((Position.Y  > (poleTop + (increment + increment))) && (Position.Y <= poleTop + (increment + increment + increment)))
                 {
                     height = 800;
                 }
-                else if (Position.Y >= poleBottom + increment && Position.Y < poleHeight - (increment - increment - increment))
+                else if (Position.Y <= poleBottom - increment && Position.Y > poleTop + (increment + increment + increment))
                 {
                     height = 400;
                 }
-                else if (Position.Y >= poleBottom && Position.Y < poleBottom + increment)
+                else if (Position.Y <= poleBottom && Position.Y > poleBottom - increment)
                 {
                     height = 100;
                 }
@@ -282,6 +296,7 @@ namespace MarioClone.GameObjects
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             ManageBouncing(gameObject, side);
+            ManageFlagPoleCoint(gameObject, side);
 
             if ((((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible)
                 || (gameObject is HiddenBrickObject && side == Side.Top && !gameObject.Visible && (ActionState is MarioFall2)))
@@ -312,6 +327,20 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            var newSpawns = new List<Vector2>();
+            foreach (var spawn in Spawns)
+            {
+                if (spawn.X > Position.X)
+                {
+                    newSpawns.Add(spawn);
+                }
+                else
+                {
+                    ActiveSpawn = new Vector2(spawn.X, spawn.Y);
+                }
+            }
+            Spawns = newSpawns;
+
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
 
@@ -332,29 +361,64 @@ namespace MarioClone.GameObjects
                 PowerupState.Update(gameTime);
             }
 
-            foreach (FireBall fireball in FireBalls)
-            {
-                if (fireball.Destroyed)
-                {
-                    RemovedFireBalls.Add(fireball);
-                }
-            }
-            foreach (FireBall fireball in RemovedFireBalls)
-            {
-                FireBalls.Remove(fireball);
-                _FireBallPool.Restore();
-            }
-            RemovedFireBalls.Clear();
-            return base.Update(gameTime, percent);
+			foreach (FireBall fireball in FireBalls)
+			{
+				if (fireball.Destroyed)
+				{
+					RemovedFireBalls.Add(fireball);
+					GameGrid.Instance.Remove(fireball);
+				}
+			}
+			foreach (FireBall fireball in RemovedFireBalls)
+			{
+				FireBalls.Remove(fireball);
+				_FireBallPool.Restore();
+			}
+			RemovedFireBalls.Clear();
+			return base.Update(gameTime, percent);    
         }
+		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+		{
+			if (!(PowerupState is MarioStar2))
+			{
+				base.Draw(spriteBatch, gameTime);
+			}
+			else
+			{
+				if (BoundingBox != null && DrawHitbox)
+				{
+					BoundingBox.HitBoxDraw(spriteBatch);
+				}
+				if (Visible)
+				{ 
+					Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation, colorChange);
+					CycleColors();
+				}
+			}
+		}
+		private void CycleColors()
+		{
+			colorChangeDelay++;
+			if (colorChange == Color.Tomato && colorChangeDelay >=15)
+			{
+				colorChange = Color.Gold;
+				colorChangeDelay = 0;
+			}else if(colorChange == Color.Gold && colorChangeDelay >= 15)
+			{
+				colorChange = Color.Orange;
+				colorChangeDelay = 0;
+			}
+			else if (colorChange == Color.Orange && colorChangeDelay >= 15)
+			{
+				colorChange = Color.Yellow;
+				colorChangeDelay = 0;
+			}
+			else if (colorChange == Color.Yellow && colorChangeDelay >= 15)
+			{
+				colorChange = Color.Tomato;
+				colorChangeDelay = 0;
+			}
+		}
 
-        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            base.Draw(spriteBatch, gameTime);
-            foreach (FireBall fireball in FireBalls)
-            {
-                fireball.Draw(spriteBatch, gameTime);
-            }
-        }
-    }
+	}
 }

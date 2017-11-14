@@ -2,6 +2,7 @@ Tile Map Documentation:
 
 
 Mario Spawn: (136, 0, 27)
+Mario Checkpoint: (150, 40, 27)
 
 • ? (Question) Block: (140, 255, 251)
 • ? (Question) Block with Red Mushroom: (180, 68, 71)

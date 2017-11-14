@@ -52,9 +52,9 @@ namespace MarioClone.EventCenter
             OnRaisePlayerWarpingEvent(args);
         }
 
-        public void TriggerPlayerHitPoleEvent(int height, Mario player)
+		public void TriggerPlayerHitPoleEvent(int height, Mario player)
         {
-            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(player, height);
+            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(height, player);
             OnRaisePlayerHitPoleEvent(args);
         }
     }
