@@ -1,6 +1,7 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.HeadsUpDisplay;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 using System;
@@ -101,7 +102,16 @@ namespace MarioClone.EventCenter
         }
     }
 
-    public class PlayerHitPoleEventArgs : CustomEventArgs<Mario>
+	public class RunningOutOfTimeArgs : CustomEventArgs<TimeModule>
+	{
+		public int currentTime { get; }
+		public RunningOutOfTimeArgs(TimeModule obj) : base(obj)
+		{
+			currentTime = obj.currentTime;
+		}
+	}
+
+	public class PlayerHitPoleEventArgs : CustomEventArgs<Mario>
     {
         public int _height { get; }
         public Mario Mario { get; }

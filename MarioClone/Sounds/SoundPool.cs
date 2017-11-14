@@ -26,8 +26,11 @@ namespace MarioClone.Sounds
 
 	private List<SoundEffect> PoolList = new List<SoundEffect>();
 	public bool Muted { get; set; }
-	private SoundEffectInstance mainBackground;
+
+	public SoundEffectInstance mainBackground;
 	private SoundEffectInstance secondaryBackground;
+	public float backgroundPitch = 0;
+
 	private Dictionary<SoundEffectInstance, SoundEffect> PlayingList = new Dictionary<SoundEffectInstance, SoundEffect>();
 	private Dictionary<SoundEffectInstance, SoundEffect> RemoveList = new Dictionary<SoundEffectInstance, SoundEffect>();
 
@@ -47,7 +50,7 @@ namespace MarioClone.Sounds
 				SoundEffectInstance soundEffectInstance = effect.CreateInstance();
 				PlayingList.Add(soundEffectInstance, effect);
 				if (!Muted)
-				{
+				{		
 					soundEffectInstance.Play();
 				}
 				return soundEffectInstance;
@@ -59,7 +62,7 @@ namespace MarioClone.Sounds
 		{
 			foreach(KeyValuePair<SoundEffectInstance, SoundEffect> effect in PlayingList)
 			{
-				if(effect.Key.State != SoundState.Playing)
+				if(effect.Key.State == SoundState.Stopped)
 				{
 					RemoveList.Add(effect.Key, effect.Value);
 				}
@@ -96,8 +99,12 @@ namespace MarioClone.Sounds
 				secondaryBackground.Dispose();
 			}
 			PlayingList.Clear();
+			PoolList.Clear();
 			InitializeSoundPool();
 			mainBackground = GetAndPlay(SoundType.Background);
+			backgroundPitch = 0;
+			mainBackground.Pitch = backgroundPitch;
+			secondaryBackground = null;
 		}
 		public void AddObject(SoundEffect sound)
 		{
@@ -107,6 +114,19 @@ namespace MarioClone.Sounds
 			}
 		}
 
+		public void PauseBackground()
+		{
+			mainBackground.Pause();
+		}
+
+		public void ResumeBackground()
+		{
+			if (secondaryBackground == null)
+			{
+				mainBackground.Resume();
+				mainBackground.Pitch = backgroundPitch;
+			}
+		}
 		public void StopSound(SoundEffectInstance sound)
 		{
 			if (PlayingList.ContainsKey(sound))
@@ -119,16 +139,25 @@ namespace MarioClone.Sounds
 
 		public void PauseBackgroundPlaySecondaryTrack(SoundType newSound)
 		{
-			mainBackground.Pause();
-			secondaryBackground = GetAndPlay(newSound);
+			if (secondaryBackground == null)
+			{
+				mainBackground.Pause();
+				secondaryBackground = GetAndPlay(newSound);
+			}
 		}
 
 		public void ResumeBackgroundStopSecondaryTrack()
 		{
-			secondaryBackground.Stop();
-			secondaryBackground.Dispose();
-			PlayingList.Remove(secondaryBackground);
+			if (secondaryBackground != null)
+			{
+				secondaryBackground.Stop();
+				PlayingList.Remove(secondaryBackground);
+				secondaryBackground.Dispose();
+				secondaryBackground = null;
+
+			}
 			mainBackground.Resume();
+			mainBackground.Pitch = backgroundPitch;
 		}
 
 		public void ReplaceBackground(SoundType sound)
@@ -136,6 +165,7 @@ namespace MarioClone.Sounds
 			mainBackground.Stop();
 			mainBackground.Dispose();
 			mainBackground = GetAndPlay(sound);
+			mainBackground.Pitch = backgroundPitch;
 		}
 
 		private void InitializeSoundPool()
@@ -143,7 +173,8 @@ namespace MarioClone.Sounds
 			PoolList.Clear();
 			//Load in all sound effects via Factory we want 3 times max
 			foreach(SoundType sound in Enum.GetValues(typeof(SoundType))){
-				PoolList.Add(SoundFactory.Instance.Create(sound));
+				SoundEffect effect = SoundFactory.Instance.Create(sound);
+				PoolList.Add(effect);
 			}
 			PoolList.Add(SoundFactory.Instance.Create(SoundType.Coin));
 			PoolList.Add(SoundFactory.Instance.Create(SoundType.Coin));

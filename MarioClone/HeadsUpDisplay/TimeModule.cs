@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MarioClone.Sprites;
 using System;
+using MarioClone.EventCenter;
 
 namespace MarioClone.HeadsUpDisplay
 {
@@ -9,7 +10,7 @@ namespace MarioClone.HeadsUpDisplay
     {
         SpriteFont timeFont;
         int timeDelta;
-        int currentTime;
+        public int currentTime;
         int maxGameTime = 200;
         
         public Vector2 RelativePosition { get; set; }
@@ -61,9 +62,9 @@ namespace MarioClone.HeadsUpDisplay
                     }
                     currentTime -= 1;
                     timeDelta = 0;
-					if(currentTime <= 100)
+					if(currentTime == 100 || currentTime == 96)
 					{
-						//Trigger event
+						EventManager.Instance.TriggerRunningOutOfTimeEvent(this);
 					}
                 }
             }
