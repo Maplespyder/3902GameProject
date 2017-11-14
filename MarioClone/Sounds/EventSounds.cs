@@ -43,7 +43,7 @@ namespace MarioClone.Sounds
 			{
 				SoundPool.Instance.PauseBackgroundPlaySecondaryTrack(SoundType.Starman);
 			}
-			else
+			else if (!(e.PreviousPowerupState is MarioInvincibility2))
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.PowerUp);
 			}
