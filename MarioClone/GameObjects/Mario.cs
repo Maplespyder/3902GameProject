@@ -13,7 +13,7 @@ namespace MarioClone.GameObjects
     {
         public const float GravityAcceleration = .4f;
 
-        public const float HorizontalMovementSpeed = 15f;
+        public const float HorizontalMovementSpeed = 5f;
         public const float VerticalMovementSpeed = 15f;
         private static Mario _mario;
         private bool bouncing = false;
