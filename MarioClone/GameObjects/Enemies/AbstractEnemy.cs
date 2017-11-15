@@ -18,9 +18,12 @@ namespace MarioClone.GameObjects
 
         public int PointValue { get; set; }
         public EnemyPowerupState PowerupState { get; internal set; }
+        public bool IsDead { get; set; }
 
-        protected AbstractEnemy(ISprite sprite, Vector2 position) : base(sprite, position, Color.Red) { }
-
+        protected AbstractEnemy(ISprite sprite, Vector2 position) : base(sprite, position, Color.Red)
+        {
+            IsDead = false;
+        }
 
         public override bool Update(GameTime gameTime, float percent)
         {

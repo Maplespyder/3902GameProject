@@ -40,12 +40,19 @@ namespace MarioClone.States
 
         public override void UpdateHitBox()
         {
-            //TODO add case for if you're star or invincible or dead
             if (Context.PowerupState is MarioNormal2)
             {
                 Context.BoundingBox.UpdateOffSets(-8, -8, -4, -1);
             }
             else if (Context.PowerupState is MarioSuper2 || Context.PowerupState is MarioFire2)
+            {
+                Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
+            }
+            else if (Context.PreviousPowerupState is MarioNormal2)
+            {
+                Context.BoundingBox.UpdateOffSets(-8, -8, -4, -1);
+            }
+            else if (Context.PreviousPowerupState is MarioSuper2 || Context.PreviousPowerupState is MarioFire2)
             {
                 Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
             }

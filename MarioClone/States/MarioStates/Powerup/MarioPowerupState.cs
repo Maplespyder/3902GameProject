@@ -37,9 +37,9 @@ namespace MarioClone.States
 
         public virtual bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if (gameObject is AbstractEnemy)
+            if (gameObject is AbstractEnemy && !((AbstractEnemy)gameObject).IsDead)
             {
-                if (side == Side.Bottom || side == Side.None)
+                if (side == Side.Bottom)
                 {
                     if (gameObject is PiranhaObject)
                     {
