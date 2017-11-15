@@ -36,17 +36,17 @@ namespace MarioClone.GameOver
             if (Visible)
             {
                 Color tint = Color.White;
-                spriteBatch.DrawString(font, "YOU LOST", new Vector2(500, 500), Color.White);
+                spriteBatch.DrawString(font, "YOU LOST", new Vector2(500, 500), tint);
 
                 if (OptionSelected == GameOverOptions.Exit)
                 {
-                    spriteBatch.DrawString(font, "REPLAY", new Vector2(500, 600), Color.White);
-                    spriteBatch.DrawString(font, "*EXIT*", new Vector2(500, 700), Color.White);
+                    spriteBatch.DrawString(font, "REPLAY", new Vector2(500, 600), tint);
+                    spriteBatch.DrawString(font, "*EXIT*", new Vector2(500, 700), tint);
                 }
                 else if (OptionSelected == GameOverOptions.Replay)
                 {
-                    spriteBatch.DrawString(font, "*REPLAY*", new Vector2(500, 600), Color.White);
-                    spriteBatch.DrawString(font, "EXIT", new Vector2(500, 700), Color.White);
+                    spriteBatch.DrawString(font, "*REPLAY*", new Vector2(500, 600), tint);
+                    spriteBatch.DrawString(font, "EXIT", new Vector2(500, 700), tint);
                 }
             }
         }

@@ -61,7 +61,7 @@ namespace MarioClone.States
         }
 
         public virtual void Enter() { }
-        public virtual void Exit() { }
+        public virtual void Leave() { }
         public virtual void Walk(Facing orientation) { }
         public virtual void Jump() { }
         public virtual void Crouch() { }

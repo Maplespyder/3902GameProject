@@ -80,8 +80,8 @@ namespace MarioClone.EventCenter
     }
     public class BrickBumpedEventArgs : CustomEventArgs<AbstractBlock>
     {
-        public PowerUpType PowerupRevealed;
-        public bool BrickBroken;
+        public PowerUpType PowerupRevealed { get; set; }
+        public bool BrickBroken { get; set; }
 
         public BrickBumpedEventArgs(AbstractBlock obj, PowerUpType powerup, bool broken) : base(obj)
         {
@@ -113,7 +113,7 @@ namespace MarioClone.EventCenter
 		public int currentTime { get; }
 		public RunningOutOfTimeArgs(TimeModule obj) : base(obj)
 		{
-			currentTime = obj.currentTime;
+			currentTime = obj.CurrentTime;
 		}
 	}
 

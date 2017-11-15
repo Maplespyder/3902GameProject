@@ -33,7 +33,7 @@ namespace MarioClone.States
         // Behavior/actions
 
         public virtual void Enter() { }
-        public virtual void Exit() { }
+        public virtual void Leave() { }
 
         public virtual bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {

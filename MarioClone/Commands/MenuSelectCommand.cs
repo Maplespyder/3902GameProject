@@ -9,7 +9,7 @@ namespace MarioClone.Commands
 
         public override void InvokeCommand()
         {
-            if (MarioCloneGame.state == GameState.GameOver)
+            if (MarioCloneGame.State == GameState.GameOver)
             {
                 Receiver.MenuSelectCommand();
             }

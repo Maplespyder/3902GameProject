@@ -23,7 +23,7 @@ namespace MarioClone.States
             }
             private set
             {
-                currentActionState.Exit();
+                currentActionState.Leave();
                 PreviousActionState = currentActionState;
                 currentActionState = value;
                 currentActionState.Enter();
@@ -42,7 +42,7 @@ namespace MarioClone.States
                 //the comparision to the value was intentionally left
                 //off of this property, as opposed to action state
 
-                currentPowerupState.Exit();
+                currentPowerupState.Leave();
                 PreviousPowerupState = currentPowerupState;
                 currentPowerupState = value;
                 currentPowerupState.Enter();
@@ -81,8 +81,8 @@ namespace MarioClone.States
         //call this before begin, nowhere else
         public void Reset()
         {
-            CurrentPowerupState.Exit();
-            CurrentActionState.Exit();
+            CurrentPowerupState.Leave();
+            CurrentActionState.Leave();
 
         }
         private void initializeActionStates()
@@ -106,7 +106,7 @@ namespace MarioClone.States
             powerupStates.Add(MarioPowerup.Invincible, new MarioInvincibility2(Player));
         }
 
-        private MarioPowerupState GetDowngradedPowerup()
+        /*private MarioPowerupState GetDowngradedPowerup()
         {
             switch (CurrentPowerupState.Powerup)
             {
@@ -119,7 +119,7 @@ namespace MarioClone.States
                 default:
                     return powerupStates[CurrentPowerupState.Powerup];
             }
-        }
+        }*/
 
         public void TransitionDead()
         {
