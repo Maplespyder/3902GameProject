@@ -14,6 +14,7 @@ namespace MarioClone.States
     {
         public KoopaDead(AbstractEnemy context) : base(context)
         {
+            Context.IsDead = true;
             Context.PointValue = 0;
 
             if (Context is GreenKoopaObject)

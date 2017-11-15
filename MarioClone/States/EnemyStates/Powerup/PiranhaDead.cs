@@ -13,11 +13,15 @@ namespace MarioClone.States.EnemyStates.Powerup
 	public class PiranhaDead : EnemyPowerupState
 	{
 
-		public PiranhaDead(AbstractEnemy context) : base(context) { }
+		public PiranhaDead(AbstractEnemy context) : base(context)
+        {
+            Context.IsDead = true;
+        }
         
 		public override void BecomeAlive()
 		{
 			Context.PowerupState = new PiranhaReveal(Context);
+            Context.IsDead = false;
 			Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.Piranha);
 		}
 
