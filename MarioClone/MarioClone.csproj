@@ -70,7 +70,7 @@
     <Compile Include="GameObjects\Other\FireBall.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
     <Compile Include="GameObjects\PowerUps\StarmanObject.cs" />
-    <Compile Include="GameOver\GameOverScreen.cs" />
+    <Compile Include="Menu\MenuScreen.cs" />
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
     <Compile Include="HeadsUpDisplay\HUD.cs" />
     <Compile Include="HeadsUpDisplay\HUDModule.cs" />

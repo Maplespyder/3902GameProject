@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MarioClone.Sprites;
 using System;
 using MarioClone.EventCenter;
+using MarioClone.GameObjects;
 
 namespace MarioClone.HeadsUpDisplay
 {
@@ -47,6 +48,7 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Update(GameTime gameTime)
         {
+            Mario.Instance.Time = currentTime;
             if (currentTime == 0)
             {
                 //time is up event

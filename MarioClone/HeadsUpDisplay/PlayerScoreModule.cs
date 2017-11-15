@@ -1,4 +1,5 @@
 ﻿using MarioClone.EventCenter;
+using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -48,6 +49,7 @@ namespace MarioClone.HeadsUpDisplay
         public void Update(GameTime gameTime)
         {
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
+            Mario.Instance.Score = playerScore;
         }
 
         public void UpdatePlayerScoreFromEnemy(object sender, EnemyDefeatedEventArgs e)

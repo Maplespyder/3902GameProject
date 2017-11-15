@@ -6,7 +6,6 @@ using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
 
 namespace MarioClone.GameObjects
 {
@@ -14,7 +13,7 @@ namespace MarioClone.GameObjects
     {
         public const float GravityAcceleration = .4f;
 
-        public const float HorizontalMovementSpeed = 5f;
+        public const float HorizontalMovementSpeed = 15f;
         public const float VerticalMovementSpeed = 15f;
         private static Mario _mario;
         private bool bouncing = false;
@@ -75,6 +74,8 @@ namespace MarioClone.GameObjects
 
         public int height { get; set; }
         public int poleHeight { get; private set; }
+        public int Score { get; internal set; }
+        public int Time { get; internal set; }
 
         private int poleBottom;
         private int poleTop;
@@ -236,6 +237,9 @@ namespace MarioClone.GameObjects
                 {
                     height = 100;
                 }
+
+                MarioCloneGame.state = GameState.Win;
+                
 
                 EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
             }
