@@ -16,6 +16,7 @@ namespace MarioClone.Sounds
 {
 	public class EventSounds
 	{
+
 		public EventSounds()
 		{
 			EventManager.Instance.RaiseMarioPowerupStateEvent += PowerUpStateChangeSound;
@@ -23,6 +24,8 @@ namespace MarioClone.Sounds
 			EventManager.Instance.RaiseEnemyDefeatedEvent += EnemyStompSound;
 			EventManager.Instance.RaisePowerupCollectedEvent += PowerUpCollectedSound;
 			EventManager.Instance.RaiseMarioActionStateEvent += ActionStateChangeSound;
+			EventManager.Instance.RaiseRunningOutOfTimeEvent += RunningOutOfTime;
+			EventManager.Instance.RaisePlayerWarpingEvent += Warping;
 		}
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
@@ -64,6 +67,33 @@ namespace MarioClone.Sounds
 			if (e.CurrentActionState is MarioJump2)
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Jump);
+			}
+		}
+
+		public void Warping(object sender, PlayerWarpingEventArgs e)
+		{
+			if(e.WarpExit.LevelArea != 0)
+			{
+				SoundPool.Instance.ReplaceBackground(SoundType.Underworld);
+			}
+			else
+			{
+				SoundPool.Instance.ReplaceBackground(SoundType.Background);
+			}
+			
+		}
+
+		public void RunningOutOfTime(object sender, RunningOutOfTimeArgs e)
+		{
+			if (e.currentTime > 96)
+			{
+				SoundPool.Instance.PauseBackground();
+				SoundPool.Instance.GetAndPlay(SoundType.Hurryup);
+			}
+			else
+			{
+				SoundPool.Instance.backgroundPitch = .3f;
+				SoundPool.Instance.ResumeBackground();
 			}
 		}
 

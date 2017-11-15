@@ -28,8 +28,9 @@ namespace MarioClone.EventCenter
         public event EventHandler<BrickBumpedEventArgs> RaiseBrickBumpedEvent;
         public event EventHandler<PlayerWarpingEventArgs> RaisePlayerWarpingEvent;
         public event EventHandler<PlayerHitPoleEventArgs> RaisePlayerHitPoleEvent;
+		public event EventHandler<RunningOutOfTimeArgs> RaiseRunningOutOfTimeEvent;
 
-        protected virtual void OnRaiseMarioActionStateEvent(MarioActionStateEventArgs e)
+		protected virtual void OnRaiseMarioActionStateEvent(MarioActionStateEventArgs e)
         {
             EventHandler<MarioActionStateEventArgs> handler = RaiseMarioActionStateEvent;
             handler?.Invoke(e.Sender, e);
@@ -77,5 +78,11 @@ namespace MarioClone.EventCenter
             EventHandler<PlayerHitPoleEventArgs> handler = RaisePlayerHitPoleEvent;
             handler?.Invoke(e.Sender, e);
         }
-    }
+
+		protected virtual void OnRaiseRunningOutOfTimeEvent(RunningOutOfTimeArgs e)
+		{
+			EventHandler<RunningOutOfTimeArgs> handler = RaiseRunningOutOfTimeEvent;
+			handler?.Invoke(e.Sender, e);
+		}
+	}
 }
