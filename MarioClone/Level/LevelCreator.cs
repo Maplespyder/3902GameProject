@@ -27,7 +27,6 @@ namespace MarioClone.Level
         private int xOffsetFromUnderground;
         private int yOffsetFromUnderground;
 		private Bitmap _image;
-        private Bitmap _subLevelImageSwap;
         private PipeTop danglingWarp;
 
         public Dictionary<int, Microsoft.Xna.Framework.Rectangle> LevelAreas { get; private set; }
@@ -254,8 +253,7 @@ namespace MarioClone.Level
                                 String newFile = String.Concat(Path.GetFileNameWithoutExtension(file), tempPixel.B, Path.GetExtension(file));
                                 String tempHolder = file;
                                 newFile = Path.Combine(Path.GetDirectoryName(file), newFile);
-
-                                _subLevelImageSwap = _image;
+                                
                                 using (var stream = new FileStream(newFile, FileMode.Open))
                                 {
                                     _image = new Bitmap(stream);

@@ -36,7 +36,7 @@ namespace MarioClone
     /// </summary>
     public class MarioCloneGame : Game
 	{
-        public static GameState state;
+        public static GameState State;
 
         MenuScreen screen;
 
@@ -54,18 +54,19 @@ namespace MarioClone
         static ContentManager _content;
         GameGrid gameGrid;
         List<AbstractController> controllerList;
-        public static LevelCreator level;
+        static LevelCreator level;
 		private Background _background;
 
 		public MarioCloneGame()
 		{  
-            state = GameState.Playing;
+            State = GameState.Playing;
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 1600;
 			graphics.PreferredBackBufferHeight = 960;
 			_content = Content;
 			Content.RootDirectory = "Content";
-		}
+            HUDs = new List<HUD>();
+        }
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -88,8 +89,7 @@ namespace MarioClone
             gameGrid = new GameGrid(24, camera);
             GetCamera = camera;
 
-            HUDs = new List<HUD>();
-			EventSounds sounds = new EventSounds();
+			new EventSounds();
 			base.Initialize();
 		}
 
@@ -221,7 +221,7 @@ namespace MarioClone
 
             if (Mario.Instance.Lives < 0)
             {
-                state = GameState.GameOver;
+                State = GameState.GameOver;
             }
 
             if (!transitioningArea)
@@ -232,7 +232,7 @@ namespace MarioClone
                 }
             }
 
-            if (state == GameState.Playing)
+            if (State == GameState.Playing)
             {
                 if (Mario.Instance.PowerupState is MarioDead2)
                 {
@@ -269,7 +269,7 @@ namespace MarioClone
 
                     foreach (HUD hud in HUDs)
                     {
-                        hud.Update(camera, gameTime);
+                        hud.Update(gameTime);
                     }
                 }
 
@@ -283,8 +283,7 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			// Somewhere in your LoadContent() method:
-			if (state == GameState.Playing)
+			if (State == GameState.Playing)
             {
                 if (transitioningArea)
                 {
@@ -330,7 +329,7 @@ namespace MarioClone
 
 				base.Draw(gameTime);
 			}
-            else if (state == GameState.GameOver)
+            else if (State == GameState.GameOver)
             {
                 GraphicsDevice.Clear(Color.Black);
                 spriteBatch.Begin(SpriteSortMode.BackToFront);
@@ -340,7 +339,7 @@ namespace MarioClone
                 spriteBatch.End();
                 base.Draw(gameTime);
             }
-            else if (state == GameState.Win)
+            else if (State == GameState.Win)
             {
                 GraphicsDevice.Clear(Color.Black);
                 spriteBatch.Begin(SpriteSortMode.BackToFront);
@@ -392,7 +391,7 @@ namespace MarioClone
 
 		}
 
-        private void DrawWorld(GameTime gameTime)
+        void DrawWorld(GameTime gameTime)
         {
             List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects;
             foreach (var obj in allObjects)
@@ -413,7 +412,7 @@ namespace MarioClone
         
         public static Camera GetCamera { get; set; }
 
-        public static ICollection<HUD> HUDs { get; set; }
+        public static ICollection<HUD> HUDs { get; private set; }
 
 		public void ExitCommand()
         {
@@ -436,21 +435,21 @@ namespace MarioClone
 
         public void PauseCommand()
         {
-            if (state == GameState.Playing)
+            if (State == GameState.Playing)
             {
                 SoundPool.Instance.MuteCommand();
-                state = GameState.Paused; 
+                State = GameState.Paused; 
             } 
-            else if (state == GameState.Paused)
+            else if (State == GameState.Paused)
             {
                 SoundPool.Instance.MuteCommand();
-                state = GameState.Playing;
+                State = GameState.Playing;
             }
         }
 
         public void SetAsPlaying()
         {
-            state = GameState.Playing;
+            State = GameState.Playing;
         }
 
         private void AddCommandToAllGamepads(Buttons button, ICommand command)

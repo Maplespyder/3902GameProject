@@ -23,7 +23,7 @@ namespace MarioClone.States
             UpdateHitBox();
         }
 
-        public override void Exit()
+        public override void Leave()
         {
             Context.Gravity = false;
             Context.Velocity = new Vector2(Context.Velocity.X, 0);
