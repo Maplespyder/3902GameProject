@@ -12,7 +12,7 @@ namespace MarioClone.HeadsUpDisplay
         SpriteFont timeFont;
         int timeDelta;
         public int currentTime;
-        int maxGameTime = 105;
+        int maxGameTime = 400;
         
         public Vector2 RelativePosition { get; set; }
         public Vector2 AbsolutePosition { get; set; }
@@ -51,7 +51,7 @@ namespace MarioClone.HeadsUpDisplay
             Mario.Instance.Time = currentTime;
             if (currentTime == 0)
             {
-                //time is up event
+                Mario.Instance.BecomeDead();
             }
             else
             {
