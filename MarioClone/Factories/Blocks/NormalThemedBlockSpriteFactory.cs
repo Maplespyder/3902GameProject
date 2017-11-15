@@ -58,7 +58,7 @@ namespace MarioClone.Factories
 						new Rectangle(0, 72, 124, 108));
                 case BlockType.Flagpole:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Flagpole"),
-                    new Rectangle(0, 0, 84, 510), 1, 3, 0, 2, 10);
+                    new Rectangle(0, 0, 84, 510), 1, 3, 0, 2, 4);
 
                 default:
                     return null;

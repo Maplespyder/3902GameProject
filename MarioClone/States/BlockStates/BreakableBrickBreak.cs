@@ -14,11 +14,10 @@ namespace MarioClone.States.BlockStates
 
         public BreakableBrickBreak(BreakableBrickObject context) : base(context)
         {
-            Context = context;
+
+                Context = context;
             Context.BoundingBox = null;
-
             EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, true);
-
 			Context.Visible = false;
             List<Vector2> velocityList = new List<Vector2>
             {
@@ -30,6 +29,7 @@ namespace MarioClone.States.BlockStates
 
             for (int i = 0; i < 4; i++)
             {
+
                 var piece = (BrickPieceObject)BlockFactory.Instance.Create(BlockType.BrickPiece, context.Position);
                 Context.PieceList.Add(piece);
                 piece.ChangeVelocity(velocityList[i]);

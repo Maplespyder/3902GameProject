@@ -356,7 +356,7 @@ namespace MarioClone
         {
             transitioningArea = true;
             opacity = 1;
-            opacityChange = 2;
+            opacityChange = 5;
             warpArgs = e;
         }
 

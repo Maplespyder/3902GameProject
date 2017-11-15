@@ -17,8 +17,8 @@ namespace MarioClone.GameObjects
         public const float VerticalMovementSpeed = 15f;
         private static Mario _mario;
         private bool bouncing = false;
-        public List<FireBall> FireBalls = new List<FireBall>();
-        public List<FireBall> RemovedFireBalls = new List<FireBall>();
+        private List<FireBall> FireBalls = new List<FireBall>();
+        private List<FireBall> RemovedFireBalls = new List<FireBall>();
 
         /// <summary>
         /// Do not instantiate Mario more than once. We have to make Mario before

@@ -93,7 +93,7 @@ namespace MarioClone.Sounds
 
 		public void RunningOutOfTime(object sender, RunningOutOfTimeArgs e)
 		{
-			if (e.currentTime > 96)
+			if (e.currentTime > 97)
 			{
 				SoundPool.Instance.PauseBackground();
 				SoundPool.Instance.GetAndPlay(SoundType.Hurryup);
