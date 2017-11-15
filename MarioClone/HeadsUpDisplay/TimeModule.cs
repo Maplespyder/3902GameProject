@@ -11,7 +11,7 @@ namespace MarioClone.HeadsUpDisplay
     {
         SpriteFont timeFont;
         int timeDelta;
-        public int currentTime;
+        public int CurrentTime { get; set; }
         int maxGameTime = 400;
         
         public Vector2 RelativePosition { get; set; }
@@ -28,7 +28,7 @@ namespace MarioClone.HeadsUpDisplay
             Visible = true;
 
             timeFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
-            currentTime = maxGameTime;
+            CurrentTime = maxGameTime;
             timeDelta = 0;
 
             RelativePosition = new Vector2(1350, 10);
@@ -42,14 +42,14 @@ namespace MarioClone.HeadsUpDisplay
             {
                 Color tint = ParentHUD.Underground ? Color.White : Color.Black;
                 spriteBatch.DrawString(timeFont, "TIME", AbsolutePosition, tint);
-                spriteBatch.DrawString(timeFont, currentTime.ToString(), AbsolutePosition + TimeRelativePosition, tint);
+                spriteBatch.DrawString(timeFont, CurrentTime.ToString(), AbsolutePosition + TimeRelativePosition, tint);
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            Mario.Instance.Time = currentTime;
-            if (currentTime == 0)
+            Mario.Instance.Time = CurrentTime;
+            if (CurrentTime == 0)
             {
                 Mario.Instance.BecomeDead();
             }
@@ -58,11 +58,11 @@ namespace MarioClone.HeadsUpDisplay
                 timeDelta += gameTime.ElapsedGameTime.Milliseconds;
                 if (timeDelta >= 1000)
                 {
-                    if (Math.Floor(Math.Log10(currentTime) + 1) > Math.Floor(Math.Log10(currentTime - 1) + 1))
+                    if (Math.Floor(Math.Log10(CurrentTime) + 1) > Math.Floor(Math.Log10(CurrentTime - 1) + 1))
                     {
                         TimeRelativePosition += new Vector2(29, 0);
                     }
-                    currentTime -= 1;
+                    CurrentTime -= 1;
                     timeDelta = 0;
 					if(currentTime == 100 || currentTime == 97)
 					{

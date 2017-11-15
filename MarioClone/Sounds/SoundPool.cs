@@ -27,15 +27,16 @@ namespace MarioClone.Sounds
 	private List<SoundEffect> PoolList = new List<SoundEffect>();
     public float Volume = 1f;
 
-	public SoundEffectInstance mainBackground;
+	private SoundEffectInstance mainBackground;
 	private SoundEffectInstance secondaryBackground;
-	public float backgroundPitch = 0;
+	public float BackgroundPitch { get; set; }
 
 	private Dictionary<SoundEffectInstance, SoundEffect> PlayingList = new Dictionary<SoundEffectInstance, SoundEffect>();
 	private Dictionary<SoundEffectInstance, SoundEffect> RemoveList = new Dictionary<SoundEffectInstance, SoundEffect>();
 
 		public SoundPool()
 		{
+            BackgroundPitch = 0;
 			InitializeSoundPool();
 			mainBackground = GetAndPlay(SoundType.Background);
 		}
@@ -117,7 +118,7 @@ namespace MarioClone.Sounds
 			if (secondaryBackground == null)
 			{
 				mainBackground.Resume();
-				mainBackground.Pitch = backgroundPitch;
+				mainBackground.Pitch = BackgroundPitch;
 			}
 		}
 
@@ -141,7 +142,7 @@ namespace MarioClone.Sounds
 
 			}
 			mainBackground.Resume();
-			mainBackground.Pitch = backgroundPitch;
+			mainBackground.Pitch = BackgroundPitch;
 		}
 
 		public void ReplaceBackground(SoundType sound)
@@ -149,7 +150,7 @@ namespace MarioClone.Sounds
 			mainBackground.Stop();
 			mainBackground.Dispose();
 			mainBackground = GetAndPlay(sound);
-			mainBackground.Pitch = backgroundPitch;
+			mainBackground.Pitch = BackgroundPitch;
 		}
 
 		private void InitializeSoundPool()

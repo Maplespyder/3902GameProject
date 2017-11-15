@@ -79,7 +79,7 @@ namespace MarioClone.HeadsUpDisplay
             }
         }
 
-        public void Update(Camera camera, GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             foreach(HUDModule module in Modules)
             {

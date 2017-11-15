@@ -67,7 +67,7 @@ namespace MarioClone.GameObjects
 
         public int CoinCount { get; set; }
 
-        public List<Vector2> Spawns { get; set; }
+        public List<Vector2> Spawns { get; }
         public Vector2 ActiveSpawn { get; set; }
 
         public MarioStateMachine StateMachine { get; set; }
@@ -187,22 +187,7 @@ namespace MarioClone.GameObjects
         {
             PowerupState.BecomeFire();
         }
-
-        public void BecomeStar()
-        {
-            PowerupState.BecomeStar();
-        }
-
-        private void TakeDamage()
-        {
-            PowerupState.TakeDamage();
-        }
-
-        private void BecomeInvincible()
-        {
-            PowerupState.BecomeInvincible();
-        }
-
+        
         private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
         {
             if (gameObject is Flagpole && side.Equals(Side.Right))
@@ -238,7 +223,7 @@ namespace MarioClone.GameObjects
                     height = 100;
                 }
 
-                MarioCloneGame.state = GameState.Win;
+                MarioCloneGame.State = GameState.Win;
                 
 
                 EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
@@ -343,7 +328,8 @@ namespace MarioClone.GameObjects
                     ActiveSpawn = new Vector2(spawn.X, spawn.Y);
                 }
             }
-            Spawns = newSpawns;
+            Spawns.Clear();
+            Spawns.AddRange(newSpawns);
 
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
