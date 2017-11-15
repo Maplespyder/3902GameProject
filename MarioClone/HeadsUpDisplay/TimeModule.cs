@@ -64,7 +64,7 @@ namespace MarioClone.HeadsUpDisplay
                     }
                     CurrentTime -= 1;
                     timeDelta = 0;
-					if(CurrentTime == 100 || CurrentTime == 96)
+					if(CurrentTime == 100 || CurrentTime == 97)
 					{
 						EventManager.Instance.TriggerRunningOutOfTimeEvent(this);
 					}

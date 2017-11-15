@@ -25,7 +25,7 @@ namespace MarioClone.Sounds
 		}
 
 	private List<SoundEffect> PoolList = new List<SoundEffect>();
-	public bool Muted { get; set; }
+    public float Volume = 1f;
 
 	private SoundEffectInstance mainBackground;
 	private SoundEffectInstance secondaryBackground;
@@ -39,7 +39,6 @@ namespace MarioClone.Sounds
             BackgroundPitch = 0;
 			InitializeSoundPool();
 			mainBackground = GetAndPlay(SoundType.Background);
-			Muted = false;
 		}
 		public SoundEffectInstance GetAndPlay(SoundType sound)
 		{
@@ -51,14 +50,7 @@ namespace MarioClone.Sounds
 				SoundEffectInstance soundEffectInstance = effect.CreateInstance();
 				PlayingList.Add(soundEffectInstance, effect);
 				soundEffectInstance.Play();
-				if (Muted)
-				{
-					soundEffectInstance.Volume = 0f;
-				}
-				else
-				{
-					soundEffectInstance.Volume = 1f;
-				}
+                soundEffectInstance.Volume = Volume;
 				return soundEffectInstance;
 			}
 			return null;
@@ -83,23 +75,13 @@ namespace MarioClone.Sounds
 
 		public void MuteCommand()
 		{
-			Muted = !Muted;
-			if (Muted)
-			{
-				foreach(SoundEffectInstance effect in PlayingList.Keys)
-				{
-					effect.Volume = 0f;
-				}
-			}
-			else
-			{
-				foreach (SoundEffectInstance effect in PlayingList.Keys)
-				{
-					effect.Volume = 1f;
-				}
-			}
+            Volume = 1 - Volume;
+            foreach (SoundEffectInstance effect in PlayingList.Keys)
+            {
+                effect.Volume = Volume;
+            }
 
-		}
+    }
 
 		public void Reset()
 		{
@@ -109,14 +91,14 @@ namespace MarioClone.Sounds
 			{
 				secondaryBackground.Stop();
 				secondaryBackground.Dispose();
-			}
+                secondaryBackground = null;
+            }
 			PlayingList.Clear();
 			PoolList.Clear();
 			InitializeSoundPool();
 			mainBackground = GetAndPlay(SoundType.Background);
-			BackgroundPitch = 0;
+            BackgroundPitch = 0;
 			mainBackground.Pitch = BackgroundPitch;
-			secondaryBackground = null;
 		}
 		public void AddObject(SoundEffect sound)
 		{
@@ -137,15 +119,6 @@ namespace MarioClone.Sounds
 			{
 				mainBackground.Resume();
 				mainBackground.Pitch = BackgroundPitch;
-			}
-		}
-		public void StopSound(SoundEffectInstance sound)
-		{
-			if (PlayingList.ContainsKey(sound))
-			{
-				sound.Stop();
-				sound.Dispose();
-				PlayingList.Remove(sound);
 			}
 		}
 

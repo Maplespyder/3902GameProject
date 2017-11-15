@@ -1,0 +1,31 @@
+Code Review Template
+Author of Review: Allie
+Date of Review: 11/14/17
+File Under Review: MarioCloneGame.cs
+Author(s) of File: Jake
+Comments on Code Quality:
+
+The Draw() method in this class is starting to lean on the lengthier side. Though
+I don't suggest any changes with the logic, we could move code from 313 to  353 to its
+own method (maybe FadeToBlack or such), so it becomes cleaner. 
+
+Minutes to Complete: 5 min
+
+Code Review Template
+Author of Review: Allie
+Date of Review: 11/14/17
+File Under Review: Background.cs
+Author(s) of File: Me
+Comments on Code Quality:
+
+I think the way the background was handled could of been done a lot better. 
+For starters, the sprites are hardcoded in, no matter what kind of level is
+being created. I think, via the level creator, in some fashion, we should
+decide what kind of backdrop we'd like. 
+
+IE: A pink block in the corner might mean we'd want to load in one set of
+parallaxing backgrounds versus another. Although I'm sure there's a better 
+way to handle it beyond that, it's just an idea. 
+
+Minutes to Complete: 10 min
+

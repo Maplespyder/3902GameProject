@@ -45,7 +45,7 @@ namespace MarioClone.Factories
 					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SubAllBlocks"),
 						new Rectangle(192, 64, 64, 64));
 				case BlockType.BrickPiece:
-					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BrickPiece"),
+					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SubBrickPiece"),
 						new Rectangle(0, 0, 32, 32));
 				case BlockType.HiddenBlock:
 					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SubAllBlocks"),

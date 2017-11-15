@@ -6,16 +6,17 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using MarioClone.Collision;
+using MarioClone.EventCenter;
 
 namespace MarioClone.GameObjects
 {
     public class BreakableBrickObject : AbstractBlock
 	{
 		public List<AbstractGameObject> PieceList = new List<AbstractGameObject>();
-
 		public BreakableBrickObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             State = new BreakableBrickStatic(this);
+            EventManager.Instance.RaisePlayerWarpingEvent += WarpToNewLocation;
         }
 
 		public override bool Update(GameTime gameTime, float percent)
@@ -45,6 +46,18 @@ namespace MarioClone.GameObjects
                 return true;
             }
             return false;
+        }
+
+        public void WarpToNewLocation(object sender, PlayerWarpingEventArgs e)
+        {
+            if(e.WarpExit.LevelArea != 0)
+            {             
+                BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
+            }            
+            else
+            {
+                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
+            }
         }
     }
 }
