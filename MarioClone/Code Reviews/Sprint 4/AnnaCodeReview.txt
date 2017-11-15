@@ -1,0 +1,16 @@
+﻿Code Review Template
+Author of Review: Anna 
+Date of Review: 11/14/17
+File Under Review: Mario.cs/MarioClone.cs
+Author(s) of File: Everyone
+Comments on Code Quality:
+
+So the code that was added to check when to swtich to the winning game state I think should be handled differently. Currently it is not making use of the FlagPoleHit event, 
+and is just changing states within the collision repsonse method for mario when he hits the pole. What would be better is if there was a method within the main game class that subscribed 
+to the Flagpole hit event and when it triggers then we can return a boolean that will be set to true. Then in marioclone's update method we could check to see if that boolean is true and if it is then we 
+can stop updating the game and drawing sprites and enter the winning game state. 
+
+
+
+Minutes to Complete: 15 min
+Hypothetical Change to File: My change was mentioned up above. 
