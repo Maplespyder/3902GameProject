@@ -97,8 +97,8 @@ namespace MarioClone.Sounds
 			PoolList.Clear();
 			InitializeSoundPool();
 			mainBackground = GetAndPlay(SoundType.Background);
-			backgroundPitch = 0;
-			mainBackground.Pitch = backgroundPitch;
+            BackgroundPitch = 0;
+			mainBackground.Pitch = BackgroundPitch;
 		}
 		public void AddObject(SoundEffect sound)
 		{
