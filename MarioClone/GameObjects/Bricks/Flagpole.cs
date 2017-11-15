@@ -12,7 +12,7 @@ namespace MarioClone.GameObjects
     {
         public Flagpole(ISprite sprite, ISprite sprite2, Vector2 position) : base(sprite, position)
         {
-            BoundingBox.UpdateOffSets(-12, -12, 0, 0);
+            BoundingBox.UpdateOffSets(-12, -64, 0, 0);
 
         }
     }

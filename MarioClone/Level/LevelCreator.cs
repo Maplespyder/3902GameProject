@@ -220,12 +220,6 @@ namespace MarioClone.Level
                     initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
                     Grid.Add(initializer);
                 }
-                else if (sameColor(pixel, Colors.Flag))
-                {
-                    var initializer = BlockFactory.Instance.Create(BlockType.Flag, position);
-                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
-                    Grid.Add(initializer);
-                }
                 else if (sameColor(pixel, Colors.PipeTop))
 				{
                     PipeTop initializer = (PipeTop)BlockFactory.Instance.Create(BlockType.PipeTop, position);
