@@ -116,36 +116,19 @@ As Anna discussed in class with Scott, we're ignoring this because we could not 
 SPRINT 4 README 
 
 -When Mario is normal sized, he usually jumps right through the flagpole if you move him up + left. Thus this does not properly trigger the game to end. This can also happen
-when he is in other states, but it is much more rare. He is able to collide with the flagpole better when he is not in normal state. Aldo since the acceptance criteria only asks
+when he is in other states, but it is much more rare. He is able to collide with the flagpole better when he is not in normal state. Also, since the acceptance criteria only asks
 for the corresponding height to add a certain amount to the score, currently we have almost simultaneously as Mario hits the pole, the winning screen appears. 
 
 -To cycle through the menu commands, press SPACE, and to select an option, press ENTER.
 -Score and coins reset on Mario death. 
 -I have no idea why, but the underworld is *extremely* laggy on my laptop. This hasn't been replicable with other computers, so hopefully
 you don't experience this bug.
+-All the (brick) blocks have coins in them. This was something we simply forgot to take out from when we were testing stuff relating to making coins and collision.
+-There's no warp pipe sound.
 
+-A lot of these issues (above) were fixable, but we simply ran out of time on this sprint.
 
 Ignored code warnings:
-
-
-
-Severity	Code	Description	Project	File	Line	Suppression State
-3--Warning	CA1502	'CollisionManager.ProcessFrame(GameTime, List<AbstractGameObject>, GameGrid)' has a cyclomatic complexity of 58. Rewrite or refactor the method to reduce complexity to 25.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Collision\CollisionManager.cs	495	Active
-
-
-Severity	Code	Description	Project	File	Line	Suppression State
-2--Warning	CA1716	Rename virtual/interface member 'MarioActionState.Exit()' so that it no longer conflicts with the reserved language keyword 'Exit'. Using a reserved keyword as the name of a virtual/interface member makes it harder for consumers in other languages to override/implement the member.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\States\MarioStates\Action\MarioActionState.cs	64	Active
-
-
-Severity	Code	Description	Project	File	Line	Suppression State
-5--Warning	CA1026	Replace method 'Camera.Move(Vector2, bool)' with an overload that supplies all default arguments.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Cam\Camera.cs	90	Active
-
-
-
-
-
-
-
 
 Warnings ignored for same reasons as the previous sprints:
 -CA1822 : 'this' parameter (or 'Me' in Visual Basic) of 'EnemyFactory.Create(EnemyType, Vector2)'	5 of the errors
@@ -154,17 +137,17 @@ Warnings ignored for same reasons as the previous sprints:
 -CA 1814: Replace gamegrid with jagged array	1 of the errors
 -CA2214: 'RedKoopaObject.RedKoopaObject(ISprite, Vector2)' contains a call chain that results in a call to a virtual method defined 
 by the class. Review the following call stack for unintended consequences:		39 of the errors
-	this one was discussed with you, and we're just not sure how to fix it.
+	--this one was discussed with you, and we're just not sure how to fix it, same reason as before
 
 
-Severity	Code	Description	Project	File	Line	Suppression State
-1- Warning	CA1030	Consider making 'Mario.FireBall()' an event.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Mario.cs	146	Active
+1 of the errors
+-- Warning	CA1030	Consider making 'Mario.FireBall()' an event.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Mario.cs	146	Active
 This one just doesn't make sense. Mario.Fireball() is a command to throw a fireball, not an event..
 
-Severity	Code	Description	Project	File	Line	Suppression State
-9--Warning	CA1051	Because field 'BreakableBrickObject.PieceList' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Bricks\BreakableBrickObject.cs	14	Active
-Severity	Code	Description	Project	File	Line	Suppression State
-10--Warning	CA1002	Change 'List<AbstractGameObject>' in 'BreakableBrickObject.PieceList' to use Collection<T>, ReadOnlyCollection<T> or KeyedCollection<K,V>	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Bricks\BreakableBrickObject.cs	14	Active
+9 of the errors 
+--Warning	CA1051	Because field 'BreakableBrickObject.PieceList' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Bricks\BreakableBrickObject.cs	14	Active
+10 of errors
+--Warning	CA1002	Change 'List<AbstractGameObject>' in 'BreakableBrickObject.PieceList' to use Collection<T>, ReadOnlyCollection<T> or KeyedCollection<K,V>	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Bricks\BreakableBrickObject.cs	14	Active
 These kind of go together. A lot of random things, I believe all of them lists, give warnings because they are lists exposed outside of
 their class. For the same reasons as given in the previous sprint, I'm not going to convert all of these to Collections. Also, on some
 of the objects, the lists actually need to be public as they're accessed by other methods. If I changed them to a property, it would probably
@@ -172,28 +155,21 @@ just give CA1002 instead, gaining me a net reduction of 0 errors.
 
 Severity	Code	Description	Project	File	Line	Suppression State
 1--Warning	CA1809	'LevelCreator.MakeObject(Color, int, int)' has 69 local variables, 36 of which were generated by the compiler. Refactor 'LevelCreator.MakeObject(Color, int, int)' so that it uses fewer than 64 local variables.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Level\LevelCreator.cs	69	Active
-Only a few of these variables would be instantiated at any given time, as the level creator is just a giant if statement.
+Only a few of these variables would be instantiated at any given time, as the level creator is just a giant if statement. There are probably
+better ways to create the objects than we currently are, but basically upon creation the object has to be adjusted around based on its sprite
+sheet, since its pixel position on the bitmap game definition is not perfect. For that to happen, it has to be created (so its sprite isn't null)
+before we determine its final position in the world. So, we have to create it, then set its position, then add it to the gamegrid. 
 
--Warning	CA1502	'CollisionManager.ProcessFrame(GameTime, List<AbstractGameObject>, GameGrid)' has a cyclomatic complexity of 57. Rewrite or refactor the method to reduce complexity to 25.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Collision\CollisionManager.cs	496	Active
-			-our current implementation is working well and we need all of this logic for each type of gameobject represented to be represented in our bitmap
 
--Warning	CA1051	Because field 'BreakableBrickObject.PieceList' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Bricks\BreakableBrickObject.cs	14	Active
-			-its okay that it is not private and we need to keep it public for now 
+5 of the errors
+--Warning	CA1026	Replace method 'Camera.Move(Vector2, bool)' with an overload that supplies all default arguments.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Cam\Camera.cs	90	Active
+Several methods (Mostly draws) supply just a few default arguments. It seems silly that we can't (monogame does I believe), because some 
+arguments are nearly always one particular value, the extra argument actually only exists to satisfy 1-2 particular classes in a lot of 
+cases, while still fitting an abstract class or interface. Additionally, for the Camera one, I think that came with the code you gave us for
+the camera.
 
--Warning    CA1002: These lists were never intended to be subclassed, and the CA1002 explanation on Microsoft's
-website https://msdn.microsoft.com/en-us/library/ms182142.aspx says the following: 
-"System.Collections.Generic.List<T> is a generic collection that is
-designed for performance and not inheritance. 
-System.Collections.Generic.List<T> does not contain virtual members 
-that make it easier to change the behavior of an inherited class. 
-The following generic collections are designed for inheritance and 
-should be exposed instead of System.Collections.Generic.List<T>."
-As a matter of fact, these lists were exactly intended for performance,
-as they were what managed all the objects and sorted, searched, etc. the
-collisions. The fact that they are passed around does not change the fact
-that there was no intent to inherit them, and in fact they never appear
-in an inheritable or inherited class.
-
-Additional Ignores:
--CA2214: (There are ~38 of these): 
-As Anna discussed in class with Scott, we're ignoring this because we could not devise a work around. 
+3 of the errors
+Warning	CA1502	'CollisionManager.ProcessFrame(GameTime, List<AbstractGameObject>, GameGrid)' has a cyclomatic complexity of 58. Rewrite or refactor the method to reduce complexity to 25.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Collision\CollisionManager.cs	495	Active
+I don't really have an excuse for not breaking process frame up into even more methods, except the parameter lists are extremely ugly 
+already, so I didn't want to have to write even more of those methods. The other 2 warnings are about Level creator and a factory I believe.
+They just exist to be giant if statements, so there's not much that can be done about their cyclomatic complexity.
