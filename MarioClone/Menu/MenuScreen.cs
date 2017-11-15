@@ -40,7 +40,7 @@ namespace MarioClone.Menu
                 spriteBatch.DrawString(font, "LIVES: " + Mario.Instance.Lives, new Vector2(500, 750), Color.White);
                 spriteBatch.DrawString(font, "COINS: " + Mario.Instance.CoinCount, new Vector2(500, 800), Color.White);
                 spriteBatch.DrawString(font, "TIME: " + Mario.Instance.Time, new Vector2(500, 850), Color.White);
-                spriteBatch.DrawString(font, "SCORE: " + Mario.Instance.Score + Mario.Instance.Time * 100, new Vector2(500, 900), Color.White);
+                spriteBatch.DrawString(font, "SCORE: " + (Mario.Instance.Score + Mario.Instance.Time * 10), new Vector2(500, 900), Color.White);
             }
 
             if (OptionSelected == MenuScreenOptions.Exit)

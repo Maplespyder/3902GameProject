@@ -422,6 +422,8 @@ namespace MarioClone
         public void ResetLevelCommand()
         {
             camera.Limits = level.LevelAreas[0];
+            _background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+
             gameGrid = new GameGrid(24, camera);
 			SoundPool.Instance.Reset();
 			foreach (HUD hud in HUDs)
