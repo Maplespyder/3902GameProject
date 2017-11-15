@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Bump.wav</SourceFile>
-  <SourceTime>2017-11-11T12:29:50.1205577-05:00</SourceTime>
-  <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/Bump.xnb</DestFile>
-  <DestTime>2017-11-14T16:24:22.3815674-05:00</DestTime>
+  <SourceFile>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Bump.wav</SourceFile>
+  <SourceTime>2017-11-14T20:48:36.1773872-05:00</SourceTime>
+  <DestFile>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/Bump.xnb</DestFile>
+  <DestTime>2017-11-14T20:51:56.0868213-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

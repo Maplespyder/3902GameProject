@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MarioClone.Sprites;
 using System;
 using MarioClone.EventCenter;
+using MarioClone.GameObjects;
 
 namespace MarioClone.HeadsUpDisplay
 {
@@ -11,7 +12,7 @@ namespace MarioClone.HeadsUpDisplay
         SpriteFont timeFont;
         int timeDelta;
         public int CurrentTime { get; set; }
-        int maxGameTime = 105;
+        int maxGameTime = 400;
         
         public Vector2 RelativePosition { get; set; }
         public Vector2 AbsolutePosition { get; set; }
@@ -47,9 +48,10 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Update(GameTime gameTime)
         {
+            Mario.Instance.Time = CurrentTime;
             if (CurrentTime == 0)
             {
-                //time is up event
+                Mario.Instance.BecomeDead();
             }
             else
             {

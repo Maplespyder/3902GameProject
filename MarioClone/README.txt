@@ -115,5 +115,7 @@ As Anna discussed in class with Scott, we're ignoring this because we could not 
 
 SPRINT 4 README 
 
-
+-When Mario is normal sized, he usually jumps right through the flagpole if you move him up + left. Thus this does not properly trigger the game to end. This can also happen
+when he is in other states, but it is much more rare. He is able to collide with the flagpole better when he is not in normal state. Aldo since the acceptance criteria only asks
+for the corresponding height to add a certain amount to the score, currently we have almost simultaneously as Mario hits the pole, the winning screen appears. 
 

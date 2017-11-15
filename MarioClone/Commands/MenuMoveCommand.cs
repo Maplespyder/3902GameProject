@@ -1,17 +1,16 @@
-﻿using MarioClone.GameObjects;
-using MarioClone.GameOver;
+﻿using MarioClone.Menu;
 
 namespace MarioClone.Commands
 {
-    public class MenuMoveCommand : AbstractCommand<GameOverScreen>
+    public class MenuMoveCommand : AbstractCommand<MenuScreen>
     {
-        public MenuMoveCommand(GameOverScreen receiver) : base(receiver) { }
+        public MenuMoveCommand(MenuScreen receiver) : base(receiver) { }
 
         public override void InvokeCommand()
         {
             if (MarioCloneGame.State == GameState.GameOver)
             {
-                Receiver.MenuMoveCommand();
+                 Receiver.MenuMoveCommand();
             }
         }
     }
