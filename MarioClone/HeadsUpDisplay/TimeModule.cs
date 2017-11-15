@@ -11,7 +11,7 @@ namespace MarioClone.HeadsUpDisplay
         SpriteFont timeFont;
         int timeDelta;
         public int currentTime;
-        int maxGameTime = 200;
+        int maxGameTime = 105;
         
         public Vector2 RelativePosition { get; set; }
         public Vector2 AbsolutePosition { get; set; }
@@ -73,7 +73,6 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Dispose()
         {
-
             ParentHUD = null;
         }
     }
