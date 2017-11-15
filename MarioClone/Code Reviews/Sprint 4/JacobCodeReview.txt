@@ -1,0 +1,39 @@
+﻿Code Review Template
+Author of Review: Jacob Crabtree
+Date of Review: 11/15/17
+File Under Review: MenuScreen.cs
+Author(s) of File: Sam Trabitz
+Comments on Code Quality:
+
+Not really a big fan of this menu screen implementation, though I don't think it would take much to fix it.
+
+I like the enum on the menu screen, I think it makes it easy to tell what is being used. I think they should be in a list of some kind
+though. I'll go into it more in the hypothetical change.
+
+MarioCloneGame is taken in as a parameter and saved, even though it's a statically accessible singleton. The member variable is only
+used for one of the three methods it's needed in, and the static singleton is just used instead.
+
+Also, a "tint" variable is declared, and then Color.White is written about 8-10 times anyways instead of using it. //removed in code analysis
+
+In the HUD classes, vectors of relative spacing were created to make it easy to shuffle around related/entire chunks of the screen. 
+All the positions here are hard coded, so I feel like it would be difficult to work with in terms of spacing and making it look nice.
+I'm not even sure you'd really need bunch of vectors, just a "spacing" int that you progressively add to the y of each string on the screen.
+
+The menu selec command should not really be controlling Mario's lives, the menu is just a view used to return to the game or quit, that
+should probably be the responsibility of the level reset command.
+
+The update is never used and is completely empty anyways. Dispose is never called, and since according to the references the screen
+is a persistent item on the mario clone game class, it's not really needed since the menu will only die when the game ends.
+
+
+Minutes to Complete: 25 min
+Hypothetical Change to File:
+A third menu option, view score board, needs to be implemented. The point of this change isn't to imagine how to track scores, but rather
+just to imagine adding an extra menu option. You would have to hard-code in a new vector to make room for this change in draw, and shift
+all the other vectors out of the way probably. Then, add another if statement for the score screen option in draw, plus its two
+draw strings. Finally, you'd have to extend menu move command to have an extra else if case, and move around the actual reactions to
+the cases so they go in a circle. 
+I think a better option would be to have a list of menu options, and an index. Update the index each time the menu move command is called,
+so that becomes a 1-2 line method that never needs to change. Then, set a base x and y position where the top string goes, draw the elements
+of the list, and then draw the other strings that will probably never change. Their y's can be spaced by an int that specifies the 
+space for each string.

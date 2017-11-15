@@ -30,7 +30,6 @@ namespace MarioClone.Menu
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Color tint = Color.White;
             if (MarioCloneGame.State == GameState.GameOver)
             {
                 spriteBatch.DrawString(font, "YOU LOST", new Vector2(500, 500), Color.White); 
