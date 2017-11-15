@@ -125,6 +125,9 @@ for the corresponding height to add a certain amount to the score, currently we 
 you don't experience this bug.
 -All the (brick) blocks have coins in them. This was something we simply forgot to take out from when we were testing stuff relating to making coins and collision.
 -There's no warp pipe sound.
+-Mario, after colliding with an enemy, becomes INVINCIBLE and will pass through enemies (Much like the original Mario) without harming them
+or taking harm. This is an intended behavior, and I just wanted you to know it wasn't a bug.
+-Finally, the level is a decent replica of the original Super Mario Bros World 1-1, enjoy.
 
 -A lot of these issues (above) were fixable, but we simply ran out of time on this sprint.
 
