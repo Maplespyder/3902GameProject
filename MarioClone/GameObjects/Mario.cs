@@ -211,7 +211,7 @@ namespace MarioClone.GameObjects
                 poleHeight = poleBottom - poleTop;
 
                 increment = poleHeight / 5;
-
+                
                 if (Position.Y == poleTop)
                 { 
                     Lives++;
