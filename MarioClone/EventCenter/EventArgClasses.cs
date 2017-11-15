@@ -1,7 +1,7 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
-using MarioClone.GameObjects.Bricks;
+using MarioClone.HeadsUpDisplay;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 using System;
@@ -56,11 +56,11 @@ namespace MarioClone.EventCenter
 
     public class EnemyDefeatedEventArgs : CustomEventArgs<AbstractEnemy>
     {
-        public Mario Killer { get; }
+        public AbstractGameObject Killer { get; }
         public int BounceCount { get; }
         public int PointValue { get; }
 
-        public EnemyDefeatedEventArgs(AbstractEnemy enemy, Mario killer) : base(enemy)
+        public EnemyDefeatedEventArgs(AbstractEnemy enemy, AbstractGameObject killer) : base(enemy)
         {
             Killer = killer;
             PointValue = enemy.PointValue;
@@ -101,14 +101,31 @@ namespace MarioClone.EventCenter
             Warper = player;
         }
     }
+	public class FireballFireArgs : CustomEventArgs<FireBall>
+	{
+		public FireballFireArgs(FireBall obj) : base(obj)
+		{
+		}
+	}
 
-    public class PlayerHitPoleEventArgs : CustomEventArgs<Mario>
+	public class RunningOutOfTimeArgs : CustomEventArgs<TimeModule>
+	{
+		public int currentTime { get; }
+		public RunningOutOfTimeArgs(TimeModule obj) : base(obj)
+		{
+			currentTime = obj.currentTime;
+		}
+	}
+
+	public class PlayerHitPoleEventArgs : CustomEventArgs<Mario>
     {
-        public int height { get; }
-        public PlayerHitPoleEventArgs(Mario mario, int height) : base(mario)
-        {
-            height = height;
-        }
+        public int _height { get; }
+        public Mario Mario { get; }
 
+        public PlayerHitPoleEventArgs(int height, Mario player) : base(player)
+        {
+            _height = height;
+            Mario = player;
+        }
     }
 }

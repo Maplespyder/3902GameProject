@@ -1,6 +1,5 @@
-﻿using MarioClone.Factories.Projectiles;
+﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
-using MarioClone.GameObjects.Other;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace MarioClone.Projectiles
 		public int availableFireballs;
 		public FireballPool()
 		{
-			availableFireballs = 5;
+			availableFireballs = 2;
 		}
 
 		public AbstractGameObject GetAndRelease(Vector2 position)

@@ -15,9 +15,6 @@ namespace MarioClone.GameObjects
 
 		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
 		{
-			if (gameObject is Mario)
-			{
-			}
 			return base.CollisionResponse(gameObject, side, gameTime);
 		}
 	}

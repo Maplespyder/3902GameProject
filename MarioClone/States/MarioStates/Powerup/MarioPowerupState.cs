@@ -5,23 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
+using MarioClone.Collision;
 
 namespace MarioClone.States
 {
+    public enum MarioPowerup
+    {
+        Dead,
+        Normal,
+        Super,
+        Fire,
+        Star,
+        Invincible
+    }
+
     public abstract class MarioPowerupState
     {
-        public enum MarioPowerup
-        {
-            Dead,
-            Normal,
-            Super,
-            Fire,
-			Star,
-            Invincible
-        }
-
         public MarioPowerup Powerup { get; set; }
-
 
         protected Mario Context { get; set; }
 
@@ -31,6 +31,49 @@ namespace MarioClone.States
         }
 
         // Behavior/actions
+
+        public virtual void Enter() { }
+        public virtual void Exit() { }
+
+        public virtual bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            if (gameObject is AbstractEnemy)
+            {
+                if (side == Side.Bottom || side == Side.None)
+                {
+                    if (gameObject is PiranhaObject)
+                    {
+                        TakeDamage();
+                    }
+                    else
+                    {
+                        Context.Velocity = new Vector2(Context.Velocity.X, -7);
+                    }
+                }
+                else
+                {
+                    TakeDamage();
+                }
+                return true;
+            }
+            else if (gameObject is RedMushroomObject)
+            {
+                BecomeSuper();
+                return true;
+            }
+            else if (gameObject is FireFlowerObject)
+            {
+                BecomeFire();
+                return true;
+            }
+            else if (gameObject is StarmanObject)
+            {
+                BecomeStar();
+                return true;
+            }
+
+            return false;
+        }
 
         public abstract void BecomeDead();
 		public abstract void Update(GameTime gameTime);

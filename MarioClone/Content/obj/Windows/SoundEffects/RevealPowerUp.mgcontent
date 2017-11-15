@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/RevealPowerUp.wav</SourceFile>
-  <SourceTime>2017-11-07T15:11:09.6683938-05:00</SourceTime>
-  <DestFile>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/RevealPowerUp.xnb</DestFile>
-  <DestTime>2017-11-12T12:08:56.9780272-05:00</DestTime>
+  <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/RevealPowerUp.wav</SourceFile>
+  <SourceTime>2017-11-11T12:29:50.6976109-05:00</SourceTime>
+  <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/RevealPowerUp.xnb</DestFile>
+  <DestTime>2017-11-14T16:24:23.5575833-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

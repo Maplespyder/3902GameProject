@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
+using MarioClone.Collision;
 
 namespace MarioClone.States
 {
@@ -15,7 +16,7 @@ namespace MarioClone.States
         Jump,
         Crouch,
         Dead,
-        Falling
+        Fall
     }
 
     public abstract class MarioActionState
@@ -33,7 +34,34 @@ namespace MarioClone.States
         public MarioAction Action { get; set; }
 
         // Behavior/actions
+        public virtual bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            if (gameObject is AbstractBlock)
+            {
+                if (side == Side.Bottom)
+                {
+                    Context.Gravity = false;
+                    Context.Velocity = new Vector2(Context.Velocity.X, 0);
+                    return true;
+                }
+                else if (side == Side.Left || side == Side.Right)
+                {
+                    Context.Velocity = new Vector2(0, Context.Velocity.Y);
+                    return true;
+                }
+                else if (side == Side.Top)
+                {
+                    Context.Velocity = new Vector2(Context.Velocity.X, 0);
+                    Context.StateMachine.TransitionFall();
+                    return true;
+                }
+            }
 
+            return false;
+        }
+
+        public virtual void Enter() { }
+        public virtual void Exit() { }
         public virtual void Walk(Facing orientation) { }
         public virtual void Jump() { }
         public virtual void Crouch() { }

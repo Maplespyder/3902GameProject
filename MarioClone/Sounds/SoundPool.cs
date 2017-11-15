@@ -26,8 +26,12 @@ namespace MarioClone.Sounds
 
 	private List<SoundEffect> PoolList = new List<SoundEffect>();
 	public bool Muted { get; set; }
-	SoundEffectInstance mainBackground;
-	private Dictionary<SoundEffectInstance, SoundEffect> UnPoolList = new Dictionary<SoundEffectInstance, SoundEffect>();
+
+	public SoundEffectInstance mainBackground;
+	private SoundEffectInstance secondaryBackground;
+	public float backgroundPitch = 0;
+
+	private Dictionary<SoundEffectInstance, SoundEffect> PlayingList = new Dictionary<SoundEffectInstance, SoundEffect>();
 	private Dictionary<SoundEffectInstance, SoundEffect> RemoveList = new Dictionary<SoundEffectInstance, SoundEffect>();
 
 		public SoundPool()
@@ -40,14 +44,19 @@ namespace MarioClone.Sounds
 		{
 			CheckAvailability();
 			SoundEffect effect = SoundFactory.Instance.Create(sound);
-			if (PoolList.Contains(effect) && !Muted)
+			if (PoolList.Contains(effect))
 			{
 				PoolList.Remove(effect);
 				SoundEffectInstance soundEffectInstance = effect.CreateInstance();
-				UnPoolList.Add(soundEffectInstance, effect);
-				if (!Muted)
+				PlayingList.Add(soundEffectInstance, effect);
+				soundEffectInstance.Play();
+				if (Muted)
 				{
-					soundEffectInstance.Play();
+					soundEffectInstance.Volume = 0f;
+				}
+				else
+				{
+					soundEffectInstance.Volume = 1f;
 				}
 				return soundEffectInstance;
 			}
@@ -56,9 +65,9 @@ namespace MarioClone.Sounds
 
 		public void CheckAvailability()
 		{
-			foreach(KeyValuePair<SoundEffectInstance, SoundEffect> effect in UnPoolList)
+			foreach(KeyValuePair<SoundEffectInstance, SoundEffect> effect in PlayingList)
 			{
-				if(effect.Key.State != SoundState.Playing)
+				if(effect.Key.State == SoundState.Stopped)
 				{
 					RemoveList.Add(effect.Key, effect.Value);
 				}
@@ -66,7 +75,7 @@ namespace MarioClone.Sounds
 			foreach(KeyValuePair<SoundEffectInstance, SoundEffect> effect in RemoveList)
 			{
 				PoolList.Add(effect.Value);
-				UnPoolList.Remove(effect.Key);
+				PlayingList.Remove(effect.Key);
 			}
 			RemoveList.Clear();
 		}
@@ -76,13 +85,37 @@ namespace MarioClone.Sounds
 			Muted = !Muted;
 			if (Muted)
 			{
-				mainBackground.Pause();
+				foreach(SoundEffectInstance effect in PlayingList.Keys)
+				{
+					effect.Volume = 0f;
+				}
 			}
 			else
 			{
-				mainBackground.Resume();
+				foreach (SoundEffectInstance effect in PlayingList.Keys)
+				{
+					effect.Volume = 1f;
+				}
 			}
 
+		}
+
+		public void Reset()
+		{
+			mainBackground.Stop();
+			mainBackground.Dispose();
+			if (secondaryBackground != null)
+			{
+				secondaryBackground.Stop();
+				secondaryBackground.Dispose();
+			}
+			PlayingList.Clear();
+			PoolList.Clear();
+			InitializeSoundPool();
+			mainBackground = GetAndPlay(SoundType.Background);
+			backgroundPitch = 0;
+			mainBackground.Pitch = backgroundPitch;
+			secondaryBackground = null;
 		}
 		public void AddObject(SoundEffect sound)
 		{
@@ -91,14 +124,72 @@ namespace MarioClone.Sounds
 				PoolList.Add(sound);
 			}
 		}
+
+		public void PauseBackground()
+		{
+			mainBackground.Pause();
+		}
+
+		public void ResumeBackground()
+		{
+			if (secondaryBackground == null)
+			{
+				mainBackground.Resume();
+				mainBackground.Pitch = backgroundPitch;
+			}
+		}
+		public void StopSound(SoundEffectInstance sound)
+		{
+			if (PlayingList.ContainsKey(sound))
+			{
+				sound.Stop();
+				sound.Dispose();
+				PlayingList.Remove(sound);
+			}
+		}
+
+		public void PauseBackgroundPlaySecondaryTrack(SoundType newSound)
+		{
+			if (secondaryBackground == null)
+			{
+				mainBackground.Pause();
+				secondaryBackground = GetAndPlay(newSound);
+			}
+		}
+
+		public void ResumeBackgroundStopSecondaryTrack()
+		{
+			if (secondaryBackground != null)
+			{
+				secondaryBackground.Stop();
+				PlayingList.Remove(secondaryBackground);
+				secondaryBackground.Dispose();
+				secondaryBackground = null;
+
+			}
+			mainBackground.Resume();
+			mainBackground.Pitch = backgroundPitch;
+		}
+
+		public void ReplaceBackground(SoundType sound)
+		{
+			mainBackground.Stop();
+			mainBackground.Dispose();
+			mainBackground = GetAndPlay(sound);
+			mainBackground.Pitch = backgroundPitch;
+		}
+
 		private void InitializeSoundPool()
 		{
+			PoolList.Clear();
 			//Load in all sound effects via Factory we want 3 times max
 			foreach(SoundType sound in Enum.GetValues(typeof(SoundType))){
-				PoolList.Add(SoundFactory.Instance.Create(sound));
+				SoundEffect effect = SoundFactory.Instance.Create(sound);
+				PoolList.Add(effect);
 			}
 			PoolList.Add(SoundFactory.Instance.Create(SoundType.Coin));
 			PoolList.Add(SoundFactory.Instance.Create(SoundType.Coin));
+			PoolList.Add(SoundFactory.Instance.Create(SoundType.Fireball));
 			//add additional sounds
 
 		}

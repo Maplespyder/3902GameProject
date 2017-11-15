@@ -31,7 +31,7 @@ namespace MarioClone.GameObjects
             if (gameObject is Mario)
             {
                 EventManager.Instance.TriggerPowerupCollectedEvent(this, (Mario)gameObject);
-                isCollided = true;
+                IsCollided = true;
 			}
             else if (gameObject is AbstractBlock && gameObject.Visible)
             {

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MarioClone.Sprites;
 using System;
+using MarioClone.EventCenter;
 
 namespace MarioClone.HeadsUpDisplay
 {
@@ -9,8 +10,8 @@ namespace MarioClone.HeadsUpDisplay
     {
         SpriteFont timeFont;
         int timeDelta;
-        int currentTime;
-        int maxGameTime = 200;
+        public int currentTime;
+        int maxGameTime = 105;
         
         public Vector2 RelativePosition { get; set; }
         public Vector2 AbsolutePosition { get; set; }
@@ -61,6 +62,10 @@ namespace MarioClone.HeadsUpDisplay
                     }
                     currentTime -= 1;
                     timeDelta = 0;
+					if(currentTime == 100 || currentTime == 96)
+					{
+						EventManager.Instance.TriggerRunningOutOfTimeEvent(this);
+					}
                 }
             }
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
@@ -68,7 +73,6 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Dispose()
         {
-
             ParentHUD = null;
         }
     }

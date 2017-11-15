@@ -4,7 +4,6 @@ using MarioClone.States.EnemyStates;
 using Microsoft.Xna.Framework;
 using MarioClone.EventCenter;
 using MarioClone.States;
-using MarioClone.GameObjects.Other;
 
 namespace MarioClone.GameObjects
 {
@@ -33,7 +32,7 @@ namespace MarioClone.GameObjects
                     return true;
                 }
 				var mario = (Mario)gameObject;
-				if (mario.PowerupState is MarioStar)
+				if (mario.PowerupState is MarioStar2)
 				{
 					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
 					PowerupState.BecomeDead();
@@ -60,7 +59,9 @@ namespace MarioClone.GameObjects
                 }
             }else if(gameObject is FireBall)
 			{
+				EventManager.Instance.TriggerEnemyDefeatedEvent(this, (FireBall)gameObject);
 				PowerupState.BecomeDead();
+				return true;
 			}
 
             return false;

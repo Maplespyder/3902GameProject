@@ -1,6 +1,6 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
-using MarioClone.GameObjects.Bricks;
+using MarioClone.HeadsUpDisplay;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace MarioClone.EventCenter
             OnRaisePowerupCollectedEvent(args);
         }
 
-        public void TriggerEnemyDefeatedEvent(AbstractEnemy enemy, Mario mario)
+        public void TriggerEnemyDefeatedEvent(AbstractEnemy enemy, AbstractGameObject mario)
         {
             EnemyDefeatedEventArgs args = new EnemyDefeatedEventArgs(enemy, mario);
             OnRaiseEnemyDefeatedEvent(args);
@@ -53,10 +53,23 @@ namespace MarioClone.EventCenter
             OnRaisePlayerWarpingEvent(args);
         }
 
-        public void TriggerPlayerHitPoleEvent(int height, Mario player)
+		public void TriggerPlayerHitPoleEvent(int height, Mario player)
         {
-            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(player, height);
+            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(height, player);
             OnRaisePlayerHitPoleEvent(args);
         }
-    }
+
+		public void TriggerFireballFire(FireBall fireball)
+		{
+			FireballFireArgs args = new FireballFireArgs(fireball);
+			OnRaiseFireballFireEvent(args);
+		}
+
+		public void TriggerRunningOutOfTimeEvent(TimeModule module)
+		{
+			RunningOutOfTimeArgs args = new RunningOutOfTimeArgs(module);
+			OnRaiseRunningOutOfTimeEvent(args);
+		}
+
+	}
 }

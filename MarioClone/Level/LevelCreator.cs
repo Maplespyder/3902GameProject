@@ -82,15 +82,10 @@ namespace MarioClone.Level
 				}
 				else if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance != null)
 				{
-                    Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
-					Mario.Instance.ActionState = MarioIdle.Instance;
-					Mario.Instance.Velocity = new Vector2(0, 0);
-					Mario.Instance.PowerupState = MarioNormal.Instance;
-					Mario.Instance.SpriteFactory = NormalMarioSpriteFactory.Instance;
-					Mario.Instance.PreviousActionState = MarioIdle.Instance;
-					Mario.Instance.Sprite = NormalMarioSpriteFactory.Instance.Create(MarioAction.Idle);
+					Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
+                    Mario.Instance.StateMachine.Reset();
+                    Mario.Instance.StateMachine.Begin();
 					Mario.Instance.Orientation = Facing.Right;
-                    Mario.Instance.Lives--;
                     Mario.Instance.CoinCount = 0;
 
                     Mario.Instance.AdjustForCheckpoint();
@@ -219,7 +214,19 @@ namespace MarioClone.Level
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
-				else if (sameColor(pixel, Colors.PipeTop))
+                else if (sameColor(pixel, Colors.Flagpole))
+                {
+                    var initializer = BlockFactory.Instance.Create(BlockType.Flagpole, position);
+                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+                    Grid.Add(initializer);
+                }
+                else if (sameColor(pixel, Colors.Flag))
+                {
+                    var initializer = BlockFactory.Instance.Create(BlockType.Flag, position);
+                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+                    Grid.Add(initializer);
+                }
+                else if (sameColor(pixel, Colors.PipeTop))
 				{
                     PipeTop initializer = (PipeTop)BlockFactory.Instance.Create(BlockType.PipeTop, position);
                     initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);

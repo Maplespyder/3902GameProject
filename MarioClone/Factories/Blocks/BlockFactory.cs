@@ -13,7 +13,9 @@ namespace MarioClone.Factories
         BrickPiece,
         HiddenBlock,
 		PipeTop,
-		PipeSegment
+		PipeSegment,
+        Flagpole,
+        Flag
     }
 
     public class BlockFactory
@@ -62,6 +64,9 @@ namespace MarioClone.Factories
 					return new PipeTop(SpriteFactory.Create(type), position);
 				case BlockType.PipeSegment:
 					return new PipeSegment(SpriteFactory.Create(type), position);
+                case BlockType.Flagpole:
+                    return new Flagpole(SpriteFactory.Create(type), SpriteFactory.Create(BlockType.Flag), position);
+                
                 default:
                     return new BreakableBrickObject(SpriteFactory.Create(type),  position);
             }

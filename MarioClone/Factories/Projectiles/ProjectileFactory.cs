@@ -1,20 +1,14 @@
 ﻿using MarioClone.GameObjects;
-using MarioClone.GameObjects.Other;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MarioClone.Factories.Projectiles
+namespace MarioClone.Factories
 {
-	public enum ProjectileType
+    public enum ProjectileType
 	{
 		FireBall
 	}
 
-	public class ProjectileFactory
+	public static class ProjectileFactory
 	{
 
 		public static AbstractGameObject Create(ProjectileType type, Vector2 position)

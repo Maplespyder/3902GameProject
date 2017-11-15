@@ -66,6 +66,7 @@
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="GameObjects\Bricks\PipeTop.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />
+    <Compile Include="GameObjects\Mario2.cs" />
     <Compile Include="GameObjects\Other\FireBall.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
     <Compile Include="GameObjects\PowerUps\StarmanObject.cs" />
@@ -158,17 +159,29 @@
     <Compile Include="States\EnemyStates\Powerup\PiranhaHide.cs" />
     <Compile Include="States\MarioStates\Action\MarioActionState.cs" />
     <Compile Include="States\MarioStates\Action\MarioCrouch.cs" />
+    <Compile Include="States\MarioStates\Action\MarioCrouch2.cs" />
     <Compile Include="States\MarioStates\Action\MarioFall.cs" />
+    <Compile Include="States\MarioStates\Action\MarioFall2.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioFire2.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle.cs" />
+    <Compile Include="States\MarioStates\Action\MarioIdle2.cs" />
     <Compile Include="States\MarioStates\Action\MarioJump.cs" />
+    <Compile Include="States\MarioStates\Action\MarioJump2.cs" />
     <Compile Include="States\MarioStates\Action\MarioWalk.cs" />
+    <Compile Include="States\MarioStates\Action\MarioWalk2.cs" />
+    <Compile Include="States\MarioStates\MarioStateMachine.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioDead.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioDead2.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioFire.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioInvincibility.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioInvincibility2.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioNormal.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioNormal2.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioPowerupState.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioStar.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioStar2.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioSuper.cs" />
+    <Compile Include="States\MarioStates\Powerup\MarioSuper2.cs" />
     <Compile Include="States\PowerupStates\CoinStaticState.cs" />
     <Compile Include="States\PowerupStates\FireFlowerStaticState.cs" />
     <Compile Include="States\PowerupStates\MushroomMovingState.cs" />
@@ -201,6 +214,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Level\Sprint4MainLevel.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level\Sprint4MainLevelOrig.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Level\Sprint4MainLevel2.bmp">

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using MarioClone.States;
 using MarioClone.Collision;
 using MarioClone.EventCenter;
-using MarioClone.GameObjects.Other;
 
 namespace MarioClone.GameObjects
 {
@@ -35,7 +34,7 @@ namespace MarioClone.GameObjects
                     return true;
                 }
 				var mario = (Mario)gameObject;
-				if (mario.PowerupState is MarioStar)
+				if (mario.PowerupState is MarioStar2)
 				{
 					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
 					PowerupState.BecomeDead();
@@ -53,12 +52,19 @@ namespace MarioClone.GameObjects
 				}
                 else if (side == Side.Bottom || side == Side.Top)
                 {
+                    if(side == Side.Bottom && gameObject.Velocity.Y < 0)
+                    {
+                        PowerupState.BecomeDead();
+                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
+                    }
                     Velocity = new Vector2(Velocity.X, 0);
                 }
 			}
 			else if (gameObject is FireBall)
 			{
+				EventManager.Instance.TriggerEnemyDefeatedEvent(this, (FireBall)gameObject);
 				PowerupState.BecomeDead();
+				return true;
 			}
 			return false;
         }
