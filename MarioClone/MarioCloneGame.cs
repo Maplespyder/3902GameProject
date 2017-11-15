@@ -16,6 +16,7 @@ using MarioClone.HeadsUpDisplay;
 using MarioClone.EventCenter;
 using System;
 using MarioClone.States;
+using MarioClone.GameOver;
 
 namespace MarioClone
 {
@@ -32,6 +33,8 @@ namespace MarioClone
     public class MarioCloneGame : Game
 	{
         public static GameState state;
+
+        GameOverScreen gameOver;
 
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
@@ -50,7 +53,7 @@ namespace MarioClone
 		private Background _background;
 
 		public MarioCloneGame()
-		{
+		{  
             state = GameState.Playing;
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 1600;
@@ -94,8 +97,9 @@ namespace MarioClone
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 			_background = new Background(spriteBatch, camera);
+            gameOver = new GameOverScreen(this);
 
-			GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
+            GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
             GameContent.Load<Texture2D>("Sprites/Coin");
             GameContent.Load<Texture2D>("Sprites/SmallMario");
@@ -167,6 +171,9 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.P, new PauseCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.P, new PauseCommand(this));
 
+            keyboard.AddInputCommand((int)Keys.Space, new MenuMoveCommand(gameOver));
+            keyboard.AddInputCommand((int)Keys.Enter, new MenuSelectCommand(gameOver));
+
             // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
             AddCommandToAllGamepads(Buttons.DPadUp, new JumpCommand(Mario.Instance));
@@ -206,6 +213,12 @@ namespace MarioClone
 		{
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
+
+            if (Mario.Instance.Lives < 0)
+            {
+                state = GameState.GameOver;
+                gameOver.Visible = true;
+            }
 
             if (!transitioningArea)
             {
@@ -261,7 +274,7 @@ namespace MarioClone
 		protected override void Draw(GameTime gameTime)
 		{
 			// Somewhere in your LoadContent() method:
-			if (state != GameState.Paused)
+			if (state == GameState.Playing)
 			{
 				Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.LightSkyBlue);
@@ -304,6 +317,16 @@ namespace MarioClone
 
 				base.Draw(gameTime);
 			}
+            else if (state == GameState.GameOver)
+            {
+                GraphicsDevice.Clear(Color.Black);
+                spriteBatch.Begin(SpriteSortMode.BackToFront);
+
+                gameOver.Draw(spriteBatch, gameTime);
+
+                spriteBatch.End();
+                base.Draw(gameTime);
+            }
 		}
 
         private void PauseForWarp(object sender, PlayerWarpingEventArgs e)
@@ -390,6 +413,11 @@ namespace MarioClone
                 SoundPool.Instance.MuteCommand();
                 state = GameState.Playing;
             }
+        }
+
+        public void SetAsPlaying()
+        {
+            state = GameState.Playing;
         }
 
         private void AddCommandToAllGamepads(Buttons button, ICommand command)

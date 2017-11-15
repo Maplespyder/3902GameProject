@@ -1,12 +1,18 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using MarioClone.GameObjects;
+using MarioClone.GameOver;
 
-//namespace MarioClone.Commands
-//{
-//    class MenuSelectCommand
-//    {
-//    }
-//}
+namespace MarioClone.Commands
+{
+    public class MenuSelectCommand : AbstractCommand<GameOverScreen>
+    {
+        public MenuSelectCommand(GameOverScreen receiver) : base(receiver) { }
+
+        public override void InvokeCommand()
+        {
+            if (MarioCloneGame.state == GameState.GameOver)
+            {
+                Receiver.MenuSelectCommand();
+            }
+        }
+    }
+}
