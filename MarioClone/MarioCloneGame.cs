@@ -283,7 +283,6 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			// Somewhere in your LoadContent() method:
 			if (State == GameState.Playing)
             {
                 if (transitioningArea)
@@ -340,7 +339,7 @@ namespace MarioClone
                 spriteBatch.End();
                 base.Draw(gameTime);
             }
-            else if (state == GameState.Win)
+            else if (State == GameState.Win)
             {
                 GraphicsDevice.Clear(Color.Black);
                 spriteBatch.Begin(SpriteSortMode.BackToFront);
@@ -392,7 +391,7 @@ namespace MarioClone
 
 		}
 
-        private void DrawWorld(GameTime gameTime)
+        void DrawWorld(GameTime gameTime)
         {
             List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects;
             foreach (var obj in allObjects)

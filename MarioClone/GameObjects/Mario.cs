@@ -223,7 +223,7 @@ namespace MarioClone.GameObjects
                     height = 100;
                 }
 
-                MarioCloneGame.state = GameState.Win;
+                MarioCloneGame.State = GameState.Win;
                 
 
                 EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);

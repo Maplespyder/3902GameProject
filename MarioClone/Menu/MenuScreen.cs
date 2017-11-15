@@ -31,11 +31,11 @@ namespace MarioClone.Menu
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Color tint = Color.White;
-            if (MarioCloneGame.state == GameState.GameOver)
+            if (MarioCloneGame.State == GameState.GameOver)
             {
                 spriteBatch.DrawString(font, "YOU LOST", new Vector2(500, 500), Color.White); 
             }
-            else if (MarioCloneGame.state == GameState.Win)
+            else if (MarioCloneGame.State == GameState.Win)
             {
                 spriteBatch.DrawString(font, "YOU WIN", new Vector2(500, 500), Color.White);
                 spriteBatch.DrawString(font, "LIVES: " + Mario.Instance.Lives, new Vector2(500, 750), Color.White);
