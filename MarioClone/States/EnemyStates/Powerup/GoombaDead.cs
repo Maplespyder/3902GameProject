@@ -15,6 +15,7 @@ namespace MarioClone.States
 
         public GoombaDead(AbstractEnemy context) : base(context)
         {
+            context.IsDead = true;
             Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.Goomba);
             Context.PointValue = 0;
             Context.TimeDead = 0;

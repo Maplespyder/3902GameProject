@@ -27,7 +27,6 @@ namespace MarioClone.Level
         private int xOffsetFromUnderground;
         private int yOffsetFromUnderground;
 		private Bitmap _image;
-        private Bitmap _subLevelImageSwap;
         private PipeTop danglingWarp;
 
         public Dictionary<int, Microsoft.Xna.Framework.Rectangle> LevelAreas { get; private set; }
@@ -72,23 +71,30 @@ namespace MarioClone.Level
 
 			if (!sameColor(pixel, Colors.Empty))
 			{
-				if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance == null)
-				{
+                if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance == null)
+                {
                     position = new Vector2(position.X, position.Y - (MarioHeight - 64));
-					var mario = MarioFactory.Create(position);
+                    var mario = MarioFactory.Create(position);
                     MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
 
                     Grid.Add(mario);
-				}
-				else if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance != null)
-				{
-					Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
+                }
+                else if (sameColor(pixel, Colors.MarioSpawn) && Mario.Instance != null)
+                {
+                    Mario.Instance.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
                     Mario.Instance.StateMachine.Reset();
                     Mario.Instance.StateMachine.Begin();
-					Mario.Instance.Orientation = Facing.Right;
+                    Mario.Instance.Orientation = Facing.Right;
                     Mario.Instance.CoinCount = 0;
+                    if (MarioCloneGame.State != GameState.Playing)
+                    {
+                        Mario.Instance.Spawns.Clear();
 
-                    Mario.Instance.AdjustForCheckpoint();
+                    }
+                    else
+                    {
+                        Mario.Instance.AdjustForCheckpoint();
+                    }
 
                     var mario = Mario.Instance;
                     MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
@@ -220,12 +226,6 @@ namespace MarioClone.Level
                     initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
                     Grid.Add(initializer);
                 }
-                else if (sameColor(pixel, Colors.Flag))
-                {
-                    var initializer = BlockFactory.Instance.Create(BlockType.Flag, position);
-                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
-                    Grid.Add(initializer);
-                }
                 else if (sameColor(pixel, Colors.PipeTop))
 				{
                     PipeTop initializer = (PipeTop)BlockFactory.Instance.Create(BlockType.PipeTop, position);
@@ -260,8 +260,7 @@ namespace MarioClone.Level
                                 String newFile = String.Concat(Path.GetFileNameWithoutExtension(file), tempPixel.B, Path.GetExtension(file));
                                 String tempHolder = file;
                                 newFile = Path.Combine(Path.GetDirectoryName(file), newFile);
-
-                                _subLevelImageSwap = _image;
+                                
                                 using (var stream = new FileStream(newFile, FileMode.Open))
                                 {
                                     _image = new Bitmap(stream);

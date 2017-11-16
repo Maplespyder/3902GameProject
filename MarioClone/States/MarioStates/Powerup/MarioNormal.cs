@@ -40,7 +40,7 @@
 //            Context.Sprite = Context.SpriteFactory.Create(Context.ActionState.Action);
 //        }
 
-//		public override void BecomeStar()
+//	public override void BecomeStar()
 //		{
 //			Context.PowerupState = MarioStar.Instance;
 //		}

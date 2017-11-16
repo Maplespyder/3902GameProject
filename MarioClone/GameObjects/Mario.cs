@@ -6,7 +6,6 @@ using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
 
 namespace MarioClone.GameObjects
 {
@@ -18,8 +17,8 @@ namespace MarioClone.GameObjects
         public const float VerticalMovementSpeed = 15f;
         private static Mario _mario;
         private bool bouncing = false;
-        public List<FireBall> FireBalls = new List<FireBall>();
-        public List<FireBall> RemovedFireBalls = new List<FireBall>();
+        private List<FireBall> FireBalls = new List<FireBall>();
+        private List<FireBall> RemovedFireBalls = new List<FireBall>();
 
         /// <summary>
         /// Do not instantiate Mario more than once. We have to make Mario before
@@ -68,13 +67,15 @@ namespace MarioClone.GameObjects
 
         public int CoinCount { get; set; }
 
-        public List<Vector2> Spawns { get; set; }
+        public List<Vector2> Spawns { get; }
         public Vector2 ActiveSpawn { get; set; }
 
         public MarioStateMachine StateMachine { get; set; }
 
         public int height { get; set; }
         public int poleHeight { get; private set; }
+        public int Score { get; internal set; }
+        public int Time { get; internal set; }
 
         private int poleBottom;
         private int poleTop;
@@ -186,22 +187,7 @@ namespace MarioClone.GameObjects
         {
             PowerupState.BecomeFire();
         }
-
-        public void BecomeStar()
-        {
-            PowerupState.BecomeStar();
-        }
-
-        private void TakeDamage()
-        {
-            PowerupState.TakeDamage();
-        }
-
-        private void BecomeInvincible()
-        {
-            PowerupState.BecomeInvincible();
-        }
-
+        
         private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
         {
             if (gameObject is Flagpole && side.Equals(Side.Right))
@@ -211,7 +197,7 @@ namespace MarioClone.GameObjects
                 poleHeight = poleBottom - poleTop;
 
                 increment = poleHeight / 5;
-
+                
                 if (Position.Y == poleTop)
                 { 
                     Lives++;
@@ -236,6 +222,9 @@ namespace MarioClone.GameObjects
                 {
                     height = 100;
                 }
+
+                MarioCloneGame.State = GameState.Win;
+                
 
                 EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
             }
@@ -339,7 +328,8 @@ namespace MarioClone.GameObjects
                     ActiveSpawn = new Vector2(spawn.X, spawn.Y);
                 }
             }
-            Spawns = newSpawns;
+            Spawns.Clear();
+            Spawns.AddRange(newSpawns);
 
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();

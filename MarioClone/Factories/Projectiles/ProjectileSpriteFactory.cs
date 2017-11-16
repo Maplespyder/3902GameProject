@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Factories
 {
-	public class ProjectileSpriteFactory
+	public static class ProjectileSpriteFactory
 	{
 
 		public static ISprite Create(ProjectileType type)

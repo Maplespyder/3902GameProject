@@ -11,7 +11,7 @@ namespace MarioClone.Projectiles
 {
 	public class FireballPool
 	{
-		public int availableFireballs;
+		private int availableFireballs;
 		public FireballPool()
 		{
 			availableFireballs = 2;

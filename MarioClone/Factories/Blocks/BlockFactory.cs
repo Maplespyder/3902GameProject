@@ -65,7 +65,7 @@ namespace MarioClone.Factories
 				case BlockType.PipeSegment:
 					return new PipeSegment(SpriteFactory.Create(type), position);
                 case BlockType.Flagpole:
-                    return new Flagpole(SpriteFactory.Create(type), SpriteFactory.Create(BlockType.Flag), position);
+                    return new Flagpole(SpriteFactory.Create(type), position);
                 
                 default:
                     return new BreakableBrickObject(SpriteFactory.Create(type),  position);

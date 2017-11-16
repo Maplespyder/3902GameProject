@@ -1,0 +1,17 @@
+﻿Code Review Template
+Author of Review: Sam Trabitz
+Date of Review: 11/15/17
+File Under Review: SoundPool.cs
+Author(s) of File: Allie
+Comments on Code Quality:
+
+The MuteCommand method problably could've been handled more gracefully and with less lines of code. In general, Muted could be an integer and then
+volume could be multiplied by it, so then we would save a few lines of code. PoolList should probably be a set instead of a list, since there shouldn't
+be two of the same sound at once in there. I'm not really sure why in InitializeSoundPool there are 2 coin and 1 fireball sounds added. It seems pretty
+obfuscated at this point, but I'm sure it's there for a good reason. This seems like a good class since the methods all have a distinct purpose, and this
+can be used for many different situations.
+
+Minutes to Complete: 15 min
+Hypothetical Change to File:
+
+I'd be curious to see how it changes if we require that sounds stop when Mario dies.

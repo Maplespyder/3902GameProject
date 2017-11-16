@@ -8,7 +8,7 @@ namespace MarioClone.Factories
 		FireBall
 	}
 
-	public class ProjectileFactory
+	public static class ProjectileFactory
 	{
 
 		public static AbstractGameObject Create(ProjectileType type, Vector2 position)

@@ -70,6 +70,7 @@
     <Compile Include="GameObjects\Other\FireBall.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
     <Compile Include="GameObjects\PowerUps\StarmanObject.cs" />
+    <Compile Include="Menu\MenuScreen.cs" />
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
     <Compile Include="HeadsUpDisplay\HUD.cs" />
     <Compile Include="HeadsUpDisplay\HUDModule.cs" />
@@ -208,6 +209,10 @@
     <Content Include="Code Reviews\Sprint 3\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\JacobCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 3\SamCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 4\JacobCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 4\SamCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 4\AnnaCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 4\AllieCodeReview.txt" />
     <Content Include="Level\Mainlevel1.bmp" />
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -13,6 +13,7 @@ using MarioClone.Sounds;
 using MarioClone.HeadsUpDisplay;
 using MarioClone.EventCenter;
 using MarioClone.States;
+using MarioClone.Menu;
 
 namespace MarioClone
 {
@@ -23,12 +24,21 @@ namespace MarioClone
         Paused,
         Win
     }
+
+    public enum MenuOption
+    {
+        Replay,
+        Exit
+    }
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class MarioCloneGame : Game
 	{
-        public static GameState state;
+        public static GameState State;
+
+        MenuScreen screen;
 
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
@@ -44,18 +54,19 @@ namespace MarioClone
         static ContentManager _content;
         GameGrid gameGrid;
         List<AbstractController> controllerList;
-        public static LevelCreator level;
+        static LevelCreator level;
 		private Background _background;
 
 		public MarioCloneGame()
-		{
-            state = GameState.Playing;
+		{  
+            State = GameState.Playing;
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 1600;
 			graphics.PreferredBackBufferHeight = 960;
 			_content = Content;
 			Content.RootDirectory = "Content";
-		}
+            HUDs = new List<HUD>();
+        }
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -78,8 +89,7 @@ namespace MarioClone
             gameGrid = new GameGrid(24, camera);
             GetCamera = camera;
 
-            HUDs = new List<HUD>();
-			EventSounds sounds = new EventSounds();
+			new EventSounds();
 			base.Initialize();
 		}
 
@@ -91,9 +101,10 @@ namespace MarioClone
 		{
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-			_background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+            _background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+            screen = new MenuScreen(this);
 
-			GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
+            GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
             GameContent.Load<Texture2D>("Sprites/Coin");
             GameContent.Load<Texture2D>("Sprites/SmallMario");
@@ -165,6 +176,9 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.P, new PauseCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.P, new PauseCommand(this));
 
+            keyboard.AddInputCommand((int)Keys.Space, new MenuMoveCommand(screen));
+            keyboard.AddInputCommand((int)Keys.Enter, new MenuSelectCommand(screen));
+
             // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
             AddCommandToAllGamepads(Buttons.DPadUp, new JumpCommand(Mario.Instance));
@@ -205,6 +219,11 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
+            if (Mario.Instance.Lives < 0)
+            {
+                State = GameState.GameOver;
+            }
+
             if (!transitioningArea)
             {
                 foreach (var controller in controllerList)
@@ -213,7 +232,7 @@ namespace MarioClone
                 }
             }
 
-            if (state == GameState.Playing)
+            if (State == GameState.Playing)
             {
                 if (Mario.Instance.PowerupState is MarioDead2)
                 {
@@ -250,7 +269,7 @@ namespace MarioClone
 
                     foreach (HUD hud in HUDs)
                     {
-                        hud.Update(camera, gameTime);
+                        hud.Update(gameTime);
                     }
                 }
 
@@ -264,8 +283,7 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			// Somewhere in your LoadContent() method:
-			if (state != GameState.Paused)
+			if (State == GameState.Playing)
             {
                 if (transitioningArea)
                 {
@@ -311,13 +329,33 @@ namespace MarioClone
 
 				base.Draw(gameTime);
 			}
+            else if (State == GameState.GameOver)
+            {
+                GraphicsDevice.Clear(Color.Black);
+                spriteBatch.Begin(SpriteSortMode.BackToFront);
+
+                screen.Draw(spriteBatch, gameTime);
+
+                spriteBatch.End();
+                base.Draw(gameTime);
+            }
+            else if (State == GameState.Win)
+            {
+                GraphicsDevice.Clear(Color.Black);
+                spriteBatch.Begin(SpriteSortMode.BackToFront);
+
+                screen.Draw(spriteBatch, gameTime);
+
+                spriteBatch.End();
+                base.Draw(gameTime);
+            }
 		}
 
         private void PauseForWarp(object sender, PlayerWarpingEventArgs e)
         {
             transitioningArea = true;
             opacity = 1;
-            opacityChange = 2;
+            opacityChange = 5;
             warpArgs = e;
         }
 
@@ -353,7 +391,7 @@ namespace MarioClone
 
 		}
 
-        private void DrawWorld(GameTime gameTime)
+        void DrawWorld(GameTime gameTime)
         {
             List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects;
             foreach (var obj in allObjects)
@@ -374,7 +412,7 @@ namespace MarioClone
         
         public static Camera GetCamera { get; set; }
 
-        public static ICollection<HUD> HUDs { get; set; }
+        public static ICollection<HUD> HUDs { get; private set; }
 
 		public void ExitCommand()
         {
@@ -384,6 +422,8 @@ namespace MarioClone
         public void ResetLevelCommand()
         {
             camera.Limits = level.LevelAreas[0];
+            _background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+
             gameGrid = new GameGrid(24, camera);
 			SoundPool.Instance.Reset();
 			foreach (HUD hud in HUDs)
@@ -397,16 +437,21 @@ namespace MarioClone
 
         public void PauseCommand()
         {
-            if (state == GameState.Playing)
+            if (State == GameState.Playing)
             {
                 SoundPool.Instance.MuteCommand();
-                state = GameState.Paused; 
+                State = GameState.Paused; 
             } 
-            else if (state == GameState.Paused)
+            else if (State == GameState.Paused)
             {
                 SoundPool.Instance.MuteCommand();
-                state = GameState.Playing;
+                State = GameState.Playing;
             }
+        }
+
+        public void SetAsPlaying()
+        {
+            State = GameState.Playing;
         }
 
         private void AddCommandToAllGamepads(Buttons button, ICommand command)
