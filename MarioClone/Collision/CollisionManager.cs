@@ -275,8 +275,8 @@ namespace MarioClone.Collision
         {
             side = Side.None;
 
-            if ((rect1.Left >= rect2.Left && rect1.Left <= rect2.Right)
-                    || (rect1.Right >= rect2.Left && rect1.Right <= rect2.Right))
+            if ((rect1.Left > rect2.Left && rect1.Left < rect2.Right)
+                    || (rect1.Right > rect2.Left && rect1.Right < rect2.Right))
             {
                 if (rect1.Bottom == rect2.Top)
                 {
@@ -336,8 +336,8 @@ namespace MarioClone.Collision
 
         private static bool RectangleSidesTouching(Rectangle rect1, Rectangle rect2)
         {
-            if ((rect1.Left >= rect2.Left && rect1.Left <= rect2.Right)
-                    || (rect1.Right >= rect2.Left && rect1.Right <= rect2.Right))
+            if ((rect1.Left > rect2.Left && rect1.Left < rect2.Right)
+                    || (rect1.Right > rect2.Left && rect1.Right < rect2.Right))
             {
                 if (rect1.Bottom == rect2.Top)
                 {
