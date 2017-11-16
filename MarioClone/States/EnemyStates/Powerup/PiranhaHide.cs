@@ -27,14 +27,25 @@ namespace MarioClone.States.EnemyStates.Powerup
 			Context.PowerupState = new PiranhaDead(Context);
 			Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.Piranha);
 			Context.BoundingBox = null;
-		}
+        }
+
+    //    if (Context.PiranhaCycleTime >= AbstractEnemy.MaxPiranhaHide &&
+    //            (
+    //            (((Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X) < 700) &&
+				//(Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X)) >= 200) && 
+    //            !((Math.Abs(Context.Position.X - MarioCloneGame.Player2.Position.X)) < 200))
+    //            ||
+    //            (((Math.Abs(Context.Position.X - MarioCloneGame.Player2.Position.X) < 700) &&
+    //            (Math.Abs(Context.Position.X - MarioCloneGame.Player2.Position.X)) >= 200) &&
+    //            !((Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X)) < 200))
+    //            ))
 
 		public override bool Update(GameTime gameTime, float percent)
 		{
 			Context.PiranhaCycleTime += gameTime.ElapsedGameTime.Milliseconds;
 			if (Context.PiranhaCycleTime >= AbstractEnemy.MaxPiranhaHide &&
-				(Math.Abs(Context.Position.X - Mario.Instance.Position.X) < 700) &&
-				(Math.Abs(Context.Position.X - Mario.Instance.Position.X)) >= 200)
+				(Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X) < 700) &&
+				(Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X)) >= 200)
 			{
 				BecomeReveal();
 			}

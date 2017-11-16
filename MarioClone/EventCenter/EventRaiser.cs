@@ -29,7 +29,7 @@ namespace MarioClone.EventCenter
             OnRaisePowerupCollectedEvent(args);
         }
 
-        public void TriggerEnemyDefeatedEvent(AbstractEnemy enemy, AbstractGameObject mario)
+        public void TriggerEnemyDefeatedEvent(AbstractEnemy enemy, Mario mario)
         {
             EnemyDefeatedEventArgs args = new EnemyDefeatedEventArgs(enemy, mario);
             OnRaiseEnemyDefeatedEvent(args);

@@ -13,7 +13,7 @@ namespace MarioClone.States
         {
             initialPosition = new Vector2(context.Position.X, context.Position.Y);
             context.Velocity = new Vector2(revealSpeed.X, revealSpeed.Y);
-            context.DrawOrder = 0;
+            context.DrawOrder = 0.53f;
         }
 
         public override bool Update(GameTime gameTime, float percent)
@@ -27,7 +27,7 @@ namespace MarioClone.States
             {
                 if(Context is CoinObject)
                 {
-                    EventManager.Instance.TriggerPowerupCollectedEvent(Context, Mario.Instance);
+                    EventManager.Instance.TriggerPowerupCollectedEvent(Context, Context.Releaser);
                     Context.PointValue = 0;
                     return true;
                 }

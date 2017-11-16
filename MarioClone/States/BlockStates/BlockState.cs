@@ -17,7 +17,7 @@ namespace MarioClone.States.BlockStates
             Context = context;
         }
 
-        public virtual void Bump()
+        public virtual void Bump(Mario bumper)
         {
             //default do nothing
         }

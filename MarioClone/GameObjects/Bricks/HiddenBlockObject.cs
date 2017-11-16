@@ -233,7 +233,7 @@ namespace MarioClone.GameObjects
             Visible = false;
         }
         
-        public override void Bump()
+        private void Bump()
         {
             Visible = true;
             revealedBrick = BlockFactory.Instance.Create(BlockType.BreakableBrick, Position);

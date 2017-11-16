@@ -125,45 +125,46 @@ namespace MarioClone
 
 			AbstractGameObject.DrawHitbox = false;
 
-            keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(Mario.Instance));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(Mario.Instance));
-            keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(Mario.Instance));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Y, new BecomeNormalMarioCommand(Mario.Instance));
-            keyboard.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(Mario.Instance));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.I, new BecomeFireMarioCommand(Mario.Instance));
-            keyboard.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(Mario.Instance));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(Mario.Instance));
+            //TODO add a list of Mario's to assign the input commands to
+            keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(Player1));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(Player1));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Y, new BecomeNormalMarioCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(Player1));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.I, new BecomeFireMarioCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(Player1));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(Player1));
 
-			keyboard.AddInputCommand((int)Keys.B, new FireBallCommand(Mario.Instance));
-			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new FireBallCommand(Mario.Instance));
+			keyboard.AddInputCommand((int)Keys.B, new FireBallCommand(Player1));
+			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new FireBallCommand(Player1));
 
-			keyboard.AddInputCommand((int)Keys.W, new JumpCommand(Mario.Instance));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(Mario.Instance));
-            keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(Mario.Instance));
-
-
-            keyboard.AddInputCommand((int)Keys.A, new MoveLeftCommand(Mario.Instance));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(Mario.Instance));
-            keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Mario.Instance));
+			keyboard.AddInputCommand((int)Keys.W, new JumpCommand(Player1));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(Player1));
 
 
-            keyboard.AddInputCommand((int)Keys.S, new CrouchCommand(Mario.Instance));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(Mario.Instance));
-            keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.A, new MoveLeftCommand(Player1));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player1));
 
 
-            keyboard.AddInputCommand((int)Keys.D, new MoveRightCommand(Mario.Instance));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Mario.Instance));
-            keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.S, new CrouchCommand(Player1));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(Player1));
 
-            keyboard.AddReleasedInputCommand((int)Keys.S, new ReleaseCrouchCommand(Mario.Instance));
-            keyboard.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Mario.Instance));
 
-            keyboard.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Mario.Instance));
-            keyboard.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Mario.Instance));
+            keyboard.AddInputCommand((int)Keys.D, new MoveRightCommand(Player1));
+            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player1));
 
-            keyboard.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Mario.Instance));
-            keyboard.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Mario.Instance));
+            keyboard.AddReleasedInputCommand((int)Keys.S, new ReleaseCrouchCommand(Player1));
+            keyboard.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Player1));
+
+            keyboard.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Player1));
+            keyboard.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player1));
+
+            keyboard.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Player1));
+            keyboard.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player1));
 
 			keyboard.AddInputCommand((int)Keys.M, new MuteCommand(SoundPool.Instance));
 			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.M, new MuteCommand(SoundPool.Instance));
@@ -181,16 +182,16 @@ namespace MarioClone
 
             // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
-            AddCommandToAllGamepads(Buttons.DPadUp, new JumpCommand(Mario.Instance));
-            AddCommandToAllGamepads(Buttons.DPadDown, new CrouchCommand(Mario.Instance));
-            AddCommandToAllGamepads(Buttons.DPadRight, new MoveRightCommand(Mario.Instance));
-            AddCommandToAllGamepads(Buttons.DPadLeft, new MoveLeftCommand(Mario.Instance));
+            AddCommandToAllGamepads(Buttons.DPadUp, new JumpCommand(Player1));
+            AddCommandToAllGamepads(Buttons.DPadDown, new CrouchCommand(Player1));
+            AddCommandToAllGamepads(Buttons.DPadRight, new MoveRightCommand(Player1));
+            AddCommandToAllGamepads(Buttons.DPadLeft, new MoveLeftCommand(Player1));
 
             foreach (var gamepad in controllerList)
             {
-                gamepad.AddReleasedInputCommand((int)Buttons.DPadDown, new ReleaseCrouchCommand(Mario.Instance));
-                gamepad.AddReleasedInputCommand((int)Buttons.DPadRight, new ReleaseMoveRightCommand(Mario.Instance));
-                gamepad.AddReleasedInputCommand((int)Buttons.DPadLeft, new ReleaseMoveLeftCommand(Mario.Instance));
+                gamepad.AddReleasedInputCommand((int)Buttons.DPadDown, new ReleaseCrouchCommand(Player1));
+                gamepad.AddReleasedInputCommand((int)Buttons.DPadRight, new ReleaseMoveRightCommand(Player1));
+                gamepad.AddReleasedInputCommand((int)Buttons.DPadLeft, new ReleaseMoveLeftCommand(Player1));
             }
 
             // Add keyboard to list of gamepads
@@ -219,7 +220,7 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-            if (Mario.Instance.Lives < 0)
+            if (Player1.Lives < 0)
             {
                 State = GameState.GameOver;
             }
@@ -234,7 +235,7 @@ namespace MarioClone
 
             if (State == GameState.Playing)
             {
-                if (Mario.Instance.PowerupState is MarioDead2)
+                if (Player1.PowerupState is MarioDead2)
                 {
 					deadDuration += gameTime.ElapsedGameTime.Milliseconds;
 					if (deadDuration >= 3000)
@@ -263,7 +264,7 @@ namespace MarioClone
                         gameGrid.Remove(obj);
                     }
 
-                    camera.LookAt(Mario.Instance.Position);
+                    camera.LookAt(Player1.Position);
                     gameGrid.CurrentLeftSideViewPort = camera.Position.X;
                     gameGrid.CurrentTopSideViewPort = camera.Position.Y;
 
@@ -413,6 +414,11 @@ namespace MarioClone
         public static Camera GetCamera { get; set; }
 
         public static ICollection<HUD> HUDs { get; private set; }
+
+        public static Mario Player1 { get; set; }
+
+        public static Mario Player2 { get; set; }
+
 
 		public void ExitCommand()
         {

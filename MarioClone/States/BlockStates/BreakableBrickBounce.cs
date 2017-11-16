@@ -12,7 +12,7 @@ namespace MarioClone.States.BlockStates
         private Vector2 initialPosition;
         private bool GoToUsed = false;
 
-        public BreakableBrickBounce(AbstractBlock context) : base(context)
+        public BreakableBrickBounce(AbstractBlock context, Mario bumper) : base(context)
         {
             initialPosition = Context.Position;
 			Context.Velocity = new Vector2(0f, -1f);
@@ -22,9 +22,10 @@ namespace MarioClone.States.BlockStates
 			if (Context.CoinCount > 0)
             {
 				Context.CoinCount -= 1;
-                //do some coin related thing
-                
-                GameGrid.Instance.Add(PowerUpFactory.Create(PowerUpType.Coin, Context.Position));
+
+                var coin = PowerUpFactory.Create(PowerUpType.Coin, Context.Position);
+                coin.Releaser = bumper;
+                GameGrid.Instance.Add(coin);
 
                 if(Context.CoinCount == 0 && Context.ContainedPowerup == PowerUpType.None)
                 {
@@ -33,8 +34,10 @@ namespace MarioClone.States.BlockStates
             }
             else if(Context.ContainedPowerup != PowerUpType.None)
             {
-				//do some powerup reveal related thing
-				GameGrid.Instance.Add(PowerUpFactory.Create(Context.ContainedPowerup, Context.Position));
+                //do some powerup reveal related thing
+                var powerup = PowerUpFactory.Create(Context.ContainedPowerup, Context.Position);
+                powerup.Releaser = bumper;
+				GameGrid.Instance.Add(powerup);
                 
                 Context.ContainedPowerup = PowerUpType.None;
                 GoToUsed = true;

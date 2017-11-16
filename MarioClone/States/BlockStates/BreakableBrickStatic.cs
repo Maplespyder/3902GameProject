@@ -10,13 +10,21 @@ namespace MarioClone.States.BlockStates
         {
         }
 
-        public override void Bump()
+        public override void Bump(Mario bumper)
         {
-            if (Mario.Instance.PowerupState is MarioNormal2)
+            if (bumper.PowerupState is MarioNormal2)
             {
-                Context.State = new BreakableBrickBounce(Context);
+                Context.State = new BreakableBrickBounce(Context, bumper);
             }
-            else
+            else if (bumper.PowerupState is MarioSuper2 || bumper.PowerupState is MarioFire2)
+            {
+                Context.State = new BreakableBrickBreak((BreakableBrickObject)Context);
+            }
+            else if (bumper.PreviousPowerupState is MarioNormal2)
+            {
+                Context.State = new BreakableBrickBounce(Context, bumper);
+            }
+            else if (bumper.PreviousPowerupState is MarioSuper2 || bumper.PreviousPowerupState is MarioFire2)
             {
                 Context.State = new BreakableBrickBreak((BreakableBrickObject)Context);
             }

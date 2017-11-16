@@ -26,8 +26,8 @@ namespace MarioClone.GameObjects
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
 		{
-			if(gameObject is Mario)
-			{
+			if(gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2))
+            {
 				var mario = (Mario)gameObject;
 				if (mario.PowerupState is MarioStar2)
 				{
@@ -38,7 +38,7 @@ namespace MarioClone.GameObjects
 			}else if(gameObject is FireBall)
 			{
 				PowerupState.BecomeDead();
-				EventManager.Instance.TriggerEnemyDefeatedEvent(this, (FireBall)gameObject);
+				EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((FireBall)gameObject).Owner);
 				return true;
 
 			}
