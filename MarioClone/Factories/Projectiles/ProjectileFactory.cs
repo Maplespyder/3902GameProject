@@ -11,14 +11,14 @@ namespace MarioClone.Factories
 	public static class ProjectileFactory
 	{
 
-		public static AbstractGameObject Create(ProjectileType type, Vector2 position)
+		public static AbstractGameObject Create(ProjectileType type, Mario player, Vector2 position)
 		{
 			switch (type)
 			{
 				case ProjectileType.FireBall:
-					return new FireBall(ProjectileSpriteFactory.Create(type), position);
+					return new FireBall(ProjectileSpriteFactory.Create(type), player,  position);
 				default:
-					return new FireBall(ProjectileSpriteFactory.Create(type), position);
+					return new FireBall(ProjectileSpriteFactory.Create(type), player, position);
 			}
 		}
 	}

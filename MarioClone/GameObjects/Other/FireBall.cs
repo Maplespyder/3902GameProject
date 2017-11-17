@@ -8,12 +8,15 @@ namespace MarioClone.GameObjects
 	{
 		public bool Gravity { get; set; }
 		public bool Destroyed { get; set; }
-		private int BounceCount = 0;
+        public Mario Owner { get; set; }
+
+        private int BounceCount = 0;
 		private int MaxBounce = 5;
-		public FireBall(ISprite sprite, Vector2 position) : base(sprite, position, Color.Yellow)
+		public FireBall(ISprite sprite, Mario player, Vector2 position) : base(sprite, position, Color.Yellow)
 		{
+            Owner = player;
 			Gravity = true;
-			if(Mario.Instance.Orientation == Facing.Right)
+			if(Owner.Orientation == Facing.Right)
 			{
 				Velocity = new Vector2(5f, 0);
 			}

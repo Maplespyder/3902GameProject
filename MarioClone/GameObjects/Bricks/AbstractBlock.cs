@@ -16,11 +16,7 @@ namespace MarioClone.GameObjects
             CoinCount = 0;
             ContainedPowerup = PowerUpType.None;
         }
-
-		public virtual void Bump()
-        {
-        }
-
+        
         public BlockState State { get; set; }
     }
 }

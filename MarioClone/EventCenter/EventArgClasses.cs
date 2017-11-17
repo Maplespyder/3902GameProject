@@ -56,15 +56,15 @@ namespace MarioClone.EventCenter
 
     public class EnemyDefeatedEventArgs : CustomEventArgs<AbstractEnemy>
     {
-        public AbstractGameObject Killer { get; }
+        public Mario Killer { get; }
         public int BounceCount { get; }
         public int PointValue { get; }
 
-        public EnemyDefeatedEventArgs(AbstractEnemy enemy, AbstractGameObject killer) : base(enemy)
+        public EnemyDefeatedEventArgs(AbstractEnemy enemy, Mario killer) : base(enemy)
         {
             Killer = killer;
             PointValue = enemy.PointValue;
-            BounceCount = Mario.Instance.BounceCount;
+            BounceCount = killer.BounceCount;
         }
     }
 

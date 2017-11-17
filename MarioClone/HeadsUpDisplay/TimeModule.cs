@@ -13,7 +13,7 @@ namespace MarioClone.HeadsUpDisplay
         int timeDelta;
         public int CurrentTime { get; set; }
         int maxGameTime = 400;
-        
+
         public Vector2 RelativePosition { get; set; }
         public Vector2 AbsolutePosition { get; set; }
         public Vector2 TimeRelativePosition { get; set; }
@@ -48,28 +48,22 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Update(GameTime gameTime)
         {
-            Mario.Instance.Time = CurrentTime;
-            if (CurrentTime == 0)
+            //TODO replace with "time is up" event
+            timeDelta += gameTime.ElapsedGameTime.Milliseconds;
+            if (timeDelta >= 1000)
             {
-                Mario.Instance.BecomeDead();
-            }
-            else
-            {
-                timeDelta += gameTime.ElapsedGameTime.Milliseconds;
-                if (timeDelta >= 1000)
+                if (Math.Floor(Math.Log10(CurrentTime) + 1) > Math.Floor(Math.Log10(CurrentTime - 1) + 1))
                 {
-                    if (Math.Floor(Math.Log10(CurrentTime) + 1) > Math.Floor(Math.Log10(CurrentTime - 1) + 1))
-                    {
-                        TimeRelativePosition += new Vector2(29, 0);
-                    }
-                    CurrentTime -= 1;
-                    timeDelta = 0;
-					if(CurrentTime == 100 || CurrentTime == 97)
-					{
-						EventManager.Instance.TriggerRunningOutOfTimeEvent(this);
-					}
+                    TimeRelativePosition += new Vector2(29, 0);
+                }
+                CurrentTime -= 1;
+                timeDelta = 0;
+                if (CurrentTime == 100 || CurrentTime == 97)
+                {
+                    EventManager.Instance.TriggerRunningOutOfTimeEvent(this);
                 }
             }
+
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
 

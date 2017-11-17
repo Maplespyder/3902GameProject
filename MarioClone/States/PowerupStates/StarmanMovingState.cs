@@ -7,14 +7,7 @@ namespace MarioClone.States
 	{
 		public StarmanMovingState(AbstractPowerup star) : base(star)
 		{
-			if (Mario.Instance.Position.X <= Context.Position.X)
-			{
-				Context.Velocity = new Vector2(-2, 0);
-			}
-			else
-			{
-				Context.Velocity = new Vector2(2, 0);
-			}
+		    Context.Velocity = new Vector2(-2, 0);
 		}
 	}
 }

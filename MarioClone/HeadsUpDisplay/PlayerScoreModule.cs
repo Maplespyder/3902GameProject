@@ -48,8 +48,8 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Update(GameTime gameTime)
         {
+            //TODO figure out how to add time to score
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
-            Mario.Instance.Score = playerScore;
         }
 
         public void UpdatePlayerScoreFromEnemy(object sender, EnemyDefeatedEventArgs e)
@@ -73,7 +73,7 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (ReferenceEquals(e.Mario, ParentHUD.Player))
             { 
-                    playerScore += e._height;   
+                playerScore += e._height;   
             }
         }
 

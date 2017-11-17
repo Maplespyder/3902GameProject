@@ -22,10 +22,12 @@ namespace MarioClone.Menu
 
         public MenuScreenOptions OptionSelected { get; set; }
 
+        //TODO  change this to single player mario menu screen, and add a different multiplayer mario menu screen
+        //TODO use the list on the main game to access mario instead of static access
         public MenuScreen(MarioCloneGame _game)
         {
             game = _game;
-            font = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
+            font = game.Content.Load<SpriteFont>("Fonts/Letter");
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -37,10 +39,10 @@ namespace MarioClone.Menu
             else if (MarioCloneGame.State == GameState.Win)
             {
                 spriteBatch.DrawString(font, "YOU WIN", new Vector2(500, 500), Color.White);
-                spriteBatch.DrawString(font, "LIVES: " + Mario.Instance.Lives, new Vector2(500, 750), Color.White);
-                spriteBatch.DrawString(font, "COINS: " + Mario.Instance.CoinCount, new Vector2(500, 800), Color.White);
-                spriteBatch.DrawString(font, "TIME: " + Mario.Instance.Time, new Vector2(500, 850), Color.White);
-                spriteBatch.DrawString(font, "SCORE: " + (Mario.Instance.Score + Mario.Instance.Time * 10), new Vector2(500, 900), Color.White);
+                spriteBatch.DrawString(font, "LIVES: " + MarioCloneGame.Player1.Lives, new Vector2(500, 750), Color.White);
+                spriteBatch.DrawString(font, "COINS: " + MarioCloneGame.Player1.CoinCount, new Vector2(500, 800), Color.White);
+                spriteBatch.DrawString(font, "TIME: " + MarioCloneGame.Player1.Time, new Vector2(500, 850), Color.White);
+                spriteBatch.DrawString(font, "SCORE: " + (MarioCloneGame.Player1.Score + MarioCloneGame.Player1.Time * 10), new Vector2(500, 900), Color.White);
             }
 
             if (OptionSelected == MenuScreenOptions.Exit)
@@ -63,7 +65,7 @@ namespace MarioClone.Menu
             }
             else
             {
-                Mario.Instance.Lives = 2;
+                MarioCloneGame.Player1.Lives = 2;
                 game.ResetLevelCommand();
                 game.SetAsPlaying();
             }

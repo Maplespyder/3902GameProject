@@ -11,9 +11,11 @@ namespace MarioClone.GameObjects
         public PowerupState State { get; set; }
         public bool IsCollided { get; set; }
         public int PointValue { get; set; }
+        public Mario Releaser { get; set; }
 
         public AbstractPowerup(ISprite sprite, Vector2 position, Color hitboxColor) : base(sprite, position, hitboxColor)
         {
+            //TODO fix this so the revealer can be passed in (optionally?)
             State = new PowerupRevealState(this);
         }
 

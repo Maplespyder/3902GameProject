@@ -15,7 +15,6 @@ namespace MarioClone.GameObjects
 
         public const float HorizontalMovementSpeed = 5f;
         public const float VerticalMovementSpeed = 15f;
-        private static Mario _mario;
         private bool bouncing = false;
         private List<FireBall> FireBalls = new List<FireBall>();
         private List<FireBall> RemovedFireBalls = new List<FireBall>();
@@ -26,13 +25,6 @@ namespace MarioClone.GameObjects
         /// If you aren't sure what you're doing comes after Mario's creation, then
         /// null check the return on instance.
         /// </summary>
-        public static Mario Instance
-        {
-            get
-            {
-                return _mario;
-            }
-        }
 
         public MarioActionState ActionState
         {
@@ -86,7 +78,6 @@ namespace MarioClone.GameObjects
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
-            _mario = this;
             Spawns = new List<Vector2>();
             Orientation = Facing.Right;
             Gravity = true;
@@ -158,7 +149,7 @@ namespace MarioClone.GameObjects
 					fireBallPosition = new Vector2(Position.X,
 						Position.Y - Sprite.SourceRectangle.Height/2);
 				}
-				FireBall _fireball = (FireBall)(_FireBallPool.GetAndRelease(fireBallPosition));
+				FireBall _fireball = (FireBall)(_FireBallPool.GetAndRelease(this, fireBallPosition));
 				if(_fireball != null)
 				{
 					FireBalls.Add(_fireball);
@@ -362,6 +353,7 @@ namespace MarioClone.GameObjects
 			foreach (FireBall fireball in RemovedFireBalls)
 			{
 				FireBalls.Remove(fireball);
+                fireball.Owner = null;
 				_FireBallPool.Restore();
 			}
 			RemovedFireBalls.Clear();

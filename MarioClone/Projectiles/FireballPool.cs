@@ -17,12 +17,12 @@ namespace MarioClone.Projectiles
 			availableFireballs = 2;
 		}
 
-		public AbstractGameObject GetAndRelease(Vector2 position)
+		public AbstractGameObject GetAndRelease(Mario player, Vector2 position)
 		{
 			if(availableFireballs > 0)
 			{
 				availableFireballs--;
-				return ProjectileFactory.Create(ProjectileType.FireBall, position);
+				return ProjectileFactory.Create(ProjectileType.FireBall, player, position);
 			}
 			else
 			{
