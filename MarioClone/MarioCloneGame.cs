@@ -311,6 +311,8 @@ namespace MarioClone
 
                 if(transitioningArea)
                 {
+
+					//Fade to black
                     using(Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1))
                     {
                         Color[] color = { Color.Black };

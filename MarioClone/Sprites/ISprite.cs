@@ -15,6 +15,8 @@ namespace MarioClone.Sprites
 
         Texture2D SpriteSheet { get; }
 
+		bool Finished { get; }
+
 		void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth, GameTime gameTime, Facing facing, float scaling = 1);
 		void Draw(SpriteBatch spriteBatch, Vector2 position, float layerDepth, GameTime gameTime, Facing facing, Color color, float scaling = 1);
 	}

@@ -138,6 +138,7 @@
     <Compile Include="Sounds\EventSounds.cs" />
     <Compile Include="Sounds\SoundPool.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />
+    <Compile Include="Sprites\SingleLoopAnimatedSprite.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\ISprite.cs" />
     <Compile Include="Sprites\StaticSprite.cs" />

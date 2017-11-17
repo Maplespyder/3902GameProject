@@ -12,6 +12,7 @@ namespace MarioClone.Sprites
         public Rectangle SourceRectangle { get; protected set; }
 
 		public Texture2D SpriteSheet { get; protected set; }
+		public bool Finished { get; protected set; }
 
 		#endregion
 
