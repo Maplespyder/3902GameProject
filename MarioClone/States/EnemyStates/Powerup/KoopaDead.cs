@@ -29,8 +29,7 @@ namespace MarioClone.States
 
         public override bool Update(GameTime gameTime, float percent)
         {
-            Context.TimeDead += gameTime.ElapsedGameTime.Milliseconds;
-            if (Context.TimeDead >= AbstractEnemy.MaxTimeDead)
+            if (Context.Sprite.Finished)
             {
                 Context.BoundingBox = new HitBox(-4, -4, -4, -4, Color.Red);
                 return true;

@@ -18,13 +18,13 @@ namespace MarioClone.States
             context.IsDead = true;
             Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.Goomba);
             Context.PointValue = 0;
+			Context.Velocity = new Vector2(0, 0);
             Context.TimeDead = 0;
         }
 
         public override bool Update(GameTime gameTime, float percent)
         {
-            Context.TimeDead += gameTime.ElapsedGameTime.Milliseconds;
-            if (Context.TimeDead >= AbstractEnemy.MaxTimeDead)
+            if (Context.Sprite.Finished)
             {
                 Context.BoundingBox = new HitBox(-4, -4, -4, -4, Color.Red);
                 return true;

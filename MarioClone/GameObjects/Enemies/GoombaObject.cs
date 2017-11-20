@@ -15,7 +15,8 @@ namespace MarioClone.GameObjects
             BoundingBox.UpdateOffSets(-8, -8, -8, -8);
             BoundingBox.UpdateHitBox(Position, Sprite);
 			Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
-            PointValue = 200;
+			Orientation = Facing.Left;
+			PointValue = 200;
 		}
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
@@ -46,17 +47,15 @@ namespace MarioClone.GameObjects
                 if (side == Side.Left)
 				{
 					Velocity = new Vector2(EnemyHorizontalMovementSpeed, Velocity.Y);
-				}else if(side == Side.Right)
+					Orientation = Facing.Right;
+				}
+				else if(side == Side.Right)
 				{
 					Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
+					Orientation = Facing.Left;
 				}
                 else if (side == Side.Bottom || side == Side.Top)
                 {
-                    /*if(side == Side.Bottom && gameObject.Velocity.Y < 0)
-                    {
-                        PowerupState.BecomeDead();
-                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
-                    }*/
                     Velocity = new Vector2(Velocity.X, 0);
                 }
 			}

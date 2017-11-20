@@ -13,7 +13,7 @@ namespace MarioClone.GameObjects
     {
         public const float GravityAcceleration = .4f;
 
-        public const float HorizontalMovementSpeed = 5f;
+        public const float HorizontalMovementSpeed = 6f;
         public const float VerticalMovementSpeed = 15f;
         private bool bouncing = false;
         private List<FireBall> FireBalls = new List<FireBall>();

@@ -47,9 +47,11 @@ namespace MarioClone.Cam
 		{
 			//sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Sky"), new Vector2(.20f));
 			sprites.Clear();
-			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BackMountains"), new Vector2(.30f));
-			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ForeMountains"), new Vector2(.40f));
-			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/clouds"), new Vector2(.60f));
+			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BackMountains"), new Vector2(.10f));
+			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/ForeMountains"), new Vector2(.20f));
+			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BackTrees"), new Vector2(.30f));
+			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BackBrick"), new Vector2(.5f));
+			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Mist"), new Vector2(.60f));
 		}
 		private void initializeUnderWorldSprites()
 		{
