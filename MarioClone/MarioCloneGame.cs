@@ -14,6 +14,7 @@ using MarioClone.HeadsUpDisplay;
 using MarioClone.EventCenter;
 using MarioClone.States;
 using MarioClone.Menu;
+using MarioClone.Factories;
 
 namespace MarioClone
 {
@@ -49,7 +50,6 @@ namespace MarioClone
         PlayerWarpingEventArgs warpArgs;
         int opacity;
         int opacityChange;
-		int deadDuration = 0;
 
         static ContentManager _content;
         GameGrid gameGrid;
@@ -124,8 +124,7 @@ namespace MarioClone
             level.Create();
 
 			AbstractGameObject.DrawHitbox = false;
-
-            //TODO add a list of Mario's to assign the input commands to
+            
             keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(Player1));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(Player1));
             keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(Player1));
@@ -137,34 +136,35 @@ namespace MarioClone
 
 			keyboard.AddInputCommand((int)Keys.B, new FireBallCommand(Player1));
 			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new FireBallCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
 
-			keyboard.AddInputCommand((int)Keys.W, new JumpCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.W, new JumpCommand(Player1));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(Player2));
 
 
             keyboard.AddInputCommand((int)Keys.A, new MoveLeftCommand(Player1));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player2));
 
 
             keyboard.AddInputCommand((int)Keys.S, new CrouchCommand(Player1));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(Player2));
 
 
             keyboard.AddInputCommand((int)Keys.D, new MoveRightCommand(Player1));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player1));
+            keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
 
             keyboard.AddReleasedInputCommand((int)Keys.S, new ReleaseCrouchCommand(Player1));
-            keyboard.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Player1));
+            keyboard.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Player2));
 
             keyboard.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Player1));
-            keyboard.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player1));
+            keyboard.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player2));
 
             keyboard.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Player1));
-            keyboard.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player1));
+            keyboard.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player2));
 
 			keyboard.AddInputCommand((int)Keys.M, new MuteCommand(SoundPool.Instance));
 			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.M, new MuteCommand(SoundPool.Instance));
@@ -220,12 +220,7 @@ namespace MarioClone
 		{
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
-
-            if (Player1.Lives < 0)
-            {
-                State = GameState.GameOver;
-            }
-
+            
             if (!transitioningArea)
             {
                 foreach (var controller in controllerList)
@@ -362,6 +357,7 @@ namespace MarioClone
             else
             {
                 camera.Limits = level.LevelAreas[0];
+                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
 
                 gameGrid.Remove(e.DeadPlayer);
                 e.DeadPlayer.ResetToCheckpoint();
@@ -384,6 +380,15 @@ namespace MarioClone
             //this will be uncommented once the level creator is done so it doesn't crash the game.
             camera.Limits = level.LevelAreas[e.WarpExit.LevelArea];
             
+            if(e.WarpExit.LevelArea == 0)
+            {
+                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
+            }
+            else
+            {
+                BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
+            }
+
             gameGrid.Remove(e.Warper);
             e.Warper.Position = e.WarpExit.Position - new Vector2(0, e.Warper.Sprite.SourceRectangle.Height / 2);
             e.Warper.Update(gameTime, 1);

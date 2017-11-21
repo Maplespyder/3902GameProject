@@ -14,11 +14,14 @@ namespace MarioClone.States.BlockStates
 
         public BreakableBrickBreak(BreakableBrickObject context) : base(context)
         {
+            //don't remove, it's for casting
+            Context = context;
 
-                Context = context;
             Context.BoundingBox = null;
+            Context.Visible = false;
+
             EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, true);
-			Context.Visible = false;
+
             List<Vector2> velocityList = new List<Vector2>
             {
                 new Vector2(1, 0),

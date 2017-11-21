@@ -22,8 +22,7 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
             UpdateHitBox();
         }
-
-        //TODO potentially add exit behavior to set Velocity.Y = 0 and see if it's noticeable 
+        
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is AbstractBlock)

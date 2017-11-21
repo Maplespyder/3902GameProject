@@ -72,27 +72,43 @@ namespace MarioClone.Level
 
 			if (!sameColor(pixel, Colors.Empty))
 			{
-                if(sameColor(pixel, Colors.MarioSpawn))
+                if(pixel.R == Colors.MarioSpawn.R && pixel.G == Colors.MarioSpawn.G)
                 {
                     position = new Vector2(position.X, position.Y - (MarioHeight - 64));
                     Mario mario;
-                    if(MarioCloneGame.Player1 == null)
+                    if(MarioCloneGame.Player1 == null && pixel.B == 0)
                     {
                         mario = MarioFactory.Create(position);
                         MarioCloneGame.Player1 = mario;
+                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                        Grid.Add(mario);
                     }
-                    else
+                    else if(MarioCloneGame.Player2 == null && pixel.B == 1)
+                    {
+                        mario = MarioFactory.Create(position);
+                        MarioCloneGame.Player2 = mario;
+                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                        Grid.Add(mario);
+                    }
+                    else if(MarioCloneGame.Player1 != null && pixel.B == 0)
                     {
                         mario = MarioCloneGame.Player1;
                         mario.ResetMario(position);
+                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                        Grid.Add(mario);
                     }
-
-                    MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
-                    Grid.Add(mario);
+                    else if(MarioCloneGame.Player2 != null && pixel.B == 1)
+                    {
+                        mario = MarioCloneGame.Player2;
+                        mario.ResetMario(position);
+                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                        Grid.Add(mario);
+                    }
                 }
                 else if (sameColor(pixel, Colors.MarioCheckpoint))
                 {
                     MarioCloneGame.Player1.Spawns.Add(position);
+                    MarioCloneGame.Player2.Spawns.Add(position);
                 }
 				else if (sameColor(pixel, Colors.QuestionBlock))
 				{
@@ -114,10 +130,10 @@ namespace MarioClone.Level
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
-				else if (sameColor(pixel, Colors.BrickBlock))
+				else if (pixel.R == Colors.BrickBlock.R && pixel.G == Colors.BrickBlock.G)
 				{
 					var initializer = BlockFactory.Instance.Create(BlockType.BreakableBrick, position);
-					initializer.CoinCount = 3;
+					initializer.CoinCount = pixel.B;
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}

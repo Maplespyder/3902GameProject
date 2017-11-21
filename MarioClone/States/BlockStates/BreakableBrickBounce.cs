@@ -16,6 +16,7 @@ namespace MarioClone.States.BlockStates
         {
             initialPosition = Context.Position;
 			Context.Velocity = new Vector2(0f, -1f);
+            Context.Bumper = bumper;
 
             EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, false);
 
@@ -40,6 +41,10 @@ namespace MarioClone.States.BlockStates
 				GameGrid.Instance.Add(powerup);
                 
                 Context.ContainedPowerup = PowerUpType.None;
+                GoToUsed = true;
+            }
+            else if(Context.CoinCount == 0 && Context.ContainedPowerup == PowerUpType.None)
+            {
                 GoToUsed = true;
             }
         }

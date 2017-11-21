@@ -46,6 +46,11 @@ namespace MarioClone.GameObjects
                 {
                     Gravity = false;
                     Velocity = new Vector2(Velocity.X, 0);
+                    if (((AbstractBlock)gameObject).Bumper != null)
+                    {
+                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((AbstractBlock)gameObject).Bumper);
+                        PowerupState.BecomeDead();
+                    }
                 }
                 else if (side == Side.Left)
                 {

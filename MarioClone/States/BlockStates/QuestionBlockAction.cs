@@ -16,7 +16,8 @@ namespace MarioClone.States.BlockStates
         {
             initialPosition = context.Position;
 			Context.Velocity = new Vector2(0f, -1f);
-            
+            Context.Bumper = bumper;
+
             EventManager.Instance.TriggerBrickBumpedEvent(Context, Context.ContainedPowerup, false);
 
 			if (Context.ContainedPowerup != PowerUpType.None)

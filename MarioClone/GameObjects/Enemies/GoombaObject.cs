@@ -46,19 +46,22 @@ namespace MarioClone.GameObjects
                 if (side == Side.Left)
 				{
 					Velocity = new Vector2(EnemyHorizontalMovementSpeed, Velocity.Y);
-				}else if(side == Side.Right)
+				}
+                else if(side == Side.Right)
 				{
 					Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
 				}
-                else if (side == Side.Bottom || side == Side.Top)
+                else if (side == Side.Bottom)
                 {
-                    /*if(side == Side.Bottom && gameObject.Velocity.Y < 0)
+                    if(((AbstractBlock)gameObject).Bumper != null)
                     {
+                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((AbstractBlock)gameObject).Bumper);
                         PowerupState.BecomeDead();
-                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
-                    }*/
+                    }
                     Velocity = new Vector2(Velocity.X, 0);
                 }
+
+                return true;
 			}
 			else if (gameObject is FireBall)
 			{

@@ -25,16 +25,17 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2))
             {
+                var mario = (Mario)gameObject;
                 if (side.Equals(Side.Top))
                 {
-                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, mario);
                     PowerupState.BecomeDead();
                     return true;
                 }
-				var mario = (Mario)gameObject;
+
 				if (mario.PowerupState is MarioStar2)
 				{
-					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
+					EventManager.Instance.TriggerEnemyDefeatedEvent(this, mario);
 					PowerupState.BecomeDead();
 					return true;
 				}
@@ -46,6 +47,11 @@ namespace MarioClone.GameObjects
                 {
                     Gravity = false;
                     Velocity = new Vector2(Velocity.X, 0);
+                    if (((AbstractBlock)gameObject).Bumper != null)
+                    {
+                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((AbstractBlock)gameObject).Bumper);
+                        PowerupState.BecomeDead();
+                    }
                 }
                 else if (side == Side.Left)
                 {
