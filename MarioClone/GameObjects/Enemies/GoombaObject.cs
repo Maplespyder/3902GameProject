@@ -24,7 +24,7 @@ namespace MarioClone.GameObjects
             if (side == Side.Bottom)
             {
                 Gravity = false;
-            }
+			}
 
             if (gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2))
             {
@@ -76,8 +76,10 @@ namespace MarioClone.GameObjects
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
-            Gravity = true;
-
+			if(!(PowerupState is GoombaDead))
+			{
+				Gravity = true;
+			}
             return retval;
         }
     }

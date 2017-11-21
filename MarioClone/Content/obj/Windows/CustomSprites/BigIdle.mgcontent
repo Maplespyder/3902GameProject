@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/CustomSprites/BigIdle.png</SourceFile>
-  <SourceTime>2017-11-20T13:19:41.6974805-05:00</SourceTime>
+  <SourceTime>2017-11-20T14:17:35.1869224-05:00</SourceTime>
   <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/CustomSprites/BigIdle.xnb</DestFile>
-  <DestTime>2017-11-20T13:27:19.2467491-05:00</DestTime>
+  <DestTime>2017-11-20T14:25:05.6252714-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
