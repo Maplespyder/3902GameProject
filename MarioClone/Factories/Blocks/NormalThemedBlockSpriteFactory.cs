@@ -51,11 +51,11 @@ namespace MarioClone.Factories
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/CustomBlocks"),
                         new Rectangle(0, 256, 64, 64));
 				case BlockType.PipeTop:
-					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Pipe"), 
+					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Pipe"), 
 						new Rectangle(0, 0, 128, 64));
 				case BlockType.PipeSegment:
-					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Pipe"),
-						new Rectangle(0, 72, 128, 108));
+					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Pipe"),
+						new Rectangle(0, 72, 128, 64));
                 case BlockType.Flagpole:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Flagpole"),
                     new Rectangle(0, 0, 84, 510), 1, 3, 0, 2, 4);

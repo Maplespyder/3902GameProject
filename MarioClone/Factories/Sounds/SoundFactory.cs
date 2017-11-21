@@ -51,29 +51,29 @@ namespace MarioClone.Factories.Sounds
 			switch (sound)
 			{
 				case SoundType.Coin:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Coin");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Coin");
 				case SoundType.Stomp:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Stomp");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Puff");
 				case SoundType.UP1:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/1UP");
 				case SoundType.DOWN1:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/1DOWN");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Hurt");
 				case SoundType.Bump:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Bump");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/MetalHit");
 				case SoundType.PowerUp:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/PowerUp");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/PowerUp");
 				case SoundType.Kick:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Kick");
 				case SoundType.Break:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Break");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Crumble");
 				case SoundType.Jump:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Jump");
 				case SoundType.Down:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Down");
-				case SoundType.RevealPowerUp:
+                    return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Hurt");
+                case SoundType.RevealPowerUp:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/RevealPowerUp");
 				case SoundType.Background:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Overworld");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Underground");
 				case SoundType.Underworld:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Underworld");
 				case SoundType.Starman:
