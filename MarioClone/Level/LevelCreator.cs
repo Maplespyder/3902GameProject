@@ -46,9 +46,10 @@ namespace MarioClone.Level
 		public void Create()
         {
             aboveGround = true;
+            BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
             LevelAreas = new Dictionary<int, Microsoft.Xna.Framework.Rectangle>();
-
             LevelAreas.Add(0, new Microsoft.Xna.Framework.Rectangle(0, 0, _image.Width * BlockWidth, _image.Height * BlockHeight));
+
             CreationLoop(0, 0);
 		}
 
@@ -71,36 +72,24 @@ namespace MarioClone.Level
 
 			if (!sameColor(pixel, Colors.Empty))
 			{
-                if (sameColor(pixel, Colors.MarioSpawn) && MarioCloneGame.Player1 == null)
+                if(sameColor(pixel, Colors.MarioSpawn))
                 {
                     position = new Vector2(position.X, position.Y - (MarioHeight - 64));
-                    var mario = MarioFactory.Create(position);
-                    MarioCloneGame.Player1 = mario;
-                    MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
-
-                    Grid.Add(mario);
-                }
-                else if (sameColor(pixel, Colors.MarioSpawn) && MarioCloneGame.Player1 != null)
-                {
-                    var mario = MarioCloneGame.Player1;
-                    //TODO add a list on the main game of marios that I can compare references to
-                    mario.Position = new Vector2(position.X, position.Y - (MarioHeight - 64));
-                    mario.StateMachine.Reset();
-                    mario.StateMachine.Begin();
-                    mario.Orientation = Facing.Right;
-                    mario.CoinCount = 0;
-                    if (MarioCloneGame.State != GameState.Playing)
+                    Mario mario;
+                    if(MarioCloneGame.Player1 == null)
                     {
-                        mario.Spawns.Clear();
+                        mario = MarioFactory.Create(position);
+                        MarioCloneGame.Player1 = mario;
                     }
                     else
                     {
-                        mario.AdjustForCheckpoint();
+                        mario = MarioCloneGame.Player1;
+                        mario.ResetMario(position);
                     }
 
                     MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
                     Grid.Add(mario);
-				}
+                }
                 else if (sameColor(pixel, Colors.MarioCheckpoint))
                 {
                     MarioCloneGame.Player1.Spawns.Add(position);

@@ -128,4 +128,14 @@ namespace MarioClone.EventCenter
             Mario = player;
         }
     }
+
+    public class PlayerDiedEventArgs : CustomEventArgs<Mario>
+    {
+        public Mario DeadPlayer { get; }
+
+        public PlayerDiedEventArgs(Mario player) : base(player)
+        {
+            DeadPlayer = player;
+        }
+    }
 }

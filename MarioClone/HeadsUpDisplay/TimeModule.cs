@@ -49,6 +49,7 @@ namespace MarioClone.HeadsUpDisplay
         public void Update(GameTime gameTime)
         {
             //TODO replace with "time is up" event
+            ParentHUD.Player.Time = CurrentTime;
             timeDelta += gameTime.ElapsedGameTime.Milliseconds;
             if (timeDelta >= 1000)
             {

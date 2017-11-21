@@ -198,6 +198,7 @@ namespace MarioClone
             controllerList.Add(keyboard);
 
             EventManager.Instance.RaisePlayerWarpingEvent += PauseForWarp;
+            EventManager.Instance.RaisePlayerDiedEvent += HandlePlayerDeath;
             camera.Limits = level.LevelAreas[0];
 		}
 
@@ -235,16 +236,6 @@ namespace MarioClone
 
             if (State == GameState.Playing)
             {
-                if (Player1.PowerupState is MarioDead2)
-                {
-					deadDuration += gameTime.ElapsedGameTime.Milliseconds;
-					if (deadDuration >= 3000)
-					{
-						ResetLevelCommand();
-						deadDuration = 0;
-					}
-                }
-
                 if (!transitioningArea)
                 {
                     List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
@@ -362,6 +353,25 @@ namespace MarioClone
             warpArgs = e;
         }
 
+        private void HandlePlayerDeath(object sender, PlayerDiedEventArgs e)
+        {
+            if (e.DeadPlayer.Lives <= 0)
+            {
+                State = GameState.GameOver;
+            }
+            else
+            {
+                camera.Limits = level.LevelAreas[0];
+
+                gameGrid.Remove(e.DeadPlayer);
+                e.DeadPlayer.ResetToCheckpoint();
+                gameGrid.Add(e.DeadPlayer);
+
+                camera.LookAt(e.DeadPlayer.Position);
+                _background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+            }
+        }
+
         private void UnpauseForWarp()
         {
             transitioningArea = false;
@@ -373,9 +383,9 @@ namespace MarioClone
 
             //this will be uncommented once the level creator is done so it doesn't crash the game.
             camera.Limits = level.LevelAreas[e.WarpExit.LevelArea];
-
-            e.Warper.Position = e.WarpExit.Position - new Vector2(0, e.Warper.Sprite.SourceRectangle.Height / 2);
+            
             gameGrid.Remove(e.Warper);
+            e.Warper.Position = e.WarpExit.Position - new Vector2(0, e.Warper.Sprite.SourceRectangle.Height / 2);
             e.Warper.Update(gameTime, 1);
             gameGrid.Add(e.Warper);
 
@@ -432,7 +442,7 @@ namespace MarioClone
             camera.Limits = level.LevelAreas[0];
             _background = new Background(spriteBatch, camera, BackgroundType.Overworld);
 
-            gameGrid = new GameGrid(24, camera);
+            gameGrid.ClearGrid();
 			SoundPool.Instance.Reset();
 			foreach (HUD hud in HUDs)
             {
@@ -441,6 +451,8 @@ namespace MarioClone
             HUDs.Clear();
             level.Grid = gameGrid;
             level.Create();
+
+            camera.LookAt(Player1.Position);
         }
 
         public void PauseCommand()

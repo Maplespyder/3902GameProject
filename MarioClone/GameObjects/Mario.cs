@@ -59,7 +59,7 @@ namespace MarioClone.GameObjects
 
         public int CoinCount { get; set; }
 
-        public List<Vector2> Spawns { get; }
+        public List<Vector2> Spawns { get; set; }
         public Vector2 ActiveSpawn { get; set; }
 
         public MarioStateMachine StateMachine { get; set; }
@@ -79,6 +79,9 @@ namespace MarioClone.GameObjects
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
             Spawns = new List<Vector2>();
+            Spawns.Add(new Vector2(position.X, position.Y));
+            ActiveSpawn = Spawns[0];
+
             Orientation = Facing.Right;
             Gravity = true;
             BounceCount = 0;
@@ -94,14 +97,42 @@ namespace MarioClone.GameObjects
             EventManager.Instance.RaisePowerupCollectedEvent += ReceivePowerup;
         }
 
+        /// <summary>
+        /// should be used when "r" is pressed or the game ends (i.e. mario runs out of lives or wins)
+        /// </summary>
+        /// <param name="position">initial position</param>
+        public void ResetMario(Vector2 position)
+        {
+            Spawns = new List<Vector2>();
+            Spawns.Add(new Vector2(position.X, position.Y));
+            ActiveSpawn = Spawns[0];
+
+            Orientation = Facing.Right;
+            Gravity = true;
+            BounceCount = 0;
+            Lives = 3;
+            CoinCount = 0;
+
+            ResetToCheckpoint();
+        }
+
         public void MoveLeft()
         {
             ActionState.Walk(Facing.Left);
         }
 
-        public void AdjustForCheckpoint()
+        /// <summary>
+        /// should be called when resetting mario to a checkup i.e. he dies but still has lives
+        /// </summary>
+        public void ResetToCheckpoint()
         {
+            StateMachine.Reset();
+            StateMachine.Begin();
             Position = new Vector2(ActiveSpawn.X, ActiveSpawn.Y);
+            if (BoundingBox != null)
+            {
+                BoundingBox.UpdateHitBox(Position, Sprite);
+            }
         }
 
         public void MoveRight()
@@ -337,10 +368,8 @@ namespace MarioClone.GameObjects
                 StateMachine.TransitionFall();
             }
 
-            if (PowerupState is MarioStar2 || PowerupState is MarioInvincibility2)
-            {
-                PowerupState.Update(gameTime);
-            }
+            PowerupState.Update(gameTime);
+            
 
 			foreach (FireBall fireball in FireBalls)
 			{

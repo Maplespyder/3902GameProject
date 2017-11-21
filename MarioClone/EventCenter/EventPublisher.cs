@@ -30,6 +30,7 @@ namespace MarioClone.EventCenter
         public event EventHandler<PlayerHitPoleEventArgs> RaisePlayerHitPoleEvent;
 		public event EventHandler<RunningOutOfTimeArgs> RaiseRunningOutOfTimeEvent;
 		public event EventHandler<FireballFireArgs> RaiseFireballFireEvent;
+        public event EventHandler<PlayerDiedEventArgs> RaisePlayerDiedEvent;
 
 		protected virtual void OnRaiseMarioActionStateEvent(MarioActionStateEventArgs e)
         {
@@ -91,5 +92,11 @@ namespace MarioClone.EventCenter
 			EventHandler<RunningOutOfTimeArgs> handler = RaiseRunningOutOfTimeEvent;
 			handler?.Invoke(e.Sender, e);
 		}
+
+        protected virtual void OnRaisePlayerDiedEvent(PlayerDiedEventArgs e)
+        {
+            EventHandler<PlayerDiedEventArgs> handler = RaisePlayerDiedEvent;
+            handler?.Invoke(e.Sender, e);
+        }
 	}
 }

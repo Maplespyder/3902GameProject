@@ -50,6 +50,7 @@ namespace MarioClone.HeadsUpDisplay
         {
             //TODO figure out how to add time to score
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
+            ParentHUD.Player.Score = playerScore;
         }
 
         public void UpdatePlayerScoreFromEnemy(object sender, EnemyDefeatedEventArgs e)
