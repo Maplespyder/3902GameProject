@@ -67,7 +67,7 @@ namespace MarioClone.Factories.Sounds
 				case SoundType.Break:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Crumble");
 				case SoundType.Jump:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Jump");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Hop");
 				case SoundType.Down:
                     return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Hurt");
                 case SoundType.RevealPowerUp:
@@ -79,7 +79,7 @@ namespace MarioClone.Factories.Sounds
 				case SoundType.Starman:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Starman");
 				case SoundType.Dead:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Dead");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Puff");
 				case SoundType.Hurryup:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Hurryup");
 				case SoundType.Fireball:

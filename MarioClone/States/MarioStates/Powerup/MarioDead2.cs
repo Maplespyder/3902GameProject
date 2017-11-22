@@ -15,6 +15,7 @@ namespace MarioClone.States
         {
             Context.SpriteFactory = Factories.DeadMarioSpriteFactory.Instance;
             Context.StateMachine.TransitionIdle();
+            Context.Gravity = false;
             Context.Lives--;
         }
 

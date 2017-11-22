@@ -40,7 +40,7 @@ namespace MarioClone.Factories
 					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BigJump"), new Rectangle(0, 0, 97, 162),
 						1, 4, 0, 3, 4);
 				case MarioAction.Crouch:
-					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Crouch"), new Rectangle(0, 0, 113, 109));
+					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BigCrouch"), new Rectangle(0, 0, 113, 109));
 				case MarioAction.Fall:
 					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BigJump"), new Rectangle(0, 0, 97, 162),
 							1, 4, 0, 3, 4);

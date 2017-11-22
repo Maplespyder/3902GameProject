@@ -74,7 +74,10 @@ namespace MarioClone.GameObjects
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
-            Gravity = true;
+            if (!(PowerupState is KoopaDead))
+            {
+                Gravity = true;
+            }
 
             return retval;
         }

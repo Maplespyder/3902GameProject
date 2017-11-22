@@ -16,6 +16,8 @@ namespace MarioClone.States
         {
             Context.IsDead = true;
             Context.PointValue = 0;
+            Context.BoundingBox = null;
+            Context.Gravity = false;
 
             if (Context is GreenKoopaObject)
             {
@@ -31,7 +33,9 @@ namespace MarioClone.States
         {
             if (Context.Sprite.Finished)
             {
-                Context.BoundingBox = new HitBox(-4, -4, -4, -4, Color.Red);
+                int x = Context.Sprite.SourceRectangle.Width / 2;
+                int y = Context.Sprite.SourceRectangle.Height / 2;
+                Context.BoundingBox = new HitBox(-x, -x, -y, -y, Color.Red);
                 return true;
             }
             return false;

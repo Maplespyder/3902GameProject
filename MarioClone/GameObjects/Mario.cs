@@ -329,7 +329,10 @@ namespace MarioClone.GameObjects
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
             }
-            Gravity = true;
+            if (!(PowerupState is MarioDead2))
+            {
+                Gravity = true;
+            }
 
             //TODO fix update to be inside the states or smth, or give mario a BecomeFall() method
             if (!(ActionState is MarioFall2) && Velocity.Y > 1.5)
