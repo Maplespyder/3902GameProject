@@ -7,6 +7,7 @@ namespace MarioClone.States
 {
     public class MarioInvincibility2 : MarioPowerupState
     {
+        int colorChangeDelay;
         public int InvincibleTime { get; private set; }
         public static int MaxInvincibleDuration { get { return 3000; } }
         
@@ -18,6 +19,13 @@ namespace MarioClone.States
         public override void Enter()
         {
             InvincibleTime = 0;
+            colorChangeDelay = 0;
+            Context.SpriteTint = new Color(Color.White, 100);
+        }
+
+        public override void Leave()
+        {
+            Context.SpriteTint = Color.White;
         }
 
         public override void BecomeDead()
@@ -48,6 +56,7 @@ namespace MarioClone.States
 
         public override void Update(GameTime gameTime)
         {
+            CycleTransparency(gameTime);
             InvincibleTime += gameTime.ElapsedGameTime.Milliseconds;
             if (InvincibleTime >= MaxInvincibleDuration)
             {
@@ -68,6 +77,23 @@ namespace MarioClone.States
                     //shouldn't happen but we need an out
                     BecomeNormal();
                 }
+            }
+        }
+
+        private void CycleTransparency(GameTime gameTime)
+        {
+            colorChangeDelay++;
+            if (colorChangeDelay >= 15)
+            {
+                if(Context.SpriteTint.A == 100)
+                {
+                    Context.SpriteTint = Color.White;
+                }
+                else
+                {
+                    Context.SpriteTint = new Color(Color.White, 100);
+                }
+                colorChangeDelay = 0;
             }
         }
 

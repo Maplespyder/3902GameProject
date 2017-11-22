@@ -53,7 +53,7 @@ namespace MarioClone.GameObjects
 
         public int Spawn { get; set; }
 
-		public bool Gravity { get; set; }
+        public bool Gravity { get; set; }
 
         public int Lives { get; set; }
 
@@ -72,8 +72,7 @@ namespace MarioClone.GameObjects
         private int poleBottom;
         private int poleTop;
         private int increment;
-		private Color colorChange = Color.Tomato;
-		private int colorChangeDelay = 0;
+        public Color PlayerTint { get; set;} 
 
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
@@ -315,10 +314,6 @@ namespace MarioClone.GameObjects
             {
                 return false;
             }
-            else if (gameObject is FireBall)
-            {
-                return false;
-            }
 
             bool retVal1 = PowerupState.CollisionResponse(gameObject, side, gameTime);
             bool retVal2 = ActionState.CollisionResponse(gameObject, side, gameTime);
@@ -386,50 +381,12 @@ namespace MarioClone.GameObjects
 				_FireBallPool.Restore();
 			}
 			RemovedFireBalls.Clear();
-			return base.Update(gameTime, percent);    
+			return base.Update(gameTime, percent);
         }
+
 		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
 		{
-			if (!(PowerupState is MarioStar2))
-			{
-				base.Draw(spriteBatch, gameTime);
-			}
-			else
-			{
-				if (BoundingBox != null && DrawHitbox)
-				{
-					BoundingBox.HitBoxDraw(spriteBatch);
-				}
-				if (Visible)
-				{ 
-					Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation, colorChange);
-					CycleColors();
-				}
-			}
+			base.Draw(spriteBatch, gameTime);
 		}
-		private void CycleColors()
-		{
-			colorChangeDelay++;
-			if (colorChange == Color.Tomato && colorChangeDelay >=15)
-			{
-				colorChange = Color.Gold;
-				colorChangeDelay = 0;
-			}else if(colorChange == Color.Gold && colorChangeDelay >= 15)
-			{
-				colorChange = Color.Orange;
-				colorChangeDelay = 0;
-			}
-			else if (colorChange == Color.Orange && colorChangeDelay >= 15)
-			{
-				colorChange = Color.Yellow;
-				colorChangeDelay = 0;
-			}
-			else if (colorChange == Color.Yellow && colorChangeDelay >= 15)
-			{
-				colorChange = Color.Tomato;
-				colorChangeDelay = 0;
-			}
-		}
-
 	}
 }

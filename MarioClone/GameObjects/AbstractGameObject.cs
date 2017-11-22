@@ -19,6 +19,8 @@ namespace MarioClone.GameObjects
 
         public virtual ISprite Sprite { get; set; }
 
+        public Color SpriteTint { get; set; }
+
         private Vector2 position;
         public virtual Vector2 Position
         {
@@ -74,6 +76,7 @@ namespace MarioClone.GameObjects
             Visible = true;
             Removed = false;
             DrawOrder = .5f;
+            SpriteTint = Color.White;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -84,10 +87,10 @@ namespace MarioClone.GameObjects
             }
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation);
+                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation, SpriteTint);
             }
         }
-
+        
         public virtual bool Update(GameTime gameTime, float percent)
         {
             if (BoundingBox != null)

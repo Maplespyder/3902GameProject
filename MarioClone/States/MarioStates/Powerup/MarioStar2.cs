@@ -11,6 +11,7 @@ namespace MarioClone.States
 {
     public class MarioStar2 : MarioPowerupState
     {
+        private int colorChangeDelay;
         public int StarmanTime { get; set; }
         public static int MaxStarManDuration { get { return 10000; } }
 
@@ -21,9 +22,16 @@ namespace MarioClone.States
 
         public override void Enter()
         {
+            colorChangeDelay = 0;
             StarmanTime = 0;
+            Context.SpriteTint = Color.Tomato;
         }
         
+        public override void Leave()
+        {
+            Context.SpriteTint = Color.White;
+        }
+
         public override void BecomeDead()
         {
             Context.StateMachine.TransitionDead();
@@ -65,6 +73,7 @@ namespace MarioClone.States
 
         public override void Update(GameTime gameTime)
         {
+            CycleColors();
             StarmanTime += gameTime.ElapsedGameTime.Milliseconds;
             if (StarmanTime >= MaxStarManDuration)
             {
@@ -84,6 +93,31 @@ namespace MarioClone.States
                 {
                     BecomeSuper();
                 }
+            }
+        }
+
+        private void CycleColors()
+        {
+            colorChangeDelay++;
+            if (Context.SpriteTint == Color.Tomato && colorChangeDelay >= 15)
+            {
+                Context.SpriteTint = Color.Gold;
+                colorChangeDelay = 0;
+            }
+            else if (Context.SpriteTint == Color.Gold && colorChangeDelay >= 15)
+            {
+                Context.SpriteTint = Color.Orange;
+                colorChangeDelay = 0;
+            }
+            else if (Context.SpriteTint == Color.Orange && colorChangeDelay >= 15)
+            {
+                Context.SpriteTint = Color.Yellow;
+                colorChangeDelay = 0;
+            }
+            else if (Context.SpriteTint == Color.Yellow && colorChangeDelay >= 15)
+            {
+                Context.SpriteTint = Color.Tomato;
+                colorChangeDelay = 0;
             }
         }
     }

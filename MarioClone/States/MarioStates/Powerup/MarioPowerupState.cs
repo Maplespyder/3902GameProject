@@ -56,6 +56,35 @@ namespace MarioClone.States
                 }
                 return true;
             }
+            else if(gameObject is AbstractBlock)
+            {
+                if(side == Side.Bottom && gameObject.Velocity.Y < 0)
+                {
+                    TakeDamage();
+                }
+            }
+            else if(gameObject is Mario)
+            {
+                if (side == Side.Top)
+                {
+                    if(((Mario)gameObject).ActionState is MarioFall2)
+                    {
+                        TakeDamage();
+                    }
+                }
+                else if(side == Side.Bottom && !((((Mario)gameObject).PowerupState is MarioInvincibility2)
+                    || ((Mario)gameObject).PowerupState is MarioDead2))
+                {
+                    if(!(Context.ActionState is MarioJump2))
+                    {
+                        Context.Velocity = new Vector2(Context.Velocity.X, -7);
+                    }
+                }
+            }
+            else if(gameObject is FireBall && !ReferenceEquals(((FireBall)gameObject).Owner, Context))
+            {
+                TakeDamage();
+            }
             else if (gameObject is RedMushroomObject)
             {
                 BecomeSuper();
