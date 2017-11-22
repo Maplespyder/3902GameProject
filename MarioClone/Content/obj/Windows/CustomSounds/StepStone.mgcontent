@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/StepStone.wav</SourceFile>
-  <SourceTime>2017-11-20T23:02:03.966937-05:00</SourceTime>
+  <SourceTime>2017-11-22T01:36:55.1296985-05:00</SourceTime>
   <DestFile>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/CustomSounds/StepStone.xnb</DestFile>
-  <DestTime>2017-11-20T23:11:45.6242058-05:00</DestTime>
+  <DestTime>2017-11-22T01:43:25.4720248-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

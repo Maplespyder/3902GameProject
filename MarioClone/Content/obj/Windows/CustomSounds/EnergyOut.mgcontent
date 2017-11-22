@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/EnergyOut.wav</SourceFile>
-  <SourceTime>2017-11-20T23:03:15.632036-05:00</SourceTime>
+  <SourceTime>2017-11-22T01:36:55.0176921-05:00</SourceTime>
   <DestFile>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/CustomSounds/EnergyOut.xnb</DestFile>
-  <DestTime>2017-11-20T23:11:44.4581391-05:00</DestTime>
+  <DestTime>2017-11-22T01:43:24.1849512-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

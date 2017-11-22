@@ -47,7 +47,6 @@
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/UnderworldBackground.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/Flagpole.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/SubBrickPiece.png</File>
-    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/Meat.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/Mist.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/SmallIdle.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/BigJump.png</File>
@@ -55,7 +54,6 @@
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/Explode.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/ForeMountains.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/GreenEnemy.png</File>
-    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/PinkEnemy.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/SmallJump.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/BackBrick.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/BackMountains.png</File>
@@ -88,5 +86,8 @@
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/FireCrouch.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/BigCrouch.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/Hop.wav</File>
+    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/PinkEnemy.png</File>
+    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/Berry.png</File>
+    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/Meat.png</File>
   </SourceFiles>
 </SourceFileCollection>
