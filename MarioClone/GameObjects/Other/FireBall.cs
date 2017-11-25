@@ -9,9 +9,10 @@ namespace MarioClone.GameObjects
 		public bool Gravity { get; set; }
 		public bool Destroyed { get; set; }
         public AbstractGameObject Owner { get; set; }
+        public int CoolDown { get; set; }
 
         private int BounceCount = 0;
-		private int MaxBounce = 8;
+		private int MaxBounce = 6;
 		public FireBall(ISprite sprite, AbstractGameObject player, Vector2 position) : base(sprite, position, Color.Yellow)
 		{
             Owner = player;

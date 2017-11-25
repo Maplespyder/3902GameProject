@@ -16,7 +16,6 @@ namespace MarioClone.Projectiles
 		private int availableFireballs;
         private List<FireBall> FireBalls = new List<FireBall>();
         private List<FireBall> RemovedFireBalls = new List<FireBall>();
-
         public FireballPool(int availableBalls)
 		{
 			availableFireballs = availableBalls;
@@ -29,6 +28,7 @@ namespace MarioClone.Projectiles
 				availableFireballs--;
 				FireBall newFireball = (FireBall)ProjectileFactory.Create(ProjectileType.FireBall, player, GetPosition(player));
                 FireBalls.Add(newFireball);
+                newFireball.CoolDown = 0;
                 GameGrid.Instance.Add(newFireball);
                 EventManager.Instance.TriggerFireballFire(newFireball);
             }
@@ -54,10 +54,14 @@ namespace MarioClone.Projectiles
         {
             foreach (FireBall fireball in FireBalls)
             {
+                fireball.CoolDown += gameTime.ElapsedGameTime.Milliseconds;
                 if (fireball.Destroyed)
                 {
-                    RemovedFireBalls.Add(fireball);
                     GameGrid.Instance.Remove(fireball);
+                    if(fireball.CoolDown >= 2000)
+                    {
+                        RemovedFireBalls.Add(fireball);
+                    }
                 }
             }
             foreach (FireBall fireball in RemovedFireBalls)
@@ -67,6 +71,8 @@ namespace MarioClone.Projectiles
                 Restore(gameTime);
             }
             RemovedFireBalls.Clear();
+
+           
         }
 
         public void Restore(GameTime gameTime)
