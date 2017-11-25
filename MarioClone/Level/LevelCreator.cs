@@ -24,6 +24,9 @@ namespace MarioClone.Level
 
         bool aboveGround;
         private string file;
+
+        public int CurrentArea { get; private set; }
+
         private int xOffsetFromUnderground;
         private int yOffsetFromUnderground;
 		private Bitmap _image;
@@ -49,7 +52,7 @@ namespace MarioClone.Level
             BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
             LevelAreas = new Dictionary<int, Microsoft.Xna.Framework.Rectangle>();
             LevelAreas.Add(0, new Microsoft.Xna.Framework.Rectangle(0, 0, _image.Width * BlockWidth, _image.Height * BlockHeight));
-
+            CurrentArea = 0;
             CreationLoop(0, 0);
 		}
 
@@ -68,7 +71,8 @@ namespace MarioClone.Level
 		private void MakeObject(System.Drawing.Color pixel, int x, int y)
 		{
 			Func<System.Drawing.Color, System.Drawing.Color, bool> sameColor = (c1, c2) => (c1.R == c2.R && c1.G == c2.G && c1.B == c2.B);
-			var position = new Vector2(x, y);
+			Vector2 position = new Vector2(x, y);
+            AbstractGameObject initializer = null;
 
 			if (!sameColor(pixel, Colors.Empty))
 			{
@@ -112,65 +116,65 @@ namespace MarioClone.Level
                 }
 				else if (sameColor(pixel, Colors.QuestionBlock))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+					initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.QuestionBlockGreenMushroom))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
-					initializer.ContainedPowerup = PowerUpType.GreenMushroom;
+					initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+                    ((AbstractBlock)initializer).ContainedPowerup = PowerUpType.GreenMushroom;
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.QuestionBlockFireFlower))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
-					initializer.ContainedPowerup = PowerUpType.Flower;
+					initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+                    ((AbstractBlock)initializer).ContainedPowerup = PowerUpType.Flower;
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (pixel.R == Colors.BrickBlock.R && pixel.G == Colors.BrickBlock.G)
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.BreakableBrick, position);
-					initializer.CoinCount = pixel.B;
+					initializer = BlockFactory.Instance.Create(BlockType.BreakableBrick, position);
+                    ((AbstractBlock)initializer).CoinCount = pixel.B;
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.UsedBlock))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.UsedBlock, position);
+					initializer = BlockFactory.Instance.Create(BlockType.UsedBlock, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.FloorBlock))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.FloorBlock, position);
+					initializer = BlockFactory.Instance.Create(BlockType.FloorBlock, position);
 					initializer.Position = new Vector2(initializer.Position.X, (initializer.Position.Y + initializer.Sprite.SourceRectangle.Height));
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.StairBlock))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.StairBlock, position);
+					initializer = BlockFactory.Instance.Create(BlockType.StairBlock, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.HiddenBlock))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.HiddenBlock, position);
+					initializer = BlockFactory.Instance.Create(BlockType.HiddenBlock, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.Goomba))
 				{
 					position = new Vector2(position.X, position.Y - (GoombaHeight - 64));
-					var initializer = EnemyFactory.Create(EnemyType.Goomba, position);
+					initializer = EnemyFactory.Create(EnemyType.Goomba, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.Piranha))
 				{
-					var initializer = EnemyFactory.Create(EnemyType.Piranha, position);
+					initializer = EnemyFactory.Create(EnemyType.Piranha, position);
 					initializer.Position = new Vector2(initializer.Position.X + (PipeTopWidth/4), initializer.Position.Y +
 						(initializer.Sprite.SourceRectangle.Height) + PipeTopHeight);
 					Grid.Add(initializer);
@@ -178,72 +182,72 @@ namespace MarioClone.Level
 				else if (sameColor(pixel, Colors.GreenKoopa))
 				{
 					position = new Vector2(position.X, position.Y);
-					var initializer = EnemyFactory.Create(EnemyType.GreenKoopa, position);
+					initializer = EnemyFactory.Create(EnemyType.GreenKoopa, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.RedKoopa))
 				{
 					position = new Vector2(position.X, position.Y);
-					var initializer = EnemyFactory.Create(EnemyType.RedKoopa, position);
+					initializer = EnemyFactory.Create(EnemyType.RedKoopa, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.RedMushroom))
 				{
-					var initializer = PowerUpFactory.Create(PowerUpType.RedMushroom, position);
+					initializer = PowerUpFactory.Create(PowerUpType.RedMushroom, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.GreenMushroom))
 				{
-					var initializer = PowerUpFactory.Create(PowerUpType.GreenMushroom, position);
+					initializer = PowerUpFactory.Create(PowerUpType.GreenMushroom, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.FireFlower))
 				{
-					var initializer = PowerUpFactory.Create(PowerUpType.Flower, position);
+					initializer = PowerUpFactory.Create(PowerUpType.Flower, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.Starman))
 				{
-					var initializer = PowerUpFactory.Create(PowerUpType.Star, position);
+					initializer = PowerUpFactory.Create(PowerUpType.Star, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.Coin))
 				{
-					var initializer = PowerUpFactory.Create(PowerUpType.Coin, position);
-					initializer.State = new CoinStaticState(initializer);
+					initializer = PowerUpFactory.Create(PowerUpType.Coin, position);
+					((AbstractPowerup)initializer).State = new CoinStaticState((AbstractPowerup)initializer);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
 				else if (sameColor(pixel, Colors.PipeSegment))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.PipeSegment, position);
+					initializer = BlockFactory.Instance.Create(BlockType.PipeSegment, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
                 else if (sameColor(pixel, Colors.Flagpole))
                 {
-                    var initializer = BlockFactory.Instance.Create(BlockType.Flagpole, position);
+                    initializer = BlockFactory.Instance.Create(BlockType.Flagpole, position);
                     initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
                     Grid.Add(initializer);
                 }
                 else if (sameColor(pixel, Colors.PipeTop))
 				{
-                    PipeTop initializer = (PipeTop)BlockFactory.Instance.Create(BlockType.PipeTop, position);
-                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+                    PipeTop pipeTop = (PipeTop)BlockFactory.Instance.Create(BlockType.PipeTop, position);
+                    pipeTop.Position = new Vector2(pipeTop.Position.X, pipeTop.Position.Y + pipeTop.Sprite.SourceRectangle.Height);
                     if(aboveGround)
                     {
-                        initializer.LevelArea = 0;
+                        pipeTop.LevelArea = 0;
                     }
                     else
                     {
                         String temp = Path.GetFileNameWithoutExtension(file);
-                        initializer.LevelArea = temp[temp.Length - 1] - '0';
+                        pipeTop.LevelArea = temp[temp.Length - 1] - '0';
                     }
                     
                     for (int i = (y / BlockHeight) - yOffsetFromUnderground - 1; i < _image.Height; i++)
@@ -254,13 +258,13 @@ namespace MarioClone.Level
                         {
                             if (danglingWarp != null)
                             {
-                                danglingWarp.WarpEnd = initializer;
-                                initializer.WarpEnd = danglingWarp;
+                                danglingWarp.WarpEnd = pipeTop;
+                                pipeTop.WarpEnd = danglingWarp;
                                 danglingWarp = null;
                             }
                             else
                             {
-                                danglingWarp = initializer;
+                                danglingWarp = pipeTop;
                                 aboveGround = false;
 
                                 String newFile = String.Concat(Path.GetFileNameWithoutExtension(file), tempPixel.B, Path.GetExtension(file));
@@ -275,6 +279,7 @@ namespace MarioClone.Level
                                 file = newFile;
                                 LevelAreas.Add(tempPixel.B, 
                                     new Microsoft.Xna.Framework.Rectangle(x, (i + 1) * BlockHeight, _image.Width * BlockWidth, MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight));
+                                CurrentArea = tempPixel.B;
                                 xOffsetFromUnderground = x / BlockWidth;
                                 yOffsetFromUnderground = i;
 
@@ -286,6 +291,7 @@ namespace MarioClone.Level
                                 yOffsetFromUnderground = 0;
                                 file = tempHolder;
                                 aboveGround = true;
+                                CurrentArea = 0;
                                 using (var stream = new FileStream(file, FileMode.Open))
                                 {
                                     _image = new Bitmap(stream);
@@ -299,23 +305,23 @@ namespace MarioClone.Level
                         {
                             if (danglingWarp != null)
                             {
-                                danglingWarp.WarpEnd = initializer;
-                                initializer.WarpEnd = danglingWarp;
+                                danglingWarp.WarpEnd = pipeTop;
+                                pipeTop.WarpEnd = danglingWarp;
                                 danglingWarp = null;
                             }
                             else
                             {
-                                danglingWarp = initializer;
+                                danglingWarp = pipeTop;
                             }
                         }
                     }
-
-					Grid.Add(initializer);
+                    
+					Grid.Add(pipeTop);
 				}
 				else if (sameColor(pixel, Colors.QuestionBlockRedMushroom))
 				{
-					var initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
-					initializer.ContainedPowerup = PowerUpType.RedMushroom;
+					initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+					((AbstractBlock)initializer).ContainedPowerup = PowerUpType.RedMushroom;
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
@@ -337,6 +343,10 @@ namespace MarioClone.Level
                 }
 			}
 
+            if(initializer != null)
+            {
+                initializer.LevelArea = CurrentArea;
+            }
 		}
 	}
 }

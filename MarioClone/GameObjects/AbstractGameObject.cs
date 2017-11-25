@@ -15,6 +15,8 @@ namespace MarioClone.GameObjects
 
     public abstract class AbstractGameObject : IDraw
     {
+        public int LevelArea { get; set; }
+
         public virtual HitBox BoundingBox { get; set; }
 
         public virtual ISprite Sprite { get; set; }
@@ -77,6 +79,7 @@ namespace MarioClone.GameObjects
             Removed = false;
             DrawOrder = .5f;
             SpriteTint = Color.White;
+            LevelArea = 0;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)

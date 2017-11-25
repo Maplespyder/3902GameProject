@@ -575,6 +575,13 @@ namespace MarioClone
 
         public static Mario Player2 { get; set; }
 
+        public static Dictionary<int, Rectangle> LevelAreas
+        {
+            get
+            {
+                return level.LevelAreas;
+            }
+        }
 
 		public void ExitCommand()
         {

@@ -236,7 +236,17 @@ namespace MarioClone.GameObjects
         private void Bump()
         {
             Visible = true;
+            var oldFactory = BlockFactory.SpriteFactory;
+            if (LevelArea == 0)
+            {
+                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
+            }
+            else
+            {
+                BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
+            }
             revealedBrick = BlockFactory.Instance.Create(BlockType.BreakableBrick, Position);
+            BlockFactory.SpriteFactory = oldFactory;
         }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)

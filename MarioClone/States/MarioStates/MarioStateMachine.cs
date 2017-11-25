@@ -76,6 +76,8 @@ namespace MarioClone.States
 
             CurrentPowerupState.Enter();
             CurrentActionState.Enter();
+
+            TransitionInvincible();
         }
 
         //call this before begin, nowhere else

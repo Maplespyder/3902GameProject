@@ -30,13 +30,25 @@ namespace MarioClone.States.BlockStates
                 new Vector2(2, 0)
             };
 
+            var oldFactory = BlockFactory.SpriteFactory;
+            if (Context.LevelArea == 0)
+            {
+                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
+            }
+            else
+            {
+                BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
+            }
+
             for (int i = 0; i < 4; i++)
             {
-
                 var piece = (BrickPieceObject)BlockFactory.Instance.Create(BlockType.BrickPiece, context.Position);
+                piece.LevelArea = Context.LevelArea;
                 Context.PieceList.Add(piece);
                 piece.ChangeVelocity(velocityList[i]);
             }
+
+            BlockFactory.SpriteFactory = oldFactory;
         }
 
         public override bool Action(float percent, GameTime gameTime)
