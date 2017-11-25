@@ -3,11 +3,14 @@ using Microsoft.Xna.Framework;
 using MarioClone.States;
 using MarioClone.Collision;
 using MarioClone.EventCenter;
+using System;
+using MarioClone.Projectiles;
 
 namespace MarioClone.GameObjects
 {
     public class GoombaObject : AbstractEnemy 
     {
+        FireballPool fireballPool = new FireballPool(1);
         public GoombaObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             Gravity = false;
@@ -17,7 +20,9 @@ namespace MarioClone.GameObjects
 			Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
 			Orientation = Facing.Left;
 			PointValue = 200;
-		}
+
+
+        }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
@@ -61,10 +66,15 @@ namespace MarioClone.GameObjects
 			}
 			else if (gameObject is FireBall)
 			{
-				EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((FireBall)gameObject).Owner);
-				PowerupState.BecomeDead();
-				return true;
-			}
+
+                var fireball = (FireBall)gameObject;
+                if (fireball.Owner is Mario)
+                {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)fireball.Owner);
+                    PowerupState.BecomeDead();
+                    return true;
+                }
+            }
 			return false;
         }
 
@@ -79,7 +89,23 @@ namespace MarioClone.GameObjects
 			if(!(PowerupState is GoombaDead))
 			{
 				Gravity = true;
-			}
+                if (((Position.X > MarioCloneGame.Player1.Position.X && Orientation is Facing.Left) ||
+                    (Position.X < MarioCloneGame.Player1.Position.X && Orientation is Facing.Right)) &&
+                    (Math.Abs(MarioCloneGame.Player1.Position.X - Position.X) < 600 && Math.Abs(MarioCloneGame.Player1.Position.X - Position.X) > 100  
+                    && Math.Abs(MarioCloneGame.Player1.Position.Y - Position.Y) < 100))
+                {
+                    fireballPool.GetAndRelease(this);
+                }
+                if (MarioCloneGame.Player2 != null && ((Position.X > MarioCloneGame.Player2.Position.X && Orientation is Facing.Left) ||
+                               (Position.X < MarioCloneGame.Player2.Position.X && Orientation is Facing.Right) &&
+                               (Math.Abs(MarioCloneGame.Player2.Position.X - Position.X) < 600 && Math.Abs(MarioCloneGame.Player2.Position.Y - Position.Y) < 100)))
+                {
+                    fireballPool.GetAndRelease(this);
+                }
+
+            }
+         
+            fireballPool.Update(gameTime);
             return retval;
         }
     }

@@ -11,7 +11,7 @@ namespace MarioClone.Factories
 	public static class ProjectileFactory
 	{
 
-		public static AbstractGameObject Create(ProjectileType type, Mario player, Vector2 position)
+		public static AbstractGameObject Create(ProjectileType type, AbstractGameObject player, Vector2 position)
 		{
 			switch (type)
 			{

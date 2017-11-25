@@ -70,6 +70,13 @@ namespace MarioClone.States
             {
                 BecomeStar();
                 return true;
+            }else if(gameObject is FireBall)
+            {
+                var fireball = (FireBall)gameObject;
+                if (fireball.Owner is AbstractEnemy)
+                {
+                    TakeDamage();
+                }
             }
 
             return false;

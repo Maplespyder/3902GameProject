@@ -87,7 +87,7 @@ namespace MarioClone.GameObjects
 
             StateMachine = new MarioStateMachine(this);
             StateMachine.Begin();
-            _FireBallPool = new FireballPool();
+            _FireBallPool = new FireballPool(2);
             
             BoundingBox.UpdateHitBox(position, Sprite);
 
@@ -138,24 +138,7 @@ namespace MarioClone.GameObjects
 		{
 			if (PowerupState is MarioFire2 || (PreviousPowerupState is MarioFire2 && PowerupState is MarioStar2))
 			{
-				Vector2 fireBallPosition = Vector2.Zero;
-				if(Orientation == Facing.Right)
-				{
-					fireBallPosition = new Vector2(Position.X + Sprite.SourceRectangle.Width,
-						Position.Y - Sprite.SourceRectangle.Height/2);
-				}
-				else
-				{
-					fireBallPosition = new Vector2(Position.X,
-						Position.Y - Sprite.SourceRectangle.Height/2);
-				}
-				FireBall _fireball = (FireBall)(_FireBallPool.GetAndRelease(this, fireBallPosition));
-				if(_fireball != null)
-				{
-					FireBalls.Add(_fireball);
-					GameGrid.Instance.Add(_fireball);
-					EventManager.Instance.TriggerFireballFire(_fireball);
-				}
+				_FireBallPool.GetAndRelease(this);
 			}
 		}
 
@@ -284,10 +267,6 @@ namespace MarioClone.GameObjects
             {
                 return false;
             }
-            else if (gameObject is FireBall)
-            {
-                return false;
-            }
 
             bool retVal1 = PowerupState.CollisionResponse(gameObject, side, gameTime);
             bool retVal2 = ActionState.CollisionResponse(gameObject, side, gameTime);
@@ -345,21 +324,7 @@ namespace MarioClone.GameObjects
                 PowerupState.Update(gameTime);
             }
 
-			foreach (FireBall fireball in FireBalls)
-			{
-				if (fireball.Destroyed)
-				{
-					RemovedFireBalls.Add(fireball);
-					GameGrid.Instance.Remove(fireball);
-				}
-			}
-			foreach (FireBall fireball in RemovedFireBalls)
-			{
-				FireBalls.Remove(fireball);
-                fireball.Owner = null;
-				_FireBallPool.Restore();
-			}
-			RemovedFireBalls.Clear();
+            _FireBallPool.Update(gameTime);
 			return base.Update(gameTime, percent);    
         }
 		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)

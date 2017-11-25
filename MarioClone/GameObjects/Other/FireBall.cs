@@ -8,11 +8,11 @@ namespace MarioClone.GameObjects
 	{
 		public bool Gravity { get; set; }
 		public bool Destroyed { get; set; }
-        public Mario Owner { get; set; }
+        public AbstractGameObject Owner { get; set; }
 
         private int BounceCount = 0;
-		private int MaxBounce = 5;
-		public FireBall(ISprite sprite, Mario player, Vector2 position) : base(sprite, position, Color.Yellow)
+		private int MaxBounce = 8;
+		public FireBall(ISprite sprite, AbstractGameObject player, Vector2 position) : base(sprite, position, Color.Yellow)
 		{
             Owner = player;
 			Gravity = true;
@@ -42,7 +42,12 @@ namespace MarioClone.GameObjects
 					Destroyed = true;
 					Velocity = Vector2.Zero;
 				}
-			}
+			}else if(gameObject is Mario && !(Owner is Mario))
+            {
+               
+                Destroyed = true;
+                Velocity = Vector2.Zero;
+            }
 			return false;
 		}
 

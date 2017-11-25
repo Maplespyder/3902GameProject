@@ -59,9 +59,13 @@ namespace MarioClone.GameObjects
                 }
             }else if(gameObject is FireBall)
 			{
-				EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((FireBall)gameObject).Owner);
-				PowerupState.BecomeDead();
-				return true;
+                var fireball = (FireBall)gameObject;
+                if (fireball.Owner is Mario)
+                {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)fireball.Owner);
+                    PowerupState.BecomeDead();
+                    return true;
+                }
 			}
 
             return false;
