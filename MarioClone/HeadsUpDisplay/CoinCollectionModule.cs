@@ -29,7 +29,7 @@ namespace MarioClone.HeadsUpDisplay
             coinSprite = Factories.PowerUpSpriteFactory.Create(Factories.PowerUpType.Coin);
             coinCount = ParentHUD.Player.CoinCount;
 
-            RelativePosition = new Vector2(1050, 50);
+            RelativePosition = new Vector2(1180 / 2, 50);
             CoinPositionShift = new Vector2(-40, 69);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }

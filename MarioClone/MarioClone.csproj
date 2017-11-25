@@ -163,6 +163,7 @@
     <Compile Include="States\MarioStates\Action\MarioCrouch2.cs" />
     <Compile Include="States\MarioStates\Action\MarioFall.cs" />
     <Compile Include="States\MarioStates\Action\MarioFall2.cs" />
+    <Compile Include="States\MarioStates\Action\MarioWarp.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioFire2.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle2.cs" />

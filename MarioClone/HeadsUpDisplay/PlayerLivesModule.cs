@@ -29,7 +29,7 @@ namespace MarioClone.HeadsUpDisplay
             marioSprite = Factories.NormalMarioSpriteFactory.Instance.Create(States.MarioAction.Idle);
             lives = ParentHUD.Player.Lives;
 
-            RelativePosition = new Vector2(580, 50);
+            RelativePosition = new Vector2(750 / 2, 50);
             MarioPositionShift = new Vector2(-46, 69);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }

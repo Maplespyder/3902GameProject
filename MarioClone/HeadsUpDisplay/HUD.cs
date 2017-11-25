@@ -14,6 +14,7 @@ namespace MarioClone.HeadsUpDisplay
     public class HUD : IDraw
     {
         public Mario Player { get; private set; }
+        public Camera PlayerCamera { get; private set; }
         public ICollection<HUDModule> Modules { get; private set; }
 
         public bool Underground { get; set; }
@@ -23,33 +24,34 @@ namespace MarioClone.HeadsUpDisplay
         {
             get
             {
-                return MarioCloneGame.GetCamera.Position.X;
+                return PlayerCamera.Position.X;
             }
         }
         public float ScreenRight
         { 
             get
             {
-                return ScreenLeft + MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
+                return ScreenLeft + PlayerCamera.Limits.Value.Width;
             }
         }
         public float ScreenTop
         {
             get
             {
-                return MarioCloneGame.GetCamera.Position.Y;
+                return PlayerCamera.Position.Y;
             }
         }
         public float ScreenBottom
         {
             get
             {
-                return ScreenTop + MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
+                return ScreenTop + PlayerCamera.Limits.Value.Height;
             }
         }
 
-        public HUD(Mario player)
+        public HUD(Mario player, Camera playerCamera)
         {
+            PlayerCamera = playerCamera;
             Player = player;
             Visible = true;
             Underground = false;

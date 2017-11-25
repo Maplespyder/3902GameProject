@@ -34,9 +34,8 @@ namespace MarioClone.Sounds
 			if (e.PreviousPowerupState is MarioStar2)
 			{
 				SoundPool.Instance.ResumeBackgroundStopSecondaryTrack();
-
 			}
-			if ((e.CurrentPowerupState is MarioInvincibility2) || (e.PreviousPowerupState is MarioStar2))
+			if (((e.CurrentPowerupState is MarioInvincibility2) && (e.Sender.ActionState is MarioWarp)) || (e.PreviousPowerupState is MarioStar2))
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Down);
 			}

@@ -12,8 +12,10 @@ using MarioClone.Cam;
 using MarioClone.Sounds;
 using MarioClone.HeadsUpDisplay;
 using MarioClone.EventCenter;
+using MarioClone.States;
 using MarioClone.Menu;
 using MarioClone.Factories;
+using System.Linq;
 
 namespace MarioClone
 {
@@ -42,25 +44,33 @@ namespace MarioClone
 
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
-		Camera camera;
-
-        bool transitioningArea;
-        float timeDelta;
-        PlayerWarpingEventArgs warpArgs;
-        int opacity;
-        int opacityChange;
 
         static ContentManager _content;
         GameGrid gameGrid;
         List<AbstractController> controllerList;
         static LevelCreator level;
-		private Background _background;
 
+        bool transitioningAreaP1;
+        bool transitioningAreaP2;
+        float opacityChangeTimeDeltaP1;
+        float opacityChangeTimeDeltaP2;
+        PlayerWarpingEventArgs warpArgsP1;
+        PlayerWarpingEventArgs warpArgsP2;
+        int warpOpacityP1;
+        int warpOpacityP2;
+        int opacityChangeP1;
+        int opacityChangeP2;
+
+        private Background _backgroundP1;
+        private Background _backgroundP2;
+        private Viewport player1Viewport;
+        private Viewport player2Viewport;
+            
 		public MarioCloneGame()
 		{  
             State = GameState.Playing;
 			graphics = new GraphicsDeviceManager(this);
-			graphics.PreferredBackBufferWidth = 1600;
+			graphics.PreferredBackBufferWidth = 1920;
 			graphics.PreferredBackBufferHeight = 960;
 			_content = Content;
 			Content.RootDirectory = "Content";
@@ -83,12 +93,17 @@ namespace MarioClone
                 new GamepadController(PlayerIndex.Four)
             };
 
-			camera = new Camera(GraphicsDevice.Viewport);
-			camera.Limits = new Rectangle(0, 0, 350 * 64, 960); //set limit of world
-            gameGrid = new GameGrid(24, camera);
-            GetCamera = camera;
+            player1Viewport = new Viewport(0, 0, graphics.PreferredBackBufferWidth / 2 - 20, graphics.PreferredBackBufferHeight);
 
-			new EventSounds();
+            Player1Camera = new Camera(player1Viewport);
+            Player1Camera.Limits = new Rectangle(0, 0, 350 * 64, graphics.PreferredBackBufferWidth); //set limit of world
+            gameGrid = new GameGrid(24, Player1Camera);
+
+            player2Viewport = new Viewport(graphics.PreferredBackBufferWidth / 2 + 20, 0, graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight);
+            Player2Camera = new Camera(player2Viewport);
+            Player2Camera.Limits = new Rectangle(0, 0, 350 * 64, graphics.PreferredBackBufferWidth); //set limit of world
+
+            new EventSounds();
 			base.Initialize();
 		}
 
@@ -100,7 +115,8 @@ namespace MarioClone
 		{
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+            _backgroundP1 = new Background(spriteBatch, Player1Camera, BackgroundType.Overworld);
+            _backgroundP2 = new Background(spriteBatch, Player2Camera, BackgroundType.Overworld);
             screen = new MenuScreen(this);
 
             GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
@@ -198,8 +214,9 @@ namespace MarioClone
 
             EventManager.Instance.RaisePlayerWarpingEvent += PauseForWarp;
             EventManager.Instance.RaisePlayerDiedEvent += HandlePlayerDeath;
-            camera.Limits = level.LevelAreas[0];
-		}
+            Player1Camera.Limits = level.LevelAreas[0];
+            Player2Camera.Limits = level.LevelAreas[0];
+        }
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -219,46 +236,78 @@ namespace MarioClone
 		{
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
-            
-            if (!transitioningArea)
+
+            foreach (var controller in controllerList)
             {
-                foreach (var controller in controllerList)
-                {
-                    controller.UpdateAndExecuteInputs();
-                }
+                controller.UpdateAndExecuteInputs();
             }
 
             if (State == GameState.Playing)
             {
-                if (!transitioningArea)
+                Player1Camera.LookAt(Player1.Position);
+                List<AbstractGameObject> collidables = new List<AbstractGameObject>();
+                if (!transitioningAreaP1)
                 {
-                    List<AbstractGameObject> collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
-                    List<AbstractGameObject> removed = CollisionManager.ProcessFrame(gameTime, collidables, gameGrid);
+                    gameGrid.CurrentLeftSideViewPort = Player1Camera.Position.X;
+                    gameGrid.CurrentTopSideViewPort = Player1Camera.Position.Y;
+                    collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
+                }
 
-                    List<AbstractGameObject> otherObjects = gameGrid.GetAllCurrentStaticGameObjects;
-                    foreach (AbstractGameObject obj in otherObjects)
+                Player2Camera.LookAt(Player2.Position);
+                if (!transitioningAreaP2)
+                {
+                    gameGrid.CurrentLeftSideViewPort = Player2Camera.Position.X;
+                    gameGrid.CurrentTopSideViewPort = Player2Camera.Position.Y;
+                    collidables = collidables.Union(gameGrid.GetCurrentMovingAndPlayerGameObjects).ToList();
+                }
+                
+                if(transitioningAreaP1)
+                {
+                    collidables.RemoveAll((x) => ReferenceEquals(x, Player1));
+                }
+                if(transitioningAreaP2)
+                {
+                    collidables.RemoveAll((x) => ReferenceEquals(x, Player2));
+                }
+
+                List<AbstractGameObject> removed = CollisionManager.ProcessFrame(gameTime, collidables, gameGrid);
+                
+                Player1Camera.LookAt(Player1.Position);
+                List<AbstractGameObject> otherObjects = new List<AbstractGameObject>();
+                if (!transitioningAreaP1)
+                {
+                    gameGrid.CurrentLeftSideViewPort = Player1Camera.Position.X;
+                    gameGrid.CurrentTopSideViewPort = Player1Camera.Position.Y;
+                    otherObjects = gameGrid.GetAllCurrentStaticGameObjects;
+                }
+
+                Player2Camera.LookAt(Player2.Position);
+                if(!transitioningAreaP2)
+                {
+                    gameGrid.CurrentLeftSideViewPort = Player2Camera.Position.X;
+                    gameGrid.CurrentTopSideViewPort = Player2Camera.Position.Y;
+                    otherObjects = otherObjects.Union(gameGrid.GetAllCurrentStaticGameObjects).ToList();
+                }
+
+                foreach (AbstractGameObject obj in otherObjects)
+                {
+                    if (obj.Update(gameTime, 1))
                     {
-                        if (obj.Update(gameTime, 1))
-                        {
-                            removed.Add(obj);
-                        }
-                    }
-
-                    foreach (AbstractGameObject obj in removed)
-                    {
-                        gameGrid.Remove(obj);
-                    }
-
-                    camera.LookAt(Player1.Position);
-                    gameGrid.CurrentLeftSideViewPort = camera.Position.X;
-                    gameGrid.CurrentTopSideViewPort = camera.Position.Y;
-
-                    foreach (HUD hud in HUDs)
-                    {
-                        hud.Update(gameTime);
+                        removed.Add(obj);
                     }
                 }
 
+                foreach (AbstractGameObject obj in removed)
+                {
+                    gameGrid.Remove(obj);
+                }
+
+
+                foreach (HUD hud in HUDs)
+                {
+                    hud.Update(gameTime);
+                }
+                
                 base.Update(gameTime);
             }
 		}
@@ -271,51 +320,98 @@ namespace MarioClone
 		{
 			if (State == GameState.Playing)
             {
-                if (transitioningArea)
+                if (transitioningAreaP1)
                 {
-                    if (opacity > 255)
+                    if (warpOpacityP1 > 255)
                     {
-                        opacity = 255;
-                        opacityChange = -2;
-                        UpdateCameraForWarp(gameTime, warpArgs);
+                        warpOpacityP1 = 255;
+                        opacityChangeP1 = -5;
+                        UpdateCameraForWarp(gameTime, warpArgsP1);
                     }
-                    else if (opacity <= 0)
+                    else if (warpOpacityP1 <= 0)
                     {
-                        UnpauseForWarp();
+                        transitioningAreaP1 = false;
+                        warpArgsP1 = null;
+                        Player1.StateMachine.TransitionIdle();
+                    }
+                }
+
+                if (transitioningAreaP2)
+                {
+                    if (warpOpacityP2 > 255)
+                    {
+                        warpOpacityP2 = 255;
+                        opacityChangeP2 = -5;
+                        UpdateCameraForWarp(gameTime, warpArgsP2);
+                    }
+                    else if (warpOpacityP2 <= 0)
+                    {
+                        transitioningAreaP2 = false;
+                        warpArgsP2 = null;
+                        Player2.StateMachine.TransitionIdle();
                     }
                 }
 
                 Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.LightSkyBlue);
-				_background.Draw();
-				spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.GetViewMatrix(parallax));
-                DrawWorld(gameTime);
-                foreach (HUD hud in HUDs)
+
+
+                GraphicsDevice.Viewport = player1Viewport;
+                _backgroundP1.Draw();
+
+                gameGrid.CurrentLeftSideViewPort = Player1Camera.Position.X;
+                gameGrid.CurrentTopSideViewPort = Player1Camera.Position.Y;
+                List<AbstractGameObject> player1Objects = gameGrid.GetAllCurrentGameObjects;
+
+                spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Player1Camera.GetViewMatrix(parallax));
+                if (transitioningAreaP1)
                 {
-                    hud.Draw(spriteBatch, gameTime);
+                    opacityChangeTimeDeltaP1 += gameTime.ElapsedGameTime.Milliseconds;
+                    if (opacityChangeTimeDeltaP1 >= 1)
+                    {
+                        opacityChangeTimeDeltaP1 = 0;
+                        warpOpacityP1 += opacityChangeP1;
+                    }
                 }
+                DrawPlayerHalfOfGame(gameTime, HUDs[0], Player1Camera, player1Objects, transitioningAreaP1, warpOpacityP1);
+                spriteBatch.End();
 
-                if(transitioningArea)
+
+                GraphicsDevice.Viewport = player2Viewport;
+                _backgroundP2.Draw();
+
+                gameGrid.CurrentLeftSideViewPort = Player2Camera.Position.X;
+                gameGrid.CurrentTopSideViewPort = Player2Camera.Position.Y;
+                List<AbstractGameObject> player2Objects = gameGrid.GetAllCurrentGameObjects;
+
+                spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Player2Camera.GetViewMatrix(parallax));
+                //TODO probably remove time delta
+                if (transitioningAreaP2)
                 {
-
-					//Fade to black
-                    using(Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1))
+                    opacityChangeTimeDeltaP2 += gameTime.ElapsedGameTime.Milliseconds;
+                    if (opacityChangeTimeDeltaP2 >= 1)
                     {
-                        Color[] color = { Color.Black };
-                        pixel.SetData(color);
-                        spriteBatch.Draw(pixel, camera.Limits.Value, new Color(Color.Black, opacity));
+                        opacityChangeTimeDeltaP2 = 0;
+                        warpOpacityP2 += opacityChangeP2;
                     }
+                }
+                DrawPlayerHalfOfGame(gameTime, HUDs[1], Player2Camera, player2Objects, transitioningAreaP2, warpOpacityP2);
+                spriteBatch.End();
 
-                    timeDelta += gameTime.ElapsedGameTime.Milliseconds;
-                    if(timeDelta >= 1)
-                    {
-                        timeDelta = 0;
-                        opacity += opacityChange;
-                    }
+
+                GraphicsDevice.Viewport = new Viewport(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+
+                spriteBatch.Begin(SpriteSortMode.BackToFront);
+                using (Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1))
+                {
+                    Color[] color = { Color.Crimson };
+                    pixel.SetData(color);
+                    spriteBatch.Draw(pixel, new Rectangle(player1Viewport.Width, 0, 
+                        player2Viewport.X - player1Viewport.Width, graphics.PreferredBackBufferHeight), Color.White);
                 }
                 spriteBatch.End();
 
-				base.Draw(gameTime);
+                base.Draw(gameTime);
 			}
             else if (State == GameState.GameOver)
             {
@@ -338,17 +434,36 @@ namespace MarioClone
                 base.Draw(gameTime);
             }
 		}
-
-        private void PauseForWarp(object sender, PlayerWarpingEventArgs e)
+        
+        void DrawPlayerHalfOfGame(GameTime gameTime, HUD hud, Camera camera, List<AbstractGameObject> drawnObjects, bool transitioning, int opacity)
         {
-            transitioningArea = true;
-            opacity = 1;
-            opacityChange = 5;
-            warpArgs = e;
+            hud.Draw(spriteBatch, gameTime);
+
+            foreach (var obj in drawnObjects)
+            {
+                obj.Draw(spriteBatch, gameTime);
+            }
+
+            if (transitioning)
+            {
+                //Fade to black
+                using (Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1))
+                {
+                    Color[] color = { Color.Black };
+                    pixel.SetData(color);
+                    spriteBatch.Draw(pixel, camera.Limits.Value, new Color(Color.Black, opacity));
+                }
+            }
         }
 
         private void HandlePlayerDeath(object sender, PlayerDiedEventArgs e)
         {
+            Camera camera = Player1Camera;
+            if(ReferenceEquals(e.DeadPlayer, Player2))
+            {
+                camera = Player2Camera;
+            }
+
             if (e.DeadPlayer.Lives <= 0)
             {
                 State = GameState.GameOver;
@@ -363,29 +478,70 @@ namespace MarioClone
                 gameGrid.Add(e.DeadPlayer);
 
                 camera.LookAt(e.DeadPlayer.Position);
-                _background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+                if (ReferenceEquals(e.DeadPlayer, Player1))
+                {
+                    _backgroundP1 = new Background(spriteBatch, camera, BackgroundType.Overworld);
+                }
+                else
+                {
+                    _backgroundP2 = new Background(spriteBatch, camera, BackgroundType.Overworld);
+                }
             }
         }
-
-        private void UnpauseForWarp()
+        
+        private void PauseForWarp(object sender, PlayerWarpingEventArgs e)
         {
-            transitioningArea = false;
-            warpArgs = null;
+            if (ReferenceEquals(e.Warper, Player1))
+            {
+                transitioningAreaP1 = true;
+                warpOpacityP1 = 1;
+                opacityChangeP1 = 5;
+                warpArgsP1 = e;
+                e.Warper.BecomeWarp();
+            }
+            else if (ReferenceEquals(e.Warper, Player2))
+            {
+                transitioningAreaP2 = true;
+                warpOpacityP2 = 1;
+                opacityChangeP2 = 5;
+                warpArgsP2 = e;
+                e.Warper.BecomeWarp();
+            }
         }
-
         private void UpdateCameraForWarp(GameTime gameTime, PlayerWarpingEventArgs e)
         {
+            Camera camera = Player1Camera;
 
-            //this will be uncommented once the level creator is done so it doesn't crash the game.
-            camera.Limits = level.LevelAreas[e.WarpExit.LevelArea];
-            
-            if(e.WarpExit.LevelArea == 0)
+            if (ReferenceEquals(e.Warper, Player2))
             {
-                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
+                camera = Player2Camera;
+            }
+            
+            camera.Limits = level.LevelAreas[e.WarpExit.LevelArea];
+
+            if (e.WarpExit.LevelArea != 0)
+            {
+                if (ReferenceEquals(e.Warper, Player2))
+                {
+                    _backgroundP2 = new Background(spriteBatch, camera, BackgroundType.Underworld);
+                }
+                else
+                {
+                    _backgroundP1 = new Background(spriteBatch, camera, BackgroundType.Underworld);
+                }
+                BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
             }
             else
             {
-                BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
+                if (ReferenceEquals(e.Warper, Player2))
+                {
+                    _backgroundP2 = new Background(spriteBatch, camera, BackgroundType.Overworld);
+                }
+                else
+                {
+                    _backgroundP1 = new Background(spriteBatch, camera, BackgroundType.Overworld);
+                }
+                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
             }
 
             gameGrid.Remove(e.Warper);
@@ -395,27 +551,9 @@ namespace MarioClone
 
             camera.LookAt(e.Warper.Position);
 
-            gameGrid.CurrentLeftSideViewPort = camera.Position.X;
-            gameGrid.CurrentTopSideViewPort = camera.Position.Y;
-			if (e.WarpExit.LevelArea != 0)
-			{
-				_background = new Background(spriteBatch, camera, BackgroundType.Underworld);
-			}
-			else
-			{
-				_background = new Background(spriteBatch, camera, BackgroundType.Overworld);
-			}
-
+            /*gameGrid.CurrentLeftSideViewPort = camera.Position.X;
+            gameGrid.CurrentTopSideViewPort = camera.Position.Y;*/
 		}
-
-        void DrawWorld(GameTime gameTime)
-        {
-            List<AbstractGameObject> allObjects = gameGrid.GetAllCurrentGameObjects;
-            foreach (var obj in allObjects)
-            {
-                obj.Draw(spriteBatch, gameTime);
-            }
-        }
 
         public static ContentManager GameContent
         {
@@ -427,9 +565,11 @@ namespace MarioClone
 			get { return graphics; }
 		}
         
-        public static Camera GetCamera { get; set; }
+        public static Camera Player1Camera { get; set; }
 
-        public static ICollection<HUD> HUDs { get; private set; }
+        public static Camera Player2Camera { get; set; }
+
+        public static List<HUD> HUDs { get; private set; }
 
         public static Mario Player1 { get; set; }
 
@@ -443,8 +583,11 @@ namespace MarioClone
 
         public void ResetLevelCommand()
         {
-            camera.Limits = level.LevelAreas[0];
-            _background = new Background(spriteBatch, camera, BackgroundType.Overworld);
+            Player1Camera.Limits = level.LevelAreas[0];
+            _backgroundP1 = new Background(spriteBatch, Player1Camera, BackgroundType.Overworld);
+
+            Player2Camera.Limits = level.LevelAreas[0];
+            _backgroundP2 = new Background(spriteBatch, Player2Camera, BackgroundType.Overworld);
 
             gameGrid.ClearGrid();
 			SoundPool.Instance.Reset();
@@ -456,7 +599,8 @@ namespace MarioClone
             level.Grid = gameGrid;
             level.Create();
 
-            camera.LookAt(Player1.Position);
+            Player1Camera.LookAt(Player1.Position);
+            Player2Camera.LookAt(Player2.Position);
         }
 
         public void PauseCommand()

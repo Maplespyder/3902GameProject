@@ -93,6 +93,7 @@ namespace MarioClone.States
             actionStates.Add(MarioAction.Jump, new MarioJump2(Player));
             actionStates.Add(MarioAction.Fall, new MarioFall2(Player));
             actionStates.Add(MarioAction.Crouch, new MarioCrouch2(Player));
+            actionStates.Add(MarioAction.Warp, new MarioWarp(Player));
         }
 
         private void initializePowerupStates()
@@ -190,6 +191,14 @@ namespace MarioClone.States
             if (!(CurrentPowerupState is MarioDead2))
             {
                 CurrentActionState = actionStates[MarioAction.Fall];
+            }
+        }
+
+        public void TransitionWarp()
+        {
+            if (!(CurrentPowerupState is MarioDead2))
+            {
+                CurrentActionState = actionStates[MarioAction.Warp];
             }
         }
     }

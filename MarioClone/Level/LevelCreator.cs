@@ -80,28 +80,28 @@ namespace MarioClone.Level
                     {
                         mario = MarioFactory.Create(position);
                         MarioCloneGame.Player1 = mario;
-                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario, MarioCloneGame.Player1Camera));
                         Grid.Add(mario);
                     }
                     else if(MarioCloneGame.Player2 == null && pixel.B == 1)
                     {
                         mario = MarioFactory.Create(position);
                         MarioCloneGame.Player2 = mario;
-                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario, MarioCloneGame.Player2Camera));
                         Grid.Add(mario);
                     }
                     else if(MarioCloneGame.Player1 != null && pixel.B == 0)
                     {
                         mario = MarioCloneGame.Player1;
                         mario.ResetMario(position);
-                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario, MarioCloneGame.Player1Camera));
                         Grid.Add(mario);
                     }
                     else if(MarioCloneGame.Player2 != null && pixel.B == 1)
                     {
                         mario = MarioCloneGame.Player2;
                         mario.ResetMario(position);
-                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario));
+                        MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario, MarioCloneGame.Player2Camera));
                         Grid.Add(mario);
                     }
                 }

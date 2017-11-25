@@ -164,6 +164,11 @@ namespace MarioClone.GameObjects
             ActionState.ReleaseWalk(Facing.Right);
         }
 
+        public void BecomeWarp()
+        {
+            ActionState.Warp();
+        }
+
 		public void FireBall()
 		{
 			if (PowerupState is MarioFire2 || (PreviousPowerupState is MarioFire2 && PowerupState is MarioStar2))
