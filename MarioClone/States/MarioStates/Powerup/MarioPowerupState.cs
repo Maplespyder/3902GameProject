@@ -15,7 +15,6 @@ namespace MarioClone.States
         Normal,
         Super,
         Fire,
-        Star,
         Invincible
     }
 
@@ -95,10 +94,13 @@ namespace MarioClone.States
                 BecomeFire();
                 return true;
             }
-            else if (gameObject is StarmanObject)
+            else if(gameObject is FireBall)
             {
-                BecomeStar();
-                return true;
+                var fireball = (FireBall)gameObject;
+                if (fireball.Owner is AbstractEnemy)
+                {
+                    TakeDamage();
+                }
             }
 
             return false;
@@ -106,7 +108,6 @@ namespace MarioClone.States
 
         public abstract void BecomeDead();
 		public abstract void Update(GameTime gameTime);
-		public abstract void BecomeStar();
 		public abstract void BecomeNormal();
         public abstract void BecomeSuper();
         public abstract void BecomeFire();

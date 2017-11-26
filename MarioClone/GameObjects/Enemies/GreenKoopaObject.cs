@@ -12,7 +12,7 @@ namespace MarioClone.GameObjects
         public GreenKoopaObject(ISprite sprite, Vector2 position) : base(sprite, position)
 		{
             Gravity = false;
-			BoundingBox.UpdateOffSets(-8, -8, -8, -8);
+			BoundingBox.UpdateOffSets(-8, -8, -8, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
 
             Orientation = Facing.Left;
@@ -25,20 +25,12 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2))
             {
-                var mario = (Mario)gameObject;
                 if (side.Equals(Side.Top))
                 {
                     EventManager.Instance.TriggerEnemyDefeatedEvent(this, mario);
                     PowerupState.BecomeDead();
                     return true;
                 }
-
-				if (mario.PowerupState is MarioStar2)
-				{
-					EventManager.Instance.TriggerEnemyDefeatedEvent(this, mario);
-					PowerupState.BecomeDead();
-					return true;
-				}
 
             }
             else if (gameObject is AbstractBlock)
@@ -65,9 +57,13 @@ namespace MarioClone.GameObjects
                 }
             }else if(gameObject is FireBall)
 			{
-				EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((FireBall)gameObject).Owner);
-				PowerupState.BecomeDead();
-				return true;
+                var fireball = (FireBall)gameObject;
+                if (fireball.Owner is Mario)
+                {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)fireball.Owner);
+                    PowerupState.BecomeDead();
+                    return true;
+                }
 			}
 
             return false;
@@ -80,7 +76,10 @@ namespace MarioClone.GameObjects
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
-            Gravity = true;
+            if (!(PowerupState is KoopaDead))
+            {
+                Gravity = true;
+            }
 
             return retval;
         }

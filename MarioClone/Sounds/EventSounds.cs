@@ -31,7 +31,7 @@ namespace MarioClone.Sounds
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
 		{
-			if (e.PreviousPowerupState is MarioStar2)
+			if ((e.CurrentPowerupState is MarioInvincibility2))
 			{
 				SoundPool.Instance.ResumeBackgroundStopSecondaryTrack();
 			}
@@ -42,11 +42,7 @@ namespace MarioClone.Sounds
 			else if (e.CurrentPowerupState is MarioDead2)
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Dead);
-			}
-            else if(e.CurrentPowerupState is MarioStar2)
-			{
-				SoundPool.Instance.PauseBackgroundPlaySecondaryTrack(SoundType.Starman);
-			}
+			}           
 			else if (!(e.PreviousPowerupState is MarioInvincibility2))
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.PowerUp);

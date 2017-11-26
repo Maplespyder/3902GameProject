@@ -42,19 +42,13 @@ namespace MarioClone.States
         {
             if (Context.PowerupState is MarioNormal2)
             {
-                Context.BoundingBox.UpdateOffSets(-8, -8, -4, -1);
+                if (Context.Orientation is Facing.Left)Context.BoundingBox.UpdateOffSets(-10, -28, -20, -1);
+                if (Context.Orientation is Facing.Right) Context.BoundingBox.UpdateOffSets(-28, -10, -20, - 1);
             }
             else if (Context.PowerupState is MarioSuper2 || Context.PowerupState is MarioFire2)
-            {
-                Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
-            }
-            else if (Context.PreviousPowerupState is MarioNormal2)
-            {
-                Context.BoundingBox.UpdateOffSets(-8, -8, -4, -1);
-            }
-            else if (Context.PreviousPowerupState is MarioSuper2 || Context.PreviousPowerupState is MarioFire2)
-            {
-                Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
+            {         
+                if (Context.Orientation is Facing.Left) Context.BoundingBox.UpdateOffSets(-11, -32, -25, -1);
+                if (Context.Orientation is Facing.Right) Context.BoundingBox.UpdateOffSets(-32, -11, -25, -1);
             }
         }
     }

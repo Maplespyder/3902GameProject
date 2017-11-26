@@ -29,11 +29,11 @@ namespace MarioClone.States
         {
             if (Context.Orientation == Facing.Left)
             {
-                Context.Position = new Vector2(Context.Position.X - 10, Context.Position.Y - 8);
+                Context.Position = new Vector2(Context.Position.X, Context.Position.Y);
             }
             else
             {
-                Context.Position = new Vector2(Context.Position.X - 6, Context.Position.Y - 8);
+                Context.Position = new Vector2(Context.Position.X, Context.Position.Y);
             }
 
             Context.StateMachine.TransitionSuper();
@@ -44,18 +44,14 @@ namespace MarioClone.States
         {
             if (Context.Orientation == Facing.Left)
             {
-                Context.Position = new Vector2(Context.Position.X - 10, Context.Position.Y - 8);
+                Context.Position = new Vector2(Context.Position.X, Context.Position.Y);
             }
             else
             {
-                Context.Position = new Vector2(Context.Position.X - 6, Context.Position.Y - 8);
+                Context.Position = new Vector2(Context.Position.X, Context.Position.Y);
             }
 
             Context.StateMachine.TransitionFire();
-        }
-        public override void BecomeStar()
-        {
-            Context.StateMachine.TransitionStar();
         }
 
         public override void TakeDamage()
