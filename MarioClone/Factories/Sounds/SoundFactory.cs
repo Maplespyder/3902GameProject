@@ -83,9 +83,9 @@ namespace MarioClone.Factories.Sounds
 				case SoundType.Hurryup:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Hurryup");
 				case SoundType.Fireball:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Fireball");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Fireball");
 				default:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Coin");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Coin");
 			}
 		}
 	}

@@ -830,3 +830,9 @@
 /processorParam:TextureFormat=Color
 /build:CustomSprites/Meat.png
 
+#begin CustomSounds/Fireball.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/Fireball.wav
+
