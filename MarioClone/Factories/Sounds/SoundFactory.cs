@@ -14,7 +14,6 @@ namespace MarioClone.Factories.Sounds
 		Underworld,
 		Fireball,
 		CourseClear,
-		Starman,
 		Stomp,
 		Bump,
 		UP1,
@@ -76,8 +75,6 @@ namespace MarioClone.Factories.Sounds
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Underground");
 				case SoundType.Underworld:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Underworld");
-				case SoundType.Starman:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Starman");
 				case SoundType.Dead:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Puff");
 				case SoundType.Hurryup:

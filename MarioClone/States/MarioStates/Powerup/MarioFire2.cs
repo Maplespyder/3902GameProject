@@ -42,11 +42,7 @@ namespace MarioClone.States
 
         public override void BecomeFire() { }
 
-        public override void BecomeStar()
-        {
-            Context.StateMachine.TransitionFire();
-        }
-
+    
         public override void TakeDamage()
         {
             Context.StateMachine.TransitionSuper();

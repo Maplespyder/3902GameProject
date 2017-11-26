@@ -69,7 +69,6 @@
     <Compile Include="GameObjects\Mario2.cs" />
     <Compile Include="GameObjects\Other\FireBall.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
-    <Compile Include="GameObjects\PowerUps\StarmanObject.cs" />
     <Compile Include="Menu\MenuScreen.cs" />
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
     <Compile Include="HeadsUpDisplay\HUD.cs" />
@@ -180,7 +179,6 @@
     <Compile Include="States\MarioStates\Powerup\MarioNormal2.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioPowerupState.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioStar.cs" />
-    <Compile Include="States\MarioStates\Powerup\MarioStar2.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioSuper.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioSuper2.cs" />
     <Compile Include="States\PowerupStates\CoinStaticState.cs" />

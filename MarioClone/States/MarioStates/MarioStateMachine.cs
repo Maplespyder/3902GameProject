@@ -99,7 +99,6 @@ namespace MarioClone.States
         {
             powerupStates = new Dictionary<MarioPowerup, MarioPowerupState>();
             powerupStates.Add(MarioPowerup.Dead, new MarioDead2(Player));
-            powerupStates.Add(MarioPowerup.Star, new MarioStar2(Player));
             powerupStates.Add(MarioPowerup.Normal, new MarioNormal2(Player));
             powerupStates.Add(MarioPowerup.Super, new MarioSuper2(Player));
             powerupStates.Add(MarioPowerup.Fire, new MarioFire2(Player));
@@ -148,11 +147,6 @@ namespace MarioClone.States
         public void TransitionFire()
         {
             CurrentPowerupState = powerupStates[MarioPowerup.Fire];
-        }
-
-        public void TransitionStar()
-        {
-            CurrentPowerupState = powerupStates[MarioPowerup.Star];
         }
 
         public void TransitionIdle()

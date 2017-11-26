@@ -32,13 +32,6 @@ namespace MarioClone.GameObjects
                     PowerupState.BecomeDead();
                     return true;
                 }
-				var mario = (Mario)gameObject;
-				if (mario.PowerupState is MarioStar2)
-				{
-					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
-					PowerupState.BecomeDead();
-					return true;
-				}
 			}
             else if (gameObject is AbstractBlock)
             {

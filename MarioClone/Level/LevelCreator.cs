@@ -203,12 +203,6 @@ namespace MarioClone.Level
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}
-				else if (sameColor(pixel, Colors.Starman))
-				{
-					var initializer = PowerUpFactory.Create(PowerUpType.Star, position);
-					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
-					Grid.Add(initializer);
-				}
 				else if (sameColor(pixel, Colors.Coin))
 				{
 					var initializer = PowerUpFactory.Create(PowerUpType.Coin, position);
