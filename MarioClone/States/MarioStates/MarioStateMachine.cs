@@ -85,8 +85,8 @@ namespace MarioClone.States
         {
             CurrentPowerupState.Leave();
             CurrentActionState.Leave();
-
         }
+
         private void initializeActionStates()
         {
             actionStates = new Dictionary<MarioAction, MarioActionState>();
