@@ -25,6 +25,7 @@ namespace MarioClone.GameObjects
         {
             if (gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2))
             {
+                var mario = (Mario)gameObject;
                 if (side.Equals(Side.Top))
                 {
                     EventManager.Instance.TriggerEnemyDefeatedEvent(this, mario);

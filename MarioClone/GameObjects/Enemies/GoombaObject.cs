@@ -96,9 +96,10 @@ namespace MarioClone.GameObjects
                 {
                     fireballPool.GetAndRelease(this);
                 }
-                if (MarioCloneGame.Player2 != null && ((Position.X > MarioCloneGame.Player2.Position.X && Orientation is Facing.Left) ||
-                               (Position.X < MarioCloneGame.Player2.Position.X && Orientation is Facing.Right) &&
-                               (Math.Abs(MarioCloneGame.Player2.Position.X - Position.X) < 600 && Math.Abs(MarioCloneGame.Player2.Position.Y - Position.Y) < 100)))
+                if (((Position.X > MarioCloneGame.Player2.Position.X && Orientation is Facing.Left) ||
+                    (Position.X < MarioCloneGame.Player2.Position.X && Orientation is Facing.Right)) &&
+                    (Math.Abs(MarioCloneGame.Player2.Position.X - Position.X) < 600 && Math.Abs(MarioCloneGame.Player1.Position.X - Position.X) > 100
+                    && Math.Abs(MarioCloneGame.Player2.Position.Y - Position.Y) < 100))
                 {
                     fireballPool.GetAndRelease(this);
                 }
