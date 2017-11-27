@@ -74,7 +74,7 @@ namespace MarioClone.Factories.Sounds
 				case SoundType.Background:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Underground");
 				case SoundType.Underworld:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Underworld");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Underground");
 				case SoundType.Dead:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Puff");
 				case SoundType.Hurryup:

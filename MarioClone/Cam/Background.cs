@@ -59,7 +59,7 @@ namespace MarioClone.Cam
 		private void initializeUnderWorldSprites()
 		{
 			sprites.Clear();
-			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/UnderworldBackground"), new Vector2(0f));
+			sprites.Add(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/UnderworldBackground"), new Vector2(0f));
 		}
 	}
 }

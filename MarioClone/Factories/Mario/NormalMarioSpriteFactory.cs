@@ -44,8 +44,7 @@ namespace MarioClone.Factories
 					return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
 						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
                 case MarioAction.Fall:
-                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/SmallJump"), new Rectangle(0, 0, 77, 138),
-                        1, 4, 0, 3, 4);
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/SmallFall"), new Rectangle(0, 0, 81, 144));
 
                 default:
 					//default will be idling

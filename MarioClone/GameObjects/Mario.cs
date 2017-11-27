@@ -339,12 +339,19 @@ namespace MarioClone.GameObjects
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
 
-            if (Gravity)
+            if (BoundingBox.Dimensions.Bottom >= MarioCloneGame.LevelAreas[LevelArea].Bottom)
             {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
+                if(!(PowerupState is MarioDead2))
+                {
+                    BecomeDead();
+                }
             }
-            if (!(PowerupState is MarioDead2))
+            else
             {
+                if (Gravity)
+                {
+                    Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
+                }
                 Gravity = true;
             }
 

@@ -37,40 +37,40 @@ namespace MarioClone.Sounds
 			}
 			if (((e.CurrentPowerupState is MarioInvincibility2) && (e.Sender.ActionState is MarioWarp)))
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.Down);
-			}
+				SoundPool.Instance.GetAndPlay(SoundType.Down, false);
+            }
 			else if (e.CurrentPowerupState is MarioDead2)
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.Dead);
-			}           
+				SoundPool.Instance.GetAndPlay(SoundType.Dead, false);
+            }           
 			else if (!(e.PreviousPowerupState is MarioInvincibility2))
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.PowerUp);
-			}
+				SoundPool.Instance.GetAndPlay(SoundType.PowerUp, false);
+            }
 		}
 		public void PowerUpCollectedSound(object sender, PowerupCollectedEventArgs e)
 		{
 			if (sender is GreenMushroomObject)
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.UP1);
+                SoundPool.Instance.GetAndPlay(SoundType.UP1, false);
 			}
 			if (sender is CoinObject)
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.Coin);
-			}
+				SoundPool.Instance.GetAndPlay(SoundType.Coin, false);
+            }
 		}
 
 		public void FireballFiring(object sender, FireballFireArgs e)
 		{
-			SoundPool.Instance.GetAndPlay(SoundType.Fireball);
-		}
+			SoundPool.Instance.GetAndPlay(SoundType.Fireball, false);
+        }
 
 		public void ActionStateChangeSound(object sender, MarioActionStateEventArgs e)
 		{
 			if (e.CurrentActionState is MarioJump2)
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.Jump);
-			}
+				SoundPool.Instance.GetAndPlay(SoundType.Jump, false);
+            }
 		}
 
 		public void Warping(object sender, PlayerWarpingEventArgs e)
@@ -91,8 +91,8 @@ namespace MarioClone.Sounds
 			if (e.currentTime > 97)
 			{
 				SoundPool.Instance.PauseBackground();
-				SoundPool.Instance.GetAndPlay(SoundType.Hurryup);
-			}
+				SoundPool.Instance.GetAndPlay(SoundType.Hurryup, false);
+            }
 			else
 			{
 				SoundPool.Instance.BackgroundPitch = .3f;
@@ -105,8 +105,8 @@ namespace MarioClone.Sounds
 		{
 			if (e.BrickBroken)
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.Break);
-			}
+				SoundPool.Instance.GetAndPlay(SoundType.Break, false);
+            }
 			else
 			{
 				if(sender is AbstractBlock)
@@ -114,11 +114,11 @@ namespace MarioClone.Sounds
 					AbstractBlock block = (AbstractBlock)sender;
 					if (block.ContainedPowerup != PowerUpType.None)
 					{
-						SoundPool.Instance.GetAndPlay(SoundType.RevealPowerUp);
-					}
+						SoundPool.Instance.GetAndPlay(SoundType.RevealPowerUp, false);
+                    }
 				}
-				SoundPool.Instance.GetAndPlay(SoundType.Bump);
-			}
+				SoundPool.Instance.GetAndPlay(SoundType.Bump, false);
+            }
 		}
 
 		public void EnemyStompSound(object sender, EnemyDefeatedEventArgs e)
@@ -128,12 +128,12 @@ namespace MarioClone.Sounds
 				GreenKoopaObject enemy = (GreenKoopaObject)sender;
 				if (enemy.PowerupState is KoopaAlive)
 				{
-					SoundPool.Instance.GetAndPlay(SoundType.Stomp);
-				}
+					SoundPool.Instance.GetAndPlay(SoundType.Stomp, false);
+                }
 				else if (enemy.PowerupState is KoopaShell)
 				{
-					SoundPool.Instance.GetAndPlay(SoundType.Kick);
-				}
+					SoundPool.Instance.GetAndPlay(SoundType.Kick, false);
+                }
 
 			}
 			else if(sender is RedKoopaObject)
@@ -141,18 +141,18 @@ namespace MarioClone.Sounds
 				RedKoopaObject enemy = (RedKoopaObject)sender;
 				if (enemy.PowerupState is KoopaAlive)
 				{
-					SoundPool.Instance.GetAndPlay(SoundType.Stomp);
-				}
+					SoundPool.Instance.GetAndPlay(SoundType.Stomp, false);
+                }
 				else if (enemy.PowerupState is KoopaShell)
 				{
-					SoundPool.Instance.GetAndPlay(SoundType.Kick);
-				}
+					SoundPool.Instance.GetAndPlay(SoundType.Kick, false);
+                }
 
 			}
 			else if(sender is GoombaObject || sender is PiranhaObject)
 			{
-				SoundPool.Instance.GetAndPlay(SoundType.Stomp);
-			}
+				SoundPool.Instance.GetAndPlay(SoundType.Stomp, false);
+            }
 		}
 	}
 }
