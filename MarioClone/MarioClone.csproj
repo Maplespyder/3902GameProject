@@ -65,6 +65,7 @@
     <Compile Include="GameObjects\Bricks\Flagpole.cs" />
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="GameObjects\Bricks\PipeTop.cs" />
+    <Compile Include="GameObjects\Enemies\BowserObject.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />
     <Compile Include="GameObjects\Mario2.cs" />
     <Compile Include="GameObjects\Other\FireBall.cs" />

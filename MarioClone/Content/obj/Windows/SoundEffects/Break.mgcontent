@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Break.wav</SourceFile>
-  <SourceTime>2017-11-02T10:32:26.8654457-04:00</SourceTime>
-  <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/SoundEffects/Break.xnb</DestFile>
-  <DestTime>2017-11-27T12:34:59.7711302-05:00</DestTime>
+  <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Break.wav</SourceFile>
+  <SourceTime>2017-11-11T12:29:50.1195564-05:00</SourceTime>
+  <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/Break.xnb</DestFile>
+  <DestTime>2017-11-27T16:20:07.7149318-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
