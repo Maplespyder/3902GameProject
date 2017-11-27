@@ -10,6 +10,7 @@ using MarioClone.Collision;
 using MarioClone.EventCenter;
 using System;
 using MarioClone.Projectiles;
+using MarioClone.States.EnemyStates.Powerup;
 
 namespace MarioClone.GameObjects.Enemies
 {
@@ -19,12 +20,12 @@ namespace MarioClone.GameObjects.Enemies
         public BowserObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             Gravity = false;
-            PowerupState = new GoombaAlive(this);
+            PowerupState = new BowserAlive(this);
             BoundingBox.UpdateOffSets(-8, -8, -8, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
             Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
             Orientation = Facing.Left;
-            PointValue = 200;
+            PointValue = 500;
 
 
         }
@@ -91,7 +92,7 @@ namespace MarioClone.GameObjects.Enemies
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
-            if (!(PowerupState is GoombaDead))
+            if (!(PowerupState is BowserDead))
             {
                 Gravity = true;
                 if (((Position.X > MarioCloneGame.Player1.Position.X && Orientation is Facing.Left) ||
@@ -103,7 +104,7 @@ namespace MarioClone.GameObjects.Enemies
                 }
                 if (((Position.X > MarioCloneGame.Player2.Position.X && Orientation is Facing.Left) ||
                     (Position.X < MarioCloneGame.Player2.Position.X && Orientation is Facing.Right)) &&
-                    (Math.Abs(MarioCloneGame.Player2.Position.X - Position.X) < 600 && Math.Abs(MarioCloneGame.Player1.Position.X - Position.X) > 100
+                    (Math.Abs(MarioCloneGame.Player2.Position.X - Position.X) < 600 && Math.Abs(MarioCloneGame.Player2.Position.X - Position.X) > 100
                     && Math.Abs(MarioCloneGame.Player2.Position.Y - Position.Y) < 100))
                 {
                     fireballPool.GetAndRelease(this);
