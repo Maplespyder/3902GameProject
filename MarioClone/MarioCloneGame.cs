@@ -545,6 +545,7 @@ namespace MarioClone
             }
 
             gameGrid.Remove(e.Warper);
+            e.Warper.LevelArea = e.WarpExit.LevelArea;
             e.Warper.Position = e.WarpExit.Position - new Vector2(0, e.Warper.Sprite.SourceRectangle.Height / 2);
             e.Warper.Update(gameTime, 1);
             gameGrid.Add(e.Warper);
