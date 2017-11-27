@@ -356,11 +356,21 @@ namespace MarioClone.GameObjects
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
 
-            if (Gravity)
+            if (BoundingBox.Dimensions.Bottom >= MarioCloneGame.LevelAreas[LevelArea].Bottom)
             {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
+                if(!(PowerupState is MarioDead2))
+                {
+                    BecomeDead();
+                }
             }
-            Gravity = true;
+            else
+            {
+                if (Gravity)
+                {
+                    Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
+                }
+                Gravity = true;
+            }
 
             //TODO fix update to be inside the states or smth, or give mario a BecomeFall() method
             if (!(ActionState is MarioFall2) && Velocity.Y > 1.5)
