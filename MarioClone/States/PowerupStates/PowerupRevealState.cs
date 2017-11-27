@@ -23,7 +23,7 @@ namespace MarioClone.States
                 Context.Position = new Vector2(Context.Position.X, Context.Position.Y + Context.Velocity.Y * percent);
             }*/
 
-            if ((Context.Position.Y <= (initialPosition.Y - Context.Sprite.SourceRectangle.Height)) && percent != 0)
+            if ((Context.Position.Y <= (initialPosition.Y - 64)) && percent != 0)
             {
                 if(Context is CoinObject)
                 {

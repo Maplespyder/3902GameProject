@@ -11,7 +11,7 @@ namespace MarioClone.GameObjects
 	{
 		public PiranhaObject(ISprite sprite, Vector2 position) : base(sprite, position)
 		{
-			BoundingBox.UpdateOffSets(-8, -8, -8, -8);
+			BoundingBox.UpdateOffSets(-20, -20, -8, -8);
 			BoundingBox.UpdateHitBox(Position, Sprite);
 			DrawOrder = .52f;
 			PowerupState = new PiranhaHide(this);
