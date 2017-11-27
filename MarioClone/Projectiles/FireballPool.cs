@@ -16,6 +16,7 @@ namespace MarioClone.Projectiles
 		private int availableFireballs;
         private List<FireBall> FireBalls = new List<FireBall>();
         private List<FireBall> RemovedFireBalls = new List<FireBall>();
+        private int timeOut = 0;
         public FireballPool(int availableBalls)
 		{
 			availableFireballs = availableBalls;
@@ -71,7 +72,6 @@ namespace MarioClone.Projectiles
                 Restore(gameTime);
             }
             RemovedFireBalls.Clear();
-
            
         }
 
