@@ -8,7 +8,6 @@ namespace MarioClone.GameObjects
     public class PipeTop : AbstractBlock
     {
         public PipeTop WarpEnd { get; set; }
-        public int LevelArea { get; set; }
 
         public PipeTop(ISprite sprite, Vector2 position) : base(sprite, position)
         {

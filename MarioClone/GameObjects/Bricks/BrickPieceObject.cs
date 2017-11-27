@@ -15,7 +15,7 @@ namespace MarioClone.GameObjects
 			Move(percent);
 
 			//Nugget off screen?
-			if(Position.Y >= MarioCloneGame.GetCamera.Limits.Value.Bottom)
+			if(Position.Y >= MarioCloneGame.LevelAreas[LevelArea].Bottom)
 			{
                 return true;
 			}

@@ -50,14 +50,14 @@ namespace MarioClone.GameObjects
 
         public void WarpToNewLocation(object sender, PlayerWarpingEventArgs e)
         {
-            if(e.WarpExit.LevelArea != 0)
+            /*if(e.WarpExit.LevelArea != 0)
             {             
                 BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
             }            
             else
             {
                 BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
-            }
+            }*/
         }
     }
 }

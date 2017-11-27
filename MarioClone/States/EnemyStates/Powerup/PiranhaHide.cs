@@ -43,11 +43,16 @@ namespace MarioClone.States.EnemyStates.Powerup
 		public override bool Update(GameTime gameTime, float percent)
 		{
 			Context.PiranhaCycleTime += gameTime.ElapsedGameTime.Milliseconds;
-			if (Context.PiranhaCycleTime >= AbstractEnemy.MaxPiranhaHide &&
-				(Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X) < 700) &&
-				(Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X)) >= 200)
-			{
-				BecomeReveal();
+            if (Context.PiranhaCycleTime >= AbstractEnemy.MaxPiranhaHide &&
+                    ((((Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X) < 700) &&
+                    (Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X)) >= 200) &&
+                    !((Math.Abs(Context.Position.X - MarioCloneGame.Player2.Position.X)) < 200))
+                    ||
+                    (((Math.Abs(Context.Position.X - MarioCloneGame.Player2.Position.X) < 700) &&
+                    (Math.Abs(Context.Position.X - MarioCloneGame.Player2.Position.X)) >= 200) &&
+                    !((Math.Abs(Context.Position.X - MarioCloneGame.Player1.Position.X)) < 200))))
+            {
+                BecomeReveal();
 			}
 			return false;
 		}

@@ -15,9 +15,13 @@ namespace MarioClone.GameObjects
 
     public abstract class AbstractGameObject : IDraw
     {
+        public int LevelArea { get; set; }
+
         public virtual HitBox BoundingBox { get; set; }
 
         public virtual ISprite Sprite { get; set; }
+
+        public Color SpriteTint { get; set; }
 
         private Vector2 position;
         public virtual Vector2 Position
@@ -70,10 +74,12 @@ namespace MarioClone.GameObjects
 			Sprite = sprite;
             Position = position;
             Velocity = new Vector2(0, 0);
-            Orientation = Facing.Left;
+            Orientation = Facing.Right;
             Visible = true;
             Removed = false;
             DrawOrder = .5f;
+            SpriteTint = Color.White;
+            LevelArea = 0;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -84,10 +90,10 @@ namespace MarioClone.GameObjects
             }
             if (Visible)
             {
-                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation);
+                Sprite.Draw(spriteBatch, Position, DrawOrder, gameTime, Orientation, SpriteTint);
             }
         }
-
+        
         public virtual bool Update(GameTime gameTime, float percent)
         {
             if (BoundingBox != null)

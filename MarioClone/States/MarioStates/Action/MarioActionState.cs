@@ -16,7 +16,8 @@ namespace MarioClone.States
         Jump,
         Crouch,
         Dead,
-        Fall
+        Fall,
+        Warp
     }
 
     public abstract class MarioActionState
@@ -70,6 +71,10 @@ namespace MarioClone.States
             Context.Velocity = new Vector2(0, Context.Velocity.Y);
         }
         public virtual void ReleaseCrouch() { }
+        public virtual void Warp()
+        {
+            Context.StateMachine.TransitionWarp();
+        }
         public abstract void UpdateHitBox();
 
     }

@@ -76,6 +76,8 @@ namespace MarioClone.States
 
             CurrentPowerupState.Enter();
             CurrentActionState.Enter();
+
+            TransitionInvincible();
         }
 
         //call this before begin, nowhere else
@@ -83,8 +85,8 @@ namespace MarioClone.States
         {
             CurrentPowerupState.Leave();
             CurrentActionState.Leave();
-
         }
+
         private void initializeActionStates()
         {
             actionStates = new Dictionary<MarioAction, MarioActionState>();
@@ -93,13 +95,13 @@ namespace MarioClone.States
             actionStates.Add(MarioAction.Jump, new MarioJump2(Player));
             actionStates.Add(MarioAction.Fall, new MarioFall2(Player));
             actionStates.Add(MarioAction.Crouch, new MarioCrouch2(Player));
+            actionStates.Add(MarioAction.Warp, new MarioWarp(Player));
         }
 
         private void initializePowerupStates()
         {
             powerupStates = new Dictionary<MarioPowerup, MarioPowerupState>();
             powerupStates.Add(MarioPowerup.Dead, new MarioDead2(Player));
-            powerupStates.Add(MarioPowerup.Star, new MarioStar2(Player));
             powerupStates.Add(MarioPowerup.Normal, new MarioNormal2(Player));
             powerupStates.Add(MarioPowerup.Super, new MarioSuper2(Player));
             powerupStates.Add(MarioPowerup.Fire, new MarioFire2(Player));
@@ -150,11 +152,6 @@ namespace MarioClone.States
             CurrentPowerupState = powerupStates[MarioPowerup.Fire];
         }
 
-        public void TransitionStar()
-        {
-            CurrentPowerupState = powerupStates[MarioPowerup.Star];
-        }
-
         public void TransitionIdle()
         {
             CurrentActionState = actionStates[MarioAction.Idle];
@@ -190,6 +187,14 @@ namespace MarioClone.States
             if (!(CurrentPowerupState is MarioDead2))
             {
                 CurrentActionState = actionStates[MarioAction.Fall];
+            }
+        }
+
+        public void TransitionWarp()
+        {
+            if (!(CurrentPowerupState is MarioDead2))
+            {
+                CurrentActionState = actionStates[MarioAction.Warp];
             }
         }
     }

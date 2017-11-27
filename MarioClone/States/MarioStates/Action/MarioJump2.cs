@@ -22,8 +22,7 @@ namespace MarioClone.States
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Jump);
             UpdateHitBox();
         }
-
-        //TODO potentially add exit behavior to set Velocity.Y = 0 and see if it's noticeable 
+        
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             if (gameObject is AbstractBlock)
@@ -63,21 +62,23 @@ namespace MarioClone.States
         {
             if (Context.PowerupState is MarioNormal2)
             {
-                Context.BoundingBox.UpdateOffSets(-8, -8, -4, -1);
+                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-6, -12, -14, -1);
+                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-12, -6, -14, -1);
             }
             else if (Context.PowerupState is MarioSuper2 || Context.PowerupState is MarioFire2)
             {
-                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
-                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
+                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-10, -14, -16, -1);
+                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-14, -10, -16, -1);
             }
             else if (Context.PreviousPowerupState is MarioNormal2)
             {
-                Context.BoundingBox.UpdateOffSets(-8, -8, -4, -1);
+                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-6, -12, -14, -1);
+                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-12, -6, -14, -1);
             }
             else if (Context.PreviousPowerupState is MarioSuper2 || Context.PreviousPowerupState is MarioFire2)
             {
-                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
-                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-20, -20, -20, -1);
+                if (Context.Orientation.Equals(Facing.Left)) Context.BoundingBox.UpdateOffSets(-10, -14, -16, -1);
+                if (Context.Orientation.Equals(Facing.Right)) Context.BoundingBox.UpdateOffSets(-14, -10, -16, -1);
             }
         }
 

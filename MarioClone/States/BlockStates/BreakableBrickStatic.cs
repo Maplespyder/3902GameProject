@@ -8,6 +8,7 @@ namespace MarioClone.States.BlockStates
  
         public BreakableBrickStatic(AbstractBlock context) : base(context)
         {
+            Context.Bumper = null;
         }
 
         public override void Bump(Mario bumper)

@@ -29,7 +29,7 @@ namespace MarioClone.HeadsUpDisplay
             pointsFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
             playerScore = 0;
 
-            RelativePosition = new Vector2(130, 50);
+            RelativePosition = new Vector2(130 / 2, 50);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
 
             EventManager.Instance.RaiseEnemyDefeatedEvent += UpdatePlayerScoreFromEnemy;
@@ -48,8 +48,8 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Update(GameTime gameTime)
         {
-            //TODO figure out how to add time to score
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
+            ParentHUD.Player.Score = playerScore;
         }
 
         public void UpdatePlayerScoreFromEnemy(object sender, EnemyDefeatedEventArgs e)

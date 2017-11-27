@@ -32,13 +32,6 @@ namespace MarioClone.GameObjects
                     PowerupState.BecomeDead();
                     return true;
                 }
-				var mario = (Mario)gameObject;
-				if (mario.PowerupState is MarioStar2)
-				{
-					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
-					PowerupState.BecomeDead();
-					return true;
-				}
 			}
             else if (gameObject is AbstractBlock)
             {
@@ -46,6 +39,11 @@ namespace MarioClone.GameObjects
                 {
                     Gravity = false;
                     Velocity = new Vector2(Velocity.X, 0);
+                    if (((AbstractBlock)gameObject).Bumper != null)
+                    {
+                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((AbstractBlock)gameObject).Bumper);
+                        PowerupState.BecomeDead();
+                    }
                 }
                 else if (side == Side.Left)
                 {
@@ -60,10 +58,15 @@ namespace MarioClone.GameObjects
             }
 			else if (gameObject is FireBall)
 			{
-				EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((FireBall)gameObject).Owner);
-				PowerupState.BecomeDead();
-				return true;
-			}
+
+                var fireball = (FireBall)gameObject;
+                if (fireball.Owner is Mario)
+                {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)fireball.Owner);
+                    PowerupState.BecomeDead();
+                    return true;
+                }
+            }
 
 			return false;
         }

@@ -1,4 +1,5 @@
 ﻿using MarioClone.Collision;
+using MarioClone.EventCenter;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 
@@ -6,6 +7,8 @@ namespace MarioClone.States
 {
     public class MarioDead2 : MarioPowerupState
     {
+        private int deadDuration;
+
         public MarioDead2(Mario context) : base(context)
         {
             Powerup = MarioPowerup.Dead;
@@ -13,8 +16,10 @@ namespace MarioClone.States
 
         public override void Enter()
         {
+            deadDuration = 0;
             Context.SpriteFactory = Factories.DeadMarioSpriteFactory.Instance;
             Context.StateMachine.TransitionIdle();
+            Context.Gravity = false;
             Context.Lives--;
         }
 
@@ -35,16 +40,19 @@ namespace MarioClone.States
             Context.StateMachine.TransitionFire();
         }
 
-        public override void BecomeStar()
-        {
-            Context.StateMachine.TransitionStar();
-        }
 
         public override void TakeDamage() { }
         
         public override void BecomeInvincible() { }
 
-        public override void Update(GameTime gameTime) { }
+        public override void Update(GameTime gameTime)
+        {
+            deadDuration += gameTime.ElapsedGameTime.Milliseconds;
+            if (deadDuration >= 3000)
+            {
+                EventManager.Instance.TriggerPlayerDiedEvent(Context);
+            }
+        }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {

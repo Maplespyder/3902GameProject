@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MarioClone.GameObjects;
+﻿using MarioClone.GameObjects;
 using MarioClone.Factories;
-using Microsoft.Xna.Framework;
 
 namespace MarioClone.States.BlockStates
 {
@@ -13,7 +7,18 @@ namespace MarioClone.States.BlockStates
     {
         public Used(AbstractBlock context) : base(context)
         {
-            context.Sprite = NormalThemedBlockSpriteFactory.Instance.Create(BlockType.UsedBlock);
+            var oldFactory = BlockFactory.SpriteFactory;
+            if (Context.LevelArea == 0)
+            {
+                BlockFactory.SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
+            }
+            else
+            {
+                BlockFactory.SpriteFactory = SubThemedBlockSpriteFactory.Instance;
+            }
+            context.Sprite = BlockFactory.SpriteFactory.Create(BlockType.UsedBlock);
+            context.Bumper = null;
+            BlockFactory.SpriteFactory = oldFactory;
         }
     }
 }

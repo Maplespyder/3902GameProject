@@ -23,7 +23,6 @@ namespace MarioClone.Menu
         public MenuScreenOptions OptionSelected { get; set; }
 
         //TODO  change this to single player mario menu screen, and add a different multiplayer mario menu screen
-        //TODO use the list on the main game to access mario instead of static access
         public MenuScreen(MarioCloneGame _game)
         {
             game = _game;

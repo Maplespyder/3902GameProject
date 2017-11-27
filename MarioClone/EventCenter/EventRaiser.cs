@@ -71,5 +71,10 @@ namespace MarioClone.EventCenter
 			OnRaiseRunningOutOfTimeEvent(args);
 		}
 
+        public void TriggerPlayerDiedEvent(Mario player)
+        {
+            PlayerDiedEventArgs args = new PlayerDiedEventArgs(player);
+            OnRaisePlayerDiedEvent(args);
+        }
 	}
 }

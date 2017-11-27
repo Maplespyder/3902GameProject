@@ -91,7 +91,10 @@ namespace MarioClone.Collision
             ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach (Point bucket in squares)
             {
-                gameGrid[bucket.X, bucket.Y].Add(obj);
+                if (!gameGrid[bucket.X, bucket.Y].Contains(obj))
+                {
+                    gameGrid[bucket.X, bucket.Y].Add(obj);
+                }
             }
         }
 
@@ -100,7 +103,7 @@ namespace MarioClone.Collision
             ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach (Point bucket in squares)
             {
-                gameGrid[bucket.X, bucket.Y].Remove(obj);
+                gameGrid[bucket.X, bucket.Y].RemoveAll((x) => ReferenceEquals(x, obj));
             }
         }
 
