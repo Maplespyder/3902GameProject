@@ -19,6 +19,7 @@ namespace MarioClone.States
             deadDuration = 0;
             Context.SpriteFactory = Factories.DeadMarioSpriteFactory.Instance;
             Context.StateMachine.TransitionIdle();
+            Context.Gravity = false;
             Context.Lives--;
         }
 
@@ -39,10 +40,6 @@ namespace MarioClone.States
             Context.StateMachine.TransitionFire();
         }
 
-        public override void BecomeStar()
-        {
-            Context.StateMachine.TransitionStar();
-        }
 
         public override void TakeDamage() { }
         

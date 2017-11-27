@@ -12,7 +12,6 @@ namespace MarioClone.Factories
         GreenMushroom,
         RedMushroom,
         Flower,
-        Star,
         Coin,
         None
     }
@@ -31,8 +30,6 @@ namespace MarioClone.Factories
                     return new FireFlowerObject(PowerUpSpriteFactory.Create(type), position);
                 case PowerUpType.Coin:
                     return new CoinObject(PowerUpSpriteFactory.Create(type), position);
-				case PowerUpType.Star:
-					return new StarmanObject(PowerUpSpriteFactory.Create(type), position);
 				default:
                     return new GreenMushroomObject(PowerUpSpriteFactory.Create(type), position);
             }

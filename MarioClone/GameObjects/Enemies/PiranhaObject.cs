@@ -26,22 +26,18 @@ namespace MarioClone.GameObjects
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
 		{
-			if(gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2))
-            {
-				var mario = (Mario)gameObject;
-				if (mario.PowerupState is MarioStar2)
-				{
-					EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
-					PowerupState.BecomeDead();
-					return true;
-				}
-			}else if(gameObject is FireBall)
+			if(gameObject is FireBall)
 			{
-				PowerupState.BecomeDead();
-				EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((FireBall)gameObject).Owner);
-				return true;
 
-			}
+                var fireball = (FireBall)gameObject;
+                if (fireball.Owner is Mario)
+                {
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)fireball.Owner);
+                    PowerupState.BecomeDead();
+                    return true;
+                }
+
+            }
 			return false;
 		}
         

@@ -38,9 +38,9 @@ namespace MarioClone.Sounds
 		{
             BackgroundPitch = 0;
 			InitializeSoundPool();
-			mainBackground = GetAndPlay(SoundType.Background);
+			mainBackground = GetAndPlay(SoundType.Background, true);
 		}
-		public SoundEffectInstance GetAndPlay(SoundType sound)
+		public SoundEffectInstance GetAndPlay(SoundType sound, bool Loop)
 		{
 			CheckAvailability();
 			SoundEffect effect = SoundFactory.Instance.Create(sound);
@@ -51,12 +51,14 @@ namespace MarioClone.Sounds
 				PlayingList.Add(soundEffectInstance, effect);
 				soundEffectInstance.Play();
                 soundEffectInstance.Volume = Volume;
+                soundEffectInstance.IsLooped = Loop;
 				return soundEffectInstance;
 			}
 			return null;
 		}
 
-		public void CheckAvailability()
+
+        public void CheckAvailability()
 		{
 			foreach(KeyValuePair<SoundEffectInstance, SoundEffect> effect in PlayingList)
 			{
@@ -96,7 +98,7 @@ namespace MarioClone.Sounds
 			PlayingList.Clear();
 			PoolList.Clear();
 			InitializeSoundPool();
-			mainBackground = GetAndPlay(SoundType.Background);
+			mainBackground = GetAndPlay(SoundType.Background, true);
             BackgroundPitch = 0;
 			mainBackground.Pitch = BackgroundPitch;
 		}
@@ -127,7 +129,7 @@ namespace MarioClone.Sounds
 			if (secondaryBackground == null)
 			{
 				mainBackground.Pause();
-				secondaryBackground = GetAndPlay(newSound);
+				secondaryBackground = GetAndPlay(newSound, false);
 			}
 		}
 
@@ -149,7 +151,7 @@ namespace MarioClone.Sounds
 		{
 			mainBackground.Stop();
 			mainBackground.Dispose();
-			mainBackground = GetAndPlay(sound);
+			mainBackground = GetAndPlay(sound, true);
 			mainBackground.Pitch = BackgroundPitch;
 		}
 

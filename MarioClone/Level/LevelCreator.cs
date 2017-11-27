@@ -174,8 +174,9 @@ namespace MarioClone.Level
 				}
 				else if (sameColor(pixel, Colors.Piranha))
 				{
-					initializer = EnemyFactory.Create(EnemyType.Piranha, position);
-					initializer.Position = new Vector2(initializer.Position.X + (PipeTopWidth/4), initializer.Position.Y +
+				    initializer = EnemyFactory.Create(EnemyType.Piranha, position);
+					initializer.Position = new Vector2(initializer.Position.X + Math.Abs(((initializer.Sprite.SourceRectangle.Width-PipeTopWidth)/2)), 
+						initializer.Position.Y +
 						(initializer.Sprite.SourceRectangle.Height) + PipeTopHeight);
 					Grid.Add(initializer);
 				}
@@ -208,12 +209,6 @@ namespace MarioClone.Level
 				else if (sameColor(pixel, Colors.FireFlower))
 				{
 					initializer = PowerUpFactory.Create(PowerUpType.Flower, position);
-					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
-					Grid.Add(initializer);
-				}
-				else if (sameColor(pixel, Colors.Starman))
-				{
-					initializer = PowerUpFactory.Create(PowerUpType.Star, position);
 					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
 					Grid.Add(initializer);
 				}

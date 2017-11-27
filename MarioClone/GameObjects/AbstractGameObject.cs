@@ -74,7 +74,7 @@ namespace MarioClone.GameObjects
 			Sprite = sprite;
             Position = position;
             Velocity = new Vector2(0, 0);
-            Orientation = Facing.Left;
+            Orientation = Facing.Right;
             Visible = true;
             Removed = false;
             DrawOrder = .5f;
