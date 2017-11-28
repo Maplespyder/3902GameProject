@@ -34,5 +34,6 @@ namespace MarioClone.Level
 		public static readonly Color Piranha = Color.FromArgb(255, 148, 99);
         public static readonly Color WarpPoint = Color.FromArgb(255, 200, 0);
         public static readonly Color Flagpole = Color.FromArgb(88, 88, 88);
+        public static readonly Color BowserObject = Color.FromArgb(105, 24, 24);
     }
 }

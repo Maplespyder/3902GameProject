@@ -1,4 +1,5 @@
 ﻿using MarioClone.GameObjects;
+using MarioClone.GameObjects.Enemies;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace MarioClone.Factories
         GreenKoopaShell,
         RedKoopaShell,
         RedKoopa,
-		Piranha
+		Piranha,
+        Bowser
     }
 
     public static class EnemyFactory
@@ -36,6 +38,8 @@ namespace MarioClone.Factories
                     return new RedKoopaObject(MovingEnemySpriteFactory.Create(type), position);
                 case EnemyType.Piranha:
 					return new PiranhaObject(MovingEnemySpriteFactory.Create(type), position);
+                case EnemyType.Bowser:
+                     return new BowserObject(MovingEnemySpriteFactory.Create(type), position);
                 default:
                     return new GoombaObject(MovingEnemySpriteFactory.Create(type), position);
             }

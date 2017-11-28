@@ -48,7 +48,11 @@ namespace MarioClone.GameObjects
                
                 Destroyed = true;
                 Velocity = Vector2.Zero;
-            }
+            }else if(gameObject is AbstractEnemy && Owner is Mario)
+			{
+				Destroyed = true;
+				Velocity = Vector2.Zero;
+			}
 			return false;
 		}
 

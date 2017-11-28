@@ -9,11 +9,13 @@ namespace MarioClone.HeadsUpDisplay
     {
         SpriteFont livesFont;
         ISprite marioSprite;
+        ISprite HUDBox;
         private int lives;
 
         private Vector2 MarioPositionShift { get; set; }
 
         public Vector2 RelativePosition { get; set; }
+        public Vector2 TextShift { get; set; }
         public Vector2 AbsolutePosition { get; set; }
 
         public HUD ParentHUD { get; private set; }
@@ -26,19 +28,22 @@ namespace MarioClone.HeadsUpDisplay
             Visible = true;
 
             livesFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
+            HUDBox = new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("HUDMenuSprites/HUDBox2"), new Rectangle(0, 0, 160, 114));
             marioSprite = Factories.NormalMarioSpriteFactory.Instance.Create(States.MarioAction.Idle);
+
             lives = ParentHUD.Player.Lives;
 
             if (MarioCloneGame.Mode == GameMode.MultiPlayer)
             {
-                RelativePosition = new Vector2(750 / 2, 50);
+                RelativePosition = new Vector2(630 / 2, 106);
             }
             else if (MarioCloneGame.Mode == GameMode.SinglePlayer)
             {
-                RelativePosition = new Vector2(750, 50);
+                RelativePosition = new Vector2(750, 106);
             }
 
-            MarioPositionShift = new Vector2(-46, 120);
+            TextShift = new Vector2(85, -70);
+            MarioPositionShift = new Vector2(20, 40);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
 
@@ -46,8 +51,9 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (Visible)
             {
-                Color tint = ParentHUD.Underground ? Color.White : Color.Green;
-                spriteBatch.DrawString(livesFont, "X " + lives, AbsolutePosition, tint);
+                Color tint = ParentHUD.Underground ? Color.White : Color.White;
+                HUDBox.Draw(spriteBatch, AbsolutePosition, .49f, gameTime, Facing.Left, 1f);
+                spriteBatch.DrawString(livesFont, "X" + lives, AbsolutePosition+TextShift, tint);
                 marioSprite.Draw(spriteBatch, AbsolutePosition + MarioPositionShift, DrawOrder, gameTime, Facing.Left, 0.6f);
             }
         }

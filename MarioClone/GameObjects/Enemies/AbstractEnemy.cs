@@ -18,6 +18,7 @@ namespace MarioClone.GameObjects
         public static int MaxPiranhaHide { get { return 2500; } }
         public int PiranhaCycleTime { get; set; }
         public int TimeDead { get; set; }
+        public int Hits { get; set; }
 
         public int PointValue { get; set; }
         public EnemyPowerupState PowerupState { get; internal set; }

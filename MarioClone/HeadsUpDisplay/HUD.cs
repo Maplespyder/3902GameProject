@@ -55,10 +55,10 @@ namespace MarioClone.HeadsUpDisplay
             Player = player;
             Visible = true;
             Underground = false;
-            DrawOrder = 0;
+            DrawOrder = .48f;
             
             Modules = new List<HUDModule>();
-            Modules.Add(new PlayerNameModule(this));
+           // Modules.Add(new PlayerNameModule(this));
             Modules.Add(new PlayerScoreModule(this));
             Modules.Add(new CoinCollectionModule(this));
             Modules.Add(new PlayerLivesModule(this));

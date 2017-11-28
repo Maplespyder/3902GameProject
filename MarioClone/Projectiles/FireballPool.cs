@@ -71,7 +71,6 @@ namespace MarioClone.Projectiles
                 Restore(gameTime);
             }
             RemovedFireBalls.Clear();
-
            
         }
 

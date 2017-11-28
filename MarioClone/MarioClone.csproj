@@ -65,6 +65,7 @@
     <Compile Include="GameObjects\Bricks\Flagpole.cs" />
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="GameObjects\Bricks\PipeTop.cs" />
+    <Compile Include="GameObjects\Enemies\BowserObject.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />
     <Compile Include="GameObjects\Mario2.cs" />
     <Compile Include="GameObjects\Other\FireBall.cs" />
@@ -148,6 +149,9 @@
     <Compile Include="States\BlockStates\QuestionBlockAction.cs" />
     <Compile Include="States\BlockStates\QuestionBlockStatic.cs" />
     <Compile Include="States\BlockStates\Used.cs" />
+    <Compile Include="States\EnemyStates\Powerup\BowserAlive.cs" />
+    <Compile Include="States\EnemyStates\Powerup\BowserDead.cs" />
+    <Compile Include="States\EnemyStates\Powerup\BowserShell.cs" />
     <Compile Include="States\EnemyStates\Powerup\EnemyPowerupState.cs" />
     <Compile Include="States\EnemyStates\Powerup\GoombaAlive.cs" />
     <Compile Include="States\EnemyStates\Powerup\GoombaDead.cs" />
