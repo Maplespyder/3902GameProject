@@ -16,7 +16,7 @@ namespace MarioClone.Factories
             switch(type)
             {
                 case PowerUpType.GreenMushroom:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(192, 0, 64, 64));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Potion"), new Rectangle(0, 0, 64, 64));
                 case PowerUpType.RedMushroom:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Berry"), new Rectangle(0, 0, 64, 64));
                 case PowerUpType.Flower:
@@ -24,7 +24,7 @@ namespace MarioClone.Factories
                 case PowerUpType.Coin:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Coin"), new Rectangle(0, 0, 64, 64), 1, 4, 0, 3, 6);
                 default:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet"), new Rectangle(192, 0, 64, 64));
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Berry"), new Rectangle(0, 0, 64, 64));
             }
         }
     }

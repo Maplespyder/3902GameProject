@@ -1028,3 +1028,21 @@
 /processorParam:TextureFormat=Color
 /build:HUDMenuSprites/HUDBox2.png
 
+#begin CustomSprites/Potion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CustomSprites/Potion.png
+
+#begin CustomSounds/Reveal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/Reveal.wav
+
