@@ -31,13 +31,26 @@ namespace MarioClone.Menu
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (MarioCloneGame.State == GameState.GameOver)
+            if (MarioCloneGame.State == GameState.GameOver && MarioCloneGame.Mode == GameMode.MultiPlayer 
+                && !(MarioCloneGame.Player1.Winner || MarioCloneGame.Player2.Winner))
             {
-                spriteBatch.DrawString(font, "YOU LOST", new Vector2(500, 500), Color.White); 
+                spriteBatch.DrawString(font, "YOU BOTH LOST", new Vector2(500, 500), Color.White); 
             }
-            else if (MarioCloneGame.State == GameState.Win)
+            else if(MarioCloneGame.State == GameState.GameOver && MarioCloneGame.Mode == GameMode.SinglePlayer && !MarioCloneGame.Player1.Winner)
             {
-                spriteBatch.DrawString(font, "YOU WIN", new Vector2(500, 500), Color.White);
+                spriteBatch.DrawString(font, "YOU LOST", new Vector2(500, 500), Color.White);
+            }
+            else if (MarioCloneGame.State == GameState.GameOver && MarioCloneGame.Player1.Winner)
+            {
+                spriteBatch.DrawString(font, "PLAYER 1 WINS", new Vector2(500, 500), Color.White);
+                spriteBatch.DrawString(font, "LIVES: " + MarioCloneGame.Player1.Lives, new Vector2(500, 750), Color.White);
+                spriteBatch.DrawString(font, "COINS: " + MarioCloneGame.Player1.CoinCount, new Vector2(500, 800), Color.White);
+                spriteBatch.DrawString(font, "TIME: " + MarioCloneGame.Player1.Time, new Vector2(500, 850), Color.White);
+                spriteBatch.DrawString(font, "SCORE: " + (MarioCloneGame.Player1.Score + MarioCloneGame.Player1.Time * 10), new Vector2(500, 900), Color.White);
+            }
+            else if(MarioCloneGame.State == GameState.GameOver && MarioCloneGame.Player2.Winner && MarioCloneGame.Mode == GameMode.MultiPlayer)
+            {
+                spriteBatch.DrawString(font, "PLAYER 2 WINS", new Vector2(500, 500), Color.White);
                 spriteBatch.DrawString(font, "LIVES: " + MarioCloneGame.Player1.Lives, new Vector2(500, 750), Color.White);
                 spriteBatch.DrawString(font, "COINS: " + MarioCloneGame.Player1.CoinCount, new Vector2(500, 800), Color.White);
                 spriteBatch.DrawString(font, "TIME: " + MarioCloneGame.Player1.Time, new Vector2(500, 850), Color.White);

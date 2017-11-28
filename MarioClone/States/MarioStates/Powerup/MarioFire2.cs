@@ -43,8 +43,9 @@ namespace MarioClone.States
         public override void BecomeFire() { }
 
     
-        public override void TakeDamage()
+        public override void TakeDamage(AbstractGameObject obj)
         {
+            EventCenter.EventManager.Instance.TriggerPlayerDamagedEvent(Context, obj);
             Context.StateMachine.TransitionSuper();
             BecomeInvincible();
         }

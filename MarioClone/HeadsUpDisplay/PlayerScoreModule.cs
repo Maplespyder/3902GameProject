@@ -29,12 +29,22 @@ namespace MarioClone.HeadsUpDisplay
             pointsFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
             playerScore = 0;
 
-            RelativePosition = new Vector2(130 / 2, 50);
+            if (MarioCloneGame.Mode == GameMode.MultiPlayer)
+            {
+                RelativePosition = new Vector2(130 / 2, 50);
+            }
+            else if (MarioCloneGame.Mode == GameMode.SinglePlayer)
+            {
+                RelativePosition = new Vector2(130, 50);
+            }
+            
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
 
             EventManager.Instance.RaiseEnemyDefeatedEvent += UpdatePlayerScoreFromEnemy;
             EventManager.Instance.RaisePowerupCollectedEvent += UpdatePlayerScoreFromPowerup;
             EventManager.Instance.RaisePlayerHitPoleEvent += UpdatePlayerScoreFromFlagHit;
+            EventManager.Instance.RaisePlayerDamagedEvent += UpdatePlayerScoreFromPlayerDamage;
+            EventManager.Instance.RaisePlayerDiedEvent += UpdatePlayerScoreFromPlayerDeath;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -77,11 +87,42 @@ namespace MarioClone.HeadsUpDisplay
             }
         }
 
+        public void UpdatePlayerScoreFromPlayerDamage(object sender, PlayerDamagedEventArgs e)
+        {
+            if(ReferenceEquals(e.DamagedPlayer, ParentHUD.Player))
+            {
+                if(e.Damager is AbstractEnemy)
+                {
+                    playerScore = clamp(playerScore - 250);
+                }
+            }
+            else if(e.DamagedPlayer != null)
+            {
+                playerScore += 700;
+            }
+        }
+
+        public void UpdatePlayerScoreFromPlayerDeath(object sender, PlayerDiedEventArgs e)
+        {
+
+            if (ReferenceEquals(e.DeadPlayer, ParentHUD.Player))
+            {
+                playerScore = clamp(playerScore - 350);
+            }
+        }
+
+        private int clamp(int score)
+        {
+            return score < 0 ? 0 : score;
+        }
+
         public void Dispose()
         {
             EventManager.Instance.RaiseEnemyDefeatedEvent -= UpdatePlayerScoreFromEnemy;
             EventManager.Instance.RaisePowerupCollectedEvent -= UpdatePlayerScoreFromPowerup;
             EventManager.Instance.RaisePlayerHitPoleEvent -= UpdatePlayerScoreFromFlagHit;
+            EventManager.Instance.RaisePlayerDamagedEvent -= UpdatePlayerScoreFromPlayerDamage;
+            EventManager.Instance.RaisePlayerDiedEvent -= UpdatePlayerScoreFromPlayerDeath;
             pointsFont = null;
             ParentHUD = null;
         }

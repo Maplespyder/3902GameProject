@@ -27,7 +27,15 @@ namespace MarioClone.HeadsUpDisplay
             nameFont = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
             playerName = ParentHUD.Player.GetType().Name.ToUpper();
 
-            RelativePosition = new Vector2(130 / 2, 10);
+            if (MarioCloneGame.Mode == GameMode.MultiPlayer)
+            {
+                RelativePosition = new Vector2(130 / 2, 10);
+            }
+            else if (MarioCloneGame.Mode == GameMode.SinglePlayer)
+            {
+                RelativePosition = new Vector2(130, 10);
+            }
+
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
 

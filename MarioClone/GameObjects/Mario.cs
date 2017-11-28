@@ -19,12 +19,18 @@ namespace MarioClone.GameObjects
         private List<FireBall> FireBalls = new List<FireBall>();
         private List<FireBall> RemovedFireBalls = new List<FireBall>();
 
+        private int poleBottom;
+        private int poleTop;
+        private int increment;
+
         /// <summary>
         /// Do not instantiate Mario more than once. We have to make Mario before
         /// things that reference him use him, because I can't null check this getter.
         /// If you aren't sure what you're doing comes after Mario's creation, then
         /// null check the return on instance.
         /// </summary>
+
+        public MarioStateMachine StateMachine { get; set; }
 
         public MarioActionState ActionState
         {
@@ -47,32 +53,27 @@ namespace MarioClone.GameObjects
         }
 
         public MarioSpriteFactory SpriteFactory { get; set; }
+        public Color PlayerTint { get; set; }
+
         public FireballPool _FireBallPool { get; set; }
 
         public int BounceCount { get; set; }
-
-        public int Spawn { get; set; }
-
         public bool Gravity { get; set; }
-
-        public int Lives { get; set; }
-
-        public int CoinCount { get; set; }
-
+        
+        public int Spawn { get; set; }
         public List<Vector2> Spawns { get; set; }
         public Vector2 ActiveSpawn { get; set; }
-
-        public MarioStateMachine StateMachine { get; set; }
+        
+        public int Lives { get; set; }
+        public int CoinCount { get; set; }
+        public int Score { get; internal set; }
+        public int Time { get; internal set; }
+        public bool Winner { get; set; }
+        public bool LevelCompleted { get; set; }
 
         public int height { get; set; }
         public int poleHeight { get; private set; }
-        public int Score { get; internal set; }
-        public int Time { get; internal set; }
 
-        private int poleBottom;
-        private int poleTop;
-        private int increment;
-        public Color PlayerTint { get; set;} 
 
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
@@ -86,6 +87,8 @@ namespace MarioClone.GameObjects
             BounceCount = 0;
             Lives = 3;
             CoinCount = 0;
+            Winner = true;
+            LevelCompleted = false;
 
             StateMachine = new MarioStateMachine(this);
             StateMachine.Begin();
@@ -105,6 +108,9 @@ namespace MarioClone.GameObjects
             Spawns = new List<Vector2>();
             Spawns.Add(new Vector2(position.X, position.Y));
             ActiveSpawn = Spawns[0];
+
+            Winner = true;
+            LevelCompleted = false;
 
             Orientation = Facing.Right;
             Gravity = true;
@@ -231,13 +237,9 @@ namespace MarioClone.GameObjects
                 {
                     height = 100;
                 }
-
-                MarioCloneGame.State = GameState.Win;
                 
-
                 EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
             }
-
         }
 
 
