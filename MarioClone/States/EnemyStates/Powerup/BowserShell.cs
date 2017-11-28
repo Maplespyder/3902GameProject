@@ -25,12 +25,12 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         public override void BecomeDead()
         {
-            Context.PowerupState = new KoopaDead(Context);
+            Context.PowerupState = new BowserDead(Context);
         }
 
         public override void BecomeAlive()
         {
-            Context.PowerupState = new KoopaAlive(Context);
+            Context.PowerupState = new BowserAlive(Context);
         }
 
         public override bool Update(GameTime gameTime, float percent)
