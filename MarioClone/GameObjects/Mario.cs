@@ -363,9 +363,7 @@ namespace MarioClone.GameObjects
                 StateMachine.TransitionFall();
             }
 
-            PowerupState.Update(gameTime);
-            
-
+            PowerupState.Update(gameTime);    
             _FireBallPool.Update(gameTime);
 			return base.Update(gameTime, percent);    
         }
