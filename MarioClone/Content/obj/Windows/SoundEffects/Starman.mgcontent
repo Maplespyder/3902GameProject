@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Starman.wav</SourceFile>
-  <SourceTime>2017-11-13T18:28:32.1622621-05:00</SourceTime>
-  <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/Starman.xnb</DestFile>
-  <DestTime>2017-11-27T16:20:10.1703209-05:00</DestTime>
+  <SourceFile>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Starman.wav</SourceFile>
+  <SourceTime>2017-11-22T01:36:59.3579404-05:00</SourceTime>
+  <DestFile>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/Starman.xnb</DestFile>
+  <DestTime>2017-11-27T18:40:05.6261173-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
