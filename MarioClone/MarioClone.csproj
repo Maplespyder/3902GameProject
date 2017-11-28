@@ -71,6 +71,7 @@
     <Compile Include="GameObjects\Other\BigFireBall.cs" />
     <Compile Include="GameObjects\Other\FireBall.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
+    <Compile Include="Menu\AbstractMenu.cs" />
     <Compile Include="Menu\MenuScreen.cs" />
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
     <Compile Include="HeadsUpDisplay\HUD.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="GameObjects\PowerUps\GreenMushroomObject.cs" />
     <Compile Include="GameObjects\PowerUps\RedMushroomObject.cs" />
     <Compile Include="MarioCloneGame.cs" />
+    <Compile Include="Menu\PauseMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Projectiles\BigFireBallPool.cs" />
     <Compile Include="Projectiles\FireballPool.cs" />
