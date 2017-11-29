@@ -18,7 +18,8 @@ namespace MarioClone.States.EnemyStates.Powerup
         {
             Action = BowserAction.BreatheFire;
 			Context.Velocity = Vector2.Zero;
-        }
+			Context.BoundingBox.UpdateOffSets(-12, -12, -8, -1);
+		}
 
         public override void BreatheFire()
         {
@@ -33,7 +34,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         public override void BecomeWalk(Facing orientation)
         {
-            Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.EnemyHorizontalMovementSpeed, 0) : new Vector2(BowserObject.EnemyHorizontalMovementSpeed, 0);
+            Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.BowserMovementSpeed, 0) : new Vector2(BowserObject.BowserMovementSpeed, 0);
 			Context.ActionStateBowser = new BowserWalk(Context);
             Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserWalk);
             Context.Orientation = orientation;

@@ -71,7 +71,6 @@ namespace MarioClone.GameObjects
 			{
 				Removed = true;
 				Destroyed = true;
-				//GameGrid.Instance.Remove(this);
 				retval = true;	
 			}
 			Gravity = true;

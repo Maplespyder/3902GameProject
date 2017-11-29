@@ -22,7 +22,9 @@ namespace MarioClone.GameObjects
         public static int MaxTimeWalk { get { return 2000; } }
         public static int MaxTimeIdle { get { return 1500; } }
         public static int MaxTimeFire { get { return 1000; } }
-        public int TimeIdle { get; set; }
+		public static float BowserMovementSpeed { get { return 2f; } }
+
+		public int TimeIdle { get; set; }
         public int TimeFire { get; set; }
         public int TimeWalk { get; set; }
         public const float GravityAcceleration = .4f;
@@ -33,10 +35,10 @@ namespace MarioClone.GameObjects
             ActionStateBowser = new BowserIdle(this);
             BoundingBox.UpdateOffSets(-8, -8, -8, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
-            Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
-            Orientation = Facing.Right;
+            Velocity = new Vector2(0, 0);
+            Orientation = Facing.Left;
             PointValue = 500;
-            Hits = 3;
+            Hits = 10;
         }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
@@ -62,13 +64,12 @@ namespace MarioClone.GameObjects
 				Gravity = true;
 			}
 
-            ActionStateBowser.Update(gameTime, percent);
-            PowerupStateBowser.Update(gameTime, percent);
+            bool retVal2 = ActionStateBowser.Update(gameTime, percent);
+			bool retVal = PowerupStateBowser.Update(gameTime, percent);
 			bigFireballPool.Update(gameTime);
 
 			Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
-            bool retVal = PowerupStateBowser.Update(gameTime, percent);
-			Removed = retVal;
+			Removed = retVal || retVal2;
             return Removed;
         }
     }

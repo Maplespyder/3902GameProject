@@ -15,11 +15,11 @@ namespace MarioClone.States.EnemyStates.Powerup
         public BowserWalk(BowserObject context) : base(context)
         {
             Action = BowserAction.Walk;
-        }
+			Context.BoundingBox.UpdateOffSets(-8, -8, -8, -1);
+		}
 
         public override void BecomeIdle()
         {
-            Context.Velocity = new Vector2(0, 0);
 			Context.ActionStateBowser = new BowserIdle(Context);
 			Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserIdle);
 		}
@@ -44,7 +44,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 
                 RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
                 rng.GetBytes(random);
-                randomResult = random[0] % 2;
+                randomResult = random[0] % 3;
 
 				if (MarioCloneGame.Player1.Position.X > Context.Position.X)
 				{
@@ -55,11 +55,11 @@ namespace MarioClone.States.EnemyStates.Powerup
 					Context.Orientation = Facing.Left;
 				}
 
-				if (randomResult == 0)
+				if (randomResult < 1)
                 {
                     BecomeIdle();
                 }
-                else if (randomResult == 1)
+                else if (randomResult >= 1)
                 {
                     BreatheFire();
                 }

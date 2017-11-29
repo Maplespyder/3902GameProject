@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using MarioClone.Collision;
+using MarioClone.GameObjects.Other;
 
 namespace MarioClone.States
 {
@@ -50,9 +51,13 @@ namespace MarioClone.States
 						{
 							Context.Velocity = new Vector2(Context.Velocity.X + 2, -7);
 						}
-						else
+						else if (Context.Velocity.X < 0)
 						{
 							Context.Velocity = new Vector2(Context.Velocity.X - 2, -7);
+						}
+						else
+						{
+							Context.Velocity = new Vector2(-5, -7);
 						}
 					}
 					else
@@ -92,10 +97,14 @@ namespace MarioClone.States
                     }
                 }
             }
-            else if(gameObject is FireBall && !ReferenceEquals(((FireBall)gameObject).Owner, Context))
+            else if((gameObject is FireBall && !ReferenceEquals(((FireBall)gameObject).Owner, Context)))
             {
                 TakeDamage(((FireBall)gameObject).Owner);
             }
+			else if(gameObject is BigFireBall)
+			{
+				TakeDamage(((BigFireBall)gameObject).Owner);
+			}
             else if (gameObject is RedMushroomObject)
             {
                 BecomeSuper();

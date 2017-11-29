@@ -10,46 +10,49 @@ using MarioClone.Factories;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
-    public class BowserIdle : BowserActionState
-    {
-        public BowserIdle(BowserObject context) : base(context)
-        {
-            Action = BowserAction.Idle;
-        }
+	public class BowserIdle : BowserActionState
+	{
+		public BowserIdle(BowserObject context) : base(context)
+		{
+			Action = BowserAction.Idle;
+			Context.Velocity = Vector2.Zero;
+			Context.BoundingBox.UpdateOffSets(-8, -8, -8, -1);
 
-        public object SpriteFactory { get; private set; }
+		}
 
-        public override void BreatheFire()
-        {
+		public object SpriteFactory { get; private set; }
+
+		public override void BreatheFire()
+		{
 			Context.ActionStateBowser = new BowserFireBreathing(Context);
-            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserFire);
-            Context.bigFireballPool.GetAndRelease(Context);
-        }
+			Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserFire);
+			Context.bigFireballPool.GetAndRelease(Context);
+		}
 
-        public override void BecomeIdle()
-        {
-        }
+		public override void BecomeIdle()
+		{
+		}
 
-        public override void BecomeWalk(Facing orientation)
-        {
-            Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.EnemyHorizontalMovementSpeed, 0) : new Vector2(BowserObject.EnemyHorizontalMovementSpeed, 0);
-            Context.ActionStateBowser = new BowserWalk(Context);
-            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserWalk);
-            Context.Orientation = orientation;
-        }
+		public override void BecomeWalk(Facing orientation)
+		{
+			Context.Orientation = orientation;
+			Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.BowserMovementSpeed, 0) : new Vector2(BowserObject.BowserMovementSpeed, 0);
+			Context.ActionStateBowser = new BowserWalk(Context);
+			Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserWalk);
+		}
 
-        public override bool Update(GameTime gameTime, float percent)
-        {
-            Context.TimeIdle += gameTime.ElapsedGameTime.Milliseconds;
-            if (Context.TimeIdle >= BowserObject.MaxTimeIdle)
-            {
-                Context.TimeIdle = 0;
+		public override bool Update(GameTime gameTime, float percent)
+		{
+			Context.TimeIdle += gameTime.ElapsedGameTime.Milliseconds;
+			if (Context.TimeIdle >= BowserObject.MaxTimeIdle)
+			{
+				Context.TimeIdle = 0;
 
-                RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-                rng.GetBytes(random);
-                randomResult = random[0] % 2;
+				RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+				rng.GetBytes(random);
+				randomResult = random[0] % 2;
 
-				if(MarioCloneGame.Player1.Position.X > Context.Position.X)
+				if (MarioCloneGame.Player1.Position.X > Context.Position.X)
 				{
 					Context.Orientation = Facing.Right;
 				}
@@ -58,17 +61,16 @@ namespace MarioClone.States.EnemyStates.Powerup
 					Context.Orientation = Facing.Left;
 				}
 
-                if (randomResult == 0)
-                {
-                    BecomeWalk(Context.Orientation);
-                }
-                else if (randomResult == 1)
-                {
-                    BreatheFire();
-                }
-            }
-            return false;
-
-        }
-    }
+				if (randomResult == 0)
+				{
+					BecomeWalk(Context.Orientation);
+				}
+				else if (randomResult == 1)
+				{
+					BreatheFire();
+				}
+			}
+			return false;
+		}
+	}
 }

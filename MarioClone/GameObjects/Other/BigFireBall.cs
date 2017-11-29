@@ -16,12 +16,12 @@ namespace MarioClone.GameObjects.Other
 			Owner = player;
 			if (Owner.Orientation == Facing.Right)
 			{
-				Velocity = new Vector2(5f, 0);
+				Velocity = new Vector2(8f, 0);
 				Orientation = Facing.Right;
 			}
 			else
 			{
-				Velocity = new Vector2(-5f, 0);
+				Velocity = new Vector2(-8f, 0);
 				Orientation = Facing.Left;
 			}
 			Destroyed = false;
@@ -51,8 +51,6 @@ namespace MarioClone.GameObjects.Other
 			if (Destroyed)
 			{
 				Removed = true;
-				Destroyed = true;
-				//GameGrid.Instance.Remove(this);
 				retval = true;
 			}
 			return retval;
