@@ -48,13 +48,19 @@ namespace MarioClone
         MenuScreen screen;
 
         AbstractMenu pauseMenu;
+        AbstractMenu player1CompletedMenu;
+        AbstractMenu player2CompletedMenu;
 
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
         static ContentManager _content;
         GameGrid gameGrid;
-        List<AbstractController> controllerList;
+
+        AbstractController player1Controller;
+        AbstractController player2Controller;
+        AbstractController generalController;
+
         static LevelCreator level;
 
         bool transitioningAreaP1;
@@ -92,16 +98,12 @@ namespace MarioClone
 		/// </summary>
 		protected override void Initialize()
 		{
-            controllerList = new List<AbstractController>
-            {
-                new GamepadController(PlayerIndex.One),
-                new GamepadController(PlayerIndex.Two),
-                new GamepadController(PlayerIndex.Three),
-                new GamepadController(PlayerIndex.Four)
-            };
+            player1Controller = new KeyboardController();
+            player2Controller = new KeyboardController();
+            generalController = new KeyboardController();
 
             //TODO move this somewhere where it can be chosen by menu
-            Mode = GameMode.SinglePlayer;
+            Mode = GameMode.MultiPlayer;
 
             if(Mode == GameMode.SinglePlayer)
             {
@@ -170,81 +172,51 @@ namespace MarioClone
             level.Create();
 
 			AbstractGameObject.DrawHitbox = false;
-            
-            keyboard.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(Player1));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.U, new BecomeSuperMarioCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(Player1));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Y, new BecomeNormalMarioCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(Player1));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.I, new BecomeFireMarioCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(Player1));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.O, new BecomeDeadMarioCommand(Player1));
 
-			keyboard.AddInputCommand((int)Keys.B, new FireBallCommand(Player1));
-			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new FireBallCommand(Player1));
-            
-            keyboard.AddInputCommand((int)Keys.W, new JumpCommand(Player1));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.A, new MoveLeftCommand(Player1));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.S, new CrouchCommand(Player1));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(Player1));
-            keyboard.AddInputCommand((int)Keys.D, new MoveRightCommand(Player1));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Player1));
+            player1Controller.AddInputCommand((int)Keys.B, new FireBallCommand(Player1));
+            player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new FireBallCommand(Player1));
 
-            keyboard.AddReleasedInputCommand((int)Keys.S, new ReleaseCrouchCommand(Player1));
-            keyboard.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Player1));
-            keyboard.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Player1));
+            player1Controller.AddInputCommand((int)Keys.W, new JumpCommand(Player1));
+            player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(Player1));
+            player1Controller.AddInputCommand((int)Keys.A, new MoveLeftCommand(Player1));
+            player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(Player1));
+            player1Controller.AddInputCommand((int)Keys.S, new CrouchCommand(Player1));
+            player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(Player1));
+            player1Controller.AddInputCommand((int)Keys.D, new MoveRightCommand(Player1));
+            player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Player1));
+
+            player1Controller.AddReleasedInputCommand((int)Keys.S, new ReleaseCrouchCommand(Player1));
+            player1Controller.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Player1));
+            player1Controller.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Player1));
 
             if (Mode == GameMode.MultiPlayer)
             {
-                keyboard.AddInputCommand((int)Keys.Up, new JumpCommand(Player2));
-                keyboard.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player2));
-                keyboard.AddInputCommand((int)Keys.Down, new CrouchCommand(Player2));
-                keyboard.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
+                player2Controller.AddInputCommand((int)Keys.Up, new JumpCommand(Player2));
+                player2Controller.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player2));
+                player2Controller.AddInputCommand((int)Keys.Down, new CrouchCommand(Player2));
+                player2Controller.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
 
-                keyboard.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Player2));
-                keyboard.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player2));
-                keyboard.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player2));
+                player2Controller.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Player2));
+                player2Controller.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player2));
+                player2Controller.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player2));
 
-                keyboard.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
+                player2Controller.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
             }
 
-            keyboard.AddInputCommand((int)Keys.M, new MuteCommand(SoundPool.Instance));
-			keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.M, new MuteCommand(SoundPool.Instance));
-			keyboard.AddInputCommand((int)Keys.Q, new ExitCommand(this));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
-            keyboard.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
-            keyboard.AddInputCommand((int)Keys.R, new ResetLevelCommand(this));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.R, new ResetLevelCommand(this));
-            keyboard.AddInputCommand((int)Keys.P, new PauseCommand(this));
-            keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.P, new PauseCommand(this));
-
-            //keyboard.AddInputCommand((int)Keys.Space, new MenuMoveCommand(screen));
-            //keyboard.AddInputCommand((int)Keys.Enter, new MenuSelectCommand(screen));
-
-            // Add commands to gamepads
-            AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
-            AddCommandToAllGamepads(Buttons.DPadUp, new JumpCommand(Player1));
-            AddCommandToAllGamepads(Buttons.DPadDown, new CrouchCommand(Player1));
-            AddCommandToAllGamepads(Buttons.DPadRight, new MoveRightCommand(Player1));
-            AddCommandToAllGamepads(Buttons.DPadLeft, new MoveLeftCommand(Player1));
-
-            foreach (var gamepad in controllerList)
-            {
-                gamepad.AddReleasedInputCommand((int)Buttons.DPadDown, new ReleaseCrouchCommand(Player1));
-                gamepad.AddReleasedInputCommand((int)Buttons.DPadRight, new ReleaseMoveRightCommand(Player1));
-                gamepad.AddReleasedInputCommand((int)Buttons.DPadLeft, new ReleaseMoveLeftCommand(Player1));
-            }
-
-            // Add keyboard to list of gamepads
-            controllerList.Add(keyboard);
-
+            generalController.AddInputCommand((int)Keys.M, new MuteCommand(SoundPool.Instance));
+            generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.M, new MuteCommand(SoundPool.Instance));
+            generalController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
+            generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
+            generalController.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
+            generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
+            generalController.AddInputCommand((int)Keys.P, new PauseCommand(this));
+            generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.P, new PauseCommand(this));
+            
             EventManager.Instance.RaisePlayerWarpingEvent += PauseForWarp;
             EventManager.Instance.RaisePlayerDiedEvent += HandlePlayerDeath;
             EventManager.Instance.RaiseTimeRanOutEvent += HandleTimeIsOut;
             EventManager.Instance.RaisePlayerKilledBowserEvent += HandleBowserDefeated;
+            EventManager.Instance.RaisePlayerHitPoleEvent += HandleFlagPoleHit;
 
             Player1Camera.Limits = level.LevelAreas[0];
             if (Mode == GameMode.MultiPlayer)
@@ -257,6 +229,9 @@ namespace MarioClone
                 Player2 = Player1;
                 Player2Camera = Player1Camera;
             }
+
+            player1CompletedMenu = new PlayerDoneScoreMenu(Player1);
+            player2CompletedMenu = new PlayerDoneScoreMenu(Player2);
         }
 
         /// <summary>
@@ -284,22 +259,28 @@ namespace MarioClone
             }
             else if (State == GameState.Playing)
             {
-                foreach (var controller in controllerList)
-                {
-                    controller.UpdateAndExecuteInputs();
-                }
+                generalController.UpdateAndExecuteInputs();
 
-                Player1Camera.LookAt(Player1.Position);
                 List<AbstractGameObject> collidables = new List<AbstractGameObject>();
-                if (!transitioningAreaP1)
+                if (!Player1.LevelCompleted)
                 {
-                    gameGrid.CurrentLeftSideViewPort = Player1Camera.Position.X;
-                    gameGrid.CurrentTopSideViewPort = Player1Camera.Position.Y;
-                    collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
+                    player1Controller.UpdateAndExecuteInputs();
+                    Player1Camera.LookAt(Player1.Position);
+                    if (!transitioningAreaP1)
+                    {
+                        gameGrid.CurrentLeftSideViewPort = Player1Camera.Position.X;
+                        gameGrid.CurrentTopSideViewPort = Player1Camera.Position.Y;
+                        collidables = gameGrid.GetCurrentMovingAndPlayerGameObjects;
+                    }
+                }
+                else
+                {
+                    player1CompletedMenu.Update(gameTime);
                 }
 
-                if (Mode == GameMode.MultiPlayer)
+                if (Mode == GameMode.MultiPlayer && !Player2.LevelCompleted)
                 {
+                    player2Controller.UpdateAndExecuteInputs();
                     Player2Camera.LookAt(Player2.Position);
                     if (!transitioningAreaP2)
                     {
@@ -308,13 +289,18 @@ namespace MarioClone
                         collidables = collidables.Union(gameGrid.GetCurrentMovingAndPlayerGameObjects).ToList();
                     }
                 }
-                
-                if(transitioningAreaP1)
+                else
+                {
+                    player2CompletedMenu.Update(gameTime);
+                }
+
+
+                if (transitioningAreaP1 || Player1.LevelCompleted)
                 {
                     collidables.RemoveAll((x) => ReferenceEquals(x, Player1));
                 }
 
-                if (transitioningAreaP2 && (Mode == GameMode.MultiPlayer))
+                if ((transitioningAreaP2 || Player2.LevelCompleted) && (Mode == GameMode.MultiPlayer))
                 {
                     collidables.RemoveAll((x) => ReferenceEquals(x, Player2));
                 }
@@ -324,7 +310,7 @@ namespace MarioClone
                 
                 Player1Camera.LookAt(Player1.Position);
                 List<AbstractGameObject> otherObjects = new List<AbstractGameObject>();
-                if (!transitioningAreaP1)
+                if (!transitioningAreaP1 && !Player1.LevelCompleted)
                 {
                     gameGrid.CurrentLeftSideViewPort = Player1Camera.Position.X;
                     gameGrid.CurrentTopSideViewPort = Player1Camera.Position.Y;
@@ -335,13 +321,14 @@ namespace MarioClone
                 if (Mode == GameMode.MultiPlayer)
                 {
                     Player2Camera.LookAt(Player2.Position);
-                    if (!transitioningAreaP2)
+                    if (!transitioningAreaP2 && !Player2.LevelCompleted)
                     {
                         gameGrid.CurrentLeftSideViewPort = Player2Camera.Position.X;
                         gameGrid.CurrentTopSideViewPort = Player2Camera.Position.Y;
                         otherObjects = otherObjects.Union(gameGrid.GetAllCurrentStaticGameObjects).ToList();
                     }
                 }
+
                 foreach (AbstractGameObject obj in otherObjects)
                 {
                     if (obj.Update(gameTime, 1))
@@ -431,6 +418,12 @@ namespace MarioClone
                     }
                 }
                 DrawPlayerHalfOfGame(gameTime, HUDs[0], Player1Camera, player1Objects, transitioningAreaP1, warpOpacityP1);
+
+                if (Player1.LevelCompleted)
+                {
+                    player1CompletedMenu.Draw(spriteBatch, gameTime);
+                }
+
                 spriteBatch.End();
 
 
@@ -455,6 +448,11 @@ namespace MarioClone
                         }
                     }
                     DrawPlayerHalfOfGame(gameTime, HUDs[1], Player2Camera, player2Objects, transitioningAreaP2, warpOpacityP2);
+
+                    if (Player2.LevelCompleted)
+                    {
+                        player2CompletedMenu.Draw(spriteBatch, gameTime);
+                    }
                     spriteBatch.End();
                 }
 
@@ -649,6 +647,23 @@ namespace MarioClone
             }
         }
 
+        private void HandleFlagPoleHit(object sender, PlayerHitPoleEventArgs e)
+        {
+            e.Mario.LevelCompleted = true;
+            //State = GameState.GameOver;
+            if (Mode == GameMode.MultiPlayer)
+            {
+                if (ReferenceEquals(e.Mario, Player1))
+                {
+                    Player2.Winner = false;
+                }
+                else if (ReferenceEquals(e.Mario, Player2))
+                {
+                    Player1.Winner = false;
+                }
+            }
+        }
+
         public static ContentManager GameContent
         {
             get { return _content; }
@@ -730,14 +745,6 @@ namespace MarioClone
         public void SetAsPlaying()
         {
             State = GameState.Playing;
-        }
-
-        private void AddCommandToAllGamepads(Buttons button, ICommand command)
-        {
-            foreach (var gamepad in controllerList)
-            {
-                gamepad.AddInputCommand((int)button, command);
-            }
         }
     }
 }

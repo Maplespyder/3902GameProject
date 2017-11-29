@@ -101,7 +101,20 @@ namespace MarioClone.EventCenter
             Warper = player;
         }
     }
-	public class FireballFireArgs : CustomEventArgs<FireBall>
+
+    public class PlayerHitPoleEventArgs : CustomEventArgs<Mario>
+    {
+        public int _height { get; }
+        public Mario Mario { get; }
+
+        public PlayerHitPoleEventArgs(int height, Mario player) : base(player)
+        {
+            _height = height;
+            Mario = player;
+        }
+    }
+
+    public class FireballFireArgs : CustomEventArgs<FireBall>
 	{
 		public FireballFireArgs(FireBall obj) : base(obj)
 		{

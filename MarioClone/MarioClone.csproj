@@ -95,6 +95,7 @@
     <Compile Include="GameObjects\Other\FireBall.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
     <Compile Include="Menu\AbstractMenu.cs" />
+    <Compile Include="Menu\PlayerDoneScoreMenu.cs" />
     <Compile Include="Menu\MenuScreen.cs" />
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
     <Compile Include="HeadsUpDisplay\HUD.cs" />

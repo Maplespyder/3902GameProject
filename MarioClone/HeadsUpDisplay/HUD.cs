@@ -83,6 +83,11 @@ namespace MarioClone.HeadsUpDisplay
 
         public void Update(GameTime gameTime)
         {
+            if (Player.LevelCompleted)
+            {
+                Visible = false;
+                return;
+            }
             foreach(HUDModule module in Modules)
             {
                 module.Update(gameTime);

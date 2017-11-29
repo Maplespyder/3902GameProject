@@ -12,7 +12,7 @@ namespace MarioClone.States.EnemyStates.Powerup
     public class BowserIdle : BowserActionState
     {
         private byte[] random = new Byte[1];
-        protected BowserIdle(BowserObject context) : base(context)
+        public BowserIdle(BowserObject context) : base(context)
         {
         }
 
