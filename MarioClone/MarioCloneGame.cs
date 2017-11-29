@@ -47,6 +47,8 @@ namespace MarioClone
 
         MenuScreen screen;
 
+        AbstractMenu pauseMenu;
+
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
@@ -99,7 +101,7 @@ namespace MarioClone
             };
 
             //TODO move this somewhere where it can be chosen by menu
-            Mode = GameMode.MultiPlayer;
+            Mode = GameMode.SinglePlayer;
 
             if(Mode == GameMode.SinglePlayer)
             {
@@ -146,6 +148,7 @@ namespace MarioClone
             _backgroundP1 = new Background(spriteBatch, Player1Camera, BackgroundType.Overworld);
             _backgroundP2 = new Background(spriteBatch, Player2Camera, BackgroundType.Overworld);
             screen = new MenuScreen(this);
+            pauseMenu = new PauseMenu(this);
 
             GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
@@ -275,13 +278,17 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-            foreach (var controller in controllerList)
+            if(State == GameState.Paused)
             {
-                controller.UpdateAndExecuteInputs();
+                pauseMenu.Update(gameTime);
             }
-
-            if (State == GameState.Playing)
+            else if (State == GameState.Playing)
             {
+                foreach (var controller in controllerList)
+                {
+                    controller.UpdateAndExecuteInputs();
+                }
+
                 Player1Camera.LookAt(Player1.Position);
                 List<AbstractGameObject> collidables = new List<AbstractGameObject>();
                 if (!transitioningAreaP1)
@@ -364,7 +371,14 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			if (State == GameState.Playing)
+            if(State == GameState.Paused)
+            {
+                spriteBatch.Begin(SpriteSortMode.BackToFront);
+                pauseMenu.Draw(spriteBatch, gameTime);
+                spriteBatch.End();
+                base.Draw(gameTime);
+            }
+			else if (State == GameState.Playing)
             {
                 if (transitioningAreaP1)
                 {

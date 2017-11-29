@@ -5,7 +5,8 @@ namespace MarioClone.Factories
 {
     public enum ProjectileType
 	{
-		FireBall
+		FireBall,
+		BigFireBall
 	}
 
 	public static class ProjectileFactory
@@ -17,6 +18,8 @@ namespace MarioClone.Factories
 			{
 				case ProjectileType.FireBall:
 					return new FireBall(ProjectileSpriteFactory.Create(type), player,  position);
+				case ProjectileType.BigFireBall:
+					return new FireBall(ProjectileSpriteFactory.Create(type), player, position);
 				default:
 					return new FireBall(ProjectileSpriteFactory.Create(type), player, position);
 			}
