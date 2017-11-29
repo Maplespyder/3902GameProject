@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
-    class BowserWalk
+    public class BowserWalk
     {
 
     }

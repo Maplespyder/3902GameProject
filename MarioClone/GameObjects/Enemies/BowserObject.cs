@@ -41,9 +41,9 @@ namespace MarioClone.GameObjects
         {
             if (side == Side.Bottom)
             {
-                Gravity = false;
-            
+                Gravity = false;   
             }
+
             bool retVal1 = PowerupStateBowser.CollisionResponse(gameObject, side, gameTime);
             bool retVal2 = ActionStateBowser.CollisionResponse(gameObject, side, gameTime);
             return retVal1 || retVal2;

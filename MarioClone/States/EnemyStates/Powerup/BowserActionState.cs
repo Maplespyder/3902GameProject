@@ -44,6 +44,12 @@ namespace MarioClone.States.EnemyStates.Powerup
                     Context.Velocity = new Vector2(-(BowserObject.EnemyHorizontalMovementSpeed), Context.Velocity.Y);
                     Context.Orientation = Facing.Left;
                 }
+				else if(side == Side.Bottom)
+				{
+					Context.Gravity = false;
+					Context.Velocity = new Vector2(Context.Velocity.X, 0);
+					return true;
+				}
             }
 
             return false;
