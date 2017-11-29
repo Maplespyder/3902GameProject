@@ -1,4 +1,5 @@
 ﻿using MarioClone.GameObjects;
+using MarioClone.GameObjects.Other;
 using Microsoft.Xna.Framework;
 
 namespace MarioClone.Factories
@@ -19,7 +20,7 @@ namespace MarioClone.Factories
 				case ProjectileType.FireBall:
 					return new FireBall(ProjectileSpriteFactory.Create(type), player,  position);
 				case ProjectileType.BigFireBall:
-					return new FireBall(ProjectileSpriteFactory.Create(type), player, position);
+					return new BigFireBall(ProjectileSpriteFactory.Create(type), player, position);
 				default:
 					return new FireBall(ProjectileSpriteFactory.Create(type), player, position);
 			}

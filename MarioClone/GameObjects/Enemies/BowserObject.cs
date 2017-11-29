@@ -43,8 +43,8 @@ namespace MarioClone.GameObjects
                 Gravity = false;
             
             }
-            bool retVal1 = PowerupStateBowser.CollisionResponse(gameTime, percent);
-            bool retVal2 = ActionStateBowser.CollisionResponse(gameTime, percent);
+            bool retVal1 = PowerupStateBowser.CollisionResponse(gameObject, side, gameTime);
+            bool retVal2 = ActionStateBowser.CollisionResponse(gameObject, side, gameTime);
             return retVal1 || retVal2;
         }
 
