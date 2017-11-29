@@ -30,7 +30,7 @@ namespace MarioClone.States.EnemyStates.Powerup
             {
                 if (side.Equals(Side.Top))
                 {
-                    Context.Hits -= 1;
+                    Context.Hits--;
                     if (Context.Hits == 0)
                     {
                         Killer = (Mario)gameObject;
@@ -39,22 +39,8 @@ namespace MarioClone.States.EnemyStates.Powerup
                         return true;
                     }
                 }
-            }
-            else if (gameObject is FireBall)
-            {
-                var fireball = (FireBall)gameObject;
-                if (fireball.Owner is Mario)
-                {
-                    Context.Hits -= 1;
-                    if (Context.Hits == 0)
-                    {
-                        Killer = (Mario)gameObject;
-                        EventManager.Instance.TriggerEnemyDefeatedEvent(Context, (Mario)fireball.Owner);
-                        Context.PowerupStateBowser.BecomeDead();
-                        return true;
-                    }
-                }
-            }
+            
+        }
             return false;
         }
 
