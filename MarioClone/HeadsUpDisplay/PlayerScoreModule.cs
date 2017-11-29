@@ -51,7 +51,7 @@ namespace MarioClone.HeadsUpDisplay
 
             EventManager.Instance.RaiseEnemyDefeatedEvent += UpdatePlayerScoreFromEnemy;
             EventManager.Instance.RaisePowerupCollectedEvent += UpdatePlayerScoreFromPowerup;
-            EventManager.Instance.RaisePlayerHitPoleEvent += UpdatePlayerScoreFromFlagHit;
+            EventManager.Instance.RaisePlayerKilledBowserEvent += UpdatePlayerScoreFromBowserHit;
             EventManager.Instance.RaisePlayerDamagedEvent += UpdatePlayerScoreFromPlayerDamage;
             EventManager.Instance.RaisePlayerDiedEvent += UpdatePlayerScoreFromPlayerDeath;
         }
@@ -90,11 +90,11 @@ namespace MarioClone.HeadsUpDisplay
             }
         }
 
-        public void UpdatePlayerScoreFromFlagHit(object sender, PlayerHitPoleEventArgs e)
+        public void UpdatePlayerScoreFromBowserHit(object sender, PlayerKilledBowserEventArgs e)
         {
             if (ReferenceEquals(e.Mario, ParentHUD.Player))
             { 
-                playerScore += e._height;   
+                playerScore += e.PointValue;   
             }
         }
 
@@ -131,7 +131,7 @@ namespace MarioClone.HeadsUpDisplay
         {
             EventManager.Instance.RaiseEnemyDefeatedEvent -= UpdatePlayerScoreFromEnemy;
             EventManager.Instance.RaisePowerupCollectedEvent -= UpdatePlayerScoreFromPowerup;
-            EventManager.Instance.RaisePlayerHitPoleEvent -= UpdatePlayerScoreFromFlagHit;
+            EventManager.Instance.RaisePlayerKilledBowserEvent -= UpdatePlayerScoreFromBowserHit;
             EventManager.Instance.RaisePlayerDamagedEvent -= UpdatePlayerScoreFromPlayerDamage;
             EventManager.Instance.RaisePlayerDiedEvent -= UpdatePlayerScoreFromPlayerDeath;
             pointsFont = null;

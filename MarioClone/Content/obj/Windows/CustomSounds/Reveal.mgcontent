@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/CustomSounds/Reveal.wav</SourceFile>
-  <SourceTime>2017-11-28T13:38:30.9228014-05:00</SourceTime>
-  <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/CustomSounds/Reveal.xnb</DestFile>
-  <DestTime>2017-11-28T13:39:46.4126395-05:00</DestTime>
+  <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/Reveal.wav</SourceFile>
+  <SourceTime>2017-11-27T22:55:50.2160556-05:00</SourceTime>
+  <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/CustomSounds/Reveal.xnb</DestFile>
+  <DestTime>2017-11-27T22:56:04.4615931-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

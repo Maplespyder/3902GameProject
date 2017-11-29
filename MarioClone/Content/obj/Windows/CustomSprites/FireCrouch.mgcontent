@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/CustomSprites/FireCrouch.png</SourceFile>
-  <SourceTime>2017-11-27T12:33:57.6421185-05:00</SourceTime>
-  <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/CustomSprites/FireCrouch.xnb</DestFile>
-  <DestTime>2017-11-28T13:39:41.4892258-05:00</DestTime>
+  <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/FireCrouch.png</SourceFile>
+  <SourceTime>2017-11-26T19:31:48.7566496-05:00</SourceTime>
+  <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/CustomSprites/FireCrouch.xnb</DestFile>
+  <DestTime>2017-11-27T22:56:03.0433623-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

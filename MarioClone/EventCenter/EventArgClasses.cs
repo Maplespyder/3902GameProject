@@ -117,14 +117,16 @@ namespace MarioClone.EventCenter
 		}
 	}
 
-	public class PlayerHitPoleEventArgs : CustomEventArgs<Mario>
+    public class PlayerKilledBowserEventArgs : CustomEventArgs<BowserObject>
     {
-        public int _height { get; }
         public Mario Mario { get; }
+        public BowserObject Bowser { get; }
+        public int PointValue { get; }  
 
-        public PlayerHitPoleEventArgs(int height, Mario player) : base(player)
+        public PlayerKilledBowserEventArgs(BowserObject bowser, Mario player) : base(bowser)
         {
-            _height = height;
+            Bowser = bowser;
+            PointValue = bowser.PointValue;
             Mario = player;
         }
     }

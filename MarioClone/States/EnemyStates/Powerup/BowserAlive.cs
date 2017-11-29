@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
-    class BowserAlive : EnemyPowerupState
+   public class BowserAlive : BowserPowerupState
     {
-        public BowserAlive(AbstractEnemy context) : base(context)
+        public BowserAlive(BowserObject context) : base(context)
         {
             if (Context.Orientation == Facing.Right)
             {
@@ -21,16 +21,25 @@ namespace MarioClone.States.EnemyStates.Powerup
             {
                 Context.Velocity = new Vector2(-1f, Context.Velocity.Y);
             }
-            if (Context is GreenKoopaObject)
-            {
+           
                 Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.Bowser);
-            }
+            
         }
 
         public override void BecomeDead()
         {
+            Context.PowerupStateBowser = new BowserDead(Context);
 
-            Context.PowerupState = new KoopaShell(Context);
         }
+
+        public override void BecomeInvincible()
+        {
+        }
+    
+        public override bool Update(GameTime gameTime, float percent)
+        {
+            return false;
+        }
+
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/CustomSprites/UnderworldBackground.png</SourceFile>
-  <SourceTime>2017-11-27T12:33:57.7836495-05:00</SourceTime>
-  <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/CustomSprites/UnderworldBackground.xnb</DestFile>
-  <DestTime>2017-11-28T13:39:44.0773744-05:00</DestTime>
+  <SourceFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/UnderworldBackground.png</SourceFile>
+  <SourceTime>2017-11-27T16:16:10.8482872-05:00</SourceTime>
+  <DestFile>C:/Users/Anna Wolfe/source/repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/CustomSprites/UnderworldBackground.xnb</DestFile>
+  <DestTime>2017-11-27T22:56:04.2301253-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

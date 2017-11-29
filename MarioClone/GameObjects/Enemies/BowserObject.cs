@@ -7,27 +7,33 @@ using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 using MarioClone.States;
 using MarioClone.Collision;
-using MarioClone.EventCenter;
-using System;
+using MarioClone.EventCenter; 
 using MarioClone.Projectiles;
+
 using MarioClone.States.EnemyStates.Powerup;
 
-namespace MarioClone.GameObjects.Enemies
+namespace MarioClone.GameObjects
 {
-    class BowserObject: AbstractEnemy
+    public class BowserObject: AbstractEnemy
     {
         FireballPool fireballPool = new FireballPool(1);
+
+        public static int MaxTimeWalk { get { return 300; } }
+        public static int MaxTimeIdle { get { return 300; } }
+        public static int MaxTimeFire { get { return 300; } }
+        public int TimeIdle { get; set; }
+        public int TimeFire { get; set; }
+        public int TimeWalk { get; set; }
         public BowserObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             Gravity = false;
-            PowerupState = new BowserAlive(this);
+            PowerupStateBowser = new BowserAlive(this);
             BoundingBox.UpdateOffSets(-8, -8, -8, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
             Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
-            Orientation = Facing.Left;
+            Orientation = Facing.Right;
             PointValue = 500;
-
-
+            Hits = 3;
         }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
@@ -35,85 +41,27 @@ namespace MarioClone.GameObjects.Enemies
             if (side == Side.Bottom)
             {
                 Gravity = false;
+            
             }
-
-            if (gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2))
-            {
-                if (side.Equals(Side.Top))
-                {
-                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)gameObject);
-                    PowerupState.BecomeDead();
-                    return true;
-                }
-            }
-            else if (gameObject is AbstractBlock)
-            {
-                if (side == Side.Left)
-                {
-                    Velocity = new Vector2(EnemyHorizontalMovementSpeed, Velocity.Y);
-                    Orientation = Facing.Right;
-                }
-                else if (side == Side.Right)
-                {
-                    Velocity = new Vector2(-EnemyHorizontalMovementSpeed, Velocity.Y);
-                    Orientation = Facing.Left;
-                }
-                else if (side == Side.Bottom)
-                {
-                    if (((AbstractBlock)gameObject).Bumper != null)
-                    {
-                        EventManager.Instance.TriggerEnemyDefeatedEvent(this, ((AbstractBlock)gameObject).Bumper);
-                        PowerupState.BecomeDead();
-                    }
-                    Velocity = new Vector2(Velocity.X, 0);
-                }
-
-                return true;
-            }
-            else if (gameObject is FireBall)
-            {
-
-                var fireball = (FireBall)gameObject;
-                if (fireball.Owner is Mario)
-                {
-                    EventManager.Instance.TriggerEnemyDefeatedEvent(this, (Mario)fireball.Owner);
-                    PowerupState.BecomeDead();
-                    return true;
-                }
-            }
-            return false;
+            bool retVal1 = PowerupStateBowser.CollisionResponse(gameTime, percent);
+            bool retVal2 = ActionStateBowser.CollisionResponse(gameTime, percent);
+            return retVal1 || retVal2;
         }
 
         public override bool Update(GameTime gameTime, float percent)
         {
-            bool retval = base.Update(gameTime, percent);
-
             if (Gravity)
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
-            if (!(PowerupState is BowserDead))
-            {
-                Gravity = true;
-                if (((Position.X > MarioCloneGame.Player1.Position.X && Orientation is Facing.Left) ||
-                    (Position.X < MarioCloneGame.Player1.Position.X && Orientation is Facing.Right)) &&
-                    (Math.Abs(MarioCloneGame.Player1.Position.X - Position.X) < 600 && Math.Abs(MarioCloneGame.Player1.Position.X - Position.X) > 100
-                    && Math.Abs(MarioCloneGame.Player1.Position.Y - Position.Y) < 100))
-                {
-                    fireballPool.GetAndRelease(this);
-                }
-                if (((Position.X > MarioCloneGame.Player2.Position.X && Orientation is Facing.Left) ||
-                    (Position.X < MarioCloneGame.Player2.Position.X && Orientation is Facing.Right)) &&
-                    (Math.Abs(MarioCloneGame.Player2.Position.X - Position.X) < 600 && Math.Abs(MarioCloneGame.Player2.Position.X - Position.X) > 100
-                    && Math.Abs(MarioCloneGame.Player2.Position.Y - Position.Y) < 100))
-                {
-                    fireballPool.GetAndRelease(this);
-                }
 
-            }
+            ActionStateBowser.Update(gameTime, percent);
+            PowerupStateBowser.Update(gameTime, percent);
 
-            fireballPool.Update(gameTime);
-            return retval;
+            Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
+            bool retVal = PowerupStateBowser.Update(gameTime, percent);
+            Removed = base.Update(gameTime, percent) || retVal;
+            return Removed;
         }
     }
 }
