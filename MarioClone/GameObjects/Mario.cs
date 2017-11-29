@@ -238,7 +238,7 @@ namespace MarioClone.GameObjects
                     height = 100;
                 }
                 
-                //EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
+                EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
             }
         }*/
 

@@ -1,6 +1,5 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
-using MarioClone.GameObjects;
 using MarioClone.HeadsUpDisplay;
 using System;
 using System.Collections.Generic;
@@ -71,6 +70,11 @@ namespace MarioClone.EventCenter
 			RunningOutOfTimeArgs args = new RunningOutOfTimeArgs(module);
 			OnRaiseRunningOutOfTimeEvent(args);
 		}
+        public void TriggerPlayerHitPoleEvent(int height, Mario player)
+        {
+            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(height, player);
+            OnRaisePlayerHitPoleEvent(args);
+        }
 
         public void TriggerPlayerDiedEvent(Mario player)
         {

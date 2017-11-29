@@ -30,6 +30,7 @@ namespace MarioClone.GameObjects
         {
             Gravity = false;
             PowerupStateBowser = new BowserAlive(this);
+            ActionStateBowser = new BowserIdle(this);
             BoundingBox.UpdateOffSets(-8, -8, -8, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
             Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
@@ -42,11 +43,11 @@ namespace MarioClone.GameObjects
         {
             if (side == Side.Bottom)
             {
-                Gravity = false;
-            
+                Gravity = false;   
             }
-            bool retVal1 = PowerupStateBowser.CollisionResponse(gameTime, percent);
-            bool retVal2 = ActionStateBowser.CollisionResponse(gameTime, percent);
+
+            bool retVal1 = PowerupStateBowser.CollisionResponse(gameObject, side, gameTime);
+            bool retVal2 = ActionStateBowser.CollisionResponse(gameObject, side, gameTime);
             return retVal1 || retVal2;
         }
 
@@ -56,13 +57,18 @@ namespace MarioClone.GameObjects
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + BowserObject.GravityAcceleration * percent);
             }
+			if (!(PowerupStateBowser is BowserDead))
+			{
+				Gravity = true;
+			}
 
             ActionStateBowser.Update(gameTime, percent);
             PowerupStateBowser.Update(gameTime, percent);
 
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
             bool retVal = PowerupStateBowser.Update(gameTime, percent);
-            Removed = base.Update(gameTime, percent) || retVal;
+            Removed = retVal;
+            //Removed = base.Update(gameTime, percent) || retVal;
             return Removed;
         }
     }

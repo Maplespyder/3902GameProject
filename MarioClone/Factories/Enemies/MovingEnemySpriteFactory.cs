@@ -31,7 +31,7 @@ namespace MarioClone.Factories
 						new Rectangle(0, 0, 122, 105), 1, 2, 0, 1, 4);
                 case EnemyType.Bowser:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BowserWalk"),
-                        new Rectangle(0, 0, 136, 164), 1, 4, 0, 3, 10);
+                        new Rectangle(0, 0, 136, 164), 1, 4, 0, 3, 6);
                 default:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
                         new Rectangle(0, 0, 64, 64), 1, 3, 0, 1, 4);
