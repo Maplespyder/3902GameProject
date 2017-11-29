@@ -23,7 +23,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         protected BowserAction PreviousActionState { get; set; }
 
-        public byte[] random = new Byte[0];
+        public byte[] random = new Byte[1];
 
         public int randomResult;
 
