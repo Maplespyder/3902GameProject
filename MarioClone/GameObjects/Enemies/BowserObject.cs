@@ -55,6 +55,10 @@ namespace MarioClone.GameObjects
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
+			if (!(PowerupStateBowser is BowserDead))
+			{
+				Gravity = true;
+			}
 
             ActionStateBowser.Update(gameTime, percent);
             PowerupStateBowser.Update(gameTime, percent);
