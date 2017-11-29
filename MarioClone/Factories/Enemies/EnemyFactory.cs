@@ -16,6 +16,7 @@ namespace MarioClone.Factories
         RedKoopaShell,
         RedKoopa,
 		Piranha,
+		Bowser,
         BowserWalk,
 		BowserFire,
 		BowserIdle
