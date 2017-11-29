@@ -221,8 +221,8 @@ namespace MarioClone
             keyboard.AddInputCommand((int)Keys.P, new PauseCommand(this));
             keyboard.AddInputChord((int)Modifier.LeftShift, (int)Keys.P, new PauseCommand(this));
 
-            keyboard.AddInputCommand((int)Keys.Space, new MenuMoveCommand(screen));
-            keyboard.AddInputCommand((int)Keys.Enter, new MenuSelectCommand(screen));
+            //keyboard.AddInputCommand((int)Keys.Space, new MenuMoveCommand(screen));
+            //keyboard.AddInputCommand((int)Keys.Enter, new MenuSelectCommand(screen));
 
             // Add commands to gamepads
             AddCommandToAllGamepads(Buttons.Back, new ExitCommand(this));
@@ -371,48 +371,43 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-            if(State == GameState.Paused)
+			if (State == GameState.Playing || State == GameState.Paused)
             {
-                spriteBatch.Begin(SpriteSortMode.BackToFront);
-                pauseMenu.Draw(spriteBatch, gameTime);
-                spriteBatch.End();
-                base.Draw(gameTime);
-            }
-			else if (State == GameState.Playing)
-            {
-                if (transitioningAreaP1)
+                if (State != GameState.Paused)
                 {
-                    if (warpOpacityP1 > 255)
+                    if (transitioningAreaP1)
                     {
-                        warpOpacityP1 = 255;
-                        opacityChangeP1 = -5;
-                        UpdateCameraForWarp(gameTime, warpArgsP1);
+                        if (warpOpacityP1 > 255)
+                        {
+                            warpOpacityP1 = 255;
+                            opacityChangeP1 = -5;
+                            UpdateCameraForWarp(gameTime, warpArgsP1);
+                        }
+                        else if (warpOpacityP1 <= 0)
+                        {
+                            transitioningAreaP1 = false;
+                            warpArgsP1 = null;
+                            Player1.StateMachine.TransitionIdle();
+                        }
                     }
-                    else if (warpOpacityP1 <= 0)
+
+
+                    if (transitioningAreaP2 && (Mode == GameMode.MultiPlayer))
                     {
-                        transitioningAreaP1 = false;
-                        warpArgsP1 = null;
-                        Player1.StateMachine.TransitionIdle();
+                        if (warpOpacityP2 > 255)
+                        {
+                            warpOpacityP2 = 255;
+                            opacityChangeP2 = -5;
+                            UpdateCameraForWarp(gameTime, warpArgsP2);
+                        }
+                        else if (warpOpacityP2 <= 0)
+                        {
+                            transitioningAreaP2 = false;
+                            warpArgsP2 = null;
+                            Player2.StateMachine.TransitionIdle();
+                        }
                     }
                 }
-
-
-                if (transitioningAreaP2 && (Mode == GameMode.MultiPlayer))
-                {
-                    if (warpOpacityP2 > 255)
-                    {
-                        warpOpacityP2 = 255;
-                        opacityChangeP2 = -5;
-                        UpdateCameraForWarp(gameTime, warpArgsP2);
-                    }
-                    else if (warpOpacityP2 <= 0)
-                    {
-                        transitioningAreaP2 = false;
-                        warpArgsP2 = null;
-                        Player2.StateMachine.TransitionIdle();
-                    }
-                }
-
 
                 Vector2 parallax = new Vector2(1.0f);
 				GraphicsDevice.Clear(Color.LightSkyBlue);
@@ -426,7 +421,7 @@ namespace MarioClone
                 List<AbstractGameObject> player1Objects = gameGrid.GetAllCurrentGameObjects;
 
                 spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Player1Camera.GetViewMatrix(parallax));
-                if (transitioningAreaP1)
+                if (transitioningAreaP1 && !(State == GameState.Paused))
                 {
                     opacityChangeTimeDeltaP1 += gameTime.ElapsedGameTime.Milliseconds;
                     if (opacityChangeTimeDeltaP1 >= 1)
@@ -450,7 +445,7 @@ namespace MarioClone
 
                     spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Player2Camera.GetViewMatrix(parallax));
                     //TODO probably remove time delta
-                    if (transitioningAreaP2)
+                    if (transitioningAreaP2 && !(State == GameState.Paused))
                     {
                         opacityChangeTimeDeltaP2 += gameTime.ElapsedGameTime.Milliseconds;
                         if (opacityChangeTimeDeltaP2 >= 1)
@@ -464,8 +459,7 @@ namespace MarioClone
                 }
 
                 GraphicsDevice.Viewport = new Viewport(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-
-
+                
                 if (Mode == GameMode.MultiPlayer)
                 {
                     spriteBatch.Begin(SpriteSortMode.BackToFront);
@@ -477,6 +471,14 @@ namespace MarioClone
                             player2Viewport.X - player1Viewport.Width, graphics.PreferredBackBufferHeight), Color.White);
                     }
                     spriteBatch.End();
+                }
+
+                if (State == GameState.Paused)
+                {
+                    spriteBatch.Begin(SpriteSortMode.BackToFront);
+                    pauseMenu.Draw(spriteBatch, gameTime);
+                    spriteBatch.End();
+                    base.Draw(gameTime);
                 }
 
                 base.Draw(gameTime);
@@ -707,6 +709,8 @@ namespace MarioClone
             {
                 Player2Camera.LookAt(Player2.Position);
             }
+
+            State = GameState.Playing;
         }
 
         public void PauseCommand()

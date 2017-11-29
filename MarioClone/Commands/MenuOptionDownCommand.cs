@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MarioClone.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Commands
 {
-    class ResetLevelCommand : AbstractCommand<MarioCloneGame>
+    public class MenuOptionDownCommand : AbstractCommand<AbstractMenu>
     {
-        public ResetLevelCommand(MarioCloneGame receiver) : base(receiver) { }
+        public MenuOptionDownCommand(AbstractMenu menu) : base(menu) { }
 
         public override void InvokeCommand()
         {
-            Receiver.ResetLevelCommand(); 
+            Receiver.MenuOptionDown();
         }
     }
 }
