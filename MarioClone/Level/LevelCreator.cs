@@ -326,7 +326,7 @@ namespace MarioClone.Level
                 else if (sameColor(pixel, Colors.BowserObject))
                 {
                     position = new Vector2(position.X, position.Y);
-                    initializer = EnemyFactory.Create(EnemyType.Bowser, position);
+                    initializer = EnemyFactory.Create(EnemyType.BowserIdle, position);
                     initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y - initializer.Sprite.SourceRectangle.Height);
                     Grid.Add(initializer);
                 }

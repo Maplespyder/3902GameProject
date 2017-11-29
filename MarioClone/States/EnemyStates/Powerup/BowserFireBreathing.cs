@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using System.Security.Cryptography;
+using MarioClone.Factories;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
@@ -25,15 +26,15 @@ namespace MarioClone.States.EnemyStates.Powerup
         public override void BecomeIdle()
         {
             Context.Velocity = new Vector2(0, 0);
-            Context.ActionStateBowser = BowserIdle.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Idle);
+			Context.ActionStateBowser = new BowserIdle(Context);
+            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserIdle);
         }
 
         public override void BecomeWalk(Facing orientation)
         {
             Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.EnemyHorizontalMovementSpeed, 0) : new Vector2(BowserObject.EnemyHorizontalMovementSpeed, 0);
-            Context.ActionStateBowser = BowserWalk.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Walk);
+			Context.ActionStateBowser = new BowserWalk(Context);
+            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserWalk);
             Context.Orientation = orientation;
         }
 

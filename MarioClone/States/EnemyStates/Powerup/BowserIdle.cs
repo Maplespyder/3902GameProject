@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using System.Security.Cryptography;
+using MarioClone.Factories;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
     public class BowserIdle : BowserActionState
     {
-        protected BowserIdle(BowserObject context) : base(context)
+        public BowserIdle(BowserObject context) : base(context)
         {
             Action = BowserAction.Idle;
         }
@@ -20,10 +21,9 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         public override void BreatheFire()
         {
-            Context.ActionStateBowser = BowserFireBreathing.Instance;
-            Context.PowerupStateBowser = BowserIdle.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.BreatheFire);
-            bigFireballPool.GetAndRelease(BowserObject);
+			Context.ActionStateBowser = new BowserFireBreathing(Context);
+            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserFire);
+            Context.bigFireballPool.GetAndRelease(Context);
         }
 
         public override void BecomeIdle()
@@ -33,8 +33,8 @@ namespace MarioClone.States.EnemyStates.Powerup
         public override void BecomeWalk(Facing orientation)
         {
             Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.EnemyHorizontalMovementSpeed, 0) : new Vector2(BowserObject.EnemyHorizontalMovementSpeed, 0);
-            Context.ActionStateBowser = BowserWalk.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Walk);
+            Context.ActionStateBowser = new BowserWalk(Context);
+            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserWalk);
             Context.Orientation = orientation;
         }
 

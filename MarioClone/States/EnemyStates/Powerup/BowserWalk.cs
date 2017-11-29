@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using System.Security.Cryptography;
+using MarioClone.Factories;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
-    class BowserWalk : BowserActionState
+    public class BowserWalk : BowserActionState
     {
-        protected BowserWalk(BowserObject context) : base(context)
+        public BowserWalk(BowserObject context) : base(context)
         {
             Action = BowserAction.Walk;
         }
@@ -19,9 +20,9 @@ namespace MarioClone.States.EnemyStates.Powerup
         public override void BecomeIdle()
         {
             Context.Velocity = new Vector2(0, 0);
-            Context.ActionStateBowser = BowserIdle.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Idle);
-        }
+			Context.ActionStateBowser = new BowserIdle(Context);
+			Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserIdle);
+		}
 
         public override void BecomeWalk(Facing orientation)
         {
@@ -29,11 +30,10 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         public override void BreatheFire()
         {
-            Context.ActionStateBowser = BowserFireBreathing.Instance;
-            Context.PowerupStateBowser = BowserIdle.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.BreatheFire);
-            bigFireballPool.GetAndRelease(BowserObject);
-        }
+			Context.ActionStateBowser = new BowserFireBreathing(Context);
+			Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserFire);
+			Context.bigFireballPool.GetAndRelease(Context);
+		}
 
         public override bool Update(GameTime gameTime, float percent)
         {

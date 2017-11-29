@@ -16,7 +16,7 @@ namespace MarioClone.GameObjects
 {
     public class BowserObject: AbstractEnemy
     {
-        BigFireBallPool bigFireballPool = new BigFireBallPool(1);
+        public BigFireBallPool bigFireballPool = new BigFireBallPool(1);
         public BowserAction PreviousActionState { get; set; }
 
         public static int MaxTimeWalk { get { return 300; } }
