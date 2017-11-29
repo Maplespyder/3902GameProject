@@ -32,10 +32,12 @@ namespace MarioClone.States
         {
             Context.StateMachine.TransitionDead();
         }
+
         public override void BecomeNormal()
         {
             Context.StateMachine.TransitionNormal();
         }
+
         public override void BecomeSuper()
         {
             Context.StateMachine.TransitionSuper();
@@ -46,7 +48,7 @@ namespace MarioClone.States
             Context.StateMachine.TransitionFire();
         }
 
-        public override void TakeDamage() { }
+        public override void TakeDamage(AbstractGameObject obj) { }
 
         public override void BecomeInvincible() { }
 

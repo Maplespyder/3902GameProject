@@ -76,5 +76,17 @@ namespace MarioClone.EventCenter
             PlayerDiedEventArgs args = new PlayerDiedEventArgs(player);
             OnRaisePlayerDiedEvent(args);
         }
-	}
+
+        public void TriggerPlayerDamagedEvent(Mario player, AbstractGameObject damager)
+        {
+            PlayerDamagedEventArgs args = new PlayerDamagedEventArgs(player, damager);
+            OnRaisePlayerDamagedEvent(args);
+        }
+
+        public void TriggerTimeRanOutEvent(TimeModule module, Mario mario)
+        {
+            TimeRanOutEventArgs args = new TimeRanOutEventArgs(module, mario);
+            OnRaiseTimeRanOutEvent(args);
+        }
+    }
 }

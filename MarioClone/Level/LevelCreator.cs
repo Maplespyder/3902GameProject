@@ -87,7 +87,7 @@ namespace MarioClone.Level
                         MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario, MarioCloneGame.Player1Camera));
                         Grid.Add(mario);
                     }
-                    else if (MarioCloneGame.Player2 == null && pixel.B == 1)
+                    else if(MarioCloneGame.Player2 == null && pixel.B == 1 && (MarioCloneGame.Mode == GameMode.MultiPlayer))
                     {
                         mario = MarioFactory.Create(position);
                         MarioCloneGame.Player2 = mario;
@@ -101,7 +101,7 @@ namespace MarioClone.Level
                         MarioCloneGame.HUDs.Add(new HeadsUpDisplay.HUD(mario, MarioCloneGame.Player1Camera));
                         Grid.Add(mario);
                     }
-                    else if (MarioCloneGame.Player2 != null && pixel.B == 1)
+                    else if(MarioCloneGame.Player2 != null && pixel.B == 1 && (MarioCloneGame.Mode == GameMode.MultiPlayer))
                     {
                         mario = MarioCloneGame.Player2;
                         mario.ResetMario(position);
@@ -112,17 +112,20 @@ namespace MarioClone.Level
                 else if (sameColor(pixel, Colors.MarioCheckpoint))
                 {
                     MarioCloneGame.Player1.Spawns.Add(position);
-                    MarioCloneGame.Player2.Spawns.Add(position);
+                    if((MarioCloneGame.Mode == GameMode.MultiPlayer))
+                    {
+                        MarioCloneGame.Player2.Spawns.Add(position);
+                    }
                 }
-                else if (sameColor(pixel, Colors.QuestionBlock))
-                {
-                    initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
-                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
-                    Grid.Add(initializer);
-                }
-                else if (sameColor(pixel, Colors.QuestionBlockGreenMushroom))
-                {
-                    initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+				else if (sameColor(pixel, Colors.QuestionBlock))
+				{
+					initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
+					initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+					Grid.Add(initializer);
+				}
+				else if (sameColor(pixel, Colors.QuestionBlockGreenMushroom))
+				{
+					initializer = BlockFactory.Instance.Create(BlockType.QuestionBlock, position);
                     ((AbstractBlock)initializer).ContainedPowerup = PowerUpType.GreenMushroom;
                     initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
                     Grid.Add(initializer);
@@ -324,7 +327,7 @@ namespace MarioClone.Level
                 {
                     position = new Vector2(position.X, position.Y);
                     initializer = EnemyFactory.Create(EnemyType.Bowser, position);
-                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
+                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y - initializer.Sprite.SourceRectangle.Height);
                     Grid.Add(initializer);
                 }
                 else if (pixel.R == Colors.WarpPoint.R && pixel.G == Colors.WarpPoint.G)

@@ -13,7 +13,7 @@ namespace MarioClone.HeadsUpDisplay
         ISprite HUDBox;
         int timeDelta;
         public int CurrentTime { get; set; }
-        int maxGameTime = 400;
+        int maxGameTime = 300;
 
         public Vector2 RelativePosition { get; set; }
         public Vector2 AbsolutePosition { get; set; }
@@ -35,9 +35,16 @@ namespace MarioClone.HeadsUpDisplay
             CurrentTime = maxGameTime;
             timeDelta = 0;
 
+            if(MarioCloneGame.Mode == GameMode.MultiPlayer)
+            {
+                RelativePosition = new Vector2(1440 / 2, 106);
+            }
+            else if(MarioCloneGame.Mode == GameMode.SinglePlayer)
+            {
+                RelativePosition = new Vector2(1620, 106);
+            }
             TimeShift = new Vector2(45, -55);
             TimeTextShift = new Vector2(35, -90);
-            RelativePosition = new Vector2(1440 / 2, 106);
             TimeRelativePosition = new Vector2(27, 40);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);
         }
@@ -64,11 +71,20 @@ namespace MarioClone.HeadsUpDisplay
                 {
                     TimeRelativePosition += new Vector2(29, 0);
                 }
-                CurrentTime -= 1;
+
+                if(CurrentTime > 0)
+                {
+                    CurrentTime -= 1;
+                }
+
                 timeDelta = 0;
                 if (CurrentTime == 100 || CurrentTime == 97)
                 {
                     EventManager.Instance.TriggerRunningOutOfTimeEvent(this);
+                }
+                else if(CurrentTime <= 0)
+                {
+                    EventManager.Instance.TriggerTimeRanOutEvent(this, ParentHUD.Player);
                 }
             }
 

@@ -41,7 +41,7 @@ namespace MarioClone.States
         }
 
 
-        public override void TakeDamage() { }
+        public override void TakeDamage(AbstractGameObject obj) { }
         
         public override void BecomeInvincible() { }
 

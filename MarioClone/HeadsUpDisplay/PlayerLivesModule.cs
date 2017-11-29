@@ -33,7 +33,15 @@ namespace MarioClone.HeadsUpDisplay
 
             lives = ParentHUD.Player.Lives;
 
-            RelativePosition = new Vector2(630 / 2, 106);
+            if (MarioCloneGame.Mode == GameMode.MultiPlayer)
+            {
+                RelativePosition = new Vector2(630 / 2, 106);
+            }
+            else if (MarioCloneGame.Mode == GameMode.SinglePlayer)
+            {
+                RelativePosition = new Vector2(750, 106);
+            }
+
             TextShift = new Vector2(85, -70);
             MarioPositionShift = new Vector2(20, 40);
             AbsolutePosition = new Vector2(RelativePosition.X + ParentHUD.ScreenLeft, RelativePosition.Y + ParentHUD.ScreenTop);

@@ -54,8 +54,9 @@ namespace MarioClone.States
             Context.StateMachine.TransitionFire();
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(AbstractGameObject obj)
         {
+            EventCenter.EventManager.Instance.TriggerPlayerDamagedEvent(Context, obj);
             BecomeDead();
         }
 

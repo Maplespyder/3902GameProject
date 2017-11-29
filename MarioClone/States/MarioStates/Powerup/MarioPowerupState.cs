@@ -42,7 +42,7 @@ namespace MarioClone.States
                 {
                     if (gameObject is PiranhaObject)
                     {
-                        TakeDamage();
+                        TakeDamage(gameObject);
                     }
                     else
                     {
@@ -51,7 +51,7 @@ namespace MarioClone.States
                 }
                 else
                 {
-                    TakeDamage();
+                    TakeDamage(gameObject);
                 }
                 return true;
             }
@@ -59,20 +59,21 @@ namespace MarioClone.States
             {
                 if(side == Side.Bottom && gameObject.Velocity.Y < 0)
                 {
-                    TakeDamage();
+                    TakeDamage(((AbstractBlock)gameObject).Bumper);
                 }
             }
             else if(gameObject is Mario)
             {
+                Mario temp = (Mario)gameObject;
                 if (side == Side.Top)
                 {
-                    if(((Mario)gameObject).ActionState is MarioFall2)
+                    if(temp.ActionState is MarioFall2)
                     {
-                        TakeDamage();
+                        TakeDamage(gameObject);
                     }
                 }
-                else if(side == Side.Bottom && !((((Mario)gameObject).PowerupState is MarioInvincibility2)
-                    || ((Mario)gameObject).PowerupState is MarioDead2))
+                else if(side == Side.Bottom && !((temp.PowerupState is MarioInvincibility2)
+                    || temp.PowerupState is MarioDead2))
                 {
                     if(!(Context.ActionState is MarioJump2))
                     {
@@ -82,7 +83,7 @@ namespace MarioClone.States
             }
             else if(gameObject is FireBall && !ReferenceEquals(((FireBall)gameObject).Owner, Context))
             {
-                TakeDamage();
+                TakeDamage(((FireBall)gameObject).Owner);
             }
             else if (gameObject is RedMushroomObject)
             {
@@ -94,14 +95,6 @@ namespace MarioClone.States
                 BecomeFire();
                 return true;
             }
-            else if(gameObject is FireBall)
-            {
-                var fireball = (FireBall)gameObject;
-                if (fireball.Owner is AbstractEnemy)
-                {
-                    TakeDamage();
-                }
-            }
 
             return false;
         }
@@ -111,7 +104,7 @@ namespace MarioClone.States
 		public abstract void BecomeNormal();
         public abstract void BecomeSuper();
         public abstract void BecomeFire();
-        public abstract void TakeDamage();
+        public abstract void TakeDamage(AbstractGameObject damager);
         public abstract void BecomeInvincible();
     }
 }

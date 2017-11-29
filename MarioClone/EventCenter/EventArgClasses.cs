@@ -138,4 +138,25 @@ namespace MarioClone.EventCenter
             DeadPlayer = player;
         }
     }
+
+    public class PlayerDamagedEventArgs : CustomEventArgs<Mario>
+    {
+        public Mario DamagedPlayer { get; }
+        public AbstractGameObject Damager { get; }
+
+        public PlayerDamagedEventArgs(Mario damagedPlayer, AbstractGameObject damager) : base(damagedPlayer)
+        {
+            DamagedPlayer = damagedPlayer;
+            Damager = damager;
+        }
+    }
+
+    public class TimeRanOutEventArgs : CustomEventArgs<TimeModule>
+    {
+        public Mario Player { get; }
+        public TimeRanOutEventArgs(TimeModule sender, Mario player) : base(sender)
+        {
+            Player = player;
+        }
+    }
 }
