@@ -27,7 +27,7 @@ namespace MarioClone.States.EnemyStates.Powerup
             InvincibleTime += gameTime.ElapsedGameTime.Milliseconds;
             if (InvincibleTime >= MaxInvincibleDuration)
             {
-                //BecomeWalk();
+                BowserActionState.BecomeWalk(Context.Orientation);
 
             }
             return false;

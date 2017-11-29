@@ -68,7 +68,7 @@ namespace MarioClone.GameObjects
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
             bool retVal = PowerupStateBowser.Update(gameTime, percent);
             Removed = retVal;
-            //Removed = base.Update(gameTime, percent) || retVal;
+            Removed = base.Update(gameTime, percent) || retVal;
             return Removed;
         }
     }
