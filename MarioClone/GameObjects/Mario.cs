@@ -203,7 +203,7 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
         }
         
-        private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
+        /*private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
         {
             if (gameObject is Flagpole && side.Equals(Side.Right))
             {
@@ -240,7 +240,7 @@ namespace MarioClone.GameObjects
                 
                 //EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
             }
-        }
+        }*/
 
 
         private void ManageBouncing(AbstractGameObject gameObject, Side side)
@@ -296,7 +296,7 @@ namespace MarioClone.GameObjects
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             ManageBouncing(gameObject, side);
-            ManageFlagPoleCoint(gameObject, side);
+            //ManageFlagPoleCoint(gameObject, side);
 
             if ((((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible)
                 || (gameObject is HiddenBrickObject && side == Side.Top && !gameObject.Visible && (ActionState is MarioFall2)))

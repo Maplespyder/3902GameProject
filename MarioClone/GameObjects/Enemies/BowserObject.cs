@@ -16,14 +16,16 @@ namespace MarioClone.GameObjects
 {
     public class BowserObject: AbstractEnemy
     {
-        FireballPool fireballPool = new FireballPool(1);
+        BigFireBallPool bigFireballPool = new BigFireBallPool(1);
+        public BowserAction PreviousActionState { get; set; }
 
         public static int MaxTimeWalk { get { return 300; } }
         public static int MaxTimeIdle { get { return 300; } }
-        public static int MaxTimeFire { get { return 300; } }
+        public static int MaxTimeFire { get { return 200; } }
         public int TimeIdle { get; set; }
         public int TimeFire { get; set; }
         public int TimeWalk { get; set; }
+        public const float GravityAcceleration = .4f;
         public BowserObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             Gravity = false;
@@ -52,7 +54,7 @@ namespace MarioClone.GameObjects
         {
             if (Gravity)
             {
-                Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
+                Velocity = new Vector2(Velocity.X, Velocity.Y + BowserObject.GravityAcceleration * percent);
             }
 
             ActionStateBowser.Update(gameTime, percent);

@@ -11,23 +11,31 @@ namespace MarioClone.States.EnemyStates.Powerup
 {
     public class BowserIdle : BowserActionState
     {
-        private byte[] random = new Byte[1];
         protected BowserIdle(BowserObject context) : base(context)
         {
+            Action = BowserAction.Idle;
         }
 
-        public override void BreathFire()
+        public object SpriteFactory { get; private set; }
+
+        public override void BreatheFire()
         {
-            /*Context.PowerupStateBowser = BowserFireBreathing.Instance;
-            Context.ActionStateBowser = BowserIdle.Instance;
-            Context.SpriteFactory = 
-            */
-            
+            Context.ActionStateBowser = BowserFireBreathing.Instance;
+            Context.PowerupStateBowser = BowserIdle.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(BowserAction.BreatheFire);
+            bigFireballPool.GetAndRelease(BowserObject);
         }
 
-        public override void Idle()
+        public override void BecomeIdle()
         {
-            
+        }
+
+        public override void BecomeWalk(Facing orientation)
+        {
+            Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.EnemyHorizontalMovementSpeed, 0) : new Vector2(BowserObject.EnemyHorizontalMovementSpeed, 0);
+            Context.ActionStateBowser = BowserWalk.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Walk);
+            Context.Orientation = orientation;
         }
 
         public override bool Update(GameTime gameTime, float percent)
@@ -35,19 +43,23 @@ namespace MarioClone.States.EnemyStates.Powerup
             Context.TimeIdle += gameTime.ElapsedGameTime.Milliseconds;
             if (Context.TimeIdle >= BowserObject.MaxTimeIdle)
             {
+                Context.TimeIdle = 0;
+
                 RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
                 rng.GetBytes(random);
-                //logic for 
+                randomResult = random[0] % 2;
 
-
+                if (randomResult == 0)
+                {
+                    BecomeWalk(Context.Orientation);
+                }
+                else if (randomResult == 1)
+                {
+                    BreatheFire();
+                }
             }
             return false;
 
-        }
-
-        public override void Walk(Facing orientation)
-        {
-            
         }
     }
 }

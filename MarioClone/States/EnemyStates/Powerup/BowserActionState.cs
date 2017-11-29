@@ -1,5 +1,6 @@
 ﻿using MarioClone.Collision;
 using MarioClone.GameObjects;
+using MarioClone.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,20 @@ namespace MarioClone.States.EnemyStates.Powerup
     {
         Idle,
         Walk,
-        BreathFire
+        BreatheFire
     }
     public abstract class BowserActionState
     {
  
         protected BowserObject Context { get; set; }
 
-        protected MarioAction LastState { get; set; }
+        protected BowserAction PreviousActionState { get; set; }
+
+        public byte[] random = new Byte[0];
+
+        public int randomResult;
+
+        BigFireBallPool bigFireballPool = new BigFireBallPool(1);
 
         protected BowserActionState(BowserObject context)
         {
@@ -50,9 +57,9 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         }
 
-        public abstract void Walk(Facing orientation);
-        public abstract void BreathFire();
-        public abstract void Idle();
+        public abstract void BecomeWalk(Facing orientation);
+        public abstract void BreatheFire();
+        public abstract void BecomeIdle();
 
         public abstract bool Update(GameTime gameTime, float percent);
     }
