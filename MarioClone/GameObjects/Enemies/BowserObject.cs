@@ -16,12 +16,12 @@ namespace MarioClone.GameObjects
 {
     public class BowserObject: AbstractEnemy
     {
-        public BigFireBallPool bigFireballPool = new BigFireBallPool(1);
+        public BigFireBallPool bigFireballPool = new BigFireBallPool(3);
         public BowserAction PreviousActionState { get; set; }
 
-        public static int MaxTimeWalk { get { return 300; } }
-        public static int MaxTimeIdle { get { return 300; } }
-        public static int MaxTimeFire { get { return 200; } }
+        public static int MaxTimeWalk { get { return 2000; } }
+        public static int MaxTimeIdle { get { return 1500; } }
+        public static int MaxTimeFire { get { return 1000; } }
         public int TimeIdle { get; set; }
         public int TimeFire { get; set; }
         public int TimeWalk { get; set; }
@@ -64,11 +64,11 @@ namespace MarioClone.GameObjects
 
             ActionStateBowser.Update(gameTime, percent);
             PowerupStateBowser.Update(gameTime, percent);
+			bigFireballPool.Update(gameTime);
 
-            Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
+			Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
             bool retVal = PowerupStateBowser.Update(gameTime, percent);
-            Removed = retVal;
-            Removed = base.Update(gameTime, percent) || retVal;
+			Removed = retVal;
             return Removed;
         }
     }

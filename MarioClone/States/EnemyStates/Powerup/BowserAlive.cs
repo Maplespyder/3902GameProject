@@ -30,7 +30,9 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         }
 
-        public override void BecomeInvincible()
+		public override void BecomeAlive() { }
+
+		public override void BecomeInvincible()
         {
         }
     

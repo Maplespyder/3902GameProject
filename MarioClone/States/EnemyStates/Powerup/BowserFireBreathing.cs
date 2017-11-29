@@ -17,6 +17,7 @@ namespace MarioClone.States.EnemyStates.Powerup
         public BowserFireBreathing(BowserObject context) : base(context)
         {
             Action = BowserAction.BreatheFire;
+			Context.Velocity = Vector2.Zero;
         }
 
         public override void BreatheFire()
@@ -49,7 +50,16 @@ namespace MarioClone.States.EnemyStates.Powerup
                 rng.GetBytes(random);
                 randomResult = random[0] % 2;
 
-                if (randomResult == 0)
+				if (MarioCloneGame.Player1.Position.X > Context.Position.X)
+				{
+					Context.Orientation = Facing.Right;
+				}
+				else
+				{
+					Context.Orientation = Facing.Left;
+				}
+
+				if (randomResult == 0)
                 {
                     BecomeWalk(Context.Orientation);
                 }

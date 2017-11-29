@@ -17,10 +17,12 @@ namespace MarioClone.GameObjects.Other
 			if (Owner.Orientation == Facing.Right)
 			{
 				Velocity = new Vector2(5f, 0);
+				Orientation = Facing.Right;
 			}
 			else
 			{
 				Velocity = new Vector2(-5f, 0);
+				Orientation = Facing.Left;
 			}
 			Destroyed = false;
 		}

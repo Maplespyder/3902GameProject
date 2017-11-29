@@ -35,6 +35,9 @@ namespace MarioClone.Factories
 				case EnemyType.BowserFire:
 					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BowserBreathFire"),
 						new Rectangle(320, 0, 160, 164));
+				case EnemyType.BowserIdle:
+					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/BowserWalk"),
+						new Rectangle(0, 0, 136, 164));
 				default:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
                         new Rectangle(0, 0, 64, 64), 1, 3, 0, 1, 4);

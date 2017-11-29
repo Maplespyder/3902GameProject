@@ -44,7 +44,18 @@ namespace MarioClone.States
                     {
                         TakeDamage(gameObject);
                     }
-                    else
+					else if(gameObject is BowserObject)
+					{
+						if(Context.Velocity.X > 0)
+						{
+							Context.Velocity = new Vector2(Context.Velocity.X + 2, -7);
+						}
+						else
+						{
+							Context.Velocity = new Vector2(Context.Velocity.X - 2, -7);
+						}
+					}
+					else
                     {
                         Context.Velocity = new Vector2(Context.Velocity.X, -7);
                     }

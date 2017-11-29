@@ -26,7 +26,8 @@ namespace MarioClone.States.EnemyStates.Powerup
         }
         public virtual bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
-            if (gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2))
+            if (gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2) 
+				&& !(Context.PowerupStateBowser is BowserInvincibility))
             {
                 if (side.Equals(Side.Top))
                 {
@@ -38,6 +39,7 @@ namespace MarioClone.States.EnemyStates.Powerup
                         Context.PowerupStateBowser.BecomeDead();
                         return true;
                     }
+					Context.PowerupStateBowser = new BowserInvincibility(Context);
                 }
             
         }
@@ -45,7 +47,8 @@ namespace MarioClone.States.EnemyStates.Powerup
         }
 
         public abstract void BecomeDead();
-        public abstract void BecomeInvincible();
+		public abstract void BecomeAlive();
+		public abstract void BecomeInvincible();
         public abstract bool Update(GameTime gameTime, float percent);
     }
 }
