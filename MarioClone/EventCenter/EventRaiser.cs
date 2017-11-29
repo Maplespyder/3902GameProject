@@ -1,5 +1,6 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.GameObjects;
 using MarioClone.HeadsUpDisplay;
 using System;
 using System.Collections.Generic;
@@ -53,10 +54,10 @@ namespace MarioClone.EventCenter
             OnRaisePlayerWarpingEvent(args);
         }
 
-		public void TriggerPlayerHitPoleEvent(int height, Mario player)
+		public void TriggerPlayerKilledBowserEvent(BowserObject bowser, Mario player)
         {
-            PlayerHitPoleEventArgs args = new PlayerHitPoleEventArgs(height, player);
-            OnRaisePlayerHitPoleEvent(args);
+            PlayerKilledBowserEventArgs args = new PlayerKilledBowserEventArgs(bowser, player);
+            OnRaisePlayerKilledBowserEvent(args);
         }
 
 		public void TriggerFireballFire(FireBall fireball)

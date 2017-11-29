@@ -1,5 +1,5 @@
 ﻿using MarioClone.GameObjects;
-using MarioClone.GameObjects.Enemies;
+using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,6 @@
 ﻿using MarioClone.Sprites;
 using MarioClone.States;
+using MarioClone.States.EnemyStates.Powerup;
 using Microsoft.Xna.Framework;
 using System;
 using System.Security.Cryptography;
@@ -22,6 +23,8 @@ namespace MarioClone.GameObjects
 
         public int PointValue { get; set; }
         public EnemyPowerupState PowerupState { get; internal set; }
+        public BowserPowerupState PowerupStateBowser { get; set; }
+        public BowserActionState ActionStateBowser { get; set; }
         public bool IsDead { get; set; }
         private byte[] random = new Byte[1];
         private int timer = 0;

@@ -241,7 +241,7 @@ namespace MarioClone
             EventManager.Instance.RaisePlayerWarpingEvent += PauseForWarp;
             EventManager.Instance.RaisePlayerDiedEvent += HandlePlayerDeath;
             EventManager.Instance.RaiseTimeRanOutEvent += HandleTimeIsOut;
-            EventManager.Instance.RaisePlayerHitPoleEvent += HandleFlagPoleHit;
+            EventManager.Instance.RaisePlayerKilledBowserEvent += HandleBowserDefeated;
 
             Player1Camera.Limits = level.LevelAreas[0];
             if (Mode == GameMode.MultiPlayer)
@@ -616,7 +616,7 @@ namespace MarioClone
             }
         }
 
-        private void HandleFlagPoleHit(object sender, PlayerHitPoleEventArgs e)
+        private void HandleBowserDefeated(object sender, PlayerKilledBowserEventArgs e)
         {
             e.Mario.LevelCompleted = true;
             State = GameState.GameOver;
