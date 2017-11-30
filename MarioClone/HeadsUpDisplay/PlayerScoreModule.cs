@@ -110,7 +110,7 @@ namespace MarioClone.HeadsUpDisplay
             }
             else if(e.DamagedPlayer != null)
             {
-                playerScore += 700;
+                playerScore += 850;
             }
         }
 
@@ -118,7 +118,7 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (ReferenceEquals(e.DeadPlayer, ParentHUD.Player))
             {
-                playerScore = clamp(playerScore - 350);
+                playerScore = clamp(playerScore - 500);
             }
         }
 
@@ -126,7 +126,7 @@ namespace MarioClone.HeadsUpDisplay
         {
             if (ReferenceEquals(e.Mario, ParentHUD.Player))
             {
-                playerScore += e.Mario.Time * 10;
+                playerScore += e.Mario.Time * 15;
                 if (ReferenceEquals(ParentHUD.Player, MarioCloneGame.Player1))
                 {
                     if (MarioCloneGame.Player2.LevelCompleted)

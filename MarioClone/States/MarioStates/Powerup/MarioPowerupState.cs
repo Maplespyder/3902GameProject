@@ -93,7 +93,10 @@ namespace MarioClone.States
             {
                 if(side == Side.Bottom && gameObject.Velocity.Y < 0)
                 {
-                    TakeDamage(((AbstractBlock)gameObject).Bumper);
+                    if(!ReferenceEquals(((AbstractBlock)gameObject).Bumper, Context))
+                    {
+                        TakeDamage(((AbstractBlock)gameObject).Bumper);
+                    }
                 }
             }
             else if(gameObject is Mario)
