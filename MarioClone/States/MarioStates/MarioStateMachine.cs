@@ -96,6 +96,7 @@ namespace MarioClone.States
             actionStates.Add(MarioAction.Fall, new MarioFall2(Player));
             actionStates.Add(MarioAction.Crouch, new MarioCrouch2(Player));
             actionStates.Add(MarioAction.Warp, new MarioWarp(Player));
+            actionStates.Add(MarioAction.Dash, new MarioDash(Player));
         }
 
         private void initializePowerupStates()
@@ -166,6 +167,14 @@ namespace MarioClone.States
             }
         }
 
+        public void TransitionDash()
+        {
+            if (!(CurrentPowerupState is MarioDead2))
+            {
+                CurrentActionState = actionStates[MarioAction.Dash]; 
+            }
+        }
+
         public void TransitionWalk()
         {
             if (!(CurrentPowerupState is MarioDead2))
@@ -195,6 +204,17 @@ namespace MarioClone.States
             if (!(CurrentPowerupState is MarioDead2))
             {
                 CurrentActionState = actionStates[MarioAction.Warp];
+            }
+        }
+
+        public void UpdateDash()
+        {
+            if (CurrentActionState is MarioDash)
+            {
+                if (((MarioDash)currentActionState).DashFinished)
+                {
+                    TransitionIdle();
+                }
             }
         }
     }

@@ -179,6 +179,11 @@ namespace MarioClone.GameObjects
             ActionState.Warp();
         }
 
+        public void Dash()
+        {
+            ActionState.Dash();
+        }
+
 		public void FireBall()
 		{
 			if (PowerupState is MarioFire2)
@@ -366,6 +371,8 @@ namespace MarioClone.GameObjects
             {
                 StateMachine.TransitionFall();
             }
+
+            StateMachine.UpdateDash();
 
             PowerupState.Update(gameTime);    
             _FireBallPool.Update(gameTime);

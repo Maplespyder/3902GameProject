@@ -73,6 +73,11 @@ namespace MarioClone.States
             }
         }
 
+        public override void Dash()
+        {
+            Context.StateMachine.TransitionDash();
+        }
+
         public override void UpdateHitBox()
         {
             if (Context.PowerupState is MarioNormal2)

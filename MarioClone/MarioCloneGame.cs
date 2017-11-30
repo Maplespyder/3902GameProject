@@ -193,6 +193,8 @@ namespace MarioClone
             player1Controller.AddInputCommand((int)Keys.D, new MoveRightCommand(Player1));
             player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Player1));
 
+            player1Controller.AddInputCommand((int)Keys.Space, new DashCommand(Player1));
+
             player1Controller.AddReleasedInputCommand((int)Keys.S, new ReleaseCrouchCommand(Player1));
             player1Controller.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Player1));
             player1Controller.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Player1));
@@ -242,6 +244,7 @@ namespace MarioClone
             player2Controller.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player2));
 
             player2Controller.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
+            player2Controller.AddInputCommand((int)Keys.RightControl, new DashCommand(Player2));
         }
 
         /// <summary>

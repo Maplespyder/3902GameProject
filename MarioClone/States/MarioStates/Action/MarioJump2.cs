@@ -89,6 +89,11 @@ namespace MarioClone.States
             Context.Orientation = orientation;
         }
 
+        public override void Dash()
+        {
+            Context.StateMachine.TransitionDash();
+        }
+
         public override void ReleaseWalk(Facing orientation)
         {
             if (Context.Orientation == orientation)

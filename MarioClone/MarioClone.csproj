@@ -66,6 +66,7 @@
     <Compile Include="Cam\Background.cs" />
     <Compile Include="Cam\Camera.cs" />
     <Compile Include="Collision\CollisionManager.cs" />
+    <Compile Include="Commands\DashCommand.cs" />
     <Compile Include="Commands\LeaveMultiplayerMenuCommand.cs" />
     <Compile Include="Commands\FireBallCommand.cs" />
     <Compile Include="Commands\MenuMoveCommand.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="States\MarioStates\Action\MarioFall.cs" />
     <Compile Include="States\MarioStates\Action\MarioFall2.cs" />
     <Compile Include="States\MarioStates\Action\MarioWarp.cs" />
+    <Compile Include="States\MarioStates\Action\MarioDash.cs" />
     <Compile Include="States\MarioStates\Powerup\MarioFire2.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle.cs" />
     <Compile Include="States\MarioStates\Action\MarioIdle2.cs" />
