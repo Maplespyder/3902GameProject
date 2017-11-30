@@ -71,7 +71,12 @@ namespace MarioClone.Sounds
 			{
 				SoundPool.Instance.GetAndPlay(SoundType.Jump, false);
             }
-		}
+
+            if (e.CurrentActionState is MarioDash)
+            {
+                SoundPool.Instance.GetAndPlay(SoundType.Kick, false);
+            }
+        }
 
 		public void Warping(object sender, PlayerWarpingEventArgs e)
 		{
