@@ -24,6 +24,7 @@ namespace MarioClone.Menu
 
             menuOptions.Add(new Tuple<string, ICommand>("Resume Game", new PauseCommand(game)));
             menuOptions.Add(new Tuple<string, ICommand>("Restart Level", new ResetLevelCommand(game)));
+            menuOptions.Add(new Tuple<string, ICommand>("Return to Main Menu", new ReturnToMainMenuCommand(game)));
             menuOptions.Add(new Tuple<string, ICommand>("Quit Game", new ExitCommand(game)));
             menuTextPosition = new Vector2(750, 450);
         }

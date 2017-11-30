@@ -84,5 +84,24 @@ namespace MarioClone.GameObjects
 
             return retval;
         }
+
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            if (correction.Y > 0)
+            {
+                return;
+            }
+            if (obj1 is AbstractBlock && obj1.Visible)
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+
+            }
+            else if (obj2 is AbstractBlock && obj2.Visible)
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+            }
+        }
     }
 }
