@@ -16,7 +16,8 @@ namespace MarioClone.Projectiles
 	{
 		private int availableFireballs;
 		private List<BigFireBall> FireBalls = new List<BigFireBall>();
-		private List<BigFireBall> RemovedFireBalls = new List<BigFireBall>();
+        private Dictionary<BigFireBall, int> CoolDownList = new Dictionary<BigFireBall, int>();
+        private List<BigFireBall> RemovedFireBalls = new List<BigFireBall>();
 		public BigFireBallPool(int availableBalls)
 		{
 			availableFireballs = availableBalls;
@@ -28,7 +29,8 @@ namespace MarioClone.Projectiles
 			{
 				availableFireballs--;
 				BigFireBall newFireball = (BigFireBall)ProjectileFactory.Create(ProjectileType.BigFireBall, player, GetPosition(player));
-				FireBalls.Add(newFireball);
+                FireBalls.Add(newFireball);
+                CoolDownList.Add(newFireball, 0);
 				newFireball.CoolDown = 0;
 				GameGrid.Instance.Add(newFireball);
 				//EventManager.Instance.TriggerFireballFire(newFireball);
@@ -55,19 +57,23 @@ namespace MarioClone.Projectiles
 		{
 			foreach (BigFireBall fireball in FireBalls)
 			{
-				fireball.CoolDown += gameTime.ElapsedGameTime.Milliseconds;
+				CoolDownList[fireball] += gameTime.ElapsedGameTime.Milliseconds;
+                if(CoolDownList[fireball] >= 8000)
+                {
+                    Restore(gameTime);
+                    fireball.Destroyed = true;
+                }
+
 				if (fireball.Destroyed)
 				{
 					GameGrid.Instance.Remove(fireball);
-					if (fireball.CoolDown >= 2000)
-					{
-						RemovedFireBalls.Add(fireball);
-					}
+					RemovedFireBalls.Add(fireball);
 				}
 			}
 			foreach (BigFireBall fireball in RemovedFireBalls)
 			{
 				FireBalls.Remove(fireball);
+                CoolDownList.Remove(fireball);
 				fireball.Owner = null;
 				Restore(gameTime);
 			}
