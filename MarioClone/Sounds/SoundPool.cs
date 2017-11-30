@@ -27,14 +27,16 @@ namespace MarioClone.Sounds
 	private List<SoundEffect> PoolList = new List<SoundEffect>();
     public float Volume = 1f;
 
-	private SoundEffectInstance mainBackground;
+	public SoundEffectInstance mainBackground;
 	private SoundEffectInstance secondaryBackground;
 	public float BackgroundPitch { get; set; }
 
 	private Dictionary<SoundEffectInstance, SoundEffect> PlayingList = new Dictionary<SoundEffectInstance, SoundEffect>();
 	private Dictionary<SoundEffectInstance, SoundEffect> RemoveList = new Dictionary<SoundEffectInstance, SoundEffect>();
+    private List<SoundEffectInstance> LoopList = new List<SoundEffectInstance>();
+    private List<SoundEffectInstance> RemoveLoopList = new List<SoundEffectInstance>();
 
-		public SoundPool()
+        public SoundPool()
 		{
             BackgroundPitch = 0;
 			InitializeSoundPool();
@@ -52,11 +54,34 @@ namespace MarioClone.Sounds
 				soundEffectInstance.Play();
                 soundEffectInstance.Volume = Volume;
                 soundEffectInstance.IsLooped = Loop;
+                if (Loop)
+                {
+                    LoopList.Add(soundEffectInstance);
+                }
 				return soundEffectInstance;
 			}
 			return null;
 		}
 
+        public void Update()
+        {
+            foreach (SoundEffectInstance effect in LoopList)
+            {
+                if(effect.IsDisposed == true)
+                {
+                    RemoveLoopList.Add(effect);
+                }
+                else if (effect.State == SoundState.Stopped)
+                {
+                    effect.Play();
+                }
+            }
+            foreach (SoundEffectInstance effect in RemoveLoopList)
+            {
+                LoopList.Remove(effect);
+            }
+            RemoveLoopList.Clear();
+        }
 
         public void CheckAvailability()
 		{
@@ -64,7 +89,7 @@ namespace MarioClone.Sounds
 			{
 				if(effect.Key.State == SoundState.Stopped)
 				{
-					RemoveList.Add(effect.Key, effect.Value);
+                        RemoveList.Add(effect.Key, effect.Value);
 				}
 			}
 			foreach(KeyValuePair<SoundEffectInstance, SoundEffect> effect in RemoveList)
@@ -102,13 +127,6 @@ namespace MarioClone.Sounds
             BackgroundPitch = 0;
 			mainBackground.Pitch = BackgroundPitch;
 		}
-		public void AddObject(SoundEffect sound)
-		{
-			if (!PoolList.Contains(sound))
-			{
-				PoolList.Add(sound);
-			}
-		}
 
 		public void PauseBackground()
 		{
@@ -121,15 +139,6 @@ namespace MarioClone.Sounds
 			{
 				mainBackground.Resume();
 				mainBackground.Pitch = BackgroundPitch;
-			}
-		}
-
-		public void PauseBackgroundPlaySecondaryTrack(SoundType newSound)
-		{
-			if (secondaryBackground == null)
-			{
-				mainBackground.Pause();
-				secondaryBackground = GetAndPlay(newSound, false);
 			}
 		}
 

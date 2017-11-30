@@ -364,6 +364,7 @@ namespace MarioClone
                 gameOverScreen.Update(gameTime);
             }
 
+            SoundPool.Instance.Update();
             base.Update(gameTime);
         }
 
