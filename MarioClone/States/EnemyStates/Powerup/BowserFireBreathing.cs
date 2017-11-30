@@ -25,16 +25,16 @@ namespace MarioClone.States.EnemyStates.Powerup
         public override void BecomeIdle()
         {
             Context.Velocity = new Vector2(0, 0);
-            Context.ActionStateBowser = BowserIdle.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Idle);
+            /*Context.ActionStateBowser = BowserIdle.Instance;
+            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Idle);*/
         }
 
         public override void BecomeWalk(Facing orientation)
         {
-            Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.EnemyHorizontalMovementSpeed, 0) : new Vector2(BowserObject.EnemyHorizontalMovementSpeed, 0);
+            /*Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.EnemyHorizontalMovementSpeed, 0) : new Vector2(BowserObject.EnemyHorizontalMovementSpeed, 0);
             Context.ActionStateBowser = BowserWalk.Instance;
             Context.Sprite = Context.SpriteFactory.Create(BowserAction.Walk);
-            Context.Orientation = orientation;
+            Context.Orientation = orientation;*/
         }
 
         public override bool Update(GameTime gameTime, float percent)

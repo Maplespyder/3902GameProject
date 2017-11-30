@@ -54,6 +54,7 @@ namespace MarioClone.HeadsUpDisplay
             EventManager.Instance.RaisePlayerKilledBowserEvent += UpdatePlayerScoreFromBowserHit;
             EventManager.Instance.RaisePlayerDamagedEvent += UpdatePlayerScoreFromPlayerDamage;
             EventManager.Instance.RaisePlayerDiedEvent += UpdatePlayerScoreFromPlayerDeath;
+            EventManager.Instance.RaisePlayerHitPoleEvent += UpdatePlayerScoreFromFlagpole;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -122,6 +123,35 @@ namespace MarioClone.HeadsUpDisplay
             }
         }
 
+        private void UpdatePlayerScoreFromFlagpole(object sender, PlayerHitPoleEventArgs e)
+        {
+            if (ReferenceEquals(e.Mario, ParentHUD.Player))
+            {
+                if (ReferenceEquals(ParentHUD.Player, MarioCloneGame.Player1))
+                {
+                    if (MarioCloneGame.Player2.LevelCompleted)
+                    {
+                        playerScore += e._height / 2;
+                    }
+                    else
+                    {
+                        playerScore += e._height;
+                    }
+                }
+                else if (ReferenceEquals(ParentHUD.Player, MarioCloneGame.Player2))
+                {
+                    if (MarioCloneGame.Player1.LevelCompleted)
+                    {
+                        playerScore += e._height / 2;
+                    }
+                    else
+                    {
+                        playerScore += e._height;
+                    }
+                }
+            }
+        }
+
         private int clamp(int score)
         {
             return score < 0 ? 0 : score;
@@ -134,6 +164,7 @@ namespace MarioClone.HeadsUpDisplay
             EventManager.Instance.RaisePlayerKilledBowserEvent -= UpdatePlayerScoreFromBowserHit;
             EventManager.Instance.RaisePlayerDamagedEvent -= UpdatePlayerScoreFromPlayerDamage;
             EventManager.Instance.RaisePlayerDiedEvent -= UpdatePlayerScoreFromPlayerDeath;
+            EventManager.Instance.RaisePlayerHitPoleEvent -= UpdatePlayerScoreFromFlagpole;
             pointsFont = null;
             ParentHUD = null;
         }

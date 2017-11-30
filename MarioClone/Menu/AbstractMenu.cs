@@ -25,7 +25,7 @@ namespace MarioClone.Menu
         protected AbstractMenu()
         {
             SelectedOption = 0;
-            DrawOrder = .51f;
+            DrawOrder = .48f;
             font = MarioCloneGame.GameContent.Load<SpriteFont>("Fonts/Letter");
 
             controller = new KeyboardController();

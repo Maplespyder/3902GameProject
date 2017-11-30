@@ -56,7 +56,7 @@ namespace MarioClone.HeadsUpDisplay
                 Color tint = Color.White;
                 HUDBox.Draw(spriteBatch, AbsolutePosition, .49f, gameTime, Facing.Left, 1f);
                 spriteBatch.DrawString(timeFont, "TIME", AbsolutePosition + TimeTextShift, Color.Black);
-                spriteBatch.DrawString(timeFont, CurrentTime.ToString(), AbsolutePosition + TimeShift, tint);
+                spriteBatch.DrawString(timeFont, ParentHUD.Player.Time.ToString(), AbsolutePosition + TimeShift, tint);
             }
         }
 

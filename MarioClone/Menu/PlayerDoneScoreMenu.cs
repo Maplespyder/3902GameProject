@@ -29,13 +29,13 @@ namespace MarioClone.Menu
         {
             spriteBatch.Draw(background,
                   new Rectangle(0, 0, MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice.Viewport.Width,
-                  MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice.Viewport.Height), new Color(Color.White, 200));
-
-            spriteBatch.DrawString(font, "STATS:", new Vector2(400, 500), Color.White);
-            spriteBatch.DrawString(font, "LIVES: " + player.Lives, new Vector2(400, 750), Color.White);
-            spriteBatch.DrawString(font, "COINS: " + player.CoinCount, new Vector2(400, 800), Color.White);
-            spriteBatch.DrawString(font, "TIME: " + player.Time, new Vector2(400, 850), Color.White);
-            spriteBatch.DrawString(font, "SCORE: " + (player.Score + player.Time * 10), new Vector2(400, 900), Color.White);
+                  MarioCloneGame.ReturnGraphicsDevice.GraphicsDevice.Viewport.Height), new Rectangle(0, 0, 1, 1), new Color(Color.White, 200), 0, new Vector2(0, 0), SpriteEffects.None, DrawOrder);
+            
+            spriteBatch.DrawString(font, "STATS:", new Vector2(400, 400), Color.White);
+            spriteBatch.DrawString(font, "LIVES: " + player.Lives, new Vector2(400, 550), Color.White);
+            spriteBatch.DrawString(font, "COINS: " + player.CoinCount, new Vector2(400, 600), Color.White);
+            spriteBatch.DrawString(font, "TIME: " + player.Time, new Vector2(400, 650), Color.White);
+            spriteBatch.DrawString(font, "SCORE: " + (player.Score + player.Time * 10), new Vector2(400, 700), Color.White);
         }
 
         public override void Update(GameTime gameTime) { }

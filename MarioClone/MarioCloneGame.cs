@@ -50,6 +50,7 @@ namespace MarioClone
         AbstractMenu pauseMenu;
         AbstractMenu player1CompletedMenu;
         AbstractMenu player2CompletedMenu;
+        AbstractMenu gameOverScreen;
 
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
@@ -151,6 +152,7 @@ namespace MarioClone
             _backgroundP2 = new Background(spriteBatch, Player2Camera, BackgroundType.Overworld);
             screen = new MenuScreen(this);
             pauseMenu = new PauseMenu(this);
+            gameOverScreen = new GameEndMenu(this);
 
             GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
@@ -253,6 +255,11 @@ namespace MarioClone
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
+            if(Player1.LevelCompleted && Player2.LevelCompleted)
+            {
+                State = GameState.GameOver;
+            }
+
             if(State == GameState.Paused)
             {
                 pauseMenu.Update(gameTime);
@@ -348,6 +355,10 @@ namespace MarioClone
                     hud.Update(gameTime);
                 }
             }
+            else if(State == GameState.GameOver)
+            {
+                gameOverScreen.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -418,14 +429,14 @@ namespace MarioClone
                     }
                 }
                 DrawPlayerHalfOfGame(gameTime, HUDs[0], Player1Camera, player1Objects, transitioningAreaP1, warpOpacityP1);
+                spriteBatch.End();
 
+                spriteBatch.Begin(SpriteSortMode.BackToFront);
                 if (Player1.LevelCompleted)
                 {
                     player1CompletedMenu.Draw(spriteBatch, gameTime);
                 }
-
                 spriteBatch.End();
-
 
                 if (Mode == GameMode.MultiPlayer)
                 {
@@ -448,7 +459,10 @@ namespace MarioClone
                         }
                     }
                     DrawPlayerHalfOfGame(gameTime, HUDs[1], Player2Camera, player2Objects, transitioningAreaP2, warpOpacityP2);
+                    
+                    spriteBatch.End();
 
+                    spriteBatch.Begin(SpriteSortMode.BackToFront);
                     if (Player2.LevelCompleted)
                     {
                         player2CompletedMenu.Draw(spriteBatch, gameTime);
@@ -486,7 +500,7 @@ namespace MarioClone
                 GraphicsDevice.Clear(Color.Black);
                 spriteBatch.Begin(SpriteSortMode.BackToFront);
 
-                screen.Draw(spriteBatch, gameTime);
+                gameOverScreen.Draw(spriteBatch, gameTime);
 
                 spriteBatch.End();
                 base.Draw(gameTime);
@@ -650,14 +664,15 @@ namespace MarioClone
         private void HandleFlagPoleHit(object sender, PlayerHitPoleEventArgs e)
         {
             e.Mario.LevelCompleted = true;
+
             //State = GameState.GameOver;
             if (Mode == GameMode.MultiPlayer)
             {
-                if (ReferenceEquals(e.Mario, Player1))
+                if (ReferenceEquals(e.Mario, Player1) && !Player2.LevelCompleted)
                 {
                     Player2.Winner = false;
                 }
-                else if (ReferenceEquals(e.Mario, Player2))
+                else if (ReferenceEquals(e.Mario, Player2) && !Player1.LevelCompleted)
                 {
                     Player1.Winner = false;
                 }
