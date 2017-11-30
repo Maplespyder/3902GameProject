@@ -19,6 +19,7 @@ namespace MarioClone.Level
         public static readonly Color FloorBlock = Color.FromArgb(0, 0, 0);
         public static readonly Color StairBlock = Color.FromArgb(255, 178, 100);
         public static readonly Color HiddenBlock = Color.FromArgb(189, 69, 0);
+        public static readonly Color FireCannonBlock = Color.FromArgb(150, 100, 0);
 
         public static readonly Color Goomba = Color.FromArgb(81, 47, 28);
         public static readonly Color GreenKoopa = Color.FromArgb(14, 209, 69);

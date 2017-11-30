@@ -93,6 +93,7 @@
     <Compile Include="Factories\Projectiles\ProjectileFactory.cs" />
     <Compile Include="Factories\Projectiles\ProjectileSpriteFactory.cs" />
     <Compile Include="Factories\Sounds\SoundFactory.cs" />
+    <Compile Include="GameObjects\Bricks\FireCannonBlock.cs" />
     <Compile Include="GameObjects\Bricks\Flagpole.cs" />
     <Compile Include="GameObjects\Bricks\PipeSegment.cs" />
     <Compile Include="GameObjects\Bricks\PipeTop.cs" />
