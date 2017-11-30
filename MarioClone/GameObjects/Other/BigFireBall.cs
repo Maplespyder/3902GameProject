@@ -18,12 +18,14 @@ namespace MarioClone.GameObjects.Other
 			{
 				Velocity = new Vector2(8f, 0);
 				Orientation = Facing.Right;
+                BoundingBox.UpdateOffSets(-66, 0, -5, -5);
 			}
 			else
 			{
 				Velocity = new Vector2(-8f, 0);
 				Orientation = Facing.Left;
-			}
+                BoundingBox.UpdateOffSets(0, -66, -5, -5);
+            }
 			Destroyed = false;
 		}
 
