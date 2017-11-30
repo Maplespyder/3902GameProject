@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System;
 using MarioClone.Commands;
 using System.Collections.Generic;
+using MarioClone.GameObjects;
 
 namespace MarioClone.Menu
 {
@@ -33,33 +34,80 @@ namespace MarioClone.Menu
             player1Info = new List<string>();
             player2Info = new List<string>();
 
-            //TODO fix for actual modes
-            if ((MarioCloneGame.Player1.Winner && !MarioCloneGame.Player2.Winner) || (MarioCloneGame.Player1.Score > MarioCloneGame.Player2.Score))
-            {
-                winner = "Player 1 WINS!";
-            }
-            else if ((MarioCloneGame.Player2.Winner && !MarioCloneGame.Player1.Winner) || (MarioCloneGame.Player2.Score > MarioCloneGame.Player1.Score))
-            {
-                winner = "Player 2 WINS!";
-            }
-            else
-            {
-                winner = "There's a TIE!";
-            }
+            Mario player1 = MarioCloneGame.Player1;
+            Mario player2 = MarioCloneGame.Player2;
 
+            if(MarioCloneGame.Mode == GameMode.SinglePlayer)
+            {
+                if(player1.LevelCompleted)
+                {
+                    winner = "You WON!";
+                }
+                else
+                {
+                    winner = "You LOST!";
+                }
+            }
+            else if (!(player1.LevelCompleted || player2.LevelCompleted) && (player1.Time <= 0) && (player2.Time == 0))
+            {
+                winner = "It was a TIE!";
+            }
+            //game won't end w/o both having level completed unless they ran out of time or it's race
+            else if(player1.LevelCompleted && !player2.LevelCompleted)
+            {
+                winner = "Player 1 WON";
+            }
+            else if (player2.LevelCompleted && !player1.LevelCompleted)
+            {
+                winner = "Player 2 WON";
+            }
+            else if(MarioCloneGame.MultiplayerMode == MultiplayerType.ScoreWithLives)
+            {
+                if(player1.Lives <= 0 && player2.Lives <= 0)
+                {
+                    winner = "It was a TIE!";
+                }
+                else if(player2.Lives <= 0 || (player1.Score > player2.Score))
+                {
+                    winner = "Player 1 WON!";
+                } 
+                else if(player1.Lives <= 0 || (player2.Score > player1.Score))
+                {
+                    winner = "Player 2 WON!";
+                }
+                else
+                {
+                    winner = "It was a TIE!";
+                }
+            }
+            else if(MarioCloneGame.MultiplayerMode == MultiplayerType.Score)
+            {
+                if (player1.Score > player2.Score)
+                {
+                    winner = "Player 1 WON!";
+                }
+                else if(player2.Score > player1.Score)
+                {
+                    winner = "Player 2 WON!";
+                }
+                else
+                {
+                    winner = "It was a TIE!";
+                }
+            }
             player1Info.Add("PLAYER 1 STATS:");
-            player1Info.Add("LIVES: " + MarioCloneGame.Player1.Lives);
-            player1Info.Add("COINS: " + MarioCloneGame.Player1.CoinCount);
-            player1Info.Add("TIME: " + MarioCloneGame.Player1.Time);
-            player1Info.Add("SCORE: " + (MarioCloneGame.Player1.Score + MarioCloneGame.Player1.Time * 10));
+            player1Info.Add("LIVES: " + player1.Lives);
+            player1Info.Add("COINS: " + player1.CoinCount);
+            player1Info.Add("TIME: " + player1.Time);
+            player1Info.Add("SCORE: " + player1.Score);
 
             if (MarioCloneGame.Mode == GameMode.MultiPlayer)
             {
                 player2Info.Add("PLAYER 2 STATS:");
-                player2Info.Add("LIVES: " + MarioCloneGame.Player2.Lives);
-                player2Info.Add("COINS: " + MarioCloneGame.Player2.CoinCount);
-                player2Info.Add("TIME: " + MarioCloneGame.Player2.Time);
-                player2Info.Add("SCORE: " + (MarioCloneGame.Player2.Score + MarioCloneGame.Player2.Time * 10));
+                player2Info.Add("LIVES: " + player2.Lives);
+                player2Info.Add("COINS: " + player2.CoinCount);
+                player2Info.Add("TIME: " + player2.Time);
+                player2Info.Add("SCORE: " + player2.Score);
             }
 
             variablesUndefined = false;

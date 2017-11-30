@@ -11,6 +11,7 @@ namespace MarioClone.States.EnemyStates.Powerup
         Alive,
         Invincible
     }
+
     public abstract class BowserPowerupState
     {
         public BowserPowerup Powerup { get; set; }
@@ -37,6 +38,7 @@ namespace MarioClone.States.EnemyStates.Powerup
                         Killer = (Mario)gameObject;
                         EventManager.Instance.TriggerEnemyDefeatedEvent(Context, (Mario)gameObject);
                         Context.PowerupStateBowser.BecomeDead();
+                        Context.PowerupStateBowser.Killer = Killer;
                         return true;
                     }
                     int shift = (MarioCloneGame.Player1.Position.X > Context.Position.X+Context.Sprite.SourceRectangle.Width/2) ? -5 : 5;
