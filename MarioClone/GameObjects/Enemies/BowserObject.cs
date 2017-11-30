@@ -33,8 +33,8 @@ namespace MarioClone.GameObjects
             Gravity = false;
             PowerupStateBowser = new BowserAlive(this);
             ActionStateBowser = new BowserIdle(this);
-            BoundingBox.UpdateOffSets(-8, -8, -8, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
+            BoundingBox.UpdateOffSets(-340, -20, -36, -1);
             Velocity = new Vector2(0, 0);
             Orientation = Facing.Left;
             PointValue = 500;

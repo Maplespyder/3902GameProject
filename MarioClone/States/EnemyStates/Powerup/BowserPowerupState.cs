@@ -2,6 +2,7 @@
 using MarioClone.EventCenter;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
@@ -30,7 +31,8 @@ namespace MarioClone.States.EnemyStates.Powerup
             if (gameObject is Mario && !(((Mario)gameObject).PowerupState is MarioInvincibility2) 
 				&& !(Context.PowerupStateBowser is BowserInvincibility))
             {
-                if (side.Equals(Side.Top))
+                float whereOnHitBox = Math.Abs(gameObject.Position.X - Context.Position.X);
+                if (side.Equals(Side.Top) && (whereOnHitBox < 250 && Context.Orientation is Facing.Left || whereOnHitBox > 600 && Context.Orientation is Facing.Right)) 
                 {
                     Context.Hits--;
                     if (Context.Hits == 0)
@@ -41,7 +43,7 @@ namespace MarioClone.States.EnemyStates.Powerup
                         Context.PowerupStateBowser.Killer = Killer;
                         return true;
                     }
-                    int shift = (MarioCloneGame.Player1.Position.X > Context.Position.X+Context.Sprite.SourceRectangle.Width/2) ? -5 : 5;
+                    int shift = (gameObject.Position.X > Context.Position.X+Context.Sprite.SourceRectangle.Width/2) ? -10 : 10;
                     Context.Velocity = new Vector2(Context.Velocity.Y + shift, Context.Velocity.X);
 					Context.PowerupStateBowser = new BowserInvincibility(Context);
                 }

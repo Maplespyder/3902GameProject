@@ -321,13 +321,12 @@ namespace MarioClone.Level
                 }
                 else if (sameColor(pixel, Colors.BowserObject))
                 {
-                    if (MarioCloneGame.Mode == GameMode.SinglePlayer)
-                    {
+                   
                         position = new Vector2(position.X, position.Y);
                         initializer = EnemyFactory.Create(EnemyType.BowserIdle, position);
                         initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y - initializer.Sprite.SourceRectangle.Height);
                         Grid.Add(initializer);
-                    }
+                    
                 }
                 else if (pixel.R == Colors.WarpPoint.R && pixel.G == Colors.WarpPoint.G)
                 {

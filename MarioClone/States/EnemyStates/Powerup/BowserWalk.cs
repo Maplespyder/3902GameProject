@@ -15,7 +15,6 @@ namespace MarioClone.States.EnemyStates.Powerup
         public BowserWalk(BowserObject context) : base(context)
         {
             Action = BowserAction.Walk;
-			Context.BoundingBox.UpdateOffSets(-8, -8, -8, -1);
 		}
 
         public override void BecomeIdle()
@@ -66,7 +65,13 @@ namespace MarioClone.States.EnemyStates.Powerup
 
 
             }
+            UpdateHitBox();
             return false;
+        }
+        public void UpdateHitBox()
+        {
+            if (Context.Orientation is Facing.Left) Context.BoundingBox.UpdateOffSets(-20, -340, -36, -1);
+            if (Context.Orientation is Facing.Right) Context.BoundingBox.UpdateOffSets(-340, -20, -36, -1);
         }
     }
 }
