@@ -184,13 +184,16 @@ namespace MarioClone
             player1Controller.AddInputCommand((int)Keys.B, new FireBallCommand(Player1));
             player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new FireBallCommand(Player1));
 
-            player1Controller.AddInputCommand((int)Keys.W, new JumpCommand(Player1));
+            //player1Controller.AddInputCommand((int)Keys.W, new JumpCommand(Player1));
+            player1Controller.AddHeldInputCommand((int)Keys.W, new JumpCommand(Player1));
             player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.W, new JumpCommand(Player1));
-            player1Controller.AddInputCommand((int)Keys.A, new MoveLeftCommand(Player1));
+            //player1Controller.AddInputCommand((int)Keys.A, new MoveLeftCommand(Player1));
+            player1Controller.AddHeldInputCommand((int)Keys.A, new MoveLeftCommand(Player1));
             player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.A, new MoveLeftCommand(Player1));
             player1Controller.AddInputCommand((int)Keys.S, new CrouchCommand(Player1));
             player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.S, new CrouchCommand(Player1));
-            player1Controller.AddInputCommand((int)Keys.D, new MoveRightCommand(Player1));
+            //player1Controller.AddInputCommand((int)Keys.D, new MoveRightCommand(Player1));
+            player1Controller.AddHeldInputCommand((int)Keys.D, new MoveRightCommand(Player1));
             player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.D, new MoveRightCommand(Player1));
 
             player1Controller.AddInputCommand((int)Keys.Space, new DashCommand(Player1));

@@ -53,7 +53,7 @@ namespace MarioClone.States
 
         public override void Jump()
         {
-            if (Math.Abs(Context.Velocity.Y) > 0)
+            if (!(Context.PreviousActionState is MarioJump2) && !(Context.PreviousActionState is MarioFall2))
             {
                 Context.StateMachine.TransitionJump(); 
             }
@@ -65,7 +65,14 @@ namespace MarioClone.States
             {
                 if (side == Side.Left || side == Side.Right)
                 {
-                    Context.StateMachine.TransitionIdle();
+                    if (Context.PreviousActionState is MarioIdle2 || Context.PreviousActionState is MarioWalk2)
+                    {
+                        Context.StateMachine.TransitionIdle(); 
+                    }
+                    else
+                    {
+                        Context.StateMachine.TransitionFall();
+                    }
                 }
             }
             return base.CollisionResponse(gameObject, side, gameTime);

@@ -7,10 +7,12 @@ namespace MarioClone.Controllers
     {
         private Dictionary<int, ICommand> inputToCommandMap;
         private Dictionary<int, ICommand> releasedInputToCommandMap;
+        private Dictionary<int, ICommand> heldInputToCommandMap;
         protected AbstractController()
         {
             inputToCommandMap = new Dictionary<int, ICommand>();
             releasedInputToCommandMap = new Dictionary<int, ICommand>();
+            heldInputToCommandMap = new Dictionary<int, ICommand>();
         }
 
         protected Dictionary<int, ICommand> InputToCommandMap
@@ -21,6 +23,11 @@ namespace MarioClone.Controllers
         protected Dictionary<int, ICommand> ReleasedInputToCommandMap
         {
             get { return releasedInputToCommandMap; }
+        }
+
+        protected Dictionary<int, ICommand> HeldInputToCommandMap
+        {
+            get { return heldInputToCommandMap; }
         }
 
         public abstract bool AddInputChord(int modifier, int input, ICommand command);
@@ -51,6 +58,16 @@ namespace MarioClone.Controllers
             return false;
         }
 
+        public bool AddHeldInputCommand(int input, ICommand command)
+        {
+            if (!HeldInputToCommandMap.ContainsKey(input))
+            {
+                HeldInputToCommandMap.Add(input, command);
+                return true;
+            }
+            return false;
+        }
+
         public abstract bool RemoveInputChord(int modifier, int input);
 
         /// <summary>
@@ -74,6 +91,16 @@ namespace MarioClone.Controllers
             if (ReleasedInputToCommandMap.ContainsKey(input))
             {
                 ReleasedInputToCommandMap.Remove(input);
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemoveHeldInputCommand(int input)
+        {
+            if (HeldInputToCommandMap.ContainsKey(input))
+            {
+                HeldInputToCommandMap.Remove(input);
                 return true;
             }
             return false;
