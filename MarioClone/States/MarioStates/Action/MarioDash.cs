@@ -48,7 +48,7 @@ namespace MarioClone.States
 
         public override void Leave()
         {
-            //Context.Velocity = new Vector2(0, Context.Velocity.Y);
+            Context.Velocity = new Vector2(0, Context.Velocity.Y);
         }
 
         public override void Jump()

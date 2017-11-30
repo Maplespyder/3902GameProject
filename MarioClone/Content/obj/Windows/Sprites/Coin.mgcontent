@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/Sprites/Coin.png</SourceFile>
-  <SourceTime>2017-10-19T10:58:57.4179436-04:00</SourceTime>
-  <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/Sprites/Coin.xnb</DestFile>
-  <DestTime>2017-11-30T13:57:10.6948588-05:00</DestTime>
+  <SourceFile>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/Sprites/Coin.png</SourceFile>
+  <SourceTime>2017-10-24T12:37:21.9631173-04:00</SourceTime>
+  <DestFile>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/Sprites/Coin.xnb</DestFile>
+  <DestTime>2017-11-30T18:16:04.3579405-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
