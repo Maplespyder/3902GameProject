@@ -55,10 +55,19 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            if (BoundingBox.Dimensions.Bottom >= MarioCloneGame.LevelAreas[LevelArea].Bottom)
+            {
+                if (!(PowerupStateBowser is BowserDead))
+                {
+                    PowerupStateBowser.BecomeDead();
+                    PowerupStateBowser.BecomeDead();
+                }
+            }
             if (Gravity)
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + BowserObject.GravityAcceleration * percent);
             }
+
 			if (!(PowerupStateBowser is BowserDead))
 			{
 				Gravity = true;

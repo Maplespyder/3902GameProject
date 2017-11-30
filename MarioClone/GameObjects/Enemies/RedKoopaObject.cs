@@ -74,7 +74,15 @@ namespace MarioClone.GameObjects
         {
             bool retval = base.Update(gameTime, percent);
 
-            if (Gravity)
+            if (BoundingBox.Dimensions.Bottom >= MarioCloneGame.LevelAreas[LevelArea].Bottom)
+            {
+                if (!(PowerupState is KoopaDead))
+                {
+                    PowerupState.BecomeDead();
+                    PowerupState.BecomeDead();
+                }
+            }
+            else if (Gravity)
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y + Mario.GravityAcceleration * percent);
             }
