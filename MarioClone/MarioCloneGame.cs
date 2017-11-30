@@ -105,7 +105,7 @@ namespace MarioClone
             generalController = new KeyboardController();
 
             //TODO move this somewhere where it can be chosen by menu
-            Mode = GameMode.MultiPlayer;
+            Mode = GameMode.SinglePlayer;
             MultiplayerMode = MultiplayerType.Score;
 
             if(Mode == GameMode.SinglePlayer)
@@ -209,7 +209,7 @@ namespace MarioClone
 
             generalController.AddInputCommand((int)Keys.M, new MuteCommand(SoundPool.Instance));
             generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.M, new MuteCommand(SoundPool.Instance));
-            generalController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
+            generalController.AddInputCommand((int)Keys.Escape, new ExitCommand(this));
             generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
             generalController.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
             generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
@@ -254,8 +254,6 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-				Exit();
             
             if(State == GameState.Paused)
             {
