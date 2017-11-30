@@ -13,7 +13,8 @@ namespace MarioClone.States
     {
         private float _initialX;
 
-        public const int DashLength = 150;
+        public const int DashLength = 200;
+        public const float DashSpeed = 20;
 
         public bool DashFinished
         {
@@ -34,11 +35,11 @@ namespace MarioClone.States
 
             if (Context.Orientation == Facing.Right)
             {
-                Context.Velocity = new Vector2(10, 0);
+                Context.Velocity = new Vector2(DashSpeed, 0);
             }
             else
             {
-                Context.Velocity = new Vector2(-10, 0);
+                Context.Velocity = new Vector2(-DashSpeed, 0);
             }
             
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Dash);
@@ -58,34 +59,17 @@ namespace MarioClone.States
             }
         }
 
-        //public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
-        //{
-        //    if (gameObject is AbstractBlock)
-        //    {
-        //        if (side == Side.Bottom)
-        //        {
-        //            Context.Gravity = false;
-        //            Context.Velocity = new Vector2(Context.Velocity.X, 0);
-
-        //            if (Context.Velocity.X != 0)
-        //            {
-        //                Context.StateMachine.TransitionWalk();
-        //                return true;
-        //            }
-        //            else
-        //            {
-        //                Context.StateMachine.TransitionIdle();
-        //                return true;
-        //            }
-        //        }
-        //        else if (side == Side.Left || side == Side.Right)
-        //        {
-        //            Context.Velocity = new Vector2(0, Context.Velocity.Y);
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            if (gameObject is AbstractBlock)
+            {
+                if (side == Side.Left || side == Side.Right)
+                {
+                    Context.StateMachine.TransitionIdle();
+                }
+            }
+            return base.CollisionResponse(gameObject, side, gameTime);
+        }
 
         public override void UpdateHitBox()
         {

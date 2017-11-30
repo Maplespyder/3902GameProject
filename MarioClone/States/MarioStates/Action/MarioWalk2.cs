@@ -17,6 +17,7 @@ namespace MarioClone.States
 
         public override void Enter()
         {
+            Context.HasAirDash = true;
             Context.Velocity = (Context.Orientation == Facing.Left) ? new Vector2(-Mario.HorizontalMovementSpeed, 0) 
                 : new Vector2(Mario.HorizontalMovementSpeed, 0);
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Walk);
