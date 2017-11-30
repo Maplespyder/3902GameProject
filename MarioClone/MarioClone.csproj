@@ -253,9 +253,7 @@
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Level\Sprint4MainLevel.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Level\Sprint4MainLevel.bmp" />
     <Content Include="Level\Sprint4MainLevelOrig.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

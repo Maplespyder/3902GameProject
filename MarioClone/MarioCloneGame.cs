@@ -105,7 +105,7 @@ namespace MarioClone
             generalController = new KeyboardController();
 
             //TODO move this somewhere where it can be chosen by menu
-            Mode = GameMode.SinglePlayer;
+            Mode = GameMode.MultiPlayer;
             MultiplayerMode = MultiplayerType.Score;
 
             if(Mode == GameMode.SinglePlayer)
