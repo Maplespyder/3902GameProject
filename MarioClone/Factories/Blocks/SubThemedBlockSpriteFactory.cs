@@ -56,7 +56,10 @@ namespace MarioClone.Factories
 				case BlockType.PipeSegment:
 					return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/UndergroundPipe"),
 						new Rectangle(0, 72, 124, 108));
-				default:
+                case BlockType.FireCannon:
+                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/CustomBlocks"),
+                        new Rectangle(0, 0, 64, 64));
+                default:
 					return null;
 			}
 		}

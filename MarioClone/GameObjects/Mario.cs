@@ -63,6 +63,8 @@ namespace MarioClone.GameObjects
         public int Spawn { get; set; }
         public List<Vector2> Spawns { get; set; }
         public Vector2 ActiveSpawn { get; set; }
+
+        public bool HasAirDash { get; set; }
         
         public int Lives { get; set; }
         public int CoinCount { get; set; }
@@ -85,6 +87,8 @@ namespace MarioClone.GameObjects
             Spawns = new List<Vector2>();
             Spawns.Add(new Vector2(position.X, position.Y));
             ActiveSpawn = Spawns[0];
+
+            HasAirDash = true;
 
             Orientation = Facing.Right;
             Gravity = true;
@@ -112,6 +116,8 @@ namespace MarioClone.GameObjects
             Spawns = new List<Vector2>();
             Spawns.Add(new Vector2(position.X, position.Y));
             ActiveSpawn = Spawns[0];
+
+            HasAirDash = true;
 
             Winner = true;
             LevelCompleted = false;
@@ -367,7 +373,7 @@ namespace MarioClone.GameObjects
             }
 
             //TODO fix update to be inside the states or smth, or give mario a BecomeFall() method
-            if (!(ActionState is MarioFall2) && Velocity.Y > 1.5)
+            if (!(ActionState is MarioFall2 || ActionState is MarioDash) && Velocity.Y > 1.5)
             {
                 StateMachine.TransitionFall();
             }

@@ -91,7 +91,11 @@ namespace MarioClone.States
 
         public override void Dash()
         {
-            Context.StateMachine.TransitionDash();
+            if (Context.HasAirDash)
+            {
+                Context.HasAirDash = false;
+                Context.StateMachine.TransitionDash();
+            }
         }
 
         public override void ReleaseWalk(Facing orientation)

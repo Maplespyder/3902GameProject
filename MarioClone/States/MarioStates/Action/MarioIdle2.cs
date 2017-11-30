@@ -17,6 +17,7 @@ namespace MarioClone.States
 
         public override void Enter()
         {
+            Context.HasAirDash = true;
             Context.Velocity = new Vector2(0, 0);
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Idle);
             UpdateHitBox();

@@ -321,16 +321,25 @@ namespace MarioClone.Level
                 }
                 else if (sameColor(pixel, Colors.BowserObject))
                 {
-                   
-                        position = new Vector2(position.X, position.Y);
-                        initializer = EnemyFactory.Create(EnemyType.BowserIdle, position);
-                        initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y - initializer.Sprite.SourceRectangle.Height);
-                        Grid.Add(initializer);
-                    
+                    position = new Vector2(position.X, position.Y);
+                    initializer = EnemyFactory.Create(EnemyType.BowserIdle, position);
+                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y - initializer.Sprite.SourceRectangle.Height);
+                    Grid.Add(initializer);
+                }
+                else if(sameColor(pixel, Colors.FireCannonBlock))
+                {
+                    position = new Vector2(position.X, position.Y);
+                    initializer = BlockFactory.Instance.Create(BlockType.FireCannon, position);
+                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y - initializer.Sprite.SourceRectangle.Height);
+                    Grid.Add(initializer);
                 }
                 else if (pixel.R == Colors.WarpPoint.R && pixel.G == Colors.WarpPoint.G)
                 {
-                    if ((x / BlockWidth) - 1 - xOffsetFromUnderground >= 0)
+                    initializer = BlockFactory.Instance.Create(BlockType.FloorBlock, position);
+                    initializer.Position = new Vector2(initializer.Position.X, (initializer.Position.Y + initializer.Sprite.SourceRectangle.Height));
+                    Grid.Add(initializer);
+                    //MakeObject(Colors.FloorBlock, (x / BlockWidth) - xOffsetFromUnderground, (y / BlockHeight) - yOffsetFromUnderground - 1);
+                    /*if ((x / BlockWidth) - 1 - xOffsetFromUnderground >= 0)
                     {
                         //fill in the blank space with some surrounding to blend in
                         MakeObject(_image.GetPixel((x / BlockWidth) - 1 - xOffsetFromUnderground, (y / BlockHeight) - yOffsetFromUnderground - 1), x, y);
@@ -342,7 +351,7 @@ namespace MarioClone.Level
                     else
                     {
                         MakeObject(Colors.FloorBlock, (x / BlockWidth) - xOffsetFromUnderground, (y / BlockHeight) - yOffsetFromUnderground - 1);
-                    }
+                    }*/
                 }
 			}
 
