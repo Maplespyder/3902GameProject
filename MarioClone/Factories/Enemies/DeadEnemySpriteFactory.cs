@@ -26,9 +26,6 @@ namespace MarioClone.Factories
                 case EnemyType.GreenKoopa:
 					return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
 						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
-				case EnemyType.RedKoopa:
-					return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
-						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
 				case EnemyType.Piranha:
 					return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
 						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);

@@ -33,8 +33,8 @@ namespace MarioClone.GameObjects
             Gravity = false;
             PowerupStateBowser = new BowserAlive(this);
             ActionStateBowser = new BowserIdle(this);
-            BoundingBox.UpdateOffSets(-8, -8, -8, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
+            BoundingBox.UpdateOffSets(-340, -20, -36, -1);
             Velocity = new Vector2(0, 0);
             Orientation = Facing.Left;
             PointValue = 500;
@@ -80,6 +80,24 @@ namespace MarioClone.GameObjects
 			Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y * percent);
 			Removed = retVal || retVal2;
             return Removed;
+        }
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            if (correction.Y > 0)
+            {
+                return;
+            }
+            if (obj1 is AbstractBlock && obj1.Visible)
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+
+            }
+            else if (obj2 is AbstractBlock && obj2.Visible)
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+            }
         }
     }
 }

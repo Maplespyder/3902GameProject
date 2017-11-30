@@ -40,12 +40,12 @@ namespace MarioClone.Projectiles
             if (player.Orientation is Facing.Right)
             {
                 position =  new Vector2(player.Position.X + player.Sprite.SourceRectangle.Width,
-                        player.Position.Y - player.Sprite.SourceRectangle.Height / 2);
+                        player.Position.Y - player.Sprite.SourceRectangle.Height / 4);
             }
             else
             {
                 position = new Vector2(player.Position.X,
-                        player.Position.Y - player.Sprite.SourceRectangle.Height / 2);
+                        player.Position.Y - player.Sprite.SourceRectangle.Height / 4);
             }
             return position;
         }

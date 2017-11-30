@@ -15,11 +15,13 @@ using MarioClone.EventCenter;
 using MarioClone.Menu;
 using MarioClone.Factories;
 using System.Linq;
+using System;
 
 namespace MarioClone
 {
     public enum GameState
     {
+        GameStart,
         Playing,
         GameOver,
         Paused
@@ -30,13 +32,13 @@ namespace MarioClone
         SinglePlayer,
         MultiPlayer
     }
-
-    public enum MenuOption
+    
+    public enum MultiplayerType
     {
-        Replay,
-        Exit
+        Score,
+        ScoreWithLives,
+        Race
     }
-
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -44,6 +46,7 @@ namespace MarioClone
 	{
         public static GameState State;
         public static GameMode Mode;
+        public static MultiplayerType MultiplayerMode;
 
         MenuScreen screen;
 
@@ -51,6 +54,7 @@ namespace MarioClone
         AbstractMenu player1CompletedMenu;
         AbstractMenu player2CompletedMenu;
         AbstractMenu gameOverScreen;
+        AbstractMenu mainMenu;
 
 		static GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
@@ -82,7 +86,7 @@ namespace MarioClone
             
 		public MarioCloneGame()
 		{  
-            State = GameState.Playing;
+            State = GameState.GameStart;
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 1920;
 			graphics.PreferredBackBufferHeight = 960;
@@ -105,6 +109,7 @@ namespace MarioClone
 
             //TODO move this somewhere where it can be chosen by menu
             Mode = GameMode.MultiPlayer;
+            MultiplayerMode = MultiplayerType.Score;
 
             if(Mode == GameMode.SinglePlayer)
             {
@@ -125,7 +130,7 @@ namespace MarioClone
         {
             player1Viewport = graphics.GraphicsDevice.Viewport;
             Player1Camera = new Camera(player1Viewport);
-            Player1Camera.Limits = new Rectangle(0, 0, 350 * 64, graphics.PreferredBackBufferWidth); //set limit of world
+            Player1Camera.Limits = new Rectangle(0, 0, 350 * 64, graphics.PreferredBackBufferHeight); //set limit of world
         }
 
         private void SetupMultiplayerViewports()
@@ -133,11 +138,11 @@ namespace MarioClone
             player1Viewport = new Viewport(0, 0, graphics.PreferredBackBufferWidth / 2 - 20, graphics.PreferredBackBufferHeight);
 
             Player1Camera = new Camera(player1Viewport);
-            Player1Camera.Limits = new Rectangle(0, 0, 350 * 64, graphics.PreferredBackBufferWidth); //set limit of world
+            Player1Camera.Limits = new Rectangle(0, 0, 350 * 64, graphics.PreferredBackBufferHeight); //set limit of world
 
             player2Viewport = new Viewport(graphics.PreferredBackBufferWidth / 2 + 20, 0, graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight);
             Player2Camera = new Camera(player2Viewport);
-            Player2Camera.Limits = new Rectangle(0, 0, 350 * 64, graphics.PreferredBackBufferWidth); //set limit of world
+            Player2Camera.Limits = new Rectangle(0, 0, 350 * 64, graphics.PreferredBackBufferHeight); //set limit of world
         }
 
         /// <summary>
@@ -153,6 +158,7 @@ namespace MarioClone
             screen = new MenuScreen(this);
             pauseMenu = new PauseMenu(this);
             gameOverScreen = new GameEndMenu(this);
+            mainMenu = new MainMenu(this);
 
             GameContent.Load<Texture2D>("Sprites/ItemSpriteSheet");
             GameContent.Load<Texture2D>("Sprites/FireFlower");
@@ -191,23 +197,11 @@ namespace MarioClone
             player1Controller.AddReleasedInputCommand((int)Keys.A, new ReleaseMoveLeftCommand(Player1));
             player1Controller.AddReleasedInputCommand((int)Keys.D, new ReleaseMoveRightCommand(Player1));
 
-            if (Mode == GameMode.MultiPlayer)
-            {
-                player2Controller.AddInputCommand((int)Keys.Up, new JumpCommand(Player2));
-                player2Controller.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player2));
-                player2Controller.AddInputCommand((int)Keys.Down, new CrouchCommand(Player2));
-                player2Controller.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
-
-                player2Controller.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Player2));
-                player2Controller.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player2));
-                player2Controller.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player2));
-
-                player2Controller.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
-            }
+            MapPlayer2Controller();            
 
             generalController.AddInputCommand((int)Keys.M, new MuteCommand(SoundPool.Instance));
             generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.M, new MuteCommand(SoundPool.Instance));
-            generalController.AddInputCommand((int)Keys.Q, new ExitCommand(this));
+            generalController.AddInputCommand((int)Keys.Escape, new ExitCommand(this));
             generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.Q, new ExitCommand(this));
             generalController.AddInputCommand((int)Keys.C, new DisplayHitboxCommand());
             generalController.AddInputChord((int)Modifier.LeftShift, (int)Keys.C, new DisplayHitboxCommand());
@@ -236,6 +230,20 @@ namespace MarioClone
             player2CompletedMenu = new PlayerDoneScoreMenu(Player2);
         }
 
+        private void MapPlayer2Controller()
+        {
+            player2Controller.AddInputCommand((int)Keys.Up, new JumpCommand(Player2));
+            player2Controller.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player2));
+            player2Controller.AddInputCommand((int)Keys.Down, new CrouchCommand(Player2));
+            player2Controller.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
+
+            player2Controller.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Player2));
+            player2Controller.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player2));
+            player2Controller.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player2));
+
+            player2Controller.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
+        }
+
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -252,15 +260,11 @@ namespace MarioClone
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-				Exit();
-
-            if(Player1.LevelCompleted && Player2.LevelCompleted)
+            if(State == GameState.GameStart)
             {
-                State = GameState.GameOver;
+                mainMenu.Update(gameTime);
             }
-
-            if(State == GameState.Paused)
+            else if(State == GameState.Paused)
             {
                 pauseMenu.Update(gameTime);
             }
@@ -495,6 +499,16 @@ namespace MarioClone
 
                 base.Draw(gameTime);
 			}
+            else if(State == GameState.GameStart)
+            {
+                GraphicsDevice.Clear(Color.Black);
+                spriteBatch.Begin(SpriteSortMode.BackToFront);
+
+                mainMenu.Draw(spriteBatch, gameTime);
+
+                spriteBatch.End();
+                base.Draw(gameTime);
+            }
             else if (State == GameState.GameOver)
             {
                 GraphicsDevice.Clear(Color.Black);
@@ -536,9 +550,13 @@ namespace MarioClone
                 camera = Player2Camera;
             }
 
+            if((Mode == GameMode.MultiPlayer) && MultiplayerMode != MultiplayerType.ScoreWithLives)
+            {
+                e.DeadPlayer.Lives++;
+            }
+
             if (e.DeadPlayer.Lives <= 0)
             {
-                e.DeadPlayer.Winner = false;
                 State = GameState.GameOver;
             }
             else
@@ -632,33 +650,13 @@ namespace MarioClone
 
         private void HandleTimeIsOut(object sender, TimeRanOutEventArgs e)
         {
-            if(Mode == GameMode.SinglePlayer)
-            {
-                e.Player.Winner = false;
-                State = GameState.GameOver;
-            }
-            else if(Mode == GameMode.MultiPlayer && !e.Player.LevelCompleted)
-            {
-                e.Player.Winner = false;
-                State = GameState.GameOver;
-            }
+            State = GameState.GameOver;
         }
 
         private void HandleBowserDefeated(object sender, PlayerKilledBowserEventArgs e)
         {
             e.Mario.LevelCompleted = true;
             State = GameState.GameOver;
-            if(Mode == GameMode.MultiPlayer)
-            {
-                if(ReferenceEquals(e.Mario, Player1))
-                {
-                    Player2.Winner = false;
-                } 
-                else if(ReferenceEquals(e.Mario, Player2))
-                {
-                    Player1.Winner = false;
-                }
-            }
         }
 
         private void HandleFlagPoleHit(object sender, PlayerHitPoleEventArgs e)
@@ -666,16 +664,13 @@ namespace MarioClone
             e.Mario.LevelCompleted = true;
 
             //State = GameState.GameOver;
-            if (Mode == GameMode.MultiPlayer)
+            if(Mode == GameMode.SinglePlayer)
             {
-                if (ReferenceEquals(e.Mario, Player1) && !Player2.LevelCompleted)
-                {
-                    Player2.Winner = false;
-                }
-                else if (ReferenceEquals(e.Mario, Player2) && !Player1.LevelCompleted)
-                {
-                    Player1.Winner = false;
-                }
+                State = GameState.GameOver;
+            }
+            else if(MultiplayerMode == MultiplayerType.Race || (Player1.LevelCompleted && Player2.LevelCompleted))
+            {
+                State = GameState.GameOver;
             }
         }
 
@@ -712,6 +707,61 @@ namespace MarioClone
             Exit();
         }
 
+        public void StartSinglePlayerRun()
+        {
+            Mode = GameMode.SinglePlayer;
+            player2Controller.Clear();
+
+            SetupSingleplayerViewport();
+            _backgroundP1 = new Background(spriteBatch, Player1Camera, BackgroundType.Overworld);
+
+            gameGrid.ClearGrid();
+            SoundPool.Instance.Reset();
+            foreach (HUD hud in HUDs)
+            {
+                hud.Dispose();
+            }
+            HUDs.Clear();
+            level.Grid = gameGrid;
+            level.Create();
+
+            Player1Camera.LookAt(Player1.Position);
+
+            Player2 = Player1;
+            Player2Camera = Player1Camera;
+
+            State = GameState.Playing;
+        }
+
+        public void StartMultiPlayerRun(MultiplayerType type)
+        {
+            Mode = GameMode.MultiPlayer;
+            MultiplayerMode = type;
+            player2Controller.Clear();
+            Player2 = null;
+
+            SetupMultiplayerViewports();
+            _backgroundP1 = new Background(spriteBatch, Player1Camera, BackgroundType.Overworld);
+            _backgroundP2 = new Background(spriteBatch, Player2Camera, BackgroundType.Overworld);
+
+            gameGrid.ClearGrid();
+            SoundPool.Instance.Reset();
+            foreach (HUD hud in HUDs)
+            {
+                hud.Dispose();
+            }
+            HUDs.Clear();
+            level.Grid = gameGrid;
+            level.Create();
+
+            MapPlayer2Controller();
+
+            Player1Camera.LookAt(Player1.Position);
+            Player2Camera.LookAt(Player2.Position);
+
+            State = GameState.Playing;
+        }
+
         public void ResetLevelCommand()
         {
             Player1Camera.Limits = level.LevelAreas[0];
@@ -741,6 +791,11 @@ namespace MarioClone
             }
 
             State = GameState.Playing;
+        }
+
+        public void ReturnToMainMenu()
+        {
+            State = GameState.GameStart;
         }
 
         public void PauseCommand()

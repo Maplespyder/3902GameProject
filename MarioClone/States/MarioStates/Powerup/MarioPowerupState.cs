@@ -7,6 +7,7 @@ using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using MarioClone.Collision;
 using MarioClone.GameObjects.Other;
+using MarioClone.States.EnemyStates.Powerup;
 
 namespace MarioClone.States
 {
@@ -59,6 +60,12 @@ namespace MarioClone.States
 						{
 							Context.Velocity = new Vector2(-5, -7);
 						}
+
+                        float whereOnHitBox = Math.Abs(Context.Position.X - gameObject.Position.X);
+                        if (whereOnHitBox > 250 && gameObject.Orientation is Facing.Left || whereOnHitBox < 600 && gameObject.Orientation is Facing.Right)
+                        {
+                            TakeDamage(gameObject);
+                        }
 					}
 					else
                     {
@@ -67,7 +74,18 @@ namespace MarioClone.States
                 }
                 else
                 {
-                    TakeDamage(gameObject);
+                    if(gameObject is BowserObject)
+                    {
+                        BowserObject boss = (BowserObject)gameObject;
+                        if(!(boss.PowerupStateBowser is BowserInvincibility))
+                        {
+                            TakeDamage(gameObject);
+                        }
+                    }
+                    else
+                    {
+                       TakeDamage(gameObject);
+                    }
                 }
                 return true;
             }
@@ -75,7 +93,10 @@ namespace MarioClone.States
             {
                 if(side == Side.Bottom && gameObject.Velocity.Y < 0)
                 {
-                    TakeDamage(((AbstractBlock)gameObject).Bumper);
+                    if(!ReferenceEquals(((AbstractBlock)gameObject).Bumper, Context))
+                    {
+                        TakeDamage(((AbstractBlock)gameObject).Bumper);
+                    }
                 }
             }
             else if(gameObject is Mario)

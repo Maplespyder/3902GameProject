@@ -15,7 +15,7 @@ namespace MarioClone.GameObjects
         {
             Gravity = false;
             PowerupState = new GoombaAlive(this);
-            BoundingBox.UpdateOffSets(-8, -8, -8, -1);
+            BoundingBox.UpdateOffSets(-8, -8, -20, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
 			Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
 			Orientation = Facing.Left;
@@ -116,6 +116,25 @@ namespace MarioClone.GameObjects
          
             fireballPool.Update(gameTime);
             return retval;
+        }
+
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            if (correction.Y > 0)
+            {
+                return;
+            }
+            if (obj1 is AbstractBlock && obj1.Visible)
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+
+            }
+            else if (obj2 is AbstractBlock && obj2.Visible)
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
+            }
         }
     }
 }

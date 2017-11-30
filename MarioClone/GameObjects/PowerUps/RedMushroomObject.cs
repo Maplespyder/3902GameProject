@@ -18,6 +18,7 @@ namespace MarioClone.GameObjects
         public RedMushroomObject(ISprite sprite, Vector2 position) : base(sprite, position, Color.Green)
         {
             DrawOrder = .51f;
+            BoundingBox.UpdateOffSets(-1, -1, 0, 0);
             PointValue = 1000;
         }
 

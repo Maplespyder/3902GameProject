@@ -66,18 +66,25 @@
     <Compile Include="Cam\Background.cs" />
     <Compile Include="Cam\Camera.cs" />
     <Compile Include="Collision\CollisionManager.cs" />
+    <Compile Include="Commands\LeaveMultiplayerMenuCommand.cs" />
     <Compile Include="Commands\FireBallCommand.cs" />
     <Compile Include="Commands\MenuMoveCommand.cs" />
     <Compile Include="Commands\MenuOptionDownCommand.cs" />
     <Compile Include="Commands\MenuSelectOptionCommand.cs" />
     <Compile Include="Commands\MenuOptionUpCommand.cs" />
     <Compile Include="Commands\MenuSelectCommand.cs" />
+    <Compile Include="Commands\MultiplayerSelectedCommand.cs" />
     <Compile Include="Commands\MuteCommand.cs" />
     <Compile Include="Commands\PauseCommand.cs" />
+    <Compile Include="Commands\RaceModeSelected.cs" />
     <Compile Include="Commands\ReleaseCrouchCommand.cs" />
     <Compile Include="Commands\ReleaseMoveRightCommand.cs" />
     <Compile Include="Commands\ReleaseMoveLeftCommand.cs" />
     <Compile Include="Commands\ResetLevelCommand.cs" />
+    <Compile Include="Commands\ReturnToMainMenuCommand.cs" />
+    <Compile Include="Commands\ScoreModeSelectedCommand.cs" />
+    <Compile Include="Commands\ScoreModeWithLivesSelectedCommand.cs" />
+    <Compile Include="Commands\SinglePlayerSelectedCommand.cs" />
     <Compile Include="EventCenter\EventArgClasses.cs" />
     <Compile Include="EventCenter\EventPublisher.cs" />
     <Compile Include="EventCenter\EventRaiser.cs" />
@@ -96,6 +103,7 @@
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
     <Compile Include="Menu\AbstractMenu.cs" />
     <Compile Include="Menu\GameEndMenu.cs" />
+    <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\PlayerDoneScoreMenu.cs" />
     <Compile Include="Menu\MenuScreen.cs" />
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
@@ -147,7 +155,6 @@
     <Compile Include="GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
     <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
-    <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
     <Compile Include="GameObjects\PowerUps\CoinObject.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -191,7 +198,6 @@
     <Compile Include="States\EnemyStates\Powerup\GoombaDead.cs" />
     <Compile Include="States\EnemyStates\Powerup\KoopaAlive.cs" />
     <Compile Include="States\EnemyStates\Powerup\KoopaDead.cs" />
-    <Compile Include="States\EnemyStates\Powerup\KoopaShell.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaReveal.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaDead.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaHide.cs" />
@@ -255,9 +261,7 @@
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Level\Sprint4MainLevel.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Level\Sprint4MainLevel.bmp" />
     <Content Include="Level\Sprint4MainLevelOrig.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -18,15 +18,8 @@ namespace MarioClone.States
             Context.PointValue = 0;
             Context.BoundingBox = null;
             Context.Gravity = false;
-
-            if (Context is GreenKoopaObject)
-            {
-                Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.GreenKoopa);
-            }
-            else if (Context is RedKoopaObject)
-            {
-                Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.RedKoopa);
-            }
+            Context.Sprite = DeadEnemySpriteFactory.Create(EnemyType.GreenKoopa);
+            Context.Velocity = Vector2.Zero;
         }
 
         public override bool Update(GameTime gameTime, float percent)

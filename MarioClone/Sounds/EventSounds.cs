@@ -130,23 +130,6 @@ namespace MarioClone.Sounds
 				{
 					SoundPool.Instance.GetAndPlay(SoundType.Stomp, false);
                 }
-				else if (enemy.PowerupState is KoopaShell)
-				{
-					SoundPool.Instance.GetAndPlay(SoundType.Kick, false);
-                }
-
-			}
-			else if(sender is RedKoopaObject)
-			{
-				RedKoopaObject enemy = (RedKoopaObject)sender;
-				if (enemy.PowerupState is KoopaAlive)
-				{
-					SoundPool.Instance.GetAndPlay(SoundType.Stomp, false);
-                }
-				else if (enemy.PowerupState is KoopaShell)
-				{
-					SoundPool.Instance.GetAndPlay(SoundType.Kick, false);
-                }
 
 			}
 			else if(sender is GoombaObject || sender is PiranhaObject)
