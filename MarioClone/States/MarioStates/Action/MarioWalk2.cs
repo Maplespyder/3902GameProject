@@ -52,10 +52,10 @@ namespace MarioClone.States
             }
         }
 
-        public override void Dash()
-        {
-            Context.StateMachine.TransitionDash();
-        }
+        //public override void Dash()
+        //{
+        //    Context.StateMachine.TransitionDash();
+        //}
 
         public override void UpdateHitBox()
         {

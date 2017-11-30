@@ -246,6 +246,10 @@ namespace MarioClone
             player2Controller.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player2));
             player2Controller.AddReleasedInputCommand((int)Keys.Right, new ReleaseMoveRightCommand(Player2));
 
+            player2Controller.AddHeldInputCommand((int)Keys.Up, new JumpCommand(Player2));
+            player2Controller.AddHeldInputCommand((int)Keys.Left, new MoveLeftCommand(Player2));
+            player2Controller.AddHeldInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
+
             player2Controller.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
             player2Controller.AddInputCommand((int)Keys.RightControl, new DashCommand(Player2));
         }
