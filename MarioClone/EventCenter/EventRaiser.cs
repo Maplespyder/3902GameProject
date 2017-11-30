@@ -93,5 +93,11 @@ namespace MarioClone.EventCenter
             TimeRanOutEventArgs args = new TimeRanOutEventArgs(module, mario);
             OnRaiseTimeRanOutEvent(args);
         }
-    }
+
+		public void TriggerCannonEvent(BowserObject boss)
+		{
+			CannonEventArgs args = new CannonEventArgs(boss);
+			OnRaiseCannonEvent(args);
+		}
+	}
 }

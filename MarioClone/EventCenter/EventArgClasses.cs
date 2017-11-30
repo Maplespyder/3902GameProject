@@ -174,4 +174,11 @@ namespace MarioClone.EventCenter
             Player = player;
         }
     }
+
+	public class CannonEventArgs : CustomEventArgs<BowserObject>
+	{
+		public CannonEventArgs(BowserObject sender) : base(sender)
+		{
+		}
+	}
 }

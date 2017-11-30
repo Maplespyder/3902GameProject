@@ -11,6 +11,7 @@ using MarioClone.EventCenter;
 using MarioClone.Projectiles;
 
 using MarioClone.States.EnemyStates.Powerup;
+using System.Security.Cryptography;
 
 namespace MarioClone.GameObjects
 {
@@ -22,13 +23,16 @@ namespace MarioClone.GameObjects
         public static int MaxTimeWalk { get { return 2000; } }
         public static int MaxTimeIdle { get { return 1500; } }
         public static int MaxTimeFire { get { return 1000; } }
+		private  static int MaxTimeSummonCannon = 10000;
+		private int CurrentCannonCoolDown = 0;
 		public static float BowserMovementSpeed { get { return 2f; } }
 
 		public int TimeIdle { get; set; }
         public int TimeFire { get; set; }
         public int TimeWalk { get; set; }
         public const float GravityAcceleration = .4f;
-        public BowserObject(ISprite sprite, Vector2 position) : base(sprite, position)
+		private byte[] rand = new Byte[1];
+		public BowserObject(ISprite sprite, Vector2 position) : base(sprite, position)
         {
             Gravity = false;
             PowerupStateBowser = new BowserAlive(this);
@@ -55,6 +59,16 @@ namespace MarioClone.GameObjects
 
         public override bool Update(GameTime gameTime, float percent)
         {
+			CurrentCannonCoolDown += gameTime.ElapsedGameTime.Milliseconds;
+			if(CurrentCannonCoolDown >= MaxTimeSummonCannon)
+			{
+				RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+				rng.GetBytes(rand);
+				MaxTimeSummonCannon = ((rand[0] % 4) + 8) * 1000;
+				CurrentCannonCoolDown = 0;
+				EventCenter.EventManager.Instance.TriggerCannonEvent(this);
+			}
+
             if (BoundingBox != null && BoundingBox.Dimensions.Bottom >= MarioCloneGame.LevelAreas[LevelArea].Bottom)
             {
                 if (!(PowerupStateBowser is BowserDead))

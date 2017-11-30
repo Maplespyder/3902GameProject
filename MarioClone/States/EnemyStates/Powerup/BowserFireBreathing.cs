@@ -10,10 +10,8 @@ using MarioClone.Factories;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
-    class BowserFireBreathing : BowserActionState
+    public class BowserFireBreathing : BowserActionState
     {
-        private byte[] result;
-
         public BowserFireBreathing(BowserObject context) : base(context)
         {
             Action = BowserAction.BreatheFire;

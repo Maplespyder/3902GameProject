@@ -99,7 +99,9 @@
     <Compile Include="GameObjects\Enemies\BowserObject.cs" />
     <Compile Include="GameObjects\Enemies\PiranhaObject.cs" />
     <Compile Include="GameObjects\Mario2.cs" />
+    <Compile Include="GameObjects\Other\AbstractProjectileObject.cs" />
     <Compile Include="GameObjects\Other\BigFireBall.cs" />
+    <Compile Include="GameObjects\Other\CannonFireBall.cs" />
     <Compile Include="GameObjects\Other\FireBall.cs" />
     <Compile Include="GameObjects\PowerUps\AbstractPowerup.cs" />
     <Compile Include="Menu\AbstractMenu.cs" />
@@ -170,6 +172,7 @@
     <Compile Include="Menu\PauseMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Projectiles\BigFireBallPool.cs" />
+    <Compile Include="Projectiles\CannonFireBallPool.cs" />
     <Compile Include="Projectiles\FireballPool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sounds\EventSounds.cs" />

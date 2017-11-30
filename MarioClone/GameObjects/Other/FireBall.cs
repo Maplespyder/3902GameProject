@@ -1,21 +1,18 @@
 ﻿using MarioClone.Collision;
+using MarioClone.GameObjects.Other;
 using MarioClone.Sprites;
 using Microsoft.Xna.Framework;
 
 namespace MarioClone.GameObjects
 {
-    public class FireBall : AbstractGameObject
+    public class FireBall : AbstractProjectileObject
 	{
 		public bool Gravity { get; set; }
-		public bool Destroyed { get; set; }
-        public AbstractGameObject Owner { get; set; }
-        public int CoolDown { get; set; }
 
         private int BounceCount = 0;
 		private int MaxBounce = 6;
-		public FireBall(ISprite sprite, AbstractGameObject player, Vector2 position) : base(sprite, position, Color.Yellow)
+		public FireBall(ISprite sprite, AbstractGameObject player, Vector2 position) : base(sprite, player, position)
 		{
-            Owner = player;
 			Gravity = true;
 			if(Owner.Orientation == Facing.Right)
 			{
@@ -25,7 +22,6 @@ namespace MarioClone.GameObjects
 			{
 				Velocity = new Vector2(-5f, 0);
 			}
-			Destroyed = false;
 		}
 
 		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
@@ -77,19 +73,5 @@ namespace MarioClone.GameObjects
 			return retval;
 		}
 
-		public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
-		{
-			if ((obj1 is AbstractBlock && obj1.Visible) || obj1 is Mario)
-			{
-				Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-				BoundingBox.UpdateHitBox(Position, Sprite);
-
-			}
-			else if ((obj2 is AbstractBlock && obj2.Visible) || obj2 is Mario)
-			{
-				Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
-				BoundingBox.UpdateHitBox(Position, Sprite);
-			}
-		}
 	}
 }

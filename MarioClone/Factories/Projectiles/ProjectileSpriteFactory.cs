@@ -17,13 +17,15 @@ namespace MarioClone.Factories
 			switch (type)
 			{
 				case ProjectileType.FireBall:
-					//make fireball sprite; for brick pieces will suffice
 					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Fireball"),
 					   new Rectangle(0, 0, 32, 36),1,4,0,3,10);
 				case ProjectileType.BigFireBall:
 					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BigFireBall"),
                        new Rectangle(0, 0, 180, 60), 6, 1, 0, 5, 10);
-                default:
+				case ProjectileType.CannonFireBall:
+					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Fireball"),
+					   new Rectangle(0, 0, 32, 36), 1, 4, 0, 3, 10);
+				default:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Fireball"),
                        new Rectangle(0, 0, 32, 36), 1, 4, 0, 3, 10);
             }

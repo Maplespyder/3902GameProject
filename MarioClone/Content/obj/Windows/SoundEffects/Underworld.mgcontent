@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/SoundEffects/Underworld.wav</SourceFile>
-  <SourceTime>2017-11-14T22:43:23.4046505-05:00</SourceTime>
-  <DestFile>C:/Users/Sasum/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/bin/Windows/SoundEffects/Underworld.xnb</DestFile>
-  <DestTime>2017-11-30T12:23:20.3273206-05:00</DestTime>
+  <SourceFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/SoundEffects/Underworld.wav</SourceFile>
+  <SourceTime>2017-11-13T11:54:28.3119092-05:00</SourceTime>
+  <DestFile>C:/Users/kitte/Source/Repos/General Mills Frosted Flakes2/MarioClone/Content/bin/Windows/SoundEffects/Underworld.xnb</DestFile>
+  <DestTime>2017-11-30T13:57:20.3908744-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
