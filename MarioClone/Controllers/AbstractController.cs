@@ -79,6 +79,12 @@ namespace MarioClone.Controllers
             return false;
         }
 
+        public void Clear()
+        {
+            inputToCommandMap.Clear();
+            releasedInputToCommandMap.Clear();
+        }
+
         /// <summary>
         /// Executes the commands associated with all inputs received
         /// since this method was last called.

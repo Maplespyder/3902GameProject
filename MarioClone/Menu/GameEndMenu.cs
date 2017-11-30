@@ -21,7 +21,7 @@ namespace MarioClone.Menu
             Color[] color = { Color.Black };
             background.SetData(color);
 
-            menuOptions.Add(new Tuple<string, ICommand>("Return To Main Menu", new ResetLevelCommand(game)));
+            menuOptions.Add(new Tuple<string, ICommand>("Return To Main Menu", new ReturnToMainMenuCommand(game)));
             menuOptions.Add(new Tuple<string, ICommand>("Play Again", new ResetLevelCommand(game)));
             menuOptions.Add(new Tuple<string, ICommand>("Quit Game", new ExitCommand(game)));
             menuTextPosition = new Vector2(750, 450);
