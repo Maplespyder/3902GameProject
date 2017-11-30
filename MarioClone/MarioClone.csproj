@@ -183,7 +183,7 @@
     <Compile Include="States\EnemyStates\Powerup\BowserDead.cs" />
     <Compile Include="States\EnemyStates\Powerup\BowserFireBreathing.cs" />
     <Compile Include="States\EnemyStates\Powerup\BowserIdle.cs" />
-    <Compile Include="States\EnemyStates\Powerup\BowserInvinvibility.cs" />
+    <Compile Include="States\EnemyStates\Powerup\BowserInvincibility.cs" />
     <Compile Include="States\EnemyStates\Powerup\BowserPowerupState.cs" />
     <Compile Include="States\EnemyStates\Powerup\BowserWalk.cs" />
     <Compile Include="States\EnemyStates\Powerup\EnemyPowerupState.cs" />

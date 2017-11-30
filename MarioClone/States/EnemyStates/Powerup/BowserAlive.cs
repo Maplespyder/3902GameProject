@@ -20,10 +20,8 @@ namespace MarioClone.States.EnemyStates.Powerup
             else if (Context.Orientation == Facing.Left)
             {
                 Context.Velocity = new Vector2(-1f, Context.Velocity.Y);
-            }
-           
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.Bowser);
-            
+            } 
+                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserIdle);            
         }
 
         public override void BecomeDead()
@@ -32,7 +30,9 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         }
 
-        public override void BecomeInvincible()
+		public override void BecomeAlive() { }
+
+		public override void BecomeInvincible()
         {
         }
     

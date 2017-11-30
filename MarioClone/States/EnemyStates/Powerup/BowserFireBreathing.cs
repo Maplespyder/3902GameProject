@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using System.Security.Cryptography;
+using MarioClone.Factories;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
@@ -16,7 +17,9 @@ namespace MarioClone.States.EnemyStates.Powerup
         public BowserFireBreathing(BowserObject context) : base(context)
         {
             Action = BowserAction.BreatheFire;
-        }
+			Context.Velocity = Vector2.Zero;
+			Context.BoundingBox.UpdateOffSets(-12, -12, -8, -1);
+		}
 
         public override void BreatheFire()
         {
@@ -25,16 +28,16 @@ namespace MarioClone.States.EnemyStates.Powerup
         public override void BecomeIdle()
         {
             Context.Velocity = new Vector2(0, 0);
-            /*Context.ActionStateBowser = BowserIdle.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Idle);*/
+			Context.ActionStateBowser = new BowserIdle(Context);
+            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserIdle);
         }
 
         public override void BecomeWalk(Facing orientation)
         {
-            /*Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.EnemyHorizontalMovementSpeed, 0) : new Vector2(BowserObject.EnemyHorizontalMovementSpeed, 0);
-            Context.ActionStateBowser = BowserWalk.Instance;
-            Context.Sprite = Context.SpriteFactory.Create(BowserAction.Walk);
-            Context.Orientation = orientation;*/
+            Context.Velocity = orientation == Facing.Left ? new Vector2(-BowserObject.BowserMovementSpeed, 0) : new Vector2(BowserObject.BowserMovementSpeed, 0);
+			Context.ActionStateBowser = new BowserWalk(Context);
+            Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserWalk);
+            Context.Orientation = orientation;
         }
 
         public override bool Update(GameTime gameTime, float percent)
@@ -48,7 +51,16 @@ namespace MarioClone.States.EnemyStates.Powerup
                 rng.GetBytes(random);
                 randomResult = random[0] % 2;
 
-                if (randomResult == 0)
+				if (MarioCloneGame.Player1.Position.X > Context.Position.X)
+				{
+					Context.Orientation = Facing.Right;
+				}
+				else
+				{
+					Context.Orientation = Facing.Left;
+				}
+
+				if (randomResult == 0)
                 {
                     BecomeWalk(Context.Orientation);
                 }
