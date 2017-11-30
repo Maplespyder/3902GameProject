@@ -9,7 +9,7 @@ namespace MarioClone.GameObjects.Other
 	{
 		public CannonFireBall(ISprite sprite, AbstractGameObject player, Vector2 position) : base(sprite, player, position)
 		{
-			Velocity = new Vector2(0, -3f);
+			Velocity = new Vector2(0, 3f);
 		}
 
 		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)

@@ -40,16 +40,8 @@ namespace MarioClone.Projectiles
 		public Vector2 GetPosition(AbstractGameObject player)
 		{
 			Vector2 position;
-			if (player.Orientation is Facing.Right)
-			{
-				position = new Vector2(player.Position.X + player.Sprite.SourceRectangle.Width,
-						player.Position.Y - player.Sprite.SourceRectangle.Height / 2);
-			}
-			else
-			{
-				position = new Vector2(player.Position.X,
-						player.Position.Y - player.Sprite.SourceRectangle.Height / 2);
-			}
+			position = new Vector2(player.Position.X + player.Sprite.SourceRectangle.Width/2,
+						player.Position.Y +50);
 			return position;
 		}
 

@@ -126,6 +126,10 @@ namespace MarioClone.States
 			{
 				TakeDamage(((BigFireBall)gameObject).Owner);
 			}
+			else if(gameObject is CannonFireBall)
+			{
+				TakeDamage(((CannonFireBall)gameObject).Owner);
+			}
             else if (gameObject is RedMushroomObject)
             {
                 BecomeSuper();
