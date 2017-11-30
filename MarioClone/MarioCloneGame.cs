@@ -663,7 +663,7 @@ namespace MarioClone
         private void HandleFlagPoleHit(object sender, PlayerHitPoleEventArgs e)
         {
             e.Mario.LevelCompleted = true;
-
+            e.Mario.StateMachine.TransitionInvincible();
             //State = GameState.GameOver;
             if(Mode == GameMode.SinglePlayer)
             {
