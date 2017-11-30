@@ -30,13 +30,13 @@ namespace MarioClone
         SinglePlayer,
         MultiPlayer
     }
-
-    public enum MenuOption
+    
+    public enum MultiplayerType
     {
-        Replay,
-        Exit
+        Score,
+        ScoreWithLives,
+        Race
     }
-
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -44,6 +44,7 @@ namespace MarioClone
 	{
         public static GameState State;
         public static GameMode Mode;
+        public static MultiplayerType MultiplayerMode;
 
         MenuScreen screen;
 
@@ -105,6 +106,7 @@ namespace MarioClone
 
             //TODO move this somewhere where it can be chosen by menu
             Mode = GameMode.MultiPlayer;
+            MultiplayerMode = MultiplayerType.Score;
 
             if(Mode == GameMode.SinglePlayer)
             {
@@ -254,12 +256,7 @@ namespace MarioClone
 		{
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
-
-            if(Player1.LevelCompleted && Player2.LevelCompleted)
-            {
-                State = GameState.GameOver;
-            }
-
+            
             if(State == GameState.Paused)
             {
                 pauseMenu.Update(gameTime);
@@ -536,9 +533,13 @@ namespace MarioClone
                 camera = Player2Camera;
             }
 
+            if((Mode == GameMode.MultiPlayer) && MultiplayerMode != MultiplayerType.ScoreWithLives)
+            {
+                e.DeadPlayer.Lives++;
+            }
+
             if (e.DeadPlayer.Lives <= 0)
             {
-                e.DeadPlayer.Winner = false;
                 State = GameState.GameOver;
             }
             else
@@ -632,33 +633,13 @@ namespace MarioClone
 
         private void HandleTimeIsOut(object sender, TimeRanOutEventArgs e)
         {
-            if(Mode == GameMode.SinglePlayer)
-            {
-                e.Player.Winner = false;
-                State = GameState.GameOver;
-            }
-            else if(Mode == GameMode.MultiPlayer && !e.Player.LevelCompleted)
-            {
-                e.Player.Winner = false;
-                State = GameState.GameOver;
-            }
+            State = GameState.GameOver;
         }
 
         private void HandleBowserDefeated(object sender, PlayerKilledBowserEventArgs e)
         {
             e.Mario.LevelCompleted = true;
             State = GameState.GameOver;
-            if(Mode == GameMode.MultiPlayer)
-            {
-                if(ReferenceEquals(e.Mario, Player1))
-                {
-                    Player2.Winner = false;
-                } 
-                else if(ReferenceEquals(e.Mario, Player2))
-                {
-                    Player1.Winner = false;
-                }
-            }
         }
 
         private void HandleFlagPoleHit(object sender, PlayerHitPoleEventArgs e)
@@ -666,16 +647,13 @@ namespace MarioClone
             e.Mario.LevelCompleted = true;
 
             //State = GameState.GameOver;
-            if (Mode == GameMode.MultiPlayer)
+            if(Mode == GameMode.SinglePlayer)
             {
-                if (ReferenceEquals(e.Mario, Player1) && !Player2.LevelCompleted)
-                {
-                    Player2.Winner = false;
-                }
-                else if (ReferenceEquals(e.Mario, Player2) && !Player1.LevelCompleted)
-                {
-                    Player1.Winner = false;
-                }
+                State = GameState.GameOver;
+            }
+            else if(MultiplayerMode == MultiplayerType.Race || (Player1.LevelCompleted && Player2.LevelCompleted))
+            {
+                State = GameState.GameOver;
             }
         }
 
