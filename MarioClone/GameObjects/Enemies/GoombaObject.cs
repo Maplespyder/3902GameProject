@@ -15,7 +15,7 @@ namespace MarioClone.GameObjects
         {
             Gravity = false;
             PowerupState = new GoombaAlive(this);
-            BoundingBox.UpdateOffSets(-8, -8, -8, -1);
+            BoundingBox.UpdateOffSets(-8, -8, -20, -1);
             BoundingBox.UpdateHitBox(Position, Sprite);
 			Velocity = new Vector2(-EnemyHorizontalMovementSpeed, 0);
 			Orientation = Facing.Left;

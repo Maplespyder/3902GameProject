@@ -26,20 +26,13 @@ namespace MarioClone.States.EnemyStates
                 Context.Velocity = new Vector2(-1f, Context.Velocity.Y);
             }
 
-            if (Context is GreenKoopaObject)
-            {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopa);
-            }
-            else if (Context is RedKoopaObject)
-            {
-                Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.RedKoopa);
-            }
+        Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.GreenKoopa);
         }
         
         public override void BecomeDead()
         {
 
-            Context.PowerupState = new KoopaShell(Context);
+            Context.PowerupState = new KoopaDead(Context);
         }
     }
 }

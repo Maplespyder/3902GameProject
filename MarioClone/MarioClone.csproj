@@ -147,7 +147,6 @@
     <Compile Include="GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="GameObjects\Enemies\GoombaObject.cs" />
     <Compile Include="GameObjects\Enemies\GreenKoopaObject.cs" />
-    <Compile Include="GameObjects\Enemies\RedKoopaObject.cs" />
     <Compile Include="GameObjects\IDraw.cs" />
     <Compile Include="GameObjects\PowerUps\CoinObject.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -191,7 +190,6 @@
     <Compile Include="States\EnemyStates\Powerup\GoombaDead.cs" />
     <Compile Include="States\EnemyStates\Powerup\KoopaAlive.cs" />
     <Compile Include="States\EnemyStates\Powerup\KoopaDead.cs" />
-    <Compile Include="States\EnemyStates\Powerup\KoopaShell.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaReveal.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaDead.cs" />
     <Compile Include="States\EnemyStates\Powerup\PiranhaHide.cs" />

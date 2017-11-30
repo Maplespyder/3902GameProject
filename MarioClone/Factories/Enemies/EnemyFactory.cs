@@ -12,9 +12,6 @@ namespace MarioClone.Factories
     {
         Goomba,
         GreenKoopa,
-        GreenKoopaShell,
-        RedKoopaShell,
-        RedKoopa,
 		Piranha,
 		Bowser,
         BowserWalk,
@@ -32,12 +29,6 @@ namespace MarioClone.Factories
                     return new GoombaObject(MovingEnemySpriteFactory.Create(type), position);
                 case EnemyType.GreenKoopa:
                     return new GreenKoopaObject(MovingEnemySpriteFactory.Create(type), position);
-                case EnemyType.RedKoopa:
-                    return new RedKoopaObject(MovingEnemySpriteFactory.Create(type), position);
-                case EnemyType.GreenKoopaShell:
-                    return new GreenKoopaObject(MovingEnemySpriteFactory.Create(type), position);
-                case EnemyType.RedKoopaShell:
-                    return new RedKoopaObject(MovingEnemySpriteFactory.Create(type), position);
                 case EnemyType.Piranha:
 					return new PiranhaObject(MovingEnemySpriteFactory.Create(type), position);
                 case EnemyType.BowserWalk:
