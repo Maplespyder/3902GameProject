@@ -39,6 +39,8 @@ namespace MarioClone.States.EnemyStates.Powerup
                         Context.PowerupStateBowser.BecomeDead();
                         return true;
                     }
+                    int shift = (MarioCloneGame.Player1.Position.X < Context.Position.X) ? 5 : -5;
+                    Context.Velocity = new Vector2(Context.Velocity.Y + shift, Context.Velocity.X);
 					Context.PowerupStateBowser = new BowserInvincibility(Context);
                 }
             
