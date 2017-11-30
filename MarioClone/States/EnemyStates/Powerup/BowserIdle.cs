@@ -16,8 +16,6 @@ namespace MarioClone.States.EnemyStates.Powerup
 		{
 			Action = BowserAction.Idle;
 			Context.Velocity = Vector2.Zero;
-			Context.BoundingBox.UpdateOffSets(-8, -8, -8, -1);
-
 		}
 
 		public object SpriteFactory { get; private set; }
@@ -70,7 +68,14 @@ namespace MarioClone.States.EnemyStates.Powerup
 					BreatheFire();
 				}
 			}
+            UpdateHitBox();
 			return false;
 		}
+
+        public void UpdateHitBox()
+        {
+            if(Context.Orientation is Facing.Left) Context.BoundingBox.UpdateOffSets(-20, -340, -36, -1);
+            if (Context.Orientation is Facing.Right) Context.BoundingBox.UpdateOffSets(-340, -20, -36, -1);
+        }
 	}
 }
