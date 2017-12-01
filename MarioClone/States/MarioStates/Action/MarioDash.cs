@@ -32,6 +32,15 @@ namespace MarioClone.States
         public override void Enter()
         {
             _initialX = Context.Position.X;
+            
+            if (Context.PreviousActionState is MarioIdle2 || Context.PreviousActionState is MarioWalk2)
+            {
+                Context.IsGroundDash = true;
+            }
+            else
+            {
+                Context.IsGroundDash = false;
+            }
 
             if (Context.Orientation == Facing.Right)
             {
@@ -48,6 +57,7 @@ namespace MarioClone.States
 
         public override void Leave()
         {
+            Context.IsGroundDash = false;
             Context.Velocity = new Vector2(0, Context.Velocity.Y);
         }
 

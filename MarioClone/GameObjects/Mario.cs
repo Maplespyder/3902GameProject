@@ -59,12 +59,13 @@ namespace MarioClone.GameObjects
 
         public int BounceCount { get; set; }
         public bool Gravity { get; set; }
-        
+
         public int Spawn { get; set; }
         public List<Vector2> Spawns { get; set; }
         public Vector2 ActiveSpawn { get; set; }
 
         public bool HasAirDash { get; set; }
+        public bool IsGroundDash { get; set; }
         
         public int Lives { get; set; }
         public int CoinCount { get; set; }
@@ -376,6 +377,15 @@ namespace MarioClone.GameObjects
             if (!(ActionState is MarioFall2 || ActionState is MarioDash) && Velocity.Y > 1.5)
             {
                 StateMachine.TransitionFall();
+            }
+
+            if (IsGroundDash)
+            {
+                SpriteTint = Color.Blue;
+            }
+            else
+            {
+                SpriteTint = Color.White;
             }
 
             StateMachine.UpdateDash();

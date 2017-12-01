@@ -45,6 +45,9 @@ namespace MarioClone.Factories
 						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
                 case MarioAction.Fall:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/SmallFall"), new Rectangle(0, 0, 81, 144));
+                case MarioAction.Dash:
+                    return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/SmallSprint"), new Rectangle(0, 0, 104, 139),
+                        1, 6, 0, 5, 8);
 
                 default:
 					//default will be idling
