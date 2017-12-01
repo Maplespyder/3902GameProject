@@ -181,6 +181,11 @@ namespace MarioClone
 
 			AbstractGameObject.DrawHitbox = false;
 
+            player1Controller.AddInputCommand((int)Keys.Y, new BecomeNormalMarioCommand(Player1));
+            player1Controller.AddInputCommand((int)Keys.U, new BecomeSuperMarioCommand(Player1));
+            player1Controller.AddInputCommand((int)Keys.I, new BecomeFireMarioCommand(Player1));
+            player1Controller.AddInputCommand((int)Keys.O, new BecomeDeadMarioCommand(Player1));
+
             player1Controller.AddInputCommand((int)Keys.B, new FireBallCommand(Player1));
             player1Controller.AddInputChord((int)Modifier.LeftShift, (int)Keys.B, new FireBallCommand(Player1));
 
