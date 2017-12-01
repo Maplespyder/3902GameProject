@@ -65,7 +65,10 @@ namespace MarioClone.States.EnemyStates.Powerup
 
 
             }
-            UpdateHitBox();
+            if(Context.BoundingBox != null)
+            {
+                UpdateHitBox();
+            }
             return false;
         }
         public void UpdateHitBox()
