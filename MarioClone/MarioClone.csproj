@@ -261,12 +261,18 @@
     <Content Include="Code Reviews\Sprint 4\AnnaCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 4\AllieCodeReview.txt" />
     <Content Include="Code Reviews\Sprint 5\AnnaCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 5\JacobCodeReview.txt" />
+    <Content Include="Code Reviews\Sprint 5\SamCodeReview.txt" />
     <Content Include="Level\Mainlevel1.bmp" />
     <Content Include="Level\Sprint3Attempt2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Level\Sprint4MainLevel.bmp" />
-    <Content Include="Level\Sprint4MainLevel1.bmp" />
+    <Content Include="Level\Sprint4MainLevel.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level\Sprint4MainLevel1.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Level\Sprint4MainLevelOrig.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
