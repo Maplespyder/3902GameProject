@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace MarioClone.Projectiles
 {
-	public class CannonaFireBallPool
+	public class CannonFireBallPool
 	{
 		private int availableFireballs;
 		private List<CannonFireBall> FireBalls = new List<CannonFireBall>();
 		private Dictionary<CannonFireBall, int> CoolDownList = new Dictionary<CannonFireBall, int>();
 		private List<CannonFireBall> RemovedFireBalls = new List<CannonFireBall>();
-		public CannonaFireBallPool(int availableBalls)
+		public CannonFireBallPool(int availableBalls)
 		{
 			availableFireballs = availableBalls;
 		}
