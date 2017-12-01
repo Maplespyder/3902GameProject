@@ -43,7 +43,7 @@ namespace MarioClone.GameObjects
             Velocity = new Vector2(0, 0);
             Orientation = Facing.Left;
             PointValue = 500;
-			Hits = 1;
+			Hits = 5;
         }
 
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
