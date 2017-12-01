@@ -323,14 +323,14 @@ namespace MarioClone.Level
                 {
                     position = new Vector2(position.X, position.Y);
                     initializer = EnemyFactory.Create(EnemyType.BowserIdle, position);
-                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y - initializer.Sprite.SourceRectangle.Height);
+                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y);
                     Grid.Add(initializer);
                 }
                 else if(sameColor(pixel, Colors.FireCannonBlock))
                 {
                     position = new Vector2(position.X, position.Y);
                     initializer = BlockFactory.Instance.Create(BlockType.FireCannon, position);
-                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y - initializer.Sprite.SourceRectangle.Height);
+                    initializer.Position = new Vector2(initializer.Position.X, initializer.Position.Y + initializer.Sprite.SourceRectangle.Height);
                     Grid.Add(initializer);
                 }
                 else if (pixel.R == Colors.WarpPoint.R && pixel.G == Colors.WarpPoint.G)

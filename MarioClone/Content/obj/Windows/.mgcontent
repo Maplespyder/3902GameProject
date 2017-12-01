@@ -61,7 +61,6 @@
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/BigIdle.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/BigSprint.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/SmallSprint.png</File>
-    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/CustomBlocks.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/Sky.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/Pipe.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/Cloud2.png</File>
@@ -114,5 +113,9 @@
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/BigFireBall.png</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/BossFireBall.wav</File>
     <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/BossHurt.wav</File>
+    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/Alert.wav</File>
+    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/Dash.wav</File>
+    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSounds/Hurry.wav</File>
+    <File>C:/Users/McLaren/Source/Repos/General Mills Frosted Flakes/MarioClone/Content/CustomSprites/CustomBlocks.png</File>
   </SourceFiles>
 </SourceFileCollection>

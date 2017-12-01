@@ -61,7 +61,7 @@ namespace MarioClone.Factories
                         new Rectangle(0, 0, 84, 510), 1, 3, 0, 2, 4);
                 case BlockType.FireCannon:
                     return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/CustomBlocks"),
-                        new Rectangle(0, 0, 64, 64));
+                        new Rectangle(256, 0, 64, 64));
                 default:
                     return null;
             }

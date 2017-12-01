@@ -23,7 +23,7 @@ namespace MarioClone.GameObjects
         public static int MaxTimeWalk { get { return 2000; } }
         public static int MaxTimeIdle { get { return 1500; } }
         public static int MaxTimeFire { get { return 1000; } }
-		private  static int MaxTimeSummonCannon = 10000;
+		private  static int MaxTimeSummonCannon = 14000;
 		private int CurrentCannonCoolDown = 0;
 		public static float BowserMovementSpeed { get { return 2f; } }
 
@@ -64,7 +64,7 @@ namespace MarioClone.GameObjects
 			{
 				RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
 				rng.GetBytes(rand);
-				MaxTimeSummonCannon = ((rand[0] % 4) + 8) * 1000;
+				MaxTimeSummonCannon = ((rand[0] % 4) + 12) * 1000;
 				CurrentCannonCoolDown = 0;
 				EventManager.Instance.TriggerCannonEvent(this);
 			}

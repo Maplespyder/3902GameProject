@@ -27,7 +27,9 @@ namespace MarioClone.Factories.Sounds
 		Coin,
 		Kick,
 		Break, 
-		Dead
+		Dead,
+        Alert,
+        Dash
 
 		//more to come
 	}
@@ -53,7 +55,11 @@ namespace MarioClone.Factories.Sounds
 			{
 				case SoundType.Coin:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Coin");
-				case SoundType.Stomp:
+                case SoundType.Dash:
+                    return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Dash");
+                case SoundType.Alert:
+                    return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Alert");
+                case SoundType.Stomp:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Puff");
 				case SoundType.UP1:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/1UP");
@@ -80,7 +86,7 @@ namespace MarioClone.Factories.Sounds
 				case SoundType.Dead:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Puff");
 				case SoundType.Hurryup:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/Hurryup");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Hurry");
 				case SoundType.Fireball:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Fireball");
                 case SoundType.BossFireball:

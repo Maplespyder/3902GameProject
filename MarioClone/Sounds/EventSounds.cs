@@ -27,7 +27,8 @@ namespace MarioClone.Sounds
 			EventManager.Instance.RaiseRunningOutOfTimeEvent += RunningOutOfTime;
 			EventManager.Instance.RaisePlayerWarpingEvent += Warping;
 			EventManager.Instance.RaiseFireballFireEvent += FireballFiring;
-		}
+            EventManager.Instance.RaiseCannonEvent += CannonAlert;
+        }
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
 		{
@@ -81,7 +82,7 @@ namespace MarioClone.Sounds
 
             if (e.CurrentActionState is MarioDash)
             {
-                SoundPool.Instance.GetAndPlay(SoundType.Kick, false);
+                SoundPool.Instance.GetAndPlay(SoundType.Dash, false);
             }
         }
 
@@ -133,7 +134,12 @@ namespace MarioClone.Sounds
             }
 		}
 
-		public void EnemyStompSound(object sender, EnemyDefeatedEventArgs e)
+        public void CannonAlert(object sender, CannonEventArgs e)
+        {
+            SoundPool.Instance.GetAndPlay(SoundType.Alert, false);          
+        }
+
+        public void EnemyStompSound(object sender, EnemyDefeatedEventArgs e)
 		{
             if (sender is BowserObject)
             {

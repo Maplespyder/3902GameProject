@@ -578,18 +578,6 @@
 /processorParam:TextureFormat=Color
 /build:CustomSprites/SmallSprint.png
 
-#begin CustomSprites/CustomBlocks.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:CustomSprites/CustomBlocks.png
-
 #begin CustomSprites/Sky.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1105,4 +1093,34 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:CustomSounds/BossHurt.wav
+
+#begin CustomSounds/Alert.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/Alert.wav
+
+#begin CustomSounds/Dash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/Dash.wav
+
+#begin CustomSounds/Hurry.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/Hurry.wav
+
+#begin CustomSprites/CustomBlocks.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CustomSprites/CustomBlocks.png
 
