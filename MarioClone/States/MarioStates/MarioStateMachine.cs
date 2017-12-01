@@ -161,7 +161,8 @@ namespace MarioClone.States
         public void TransitionCrouch()
         {
             //TODO add mario dead action state?
-            if(!(CurrentPowerupState is MarioNormal2 || CurrentPowerupState is MarioDead2))
+            if(!(CurrentPowerupState is MarioNormal2 || CurrentPowerupState is MarioDead2) 
+                && !(PreviousPowerupState is MarioNormal2 && CurrentPowerupState is MarioInvincibility2))
             {
                 CurrentActionState = actionStates[MarioAction.Crouch];
             }
