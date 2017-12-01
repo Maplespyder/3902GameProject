@@ -15,6 +15,8 @@ namespace MarioClone.GameObjects
 
         public const float HorizontalMovementSpeed = 6f;
         public const float VerticalMovementSpeed = 15f;
+        public const int MaxDashCooldown = 2000;
+
         private bool bouncing = false;
         private List<FireBall> FireBalls = new List<FireBall>();
         private List<FireBall> RemovedFireBalls = new List<FireBall>();
@@ -66,7 +68,8 @@ namespace MarioClone.GameObjects
 
         public bool HasAirDash { get; set; }
         public bool IsGroundDash { get; set; }
-        
+        public int DashRecharge { get; set; }
+
         public int Lives { get; set; }
         public int CoinCount { get; set; }
         public int Score
@@ -219,7 +222,7 @@ namespace MarioClone.GameObjects
             PowerupState.BecomeFire();
         }
         
-        private void ManageFlagPoleCoint(AbstractGameObject gameObject, Side side)
+        private void ManageFlagPoleCount(AbstractGameObject gameObject, Side side)
         {
             if (gameObject is Flagpole && side.Equals(Side.Right))
             {
@@ -312,7 +315,7 @@ namespace MarioClone.GameObjects
         public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
         {
             ManageBouncing(gameObject, side);
-            ManageFlagPoleCoint(gameObject, side);
+            ManageFlagPoleCount(gameObject, side);
 
             if ((((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible)
                 || (gameObject is HiddenBrickObject && side == Side.Top && !gameObject.Visible && (ActionState is MarioFall2)))
@@ -379,7 +382,7 @@ namespace MarioClone.GameObjects
                 StateMachine.TransitionFall();
             }
 
-            StateMachine.UpdateDash();
+            StateMachine.UpdateDash(gameTime);
 
             PowerupState.Update(gameTime);    
             _FireBallPool.Update(gameTime);

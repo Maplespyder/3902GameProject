@@ -20,6 +20,11 @@ namespace MarioClone.States
         public override void Enter()
         {
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Fall);
+            if(Context.PreviousActionState is MarioIdle2)
+            {
+                Context.Position = Context.Position 
+                    + (Context.Orientation == Facing.Left ? new Vector2(-6, 0) : new Vector2(6, 0));
+            }
             UpdateHitBox();
         }
 

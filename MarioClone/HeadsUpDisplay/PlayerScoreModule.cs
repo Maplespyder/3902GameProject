@@ -131,22 +131,22 @@ namespace MarioClone.HeadsUpDisplay
                 {
                     if (MarioCloneGame.Player2.LevelCompleted)
                     {
-                        playerScore += e._height / 2;
+                        playerScore += e.Height / 2;
                     }
                     else
                     {
-                        playerScore += e._height;
+                        playerScore += e.Height;
                     }
                 }
                 else if (ReferenceEquals(ParentHUD.Player, MarioCloneGame.Player2))
                 {
                     if (MarioCloneGame.Player1.LevelCompleted)
                     {
-                        playerScore += e._height / 2;
+                        playerScore += e.Height / 2;
                     }
                     else
                     {
-                        playerScore += e._height;
+                        playerScore += e.Height;
                     }
                 }
 
