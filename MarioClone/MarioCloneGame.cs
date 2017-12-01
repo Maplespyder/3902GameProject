@@ -237,10 +237,10 @@ namespace MarioClone
 
         private void MapPlayer2Controller()
         {
-            player2Controller.AddInputCommand((int)Keys.Up, new JumpCommand(Player2));
-            player2Controller.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player2));
+            //player2Controller.AddInputCommand((int)Keys.Up, new JumpCommand(Player2));
+            //player2Controller.AddInputCommand((int)Keys.Left, new MoveLeftCommand(Player2));
             player2Controller.AddInputCommand((int)Keys.Down, new CrouchCommand(Player2));
-            player2Controller.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
+            //player2Controller.AddInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
 
             player2Controller.AddReleasedInputCommand((int)Keys.Down, new ReleaseCrouchCommand(Player2));
             player2Controller.AddReleasedInputCommand((int)Keys.Left, new ReleaseMoveLeftCommand(Player2));
@@ -251,7 +251,7 @@ namespace MarioClone
             player2Controller.AddHeldInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
 
             player2Controller.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
-            player2Controller.AddInputCommand((int)Keys.RightControl, new DashCommand(Player2));
+            player2Controller.AddInputCommand((int)Keys.OemQuestion, new DashCommand(Player2));
         }
 
         /// <summary>

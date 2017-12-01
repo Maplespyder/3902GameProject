@@ -84,8 +84,8 @@ namespace MarioClone.States
                     }
                     else
                     {
-                       TakeDamage(gameObject);
-                    }
+                        TakeDamage(gameObject);
+                    }                      
                 }
                 return true;
             }
@@ -104,7 +104,7 @@ namespace MarioClone.States
                 Mario temp = (Mario)gameObject;
                 if (side == Side.Top)
                 {
-                    if(temp.ActionState is MarioFall2)
+                    if(temp.ActionState is MarioFall2 && !Context.IsGroundDash)
                     {
                         TakeDamage(gameObject);
                     }
@@ -118,15 +118,15 @@ namespace MarioClone.States
                     }
                 }
             }
-            else if((gameObject is FireBall && !ReferenceEquals(((FireBall)gameObject).Owner, Context)))
+            else if((gameObject is FireBall && !ReferenceEquals(((FireBall)gameObject).Owner, Context)) && !Context.IsGroundDash)
             {
                 TakeDamage(((FireBall)gameObject).Owner);
             }
-			else if(gameObject is BigFireBall)
+			else if(gameObject is BigFireBall && !Context.IsGroundDash)
 			{
 				TakeDamage(((BigFireBall)gameObject).Owner);
 			}
-			else if(gameObject is CannonFireBall)
+			else if(gameObject is CannonFireBall && !Context.IsGroundDash)
 			{
 				TakeDamage(((CannonFireBall)gameObject).Owner);
 			}

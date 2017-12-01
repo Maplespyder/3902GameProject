@@ -32,6 +32,15 @@ namespace MarioClone.States
         public override void Enter()
         {
             _initialX = Context.Position.X;
+            
+            if (Context.PreviousActionState is MarioIdle2 || Context.PreviousActionState is MarioWalk2)
+            {
+                Context.IsGroundDash = true;
+            }
+            else
+            {
+                Context.IsGroundDash = false;
+            }
 
             if (Context.Orientation == Facing.Right)
             {
@@ -41,14 +50,26 @@ namespace MarioClone.States
             {
                 Context.Velocity = new Vector2(-DashSpeed, 0);
             }
-            
+
+
+            if (Context.IsGroundDash)
+            {
+                Context.SpriteTint = Color.Blue;
+            }
+            else
+            {
+                Context.SpriteTint = Color.White;
+            }
+
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Dash);
             UpdateHitBox();
         }
 
         public override void Leave()
         {
+            Context.IsGroundDash = false;
             Context.Velocity = new Vector2(0, Context.Velocity.Y);
+            Context.SpriteTint = Color.White;
         }
 
         public override void Jump()
