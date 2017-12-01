@@ -213,13 +213,9 @@ namespace MarioClone.States
             {
                 if (((MarioDash)currentActionState).DashFinished)
                 {
-                    if (PreviousActionState is MarioIdle2)
+                    if (PreviousActionState is MarioIdle2 || PreviousActionState is MarioWalk2)
                     {
                         TransitionIdle(); 
-                    }
-                    else if (PreviousActionState is MarioWalk2)
-                    {
-                        TransitionWalk();
                     }
                     else
                     {
