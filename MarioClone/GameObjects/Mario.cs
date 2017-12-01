@@ -17,6 +17,7 @@ namespace MarioClone.GameObjects
         public const float VerticalMovementSpeed = 15f;
         public const int MaxDashCooldown = 2000;
 
+        private bool outSideBoss = true;
         private bool bouncing = false;
         private List<FireBall> FireBalls = new List<FireBall>();
         private List<FireBall> RemovedFireBalls = new List<FireBall>();
@@ -386,6 +387,18 @@ namespace MarioClone.GameObjects
 
             PowerupState.Update(gameTime);    
             _FireBallPool.Update(gameTime);
+
+            if (Position.X < 19800 && outSideBoss == false)
+            {
+                EventManager.Instance.TriggerEnterBossRoom(this);
+                outSideBoss = true;
+            }
+            else if (Position.X > 19800 && outSideBoss == true)
+            {
+                EventManager.Instance.TriggerEnterBossRoom(this);
+                outSideBoss = false;
+            }
+
 			return base.Update(gameTime, percent);    
         }
 

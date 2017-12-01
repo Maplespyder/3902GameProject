@@ -29,6 +29,7 @@ namespace MarioClone.Sounds
 			EventManager.Instance.RaiseFireballFireEvent += FireballFiring;
             EventManager.Instance.RaiseCannonEvent += CannonAlert;
             EventManager.Instance.RaiseTimeRanOutEvent += OutOfTime;
+            EventManager.Instance.RaiseEnterBossRoomEvent += EnterBossRoom;
         }
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
@@ -143,6 +144,22 @@ namespace MarioClone.Sounds
         public void CannonAlert(object sender, CannonEventArgs e)
         {
             SoundPool.Instance.GetAndPlay(SoundType.Alert, false);          
+        }
+        public void EnterBossRoom(object sender, EnterBossRoomEventArgs e)
+        {
+            if(sender is Mario)
+            {
+                var mario = (Mario)sender;
+                if(mario.Position.X < 19800)
+                {
+                    SoundPool.Instance.ReplaceBackground(SoundType.Background);
+                }
+                else
+                {
+                    SoundPool.Instance.ReplaceBackground(SoundType.Battle);
+                }
+
+            }
         }
 
         public void EnemyStompSound(object sender, EnemyDefeatedEventArgs e)

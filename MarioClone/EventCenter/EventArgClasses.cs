@@ -182,4 +182,11 @@ namespace MarioClone.EventCenter
 		{
 		}
 	}
+
+    public class EnterBossRoomEventArgs : CustomEventArgs<AbstractGameObject>
+    {
+        public EnterBossRoomEventArgs(AbstractGameObject player) : base(player)
+        {
+        }
+    }
 }
