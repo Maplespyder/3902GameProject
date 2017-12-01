@@ -251,7 +251,7 @@ namespace MarioClone
             player2Controller.AddHeldInputCommand((int)Keys.Right, new MoveRightCommand(Player2));
 
             player2Controller.AddInputCommand((int)Keys.NumPad0, new FireBallCommand(Player2));
-            player2Controller.AddInputCommand((int)Keys.OemQuestion, new DashCommand(Player2));
+            player2Controller.AddInputCommand((int)Keys.NumPad2, new DashCommand(Player2));
         }
 
         /// <summary>

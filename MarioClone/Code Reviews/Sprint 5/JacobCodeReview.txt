@@ -1,0 +1,18 @@
+﻿Author of Review: Jacob Crabtree
+Date of Review: 11/30/2017
+File Under Review: MarioDash.cs
+Author(s) of File: Sam Trabitz
+Comments on Code Quality:
+
+Overall I like this class, it follows the already existing template for the states. It sets up everything it needs in the Enter method, and cleans up in the Leave method
+as it should. It seems to miss the point of overriding the colllision response, though. I'm not sure if the intent was to only stop when colliding on left and right, because
+by calling base.CollisionResponse(), it does have the potential to exit the method through those means, even though they aren't in the derived.
+I like the simple workaround of action state not actually updating (which may have been an oversight in my part), by just defining a getter that determines when it's over.
+Then, the state only has to be concerned with sending Mario flying, and the StateMachine actually handles exiting dash.
+
+
+Minutes to Complete: 10 min
+Hypothetical Change to File:
+We want Mario to blast through blocks when he dashes.
+All we would have to do is change the collision override to not respond to whatever kinds of blocks we want to break (of course, those blocks would also 
+want to choose to break). Then, just remove the call to base.CollisionResponse(). That's a kind of radical change, but it would be very easy to implement with this class.

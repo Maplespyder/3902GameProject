@@ -176,3 +176,45 @@ Warning	CA1502	'CollisionManager.ProcessFrame(GameTime, List<AbstractGameObject>
 I don't really have an excuse for not breaking process frame up into even more methods, except the parameter lists are extremely ugly 
 already, so I didn't want to have to write even more of those methods. The other 2 warnings are about Level creator and a factory I believe.
 They just exist to be giant if statements, so there's not much that can be done about their cyclomatic complexity.
+
+SPRINT 5 README
+
+The menus allow you to select from multiple modes. Singleplayer mode will put you in charge of one Mario, multiplayer allows you to control two Marios using 
+WASD and the arrow keys. Multiplayer has a flag at the end of the level that you should use to end the game. We never did fix the fact that you can make it through the
+middle of the flag, so just try to avoid jumping at the middle of it, or you'll have to get back through. In singleplayer, there is a boss battle beyond where the flag
+would normally be in multiplayer. There aren't really any notable bugs that I can think of this sprint, the biggest issue is just that the sprites are comparatively really
+tall, but we don't want to scale them down because they look really nice. So, sometimes if you aren't careful grabbing a powerup you can get stuck with your head in a block,
+but it's usually easy to get out. The boss is really hard, so set his hits to one in the BowserObject class.  I think that's actually it for the readme for once.
+
+Ignored code warnings:
+OK I'll be honest it's 11:47 I don't have time to list all of these specifically. All of the warnings that appeared had already appeared in some form in earlier sprints.
+I tried my best to list a lot of them out though.
+
+Warnings ignored for same reasons as the previous sprints:
+-CA1822 : 'this' parameter (or 'Me' in Visual Basic) of 'EnemyFactory.Create(EnemyType, Vector2)'	5 of the errors
+-CA1014: Mark 'MarioClone.exe' with CLSCompliant(true) because it exposes externally visible types.		1 of the errors
+-CA1001: Implement IDisposable on 'HitBox'		6 of the errors (level creator is never disposed, so we'd never write a method for it)
+-CA 1814: Replace gamegrid with jagged array	1 of the errors
+-CA2214: 'RedKoopaObject.RedKoopaObject(ISprite, Vector2)' contains a call chain that results in a call to a virtual method defined 
+by the class. Review the following call stack for unintended consequences:		45 of the errors
+	--this one was discussed with you, and we're just not sure how to fix it, same reason as before
+
+5 of the errors
+--Warning	CA1026	Replace method 'Camera.Move(Vector2, bool)' with an overload that supplies all default arguments.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Cam\Camera.cs	90	Active
+Several methods (Mostly draws) supply just a few default arguments. It seems silly that we can't (monogame does I believe), because some 
+arguments are nearly always one particular value, the extra argument actually only exists to satisfy 1-2 particular classes in a lot of 
+cases, while still fitting an abstract class or interface. Additionally, for the Camera one, I think that came with the code you gave us for
+the camera.
+
+3 of the errors
+Warning	CA1502	'CollisionManager.ProcessFrame(GameTime, List<AbstractGameObject>, GameGrid)' has a cyclomatic complexity of 58. Rewrite or refactor the method to reduce complexity to 25.	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\Collision\CollisionManager.cs	495	Active
+I don't really have an excuse for not breaking process frame up into even more methods, except the parameter lists are extremely ugly 
+already, so I didn't want to have to write even more of those methods. The other 2 warnings are about Level creator and a factory I believe.
+They just exist to be giant if statements, so there's not much that can be done about their cyclomatic complexity.10 of errors
+
+10 of the errors
+--Warning	CA1002	Change 'List<AbstractGameObject>' in 'BreakableBrickObject.PieceList' to use Collection<T>, ReadOnlyCollection<T> or KeyedCollection<K,V>	MarioClone	C:\Users\Anna Wolfe\source\repos\General Mills Frosted Flakes\MarioClone\GameObjects\Bricks\BreakableBrickObject.cs	14	Active
+These kind of go together. A lot of random things, I believe all of them lists, give warnings because they are lists exposed outside of
+their class. For the same reasons as given in the previous sprint, I'm not going to convert all of these to Collections. Also, on some
+of the objects, the lists actually need to be public as they're accessed by other methods. If I changed them to a property, it would probably
+just give CA1002 instead, gaining me a net reduction of 0 errors.
