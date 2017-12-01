@@ -31,6 +31,7 @@ namespace MarioClone.States
 
         public override void Enter()
         {
+            Context.DashRecharge = 0;
             _initialX = Context.Position.X;
             
             if (Context.PreviousActionState is MarioIdle2 || Context.PreviousActionState is MarioWalk2)
@@ -54,7 +55,7 @@ namespace MarioClone.States
 
             if (Context.IsGroundDash)
             {
-                Context.SpriteTint = Color.Blue;
+                Context.SpriteTint = new Color(Color.White, 50);
             }
             else
             {

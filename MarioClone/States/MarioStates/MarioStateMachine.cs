@@ -2,6 +2,7 @@
 using MarioClone.GameObjects;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace MarioClone.States
 {
@@ -170,7 +171,7 @@ namespace MarioClone.States
 
         public void TransitionDash()
         {
-            if (!(CurrentPowerupState is MarioDead2))
+            if (!(CurrentPowerupState is MarioDead2) && !(Player.DashRecharge < Mario.MaxDashCooldown))
             {
                 CurrentActionState = actionStates[MarioAction.Dash]; 
             }
@@ -208,8 +209,16 @@ namespace MarioClone.States
             }
         }
 
-        public void UpdateDash()
+        public void UpdateDash(GameTime gameTime)
         {
+            if (Player.DashRecharge < Mario.MaxDashCooldown)
+            {
+                Player.DashRecharge += gameTime.ElapsedGameTime.Milliseconds;
+                if(Player.DashRecharge > Mario.MaxDashCooldown)
+                {
+                    Player.DashRecharge = Mario.MaxDashCooldown;
+                }
+            }
             if (CurrentActionState is MarioDash)
             {
                 if (((MarioDash)currentActionState).DashFinished)
