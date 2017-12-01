@@ -62,7 +62,14 @@ namespace MarioClone.Sounds
 
 		public void FireballFiring(object sender, FireballFireArgs e)
 		{
-			SoundPool.Instance.GetAndPlay(SoundType.Fireball, false);
+            if(sender is FireBall)
+            {
+                SoundPool.Instance.GetAndPlay(SoundType.Fireball, false);
+            }
+            else
+            {
+                SoundPool.Instance.GetAndPlay(SoundType.BossFireball, false);
+            }
         }
 
 		public void ActionStateChangeSound(object sender, MarioActionStateEventArgs e)
@@ -128,17 +135,20 @@ namespace MarioClone.Sounds
 
 		public void EnemyStompSound(object sender, EnemyDefeatedEventArgs e)
 		{
-			if (sender is GreenKoopaObject)
-			{
-				GreenKoopaObject enemy = (GreenKoopaObject)sender;
-				if (enemy.PowerupState is KoopaAlive)
-				{
-					SoundPool.Instance.GetAndPlay(SoundType.Stomp, false);
+            if (sender is BowserObject)
+            {
+                var boss = (BowserObject)sender;
+                if (boss.Hits < 1)
+                {
+                    SoundPool.Instance.GetAndPlay(SoundType.Stomp, false);
                 }
-
-			}
-			else if(sender is GoombaObject || sender is PiranhaObject)
-			{
+                else
+                {
+                    SoundPool.Instance.GetAndPlay(SoundType.BossHurt, false);
+                }
+            }
+			else if(sender is GoombaObject || sender is PiranhaObject || sender is GreenKoopaObject)
+            {
 				SoundPool.Instance.GetAndPlay(SoundType.Stomp, false);
             }
 		}
