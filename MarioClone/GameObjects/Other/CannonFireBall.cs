@@ -10,6 +10,8 @@ namespace MarioClone.GameObjects.Other
 		public CannonFireBall(ISprite sprite, AbstractGameObject player, Vector2 position) : base(sprite, player, position)
 		{
 			Velocity = new Vector2(0, 3f);
+            BoundingBox.UpdateOffSets(0, 0, -36, -1);
+            BoundingBox.UpdateHitBox(position, Sprite);
 		}
 
 		public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
