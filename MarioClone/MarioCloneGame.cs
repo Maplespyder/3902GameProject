@@ -806,12 +806,10 @@ namespace MarioClone
         {
             if (State == GameState.Playing)
             {
-                SoundPool.Instance.MuteCommand();
                 State = GameState.Paused; 
             } 
             else if (State == GameState.Paused)
             {
-                SoundPool.Instance.MuteCommand();
                 State = GameState.Playing;
             }
         }
