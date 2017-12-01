@@ -17,7 +17,7 @@ namespace MarioClone.Factories
 			switch (type)
 			{
 				case ProjectileType.FireBall:
-					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Fireball"),
+					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/FireBall"),
 					   new Rectangle(0, 0, 32, 36),1,4,0,3,10);
 				case ProjectileType.BigFireBall:
 					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BigFireBall"),
