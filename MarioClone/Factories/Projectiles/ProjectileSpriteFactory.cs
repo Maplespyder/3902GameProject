@@ -23,8 +23,8 @@ namespace MarioClone.Factories
 					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/BigFireBall"),
                        new Rectangle(0, 0, 180, 60), 6, 1, 0, 5, 10);
 				case ProjectileType.CannonFireBall:
-					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Fireball"),
-					   new Rectangle(0, 0, 32, 36), 1, 4, 0, 3, 10);
+					return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/CannonFireBall"),
+					   new Rectangle(0, 0, 31, 64), 1, 9, 0, 3, 12);
 				default:
                     return new AnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Fireball"),
                        new Rectangle(0, 0, 32, 36), 1, 4, 0, 3, 10);
