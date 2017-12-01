@@ -100,5 +100,11 @@ namespace MarioClone.EventCenter
 			CannonEventArgs args = new CannonEventArgs(boss);
 			OnRaiseCannonEvent(args);
 		}
-	}
+
+        public void TriggerEnterBossRoom(AbstractGameObject player)
+        {
+            EnterBossRoomEventArgs args = new EnterBossRoomEventArgs(player);
+            OnRaiseEnterBossRoomEvent(args);
+        }
+    }
 }

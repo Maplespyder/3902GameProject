@@ -1136,3 +1136,15 @@
 /processorParam:TextureFormat=Color
 /build:CustomSprites/CannonFireBall.png
 
+#begin CustomSounds/Exploration.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/Exploration.wav
+
+#begin CustomSounds/Battle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/Battle.wav
+

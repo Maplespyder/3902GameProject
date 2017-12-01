@@ -17,6 +17,7 @@ namespace MarioClone.GameObjects
         public const float VerticalMovementSpeed = 15f;
         public const int MaxDashCooldown = 2000;
 
+        private bool outSideBoss = true;
         private bool bouncing = false;
 
         private int poleBottom;
@@ -384,6 +385,18 @@ namespace MarioClone.GameObjects
 
             PowerupState.Update(gameTime);    
             _FireBallPool.Update(gameTime);
+
+            if (Position.X < 19000 && outSideBoss == false)
+            {
+                EventManager.Instance.TriggerEnterBossRoom(this);
+                outSideBoss = true;
+            }
+            else if (Position.X > 19000 && outSideBoss == true)
+            {
+                EventManager.Instance.TriggerEnterBossRoom(this);
+                outSideBoss = false;
+            }
+
 			return base.Update(gameTime, percent);    
         }
 

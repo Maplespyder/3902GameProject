@@ -1,0 +1,35 @@
+Author of Review:  Allie
+Date of Review: 11/30/17
+File Under Review: BigFireBallPool, CannonFireBallPool, FireBallPool
+Comments on Code Quality: 
+Though I am the author of these files, a lot of functionality is similar throughout and thus, is kind of 
+unnecessary to have three different classes solely for dispensing fireballs of different types. 
+
+Honestly, I don't have the time to get into granule details, I do know either an Abstract class for these 
+classes will help or solve a way to make one singular pool generic. 
+
+
+Minutes to Complete: 7 min
+
+Author of Review:  Allie
+Date of Review: 11/30/17
+File Under Review: 
+Comments on Code Quality: BowserWalk, BowserIdle, BowserFire
+
+Right now, functionality wise, Boss will turn to face the avatar depending on if he's on the left or right. 
+
+These lines of code:
+		if (MarioCloneGame.Player1.Position.X > Context.Position.X)
+				{
+					Context.Orientation = Facing.Right;
+				}
+				else
+				{
+					Context.Orientation = Facing.Left;
+				}
+		}
+
+It doesn't take into consideration that the Boss is very long and, thus, frequently the boss turns around if the avatar is somewhere in the middle of the boss. Though it may seem smart for the boss to do (avoidance wise), I feel as though his AI could of been better handled in that regard. 
+
+Minutes to Complete: 10 min
+

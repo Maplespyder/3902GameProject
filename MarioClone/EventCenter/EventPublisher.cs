@@ -35,9 +35,10 @@ namespace MarioClone.EventCenter
         public event EventHandler<TimeRanOutEventArgs> RaiseTimeRanOutEvent;
         public event EventHandler<PlayerHitPoleEventArgs> RaisePlayerHitPoleEvent;
 		public event EventHandler<CannonEventArgs> RaiseCannonEvent;
+        public event EventHandler<EnterBossRoomEventArgs> RaiseEnterBossRoomEvent;
 
 
-		protected virtual void OnRaiseMarioActionStateEvent(MarioActionStateEventArgs e)
+        protected virtual void OnRaiseMarioActionStateEvent(MarioActionStateEventArgs e)
         {
             EventHandler<MarioActionStateEventArgs> handler = RaiseMarioActionStateEvent;
             handler?.Invoke(e.Sender, e);
@@ -126,5 +127,11 @@ namespace MarioClone.EventCenter
 			EventHandler<CannonEventArgs> handler = RaiseCannonEvent;
 			handler?.Invoke(e.Sender, e);
 		}
-	}
+
+        protected virtual void OnRaiseEnterBossRoomEvent(EnterBossRoomEventArgs e)
+        {
+            EventHandler<EnterBossRoomEventArgs> handler = RaiseEnterBossRoomEvent;
+            handler?.Invoke(e.Sender, e);
+        }
+    }
 }

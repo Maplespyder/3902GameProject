@@ -28,6 +28,7 @@ namespace MarioClone.Factories.Sounds
 		Kick,
 		Break, 
 		Dead,
+        Battle,
         Alert,
         Dash
 
@@ -62,7 +63,7 @@ namespace MarioClone.Factories.Sounds
                 case SoundType.Stomp:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Puff");
 				case SoundType.UP1:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("SoundEffects/1UP");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/PowerUp");
 				case SoundType.DOWN1:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Hurt");
 				case SoundType.Bump:
@@ -80,9 +81,9 @@ namespace MarioClone.Factories.Sounds
                 case SoundType.RevealPowerUp:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Reveal");
 				case SoundType.Background:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Underground");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Exploration");
 				case SoundType.Underworld:
-					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Underground");
+					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Exploration");
 				case SoundType.Dead:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Puff");
 				case SoundType.Hurryup:
@@ -93,6 +94,8 @@ namespace MarioClone.Factories.Sounds
                     return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/BossFireBall");
                 case SoundType.BossHurt:
                     return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/BossHurt");
+                case SoundType.Battle:
+                    return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Battle");
                 default:
 					return MarioCloneGame.GameContent.Load<SoundEffect>("CustomSounds/Coin");
 			}
