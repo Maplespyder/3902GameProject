@@ -110,6 +110,7 @@ namespace MarioClone.Controllers
         {
             inputToCommandMap.Clear();
             releasedInputToCommandMap.Clear();
+            heldInputToCommandMap.Clear();
         }
 
         /// <summary>
