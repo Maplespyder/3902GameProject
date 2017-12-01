@@ -50,7 +50,17 @@ namespace MarioClone.States
             {
                 Context.Velocity = new Vector2(-DashSpeed, 0);
             }
-            
+
+
+            if (Context.IsGroundDash)
+            {
+                Context.SpriteTint = Color.Blue;
+            }
+            else
+            {
+                Context.SpriteTint = Color.White;
+            }
+
             Context.Sprite = Context.SpriteFactory.Create(MarioAction.Dash);
             UpdateHitBox();
         }
@@ -59,6 +69,7 @@ namespace MarioClone.States
         {
             Context.IsGroundDash = false;
             Context.Velocity = new Vector2(0, Context.Velocity.Y);
+            Context.SpriteTint = Color.White;
         }
 
         public override void Jump()

@@ -379,15 +379,6 @@ namespace MarioClone.GameObjects
                 StateMachine.TransitionFall();
             }
 
-            if (IsGroundDash)
-            {
-                SpriteTint = Color.Blue;
-            }
-            else
-            {
-                SpriteTint = Color.White;
-            }
-
             StateMachine.UpdateDash();
 
             PowerupState.Update(gameTime);    
