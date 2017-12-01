@@ -35,10 +35,10 @@ namespace MarioClone.States.EnemyStates.Powerup
                 if (side.Equals(Side.Top) && (whereOnHitBox < 250 && Context.Orientation is Facing.Left || whereOnHitBox > 600 && Context.Orientation is Facing.Right)) 
                 {
                     Context.Hits--;
+                    EventManager.Instance.TriggerEnemyDefeatedEvent(Context, (Mario)gameObject);
                     if (Context.Hits == 0)
                     {
                         Killer = (Mario)gameObject;
-                        EventManager.Instance.TriggerEnemyDefeatedEvent(Context, (Mario)gameObject);
                         Context.PowerupStateBowser.BecomeDead();
                         Context.PowerupStateBowser.Killer = Killer;
                         return true;

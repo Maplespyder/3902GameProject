@@ -1,0 +1,17 @@
+﻿Code Review Template
+Author of Review: Sam Trabitz
+Date of Review: 11/30/17
+File Under Review: MarioIdle2.cs
+Author(s) of File: Jacob Crabtree
+Comments on Code Quality:
+
+This is a general review of the new state machine system. Before, we would handle transitions in the original state. Here, we are handling all entering
+and exiting in the actual state, which makes a lot of sense. Also, using enter and exit behavior reduces a lot of bugs by not having weird unintended conflicts
+between multiple states. Similarly, we can override collision responses in order to account for special cases without cluttering up the main collision response method.
+I'd like to see more clarity in the UpdateOffsets method since there are a lot of magic numbers that don't really make a lot of sense at first glance, but
+that problem is not unique to just this file.
+
+Minutes to Complete: 10 min
+Hypothetical Change to File:
+I'd like to see more logic moved into these states. In the Mario Update method, we check to see if Mario is moving down and then transition to falling if he is. That
+should probably be in the state machine to save on clutter.
