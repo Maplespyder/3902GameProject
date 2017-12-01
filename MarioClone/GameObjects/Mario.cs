@@ -18,8 +18,6 @@ namespace MarioClone.GameObjects
         public const int MaxDashCooldown = 2000;
 
         private bool bouncing = false;
-        private List<FireBall> FireBalls = new List<FireBall>();
-        private List<FireBall> RemovedFireBalls = new List<FireBall>();
 
         private int poleBottom;
         private int poleTop;

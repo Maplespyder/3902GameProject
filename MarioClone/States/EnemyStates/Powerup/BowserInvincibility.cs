@@ -10,9 +10,10 @@ namespace MarioClone.States.EnemyStates.Powerup
 {
     public class BowserInvincibility : BowserPowerupState
     {
-        public int InvincibleTime { get; private set; }
-		public int MaxInvincibleDuration = 3000;
         int colorChangeDelay;
+        public const int MaxInvincibleDuration = 3000;
+
+        public int InvincibleTime { get; private set; }
 
         public BowserInvincibility(BowserObject context) : base(context)
         {
@@ -23,7 +24,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         public override void BecomeDead()
 		{
-		Context.PowerupStateBowser = new BowserDead(Context);
+		    Context.PowerupStateBowser = new BowserDead(Context);
 		}
 
         public override void BecomeInvincible() { }
@@ -35,7 +36,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 
 		public override bool Update(GameTime gameTime, float percent)
         {
-            CycleTransparency(gameTime);
+            CycleTransparency();
             InvincibleTime += gameTime.ElapsedGameTime.Milliseconds;
             if (InvincibleTime >= MaxInvincibleDuration)
             {
@@ -46,7 +47,7 @@ namespace MarioClone.States.EnemyStates.Powerup
             return false;
         }
 
-        private void CycleTransparency(GameTime gameTime)
+        private void CycleTransparency()
         {
             colorChangeDelay++;
             if (colorChangeDelay >= 15)

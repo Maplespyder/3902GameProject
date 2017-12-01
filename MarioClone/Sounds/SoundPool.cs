@@ -24,24 +24,26 @@ namespace MarioClone.Sounds
 			}
 		}
 
-	private List<SoundEffect> PoolList = new List<SoundEffect>();
-    public float Volume = 1f;
+	    private List<SoundEffect> PoolList = new List<SoundEffect>();
+        public float Volume { get; set; }
 
-	public SoundEffectInstance mainBackground;
-	private SoundEffectInstance secondaryBackground;
-	public float BackgroundPitch { get; set; }
+	    public SoundEffectInstance MainBackground { get; set; }
+	    private SoundEffectInstance SecondaryBackground { get; set; }
+	    public float BackgroundPitch { get; set; }
 
-	private Dictionary<SoundEffectInstance, SoundEffect> PlayingList = new Dictionary<SoundEffectInstance, SoundEffect>();
-	private Dictionary<SoundEffectInstance, SoundEffect> RemoveList = new Dictionary<SoundEffectInstance, SoundEffect>();
-    private List<SoundEffectInstance> LoopList = new List<SoundEffectInstance>();
-    private List<SoundEffectInstance> RemoveLoopList = new List<SoundEffectInstance>();
+	    private Dictionary<SoundEffectInstance, SoundEffect> PlayingList = new Dictionary<SoundEffectInstance, SoundEffect>();
+	    private Dictionary<SoundEffectInstance, SoundEffect> RemoveList = new Dictionary<SoundEffectInstance, SoundEffect>();
+        private List<SoundEffectInstance> LoopList = new List<SoundEffectInstance>();
+        private List<SoundEffectInstance> RemoveLoopList = new List<SoundEffectInstance>();
 
         public SoundPool()
 		{
+            Volume = 1f;
             BackgroundPitch = 0;
 			InitializeSoundPool();
-			mainBackground = GetAndPlay(SoundType.Background, true);
+			MainBackground = GetAndPlay(SoundType.Background, true);
 		}
+
 		public SoundEffectInstance GetAndPlay(SoundType sound, bool Loop)
 		{
 			CheckAvailability();
@@ -112,56 +114,56 @@ namespace MarioClone.Sounds
 
 		public void Reset()
 		{
-			mainBackground.Stop();
-			mainBackground.Dispose();
-			if (secondaryBackground != null)
+			MainBackground.Stop();
+			MainBackground.Dispose();
+			if (SecondaryBackground != null)
 			{
-				secondaryBackground.Stop();
-				secondaryBackground.Dispose();
-                secondaryBackground = null;
+				SecondaryBackground.Stop();
+				SecondaryBackground.Dispose();
+                SecondaryBackground = null;
             }
 			PlayingList.Clear();
 			PoolList.Clear();
 			InitializeSoundPool();
-			mainBackground = GetAndPlay(SoundType.Background, true);
+			MainBackground = GetAndPlay(SoundType.Background, true);
             BackgroundPitch = 0;
-			mainBackground.Pitch = BackgroundPitch;
+			MainBackground.Pitch = BackgroundPitch;
 		}
 
 		public void PauseBackground()
 		{
-			mainBackground.Pause();
+			MainBackground.Pause();
 		}
 
 		public void ResumeBackground()
 		{
-			if (secondaryBackground == null)
+			if (SecondaryBackground == null)
 			{
-				mainBackground.Resume();
-				mainBackground.Pitch = BackgroundPitch;
+				MainBackground.Resume();
+				MainBackground.Pitch = BackgroundPitch;
 			}
 		}
 
 		public void ResumeBackgroundStopSecondaryTrack()
 		{
-			if (secondaryBackground != null)
+			if (SecondaryBackground != null)
 			{
-				secondaryBackground.Stop();
-				PlayingList.Remove(secondaryBackground);
-				secondaryBackground.Dispose();
-				secondaryBackground = null;
+				SecondaryBackground.Stop();
+				PlayingList.Remove(SecondaryBackground);
+				SecondaryBackground.Dispose();
+				SecondaryBackground = null;
 
 			}
-			mainBackground.Resume();
-			mainBackground.Pitch = BackgroundPitch;
+			MainBackground.Resume();
+			MainBackground.Pitch = BackgroundPitch;
 		}
 
 		public void ReplaceBackground(SoundType sound)
 		{
-			mainBackground.Stop();
-			mainBackground.Dispose();
-			mainBackground = GetAndPlay(sound, true);
-			mainBackground.Pitch = BackgroundPitch;
+			MainBackground.Stop();
+			MainBackground.Dispose();
+			MainBackground = GetAndPlay(sound, true);
+			MainBackground.Pitch = BackgroundPitch;
 		}
 
 		private void InitializeSoundPool()

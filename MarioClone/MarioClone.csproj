@@ -69,11 +69,9 @@
     <Compile Include="Commands\DashCommand.cs" />
     <Compile Include="Commands\LeaveMultiplayerMenuCommand.cs" />
     <Compile Include="Commands\FireBallCommand.cs" />
-    <Compile Include="Commands\MenuMoveCommand.cs" />
     <Compile Include="Commands\MenuOptionDownCommand.cs" />
     <Compile Include="Commands\MenuSelectOptionCommand.cs" />
     <Compile Include="Commands\MenuOptionUpCommand.cs" />
-    <Compile Include="Commands\MenuSelectCommand.cs" />
     <Compile Include="Commands\MultiplayerSelectedCommand.cs" />
     <Compile Include="Commands\MuteCommand.cs" />
     <Compile Include="Commands\PauseCommand.cs" />
@@ -109,7 +107,6 @@
     <Compile Include="Menu\GameEndMenu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\PlayerDoneScoreMenu.cs" />
-    <Compile Include="Menu\MenuScreen.cs" />
     <Compile Include="HeadsUpDisplay\CoinCollectionModule.cs" />
     <Compile Include="HeadsUpDisplay\HUD.cs" />
     <Compile Include="HeadsUpDisplay\HUDModule.cs" />

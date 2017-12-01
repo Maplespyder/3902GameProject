@@ -23,14 +23,12 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         protected BowserAction PreviousActionState { get; set; }
 
-        public byte[] random = new Byte[1];
-
-        public int randomResult;
-
-        BigFireBallPool bigFireballPool = new BigFireBallPool(1);
+        protected byte[] random { get; set; }
+        protected int randomResult { get; set; }
 
         protected BowserActionState(BowserObject context)
         {
+            random = new Byte[1];
             Context = context;
         }
 

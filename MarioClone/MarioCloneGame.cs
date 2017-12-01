@@ -44,12 +44,10 @@ namespace MarioClone
     /// </summary>
     public class MarioCloneGame : Game
 	{
-        public static GameState State;
-        public static GameMode Mode;
-        public static MultiplayerType MultiplayerMode;
-
-        MenuScreen screen;
-
+        public static GameState State { get; set; }
+        public static GameMode Mode { get; set; }
+        public static MultiplayerType MultiplayerMode { get; set; }
+        
         AbstractMenu pauseMenu;
         AbstractMenu player1CompletedMenu;
         AbstractMenu player2CompletedMenu;
@@ -155,7 +153,6 @@ namespace MarioClone
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _backgroundP1 = new Background(spriteBatch, Player1Camera, BackgroundType.Overworld);
             _backgroundP2 = new Background(spriteBatch, Player2Camera, BackgroundType.Overworld);
-            screen = new MenuScreen(this);
             pauseMenu = new PauseMenu(this);
             gameOverScreen = new GameEndMenu(this);
             mainMenu = new MainMenu(this);
@@ -174,8 +171,6 @@ namespace MarioClone
 
         protected override void BeginRun()
         {
-            var keyboard = new KeyboardController();
-
             level = new LevelCreator(@"Level\Sprint4MainLevel.bmp", gameGrid);
             level.Create();
 

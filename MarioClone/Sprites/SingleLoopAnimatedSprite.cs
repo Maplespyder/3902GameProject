@@ -28,7 +28,7 @@ namespace MarioClone.Sprites
 			Finished = false;
 			StartFrame = startFrame;
 			EndFrame = endFrame;
-			CurrentFrame = startFrame;
+			CurrentFrame = StartFrame;
 			Columns = columns;
 			Rows = rows;
 		}
