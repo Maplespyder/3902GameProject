@@ -43,7 +43,7 @@ namespace MarioClone.States.EnemyStates.Powerup
                         Context.PowerupStateBowser.Killer = Killer;
                         return true;
                     }
-                    int shift = (gameObject.Position.X > Context.Position.X+Context.Sprite.SourceRectangle.Width/2) ? -10 : 10;
+                    int shift = (gameObject.Position.X > Context.Position.X+Context.Sprite.SourceRectangle.Width/2) ? -5 : 5;
                     Context.Velocity = new Vector2(Context.Velocity.Y + shift, Context.Velocity.X);
 					Context.PowerupStateBowser = new BowserInvincibility(Context);
                 }

@@ -127,23 +127,23 @@ namespace MarioClone.Menu
             int yOffset = 0;
             foreach(string str in player1Info)
             {
-                spriteBatch.DrawString(font, str, menuTextPosition + new Vector2(-500, yOffset * 50), Color.Red);
+                spriteBatch.DrawString(font, str, menuTextPosition + new Vector2(-500, yOffset * 50), Color.White);
                 yOffset += 1;
             }
 
-            spriteBatch.DrawString(font, winner, menuTextPosition + new Vector2(10, -100), Color.Red);
+            spriteBatch.DrawString(font, winner, menuTextPosition + new Vector2(10, -100), Color.White);
             yOffset = 0;
             foreach (Tuple<string, ICommand> tuple in menuOptions)
             {
                 string str = (yOffset == SelectedOption) ? "<" + tuple.Item1 + ">" : tuple.Item1;
-                spriteBatch.DrawString(font, str, menuTextPosition + new Vector2(0, yOffset * 50), Color.Red);
+                spriteBatch.DrawString(font, str, menuTextPosition + new Vector2(0, yOffset * 50), Color.White);
                 yOffset++;
             }
 
             yOffset = 0;
             foreach (string str in player2Info)
             {
-                spriteBatch.DrawString(font, str, menuTextPosition + new Vector2(500, yOffset * 50), Color.Red);
+                spriteBatch.DrawString(font, str, menuTextPosition + new Vector2(500, yOffset * 50), Color.White);
                 yOffset += 1;
             }
         }
