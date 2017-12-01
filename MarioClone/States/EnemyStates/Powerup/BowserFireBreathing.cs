@@ -7,6 +7,7 @@ using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using System.Security.Cryptography;
 using MarioClone.Factories;
+using MarioClone.EventCenter;
 
 namespace MarioClone.States.EnemyStates.Powerup
 {
@@ -16,7 +17,7 @@ namespace MarioClone.States.EnemyStates.Powerup
         {
             Action = BowserAction.BreatheFire;
 			Context.Velocity = Vector2.Zero;
-		}
+        }
 
         public override void BreatheFire()
         {

@@ -1094,3 +1094,15 @@
 /processorParam:TextureFormat=Color
 /build:CustomSprites/BigFireBall.png
 
+#begin CustomSounds/BossFireBall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/BossFireBall.wav
+
+#begin CustomSounds/BossHurt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CustomSounds/BossHurt.wav
+

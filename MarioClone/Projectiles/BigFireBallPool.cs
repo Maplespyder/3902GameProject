@@ -33,8 +33,9 @@ namespace MarioClone.Projectiles
                 CoolDownList.Add(newFireball, 0);
 				newFireball.CoolDown = 0;
 				GameGrid.Instance.Add(newFireball);
-				//EventManager.Instance.TriggerFireballFire(newFireball);
-			}
+                EventManager.Instance.TriggerFireballFire(newFireball);
+
+            }
 		}
 
 		public Vector2 GetPosition(AbstractGameObject player)
