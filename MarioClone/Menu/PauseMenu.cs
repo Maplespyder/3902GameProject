@@ -39,7 +39,7 @@ namespace MarioClone.Menu
             foreach(Tuple<string, ICommand> tuple in menuOptions)
             {
                 string str = (yOffset == SelectedOption) ? "<" + tuple.Item1 + ">" : tuple.Item1;
-                spriteBatch.DrawString(font, str, menuTextPosition + new Vector2(0, yOffset * 50), Color.Red);
+                spriteBatch.DrawString(font, str, menuTextPosition + new Vector2(0, yOffset * 50), Color.White);
                 yOffset++;
             }
         }

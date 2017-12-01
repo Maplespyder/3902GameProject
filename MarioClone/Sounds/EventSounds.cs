@@ -28,6 +28,7 @@ namespace MarioClone.Sounds
 			EventManager.Instance.RaisePlayerWarpingEvent += Warping;
 			EventManager.Instance.RaiseFireballFireEvent += FireballFiring;
             EventManager.Instance.RaiseCannonEvent += CannonAlert;
+            EventManager.Instance.RaiseTimeRanOutEvent += OutOfTime;
         }
 
 		public void PowerUpStateChangeSound(object sender, MarioPowerupStateEventArgs e)
@@ -113,8 +114,13 @@ namespace MarioClone.Sounds
 			}
 		}
 
+        public void OutOfTime(object sender, TimeRanOutEventArgs e)
+        {
+            SoundPool.Instance.GetAndPlay(SoundType.Hurryup, false);
+        }
 
-		public void BlockBumpedSound(object sender, BrickBumpedEventArgs e)
+
+        public void BlockBumpedSound(object sender, BrickBumpedEventArgs e)
 		{
 			if (e.BrickBroken)
 			{
