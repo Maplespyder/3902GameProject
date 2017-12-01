@@ -31,7 +31,7 @@ namespace MarioClone.States.EnemyStates.Powerup
         {
 			Context.ActionStateBowser = new BowserFireBreathing(Context);
 			Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserFire);
-			Context.bigFireballPool.GetAndRelease(Context);
+			Context.BowserFireballPool.GetAndRelease(Context);
 		}
 
         public override bool Update(GameTime gameTime, float percent)

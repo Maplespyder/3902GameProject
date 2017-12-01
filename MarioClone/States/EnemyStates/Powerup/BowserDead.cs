@@ -36,6 +36,7 @@ namespace MarioClone.States.EnemyStates.Powerup
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            Context.Gravity = false;
             if (Context.Sprite.Finished)
             {
                 EventManager.Instance.TriggerPlayerKilledBowserEvent(Context, Killer);

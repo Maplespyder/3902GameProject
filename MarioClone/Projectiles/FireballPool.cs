@@ -68,13 +68,13 @@ namespace MarioClone.Projectiles
             {
                 FireBalls.Remove(fireball);
                 fireball.Owner = null;
-                Restore(gameTime);
+                Restore();
             }
             RemovedFireBalls.Clear();
            
         }
 
-        public void Restore(GameTime gameTime)
+        public void Restore()
 		{
 			availableFireballs++;
 		}

@@ -20,25 +20,28 @@ namespace MarioClone.GameObjects
         public int PiranhaCycleTime { get; set; }
         public int TimeDead { get; set; }
         public int Hits { get; set; }
-
         public int PointValue { get; set; }
+
         public EnemyPowerupState PowerupState { get; internal set; }
         public BowserPowerupState PowerupStateBowser { get; set; }
         public BowserActionState ActionStateBowser { get; set; }
+
         public bool IsDead { get; set; }
         private byte[] random = new Byte[1];
+
         private int timer = 0;
-        private int maxTimer;
+        private int maxNextBehaviorTimer;
+
         protected AbstractEnemy(ISprite sprite, Vector2 position) : base(sprite, position, Color.Red)
         {
             IsDead = false;
-            maxTimer = 5000;
+            maxNextBehaviorTimer = 5000;
         }
 
         public override bool Update(GameTime gameTime, float percent)
         {
             timer += gameTime.ElapsedGameTime.Milliseconds;
-            if (timer > 5000) {
+            if (timer > maxNextBehaviorTimer) {
                 timer = 0;
                 RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
                 rng.GetBytes(random);
@@ -46,7 +49,7 @@ namespace MarioClone.GameObjects
                 {
                     Velocity = new Vector2(-Velocity.X, Velocity.Y);
                     Orientation = 1 - Orientation;
-                    maxTimer = ((random[0] % 3) + 3) *1000;
+                    maxNextBehaviorTimer = ((random[0] % 3) + 3) *1000;
                 }
             }
 

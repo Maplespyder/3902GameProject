@@ -61,7 +61,7 @@ namespace MarioClone.Projectiles
 				CoolDownList[fireball] += gameTime.ElapsedGameTime.Milliseconds;
                 if(CoolDownList[fireball] >= 8000)
                 {
-                    Restore(gameTime);
+                    Restore();
                     fireball.Destroyed = true;
                 }
 
@@ -76,13 +76,13 @@ namespace MarioClone.Projectiles
 				FireBalls.Remove(fireball);
                 CoolDownList.Remove(fireball);
 				fireball.Owner = null;
-				Restore(gameTime);
+				Restore();
 			}
 			RemovedFireBalls.Clear();
 
 		}
 
-		public void Restore(GameTime gameTime)
+		public void Restore()
 		{
 			availableFireballs++;
 		}

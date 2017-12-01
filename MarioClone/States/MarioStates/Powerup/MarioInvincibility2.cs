@@ -54,7 +54,7 @@ namespace MarioClone.States
 
         public override void Update(GameTime gameTime)
         {
-            CycleTransparency(gameTime);
+            CycleTransparency();
             InvincibleTime += gameTime.ElapsedGameTime.Milliseconds;
             if (InvincibleTime >= MaxInvincibleDuration)
             {
@@ -78,7 +78,7 @@ namespace MarioClone.States
             }
         }
 
-        private void CycleTransparency(GameTime gameTime)
+        private void CycleTransparency()
         {
             colorChangeDelay++;
             if (colorChangeDelay >= 15)

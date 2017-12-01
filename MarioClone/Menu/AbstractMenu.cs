@@ -11,12 +11,12 @@ namespace MarioClone.Menu
 {
     public abstract class AbstractMenu : IDraw
     {
-        protected int SelectedOption;
-        protected List<Tuple<string, ICommand>> menuOptions;
+        protected int SelectedOption { get; set; }
+        protected List<Tuple<string, ICommand>> menuOptions { get; set; }
 
-        protected SpriteFont font;
-        protected Vector2 menuTextPosition;
-        protected AbstractController controller;
+        protected SpriteFont font { get; set; }
+        protected Vector2 menuTextPosition { get; set; }
+        protected AbstractController controller { get; set; }
 
         public float DrawOrder { get; set; }
 

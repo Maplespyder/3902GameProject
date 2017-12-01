@@ -18,13 +18,11 @@ namespace MarioClone.States.EnemyStates.Powerup
 			Context.Velocity = Vector2.Zero;
 		}
 
-		public object SpriteFactory { get; private set; }
-
 		public override void BreatheFire()
 		{
 			Context.ActionStateBowser = new BowserFireBreathing(Context);
 			Context.Sprite = MovingEnemySpriteFactory.Create(EnemyType.BowserFire);
-			Context.bigFireballPool.GetAndRelease(Context);
+			Context.BowserFireballPool.GetAndRelease(Context);
 		}
 
 		public override void BecomeIdle()
@@ -67,9 +65,12 @@ namespace MarioClone.States.EnemyStates.Powerup
 				{
 					BreatheFire();
 				}
-			}
-            UpdateHitBox();
-			return false;
+            }
+            if (Context.BoundingBox != null)
+            {
+                UpdateHitBox();
+            }
+            return false;
 		}
 
         public void UpdateHitBox()
