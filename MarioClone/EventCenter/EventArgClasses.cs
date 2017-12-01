@@ -1,6 +1,7 @@
 ﻿using MarioClone.Collision;
 using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.GameObjects.Other;
 using MarioClone.HeadsUpDisplay;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
@@ -114,9 +115,9 @@ namespace MarioClone.EventCenter
         }
     }
 
-    public class FireballFireArgs : CustomEventArgs<FireBall>
+    public class FireballFireArgs : CustomEventArgs<AbstractProjectileObject>
 	{
-		public FireballFireArgs(FireBall obj) : base(obj)
+		public FireballFireArgs(AbstractProjectileObject obj) : base(obj)
 		{
 		}
 	}

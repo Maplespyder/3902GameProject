@@ -66,7 +66,7 @@ namespace MarioClone.GameObjects
 				rng.GetBytes(rand);
 				MaxTimeSummonCannon = ((rand[0] % 4) + 8) * 1000;
 				CurrentCannonCoolDown = 0;
-				EventCenter.EventManager.Instance.TriggerCannonEvent(this);
+				EventManager.Instance.TriggerCannonEvent(this);
 			}
 
             if (BoundingBox != null && BoundingBox.Dimensions.Bottom >= MarioCloneGame.LevelAreas[LevelArea].Bottom)

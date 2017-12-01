@@ -1,5 +1,6 @@
 ﻿using MarioClone.Factories;
 using MarioClone.GameObjects;
+using MarioClone.GameObjects.Other;
 using MarioClone.HeadsUpDisplay;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace MarioClone.EventCenter
             OnRaisePlayerKilledBowserEvent(args);
         }
 
-		public void TriggerFireballFire(FireBall fireball)
+		public void TriggerFireballFire(AbstractProjectileObject fireball)
 		{
 			FireballFireArgs args = new FireballFireArgs(fireball);
 			OnRaiseFireballFireEvent(args);
