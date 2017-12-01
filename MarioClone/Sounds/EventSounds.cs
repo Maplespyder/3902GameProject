@@ -150,7 +150,7 @@ namespace MarioClone.Sounds
             if(sender is Mario)
             {
                 var mario = (Mario)sender;
-                if(mario.Position.X < 19800)
+                if(mario.Position.X < 19000)
                 {
                     SoundPool.Instance.ReplaceBackground(SoundType.Background);
                 }

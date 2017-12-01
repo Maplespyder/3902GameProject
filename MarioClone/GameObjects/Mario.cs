@@ -386,12 +386,12 @@ namespace MarioClone.GameObjects
             PowerupState.Update(gameTime);    
             _FireBallPool.Update(gameTime);
 
-            if (Position.X < 19800 && outSideBoss == false)
+            if (Position.X < 19000 && outSideBoss == false)
             {
                 EventManager.Instance.TriggerEnterBossRoom(this);
                 outSideBoss = true;
             }
-            else if (Position.X > 19800 && outSideBoss == true)
+            else if (Position.X > 19000 && outSideBoss == true)
             {
                 EventManager.Instance.TriggerEnterBossRoom(this);
                 outSideBoss = false;
