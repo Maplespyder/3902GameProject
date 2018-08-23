@@ -39,28 +39,36 @@ namespace MarioClone.Controllers
         {
             GamePadState currentState = GamePad.GetState(player);
 
-            if (currentState.IsButtonDown(Buttons.Start)) 
+            Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+
+            foreach (Buttons button in buttonList)
             {
-                MarioCloneGame.Paused = !MarioCloneGame.Paused;
+                if (lastState.IsButtonDown(button))
+                {
+                    ICommand command = null;
+                    if (currentState.IsButtonUp(button))
+                    {
+                        if ((command == null) && ReleasedInputToCommandMap.TryGetValue((int)button, out command))
+                        {
+                            command.InvokeCommand();
+                        }
+                    } 
+                }
             }
 
-            if (!MarioCloneGame.Paused)
+            if (currentState.IsConnected)
             {
-                if (currentState.IsConnected)
+                foreach (Buttons button in buttonList)
                 {
-                    Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
-                    foreach (Buttons button in buttonList)
+                    if (lastState.IsButtonUp(button) && currentState.IsButtonDown(button))
                     {
-                        if (lastState.IsButtonUp(button) && currentState.IsButtonDown(button))
+                        if (InputToCommandMap.TryGetValue((int)(button), out ICommand command))
                         {
-                            if (InputToCommandMap.TryGetValue((int)(button), out ICommand command))
-                            {
-                                command.InvokeCommand();
-                            }
+                            command.InvokeCommand();
                         }
                     }
                 }
-            }
+            }            
             lastState = currentState;
         }
     }

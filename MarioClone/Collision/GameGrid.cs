@@ -1,4 +1,6 @@
-﻿using MarioClone.GameObjects;
+﻿using MarioClone.Cam;
+using MarioClone.EventCenter;
+using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,16 +11,9 @@ namespace MarioClone.Collision
 {
     public class GameGrid
     {
-        public enum Side
-        {
-            Left = 1,
-            Right = 2,
-            Top = 3,
-            Bottom = 4,
-            None = 0
-        }
-
         private List<AbstractGameObject>[,] gameGrid;
+		private Camera _camera;
+        private static GameGrid gridInstance;
 
         public int Rows { get; }
         public int Columns { get; }
@@ -27,25 +22,49 @@ namespace MarioClone.Collision
         public int GridSquareWidth { get; }
         public int GridSquareHeight { get; }
         public int FullGameWidth { get; }
-        public int CurrentLeftSideViewPort { get; set; }
-        public int CurrentRightSideViewPort
+        public int FullGameHeight { get; }
+        public float CurrentLeftSideViewPort { get; set; }
+        public float CurrentRightSideViewPort
         {
             get
             {
                 return CurrentLeftSideViewPort + ScreenWidth;
             }
         }
-
-        public GameGrid(int rows, int columns, int widthOfGame)
+        public float CurrentTopSideViewPort { get; set; }
+        public float CurrentBottomSideViewPort
         {
+            get
+            {
+                return CurrentTopSideViewPort + ScreenHeight;
+            }
+        }
+
+        public static GameGrid Instance
+        {
+            get
+            {
+                return gridInstance;
+            }
+        }
+        
+        public GameGrid(int rows, Camera camera)
+        {
+            gridInstance = this;
+
             Rows = rows;
-            Columns = columns;
+            _camera = camera;
+
+            FullGameWidth = _camera.Limits.Value.Width;
+            FullGameHeight = _camera.Limits.Value.Height * 2;
             ScreenWidth = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferWidth;
             ScreenHeight = MarioCloneGame.ReturnGraphicsDevice.PreferredBackBufferHeight;
-            GridSquareWidth = ScreenWidth / Columns;
-            GridSquareHeight = ScreenHeight / Rows;
-            FullGameWidth = widthOfGame;
-            CurrentLeftSideViewPort = 0;
+
+            GridSquareHeight = FullGameHeight / Rows;
+			GridSquareWidth = GridSquareHeight;
+			Columns = GridSquareWidth * (FullGameWidth / ScreenWidth) + 1;
+			CurrentLeftSideViewPort = _camera.Position.X;
+            CurrentTopSideViewPort = _camera.Position.Y;
 
             gameGrid = new List<AbstractGameObject>[Columns, Rows];
             for (int i = 0; i < Rows; i++)
@@ -55,29 +74,10 @@ namespace MarioClone.Collision
                     gameGrid[j, i] = new List<AbstractGameObject>();
                 }
             }
-        }
 
-        public static Side GetOppositeSide(Side side)
-        {
-            if (side == Side.Top)
-            {
-                return Side.Bottom;
-            }
-            if (side == Side.Bottom)
-            {
-                return Side.Top;
-            } 
-            if(side == Side.Left)
-            {
-                return Side.Right;
-            }
-            if (side == Side.Right)
-            {
-                return Side.Left;
-            }
-            return Side.None;
+            EventManager.Instance.RaiseBadObjectRemovalEvent += FixBadObjectRemoval;
         }
-
+        
         public void ClearGrid()
         {
             foreach (List<AbstractGameObject> li in gameGrid)
@@ -91,7 +91,10 @@ namespace MarioClone.Collision
             ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach (Point bucket in squares)
             {
-                gameGrid[bucket.X, bucket.Y].Add(obj);
+                if (!gameGrid[bucket.X, bucket.Y].Contains(obj))
+                {
+                    gameGrid[bucket.X, bucket.Y].Add(obj);
+                }
             }
         }
 
@@ -100,7 +103,7 @@ namespace MarioClone.Collision
             ISet<Point> squares = GetSquaresFromObject(obj.BoundingBox);
             foreach (Point bucket in squares)
             {
-                gameGrid[bucket.X, bucket.Y].Remove(obj);
+                gameGrid[bucket.X, bucket.Y].RemoveAll((x) => ReferenceEquals(x, obj));
             }
         }
 
@@ -110,7 +113,7 @@ namespace MarioClone.Collision
             int xBucket = corner.X / GridSquareWidth;
             int yBucket = corner.Y / GridSquareHeight;
 
-            if (corner.Y >= ScreenHeight)
+            if (corner.Y >= FullGameHeight)
             {
                 yBucket -= 1;
             }
@@ -136,7 +139,7 @@ namespace MarioClone.Collision
                 }
             }
 
-            if ((corner.Y > 0) && (corner.Y < ScreenHeight))
+            if ((corner.Y > 0) && (corner.Y < FullGameHeight))
             {
                 if ((corner.Y % GridSquareHeight) == 0)
                 {
@@ -156,7 +159,7 @@ namespace MarioClone.Collision
             return squares;
         }
 
-        private void UpdateObjectGridPosition(AbstractGameObject obj, HitBox oldHitbox)
+        public void UpdateObjectGridPosition(AbstractGameObject obj, HitBox oldHitbox)
         {
             //should end up in a future Update() method that handles all updates
 
@@ -170,11 +173,16 @@ namespace MarioClone.Collision
 
             foreach (Point pt in oldSquares)
             {
-                gameGrid[pt.X, pt.Y].Remove(obj);
+                gameGrid[pt.X, pt.Y].RemoveAll((x) => ReferenceEquals(x, obj));
             }
 
             foreach (Point pt in newSquares)
             {
+                if((pt.X >= Columns || pt.X < 0) || (pt.Y >= Rows || pt.Y < 0))
+                {
+                    continue;
+                }
+                
                 gameGrid[pt.X, pt.Y].Add(obj);
             }
 
@@ -221,7 +229,78 @@ namespace MarioClone.Collision
             return neighbours;
         }
 
-        private List<AbstractGameObject> FindNeighbours(AbstractGameObject obj)
+        private void FixBadObjectRemoval(object sender, BadObjectRemovalEventArgs e)
+        {
+            ISet<Point> potentialSquares = new HashSet<Point>();
+            ISet<Point> additionalSquares = new HashSet<Point>();
+
+            if (e.LastHitBox != null)
+            {
+                potentialSquares.UnionWith(GetSquaresFromObject(e.LastHitBox));                
+            }
+            else if(e.Position != null)
+            {
+                potentialSquares.UnionWith(GetSquaresFromPoint(new Point((int)e.Position.X, (int)e.Position.Y)));
+            }
+
+            foreach (Point p in potentialSquares)
+            {
+                for (int x = p.X - 5; x < p.X + 6; x++)
+                {
+                    for (int y = p.Y - 5; y < p.Y + 6; y++)
+                    {
+                        additionalSquares.Add(new Point(x, y));
+                    }
+                }
+            }
+
+            potentialSquares.UnionWith(additionalSquares);
+
+            int numFound = 0;
+            foreach(Point p in potentialSquares)
+            {
+                if(p.X >=0 && p.X < Columns && p.Y >= 0 && p.Y < Rows)
+                {
+                    numFound += gameGrid[p.X, p.Y].RemoveAll((obj) => ReferenceEquals(obj, e.Sender));
+                }
+            }
+
+            if (numFound == 0)
+            {
+                int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+                if (leftHandColumn > 0) { leftHandColumn--; }
+
+                int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+                if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
+                int topRow = (int)(CurrentTopSideViewPort / GridSquareHeight);
+                if (topRow > 0) { topRow--; }
+
+                int bottomRow = (int)(CurrentBottomSideViewPort / GridSquareHeight);
+                if (bottomRow < bottomRow - 1) { bottomRow++; }
+
+                for (int i = leftHandColumn; i < rightHandColumn; i++)
+                {
+                    for (int j = topRow; j < bottomRow; j++)
+                    {
+                        numFound += gameGrid[i, j].RemoveAll((obj) => ReferenceEquals(obj, e.Sender));
+                    }
+                }
+            }
+
+            if(numFound == 0)
+            {
+                for (int i = 0; i < Columns; i++)
+                {
+                    for (int j = 0; j < Rows; j++)
+                    {
+                        numFound += gameGrid[i, j].RemoveAll((obj) => ReferenceEquals(obj, e.Sender));
+                    }
+                }
+            }
+        }
+        
+        public List<AbstractGameObject> FindNeighbours(AbstractGameObject obj)
         {
             ISet<AbstractGameObject> neighbours = new HashSet<AbstractGameObject>();
 
@@ -235,260 +314,100 @@ namespace MarioClone.Collision
             {
                 //the given object was never in the grid in the first place, because neighbors
                 //includes stuff in its own bucket, including itself
-                throw new NotSupportedException();
+                //throw new NotSupportedException();
             }
             return neighbours.ToList();
         }
 
-        private List<AbstractGameObject> GetAllGameObjects()
+        public List<AbstractGameObject> GetAllCurrentGameObjects
         {
-            int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
-            int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
-            List<AbstractGameObject> objectList = new List<AbstractGameObject>();
-
-            for (int rows = 0; rows < Rows; rows++)
+            get
             {
-                for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+                if (leftHandColumn > 0) { leftHandColumn--; }
+
+                int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+                if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
+                int topRow = (int)(CurrentTopSideViewPort / GridSquareHeight);
+                if (topRow > 0) { topRow--; }
+
+                int bottomRow = (int)(CurrentBottomSideViewPort / GridSquareHeight);
+                if (bottomRow < bottomRow - 1) { bottomRow++; }
+
+                List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+                for (int rows = topRow; rows < bottomRow; rows++)
                 {
-                    objectList = objectList.Union(gameGrid[columns, rows]).ToList();
-                }
-            }
-
-            return objectList;
-        }
-
-        private List<AbstractGameObject> GetMovingGameObjects()
-        {
-            int leftHandColumn = CurrentLeftSideViewPort / GridSquareWidth;
-            int rightHandColumn = CurrentRightSideViewPort / GridSquareWidth;
-            List<AbstractGameObject> objectList = new List<AbstractGameObject>();
-
-            for (int rows = 0; rows < Rows; rows++)
-            {
-                for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
-                {
-                    objectList = objectList.Union(gameGrid[columns, rows])
-                        .Where((x) => (x.Velocity.X != 0) || (x.Velocity.Y != 0)).ToList();
-                }
-            }
-
-            return objectList;
-        }
-
-        public static bool MightCollide(AbstractGameObject obj1, AbstractGameObject obj2)
-        {
-            Vector2 relativeVelocity = obj2.Velocity - obj1.Velocity;
-            if (obj2.BoundingBox.TopLeft.X <= obj1.BoundingBox.TopLeft.X)
-            {
-                relativeVelocity = new Vector2(-relativeVelocity.X, relativeVelocity.Y);
-            }
-            if (obj2.BoundingBox.TopLeft.Y <= obj1.BoundingBox.TopLeft.Y)
-            {
-                relativeVelocity = new Vector2(relativeVelocity.X, -relativeVelocity.Y);
-            }
-
-            return (relativeVelocity.X < 0 || relativeVelocity.Y < 0);
-        }
-
-        public static float WhenCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
-        {
-
-            float xDirectionDistance, yDirectionDistance, xEntryPercent, yEntryPercent;
-            
-            /*determined, relative on OBJ1, that:
-            * -X relativeVelocity -> Obj1 is hit on the left 
-            * +X relVel -> Obj1 hit on right
-            * -Y relVel -> Obj1 hit on top
-            * +Y relVel -> Obj1 hit on bottom
-            * 
-            * I didn't look at it for too long, so it might not be totally correct, but it worked on all paper tests I made up. 
-            */
-            Vector2 relativeVelocity = (obj1.Velocity - obj2.Velocity) * (1 - percentCompleted);
-            side = Side.None;
-            //distances of X and Y axis of both objects
-            if (relativeVelocity.X > 0f)
-            {
-                xDirectionDistance = obj2.BoundingBox.TopLeft.X - (obj1.BoundingBox.TopLeft.X + obj1.BoundingBox.Dimensions.Width);
-            }
-            else
-            {
-                xDirectionDistance = (obj2.BoundingBox.TopLeft.X + obj2.BoundingBox.Dimensions.Width) - obj1.BoundingBox.TopLeft.X;
-            }
-
-            if (relativeVelocity.Y > 0f)
-            {
-                yDirectionDistance = (obj2.BoundingBox.TopLeft.Y - (obj1.BoundingBox.Dimensions.Height + obj1.BoundingBox.TopLeft.Y));
-            }
-            else
-            {
-                yDirectionDistance = (obj2.BoundingBox.TopLeft.Y + obj2.BoundingBox.Dimensions.Height) - obj1.BoundingBox.TopLeft.Y;
-            }
-
-            //determine times when X and Y axis hit
-            if (relativeVelocity.X == 0f)
-            {
-                xEntryPercent = -(float.PositiveInfinity);
-            }
-            else
-            {
-                xEntryPercent = xDirectionDistance / relativeVelocity.X;
-            }
-
-            if (relativeVelocity.Y == 0f)
-            {
-                yEntryPercent = -(float.PositiveInfinity);
-            }
-            else
-            {
-                yEntryPercent = yDirectionDistance / relativeVelocity.Y;
-            }
-
-
-            if (xEntryPercent > yEntryPercent)
-            {
-                if (relativeVelocity.X < 0)
-                {
-                    side = Side.Left;
-                }
-                else if (relativeVelocity.X > 0)
-                {
-                    side = Side.Right;
-                }
-            }
-            else
-            {
-                if (relativeVelocity.Y < 0)
-                {
-                    side = Side.Top;
-                }
-                else if (relativeVelocity.Y > 0)
-                {
-                    side = Side.Bottom;
-                }
-            }
-
-
-            if (xEntryPercent < 0f && yEntryPercent < 0f || (xEntryPercent > 1.0f || yEntryPercent > 1.0f)) //no collision
-            {
-                return 1.0f; //no collision
-            }
-            else
-            {
-                return Math.Max(xEntryPercent, yEntryPercent);
-            }
-        }
-
-        public static float IfCollisionCheck(AbstractGameObject obj1, AbstractGameObject obj2, float percentCompleted, out Side side)
-        {
-            Rectangle obj1Sweep = GetSweptBox(obj1);
-            Rectangle obj2Sweep = GetSweptBox(obj2);
-            side = Side.None;
-            float collisionTime = 1;
-
-            if (CollisionCheck(obj1Sweep, obj2Sweep))
-            {
-				collisionTime = WhenCollisionCheck(obj1, obj2, percentCompleted, out side);
-            }
-            return collisionTime;
-        }
-
-        public static Rectangle GetSweptBox(AbstractGameObject obj)
-        {
-            Rectangle sweptBox;
-            sweptBox.X = obj.Velocity.X > 0 ? obj.BoundingBox.TopLeft.X : obj.BoundingBox.TopLeft.X + (int)obj.Velocity.X;
-            sweptBox.Y = obj.Velocity.Y > 0 ? obj.BoundingBox.TopLeft.Y: obj.BoundingBox.TopLeft.Y + (int)obj.Velocity.Y;
-            sweptBox.Width = obj.Velocity.X > 0 ? (int)obj.Velocity.X + obj.BoundingBox.Dimensions.Width : obj.BoundingBox.Dimensions.Width - (int)obj.Velocity.X;
-            sweptBox.Height = obj.Velocity.Y > 0 ? (int)obj.Velocity.Y + obj.BoundingBox.Dimensions.Height : obj.BoundingBox.Dimensions.Height - (int)obj.Velocity.Y;
-            return sweptBox;
-        }
-
-        public static bool CollisionCheck(Rectangle obj1, Rectangle obj2)
-        {
-            return obj1.Intersects(obj2);
-        }
-
-        public void UpdateWorld(GameTime gameTime)
-        {
-            float earliestCollisionPercent = 1;
-            float percentCompleted = 0;
-
-            while (percentCompleted < 1)
-            {
-                List<AbstractGameObject> collidables = GetMovingGameObjects();
-                List<AbstractGameObject> neighbours = new List<AbstractGameObject>();
-                Tuple<Side, AbstractGameObject, AbstractGameObject> firstCollision = null;
-
-                foreach (AbstractGameObject obj in collidables)
-                {
-                    if (obj.BoundingBox == null)
+                    for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
                     {
-                        continue;
-                    }
-                    neighbours = FindNeighbours(obj);
-                    foreach (AbstractGameObject neighbour in neighbours)
-                    {
-                        if (neighbour.BoundingBox == null)
-                        {
-                            continue;
-                        }
-
-                        if (MightCollide(obj, neighbour))
-                        {
-                            Side side = Side.None;
-                            float percent = IfCollisionCheck(obj, neighbour, percentCompleted, out side);
-
-                            if ((side != Side.None) && percent < earliestCollisionPercent)
-                            {
-                                firstCollision = new Tuple<Side, AbstractGameObject, AbstractGameObject>(side, obj, neighbour);
-                                earliestCollisionPercent = percentCompleted;
-                            }
-                        }
+                        objectList = objectList.Union(gameGrid[columns, rows]).ToList();
                     }
                 }
 
-                if (firstCollision == null)
-                {
-                    earliestCollisionPercent = 1;
-                }
-
-                var removed = new List<AbstractGameObject>();
-                var allObjects = GetAllGameObjects();
-                foreach (AbstractGameObject obj in allObjects)
-                {
-                    HitBox oldHitbox = (obj.BoundingBox != null) ? new HitBox(obj.BoundingBox) : null;
-                    if (obj.Update(gameTime, earliestCollisionPercent - percentCompleted))
-                    {
-                        removed.Add(obj);
-                    }
-                    else
-                    {
-                        if (oldHitbox != null)
-                        {
-                            UpdateObjectGridPosition(obj, oldHitbox);
-                        }
-                    }
-                }
-
-                foreach (var obj in removed)
-                {
-                    Remove(obj);
-                }
-
-                if (firstCollision != null)
-                {
-                    firstCollision.Item2.CollisionResponse(firstCollision.Item3, firstCollision.Item1, gameTime); //if side is left, do side.right for object2
-                    firstCollision.Item3.CollisionResponse(firstCollision.Item2, GetOppositeSide(firstCollision.Item1), gameTime); //and vice versa
-                }
-                percentCompleted += earliestCollisionPercent;
+                return objectList;
             }
         }
 
-        public void DrawWorld(SpriteBatch spriteBatch, GameTime gameTime)
+        public List<AbstractGameObject> GetCurrentMovingAndPlayerGameObjects
         {
-            List<AbstractGameObject> allObjects = GetAllGameObjects();
-            foreach (var obj in allObjects)
+            get 
             {
-                obj.Draw(spriteBatch, gameTime);
+                int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+                if (leftHandColumn > 0) { leftHandColumn--; }
+
+                int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+                if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
+                int topRow = (int)(CurrentTopSideViewPort / GridSquareHeight);
+                if (topRow > 0) { topRow--; }
+
+                int bottomRow = (int)(CurrentBottomSideViewPort / GridSquareHeight);
+                if (bottomRow < bottomRow - 1) { bottomRow++; }
+
+                List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+                for (int rows = topRow; rows < bottomRow; rows++)
+                {
+                    for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                    {
+                        objectList = objectList.Union(gameGrid[columns, rows])
+                            .Where((x) => (x.Velocity.X != 0) || (x.Velocity.Y != 0) || (x is Mario)).ToList();
+                    }
+                }
+
+                return objectList;
+            }
+        }
+
+        public List<AbstractGameObject> GetAllCurrentStaticGameObjects
+        {
+            get
+            {
+                int leftHandColumn = (int)(CurrentLeftSideViewPort / GridSquareWidth);
+                if (leftHandColumn > 0) { leftHandColumn--; }
+
+                int rightHandColumn = (int)(CurrentRightSideViewPort / GridSquareWidth);
+                if (rightHandColumn < Columns - 1) { rightHandColumn++; }
+
+                int topRow = (int)(CurrentTopSideViewPort / GridSquareHeight);
+                if (topRow > 0) { topRow--; }
+
+                int bottomRow = (int)(CurrentBottomSideViewPort / GridSquareHeight);
+                if (bottomRow < bottomRow - 1) { bottomRow++; }
+
+                List<AbstractGameObject> objectList = new List<AbstractGameObject>();
+
+                for (int rows = topRow; rows < bottomRow; rows++)
+                {
+                    for (int columns = leftHandColumn; columns < rightHandColumn; columns++)
+                    {
+                        objectList = objectList.Union(gameGrid[columns, rows])
+                            .Where((x) => ((x.Velocity.X == 0) && (x.Velocity.Y == 0)) && !(x is Mario)).ToList();
+                    }
+                }
+
+                return objectList;
             }
         }
     }

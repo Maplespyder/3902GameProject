@@ -13,7 +13,10 @@ namespace MarioClone.Commands
 
         public override void InvokeCommand()
         {
-            AbstractGameObject.DisplayHitbox();
+            if (MarioCloneGame.State == GameState.Playing)
+            {
+                AbstractGameObject.DisplayHitbox(); 
+            }
         }
     }
 }

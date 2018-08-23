@@ -12,7 +12,11 @@ namespace MarioClone.Factories
     {
         Goomba,
         GreenKoopa,
-        RedKoopa
+		Piranha,
+		Bowser,
+        BowserWalk,
+		BowserFire,
+		BowserIdle
     }
 
     public static class EnemyFactory
@@ -25,9 +29,15 @@ namespace MarioClone.Factories
                     return new GoombaObject(MovingEnemySpriteFactory.Create(type), position);
                 case EnemyType.GreenKoopa:
                     return new GreenKoopaObject(MovingEnemySpriteFactory.Create(type), position);
-                case EnemyType.RedKoopa:
-                    return new RedKoopaObject(MovingEnemySpriteFactory.Create(type), position);
-                default:
+                case EnemyType.Piranha:
+					return new PiranhaObject(MovingEnemySpriteFactory.Create(type), position);
+                case EnemyType.BowserWalk:
+                     return new BowserObject(MovingEnemySpriteFactory.Create(type), position);
+				case EnemyType.BowserIdle:
+					return new BowserObject(MovingEnemySpriteFactory.Create(type), position);
+				case EnemyType.BowserFire:
+					return new BowserObject(MovingEnemySpriteFactory.Create(type), position);
+				default:
                     return new GoombaObject(MovingEnemySpriteFactory.Create(type), position);
             }
         }

@@ -1,0 +1,23 @@
+﻿Code Review Template
+Author of Review: Anna Wolfe
+Date of Review: 10/31/17
+File Under Review: LevelCreator.cs
+Author(s) of File: Name(s) Sam Trabitz
+Comments on Code Quality:
+
+So after working with the level creator more this sprint I think that the method MakeOjbect has a very cyclomatic time complexity.
+It could be beneficial to reduce that if we potentially split up the method into more methods or maybe if we used a switch case instead. 
+
+Minutes to Complete: 10 min
+-----------------------------------------------------------------------------------------------------------------------------------------------
+Code Review Template
+Author of Review: Anna Wolfe
+Date of Review: 10/31/17
+File Under Review: KoopaDead.cs
+Author(s) of File: Name(s) Anna Wolfe and Jacob Crabtress
+Comments on Code Quality:
+
+Right now we have a KoopaDead state but what is really happening is that its going into KoopaShell so the states for Koopa's need some refactoring 
+because they are not super logical at the moment.
+
+Minutes to Complete: 10 min

@@ -1,4 +1,4 @@
-﻿using MarioClone.GameObjects.Enemies;
+﻿using MarioClone.GameObjects;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,7 @@ namespace MarioClone.States
     {
         protected AbstractEnemy Context { get; set; }
 
+
         protected EnemyPowerupState(AbstractEnemy context)
         {
             Context = context;
@@ -19,9 +20,15 @@ namespace MarioClone.States
 
         // Behavior/actions
 
-        public abstract void BecomeDead();
-        public abstract void BecomeAlive();
-        public abstract bool Update(GameTime gameTime, float percent);
+        public virtual bool Update(GameTime gameTime, float percent)
+        {
+            return false;
+        }
+
+        public virtual void BecomeDead() { }
+        public virtual void BecomeAlive() { }
+		public virtual void BecomeHide() { }
+		public virtual void BecomeReveal() { }
 
     }
 }

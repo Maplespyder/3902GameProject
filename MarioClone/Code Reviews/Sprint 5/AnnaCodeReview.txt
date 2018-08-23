@@ -1,0 +1,29 @@
+﻿Code Review Template
+Author of Review: Anna
+Date of Review: 11/30/17
+File Under Review: MarioCloneGame.cs
+Author(s) of File: Everyone
+Comments on Code Quality:
+
+After adding in multipler game mode, I feel that having certain keys statically mapped to one player where we hard code it in is not the best
+way to do it. Maybe it would be better if the game took input from two keyboards instead of one so that it could help alleviate this problem 
+and also make it easier to play the game with two people.
+
+Minutes to Complete: 10 min
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Code Review Template
+Author of Review: Anna
+Date of Review: 11/30/17
+File Under Review: BowserWalk.cs, BowserIdle.cs, BowserFireBreathing.cs
+Author(s) of File: Anna Allie
+Comments on Code Quality:
+
+So in each of these update methods, we have repetitive code where we are generating a random byte from 1-190 and modding it by 2.
+I think instead of repeating this code we could have made a method in the abstract class that returns 1 or 0 and just call that method 
+instead to be more efficient.
+
+
+Minutes to Complete: 7 min
+
+
+

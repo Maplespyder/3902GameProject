@@ -2,13 +2,18 @@ Tile Map Documentation:
 
 
 Mario Spawn: (136, 0, 27)
+Mario Checkpoint: (150, 40, 27)
 
 • ? (Question) Block: (140, 255, 251)
+• ? (Question) Block with Red Mushroom: (180, 68, 71)
+• ? (Question) Block with Green Mushroom: (91, 137, 112)
+• ? (Question) Block with Fire flower: (255, 127, 39)
 • Used Block: (185, 122, 86)
 • Brick Block: (103, 62, 39)
 • Floor Block: (0, 0, 0)
-• Stair/Pyramid Block: (255, 127, 39)
+• Stair/Pyramid Block: (255, 178, 100)
 • Hidden Bricks: (189, 69, 0)
+• Warp Point: (255, 200, 0)
 
 Enemies:
 • Goomba: (81, 47, 28)
@@ -23,3 +28,5 @@ Power-Ups:
 
 Item:
 • Coin: (255, 242, 0)
+• Pipe Segment: (18, 117, 46)
+• Pipe Top: (39, 242, 94)

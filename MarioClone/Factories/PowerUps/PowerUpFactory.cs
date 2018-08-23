@@ -7,9 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 namespace MarioClone.Factories
 {
+    public enum PowerUpType
+    {
+        GreenMushroom,
+        RedMushroom,
+        Flower,
+        Coin,
+        None
+    }
+
     public static class PowerUpFactory
     {
-        public static AbstractGameObject Create(PowerUpType type, Vector2 position)
+        public static AbstractPowerup Create(PowerUpType type, Vector2 position)
         {
             switch (type)
             {
@@ -21,7 +30,7 @@ namespace MarioClone.Factories
                     return new FireFlowerObject(PowerUpSpriteFactory.Create(type), position);
                 case PowerUpType.Coin:
                     return new CoinObject(PowerUpSpriteFactory.Create(type), position);
-                default:
+				default:
                     return new GreenMushroomObject(PowerUpSpriteFactory.Create(type), position);
             }
         }

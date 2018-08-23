@@ -6,15 +6,28 @@ namespace MarioClone.Controllers
     public abstract class AbstractController
     {
         private Dictionary<int, ICommand> inputToCommandMap;
-
+        private Dictionary<int, ICommand> releasedInputToCommandMap;
+        private Dictionary<int, ICommand> heldInputToCommandMap;
         protected AbstractController()
         {
             inputToCommandMap = new Dictionary<int, ICommand>();
+            releasedInputToCommandMap = new Dictionary<int, ICommand>();
+            heldInputToCommandMap = new Dictionary<int, ICommand>();
         }
 
         protected Dictionary<int, ICommand> InputToCommandMap
         {
             get { return inputToCommandMap; }
+        }
+
+        protected Dictionary<int, ICommand> ReleasedInputToCommandMap
+        {
+            get { return releasedInputToCommandMap; }
+        }
+
+        protected Dictionary<int, ICommand> HeldInputToCommandMap
+        {
+            get { return heldInputToCommandMap; }
         }
 
         public abstract bool AddInputChord(int modifier, int input, ICommand command);
@@ -30,6 +43,26 @@ namespace MarioClone.Controllers
             if (!inputToCommandMap.ContainsKey(input))
             {
                 inputToCommandMap.Add(input, command);
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddReleasedInputCommand(int input, ICommand command)
+        {
+            if (!ReleasedInputToCommandMap.ContainsKey(input))
+            {
+                ReleasedInputToCommandMap.Add(input, command);
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddHeldInputCommand(int input, ICommand command)
+        {
+            if (!HeldInputToCommandMap.ContainsKey(input))
+            {
+                HeldInputToCommandMap.Add(input, command);
                 return true;
             }
             return false;
@@ -51,6 +84,33 @@ namespace MarioClone.Controllers
                 return true;
             }
             return false;
+        }
+
+        public bool RemoveReleasedInputCommand(int input)
+        {
+            if (ReleasedInputToCommandMap.ContainsKey(input))
+            {
+                ReleasedInputToCommandMap.Remove(input);
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemoveHeldInputCommand(int input)
+        {
+            if (HeldInputToCommandMap.ContainsKey(input))
+            {
+                HeldInputToCommandMap.Remove(input);
+                return true;
+            }
+            return false;
+        }
+
+        public void Clear()
+        {
+            inputToCommandMap.Clear();
+            releasedInputToCommandMap.Clear();
+            heldInputToCommandMap.Clear();
         }
 
         /// <summary>

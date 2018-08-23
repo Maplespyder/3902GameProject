@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MarioClone.GameObjects;
+using Microsoft.Xna.Framework;
+using MarioClone.Collision;
 
 namespace MarioClone.States
 {
@@ -13,7 +15,10 @@ namespace MarioClone.States
         Walk,
         Jump,
         Crouch,
-        Dead
+        Dead,
+        Fall,
+        Warp,
+        Dash
     }
 
     public abstract class MarioActionState
@@ -31,12 +36,47 @@ namespace MarioClone.States
         public MarioAction Action { get; set; }
 
         // Behavior/actions
+        public virtual bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            if (gameObject is AbstractBlock)
+            {
+                if (side == Side.Bottom)
+                {
+                    Context.Gravity = false;
+                    Context.Velocity = new Vector2(Context.Velocity.X, 0);
+                    return true;
+                }
+                else if (side == Side.Left || side == Side.Right)
+                {
+                    Context.Velocity = new Vector2(0, Context.Velocity.Y);
+                    return true;
+                }
+                else if (side == Side.Top)
+                {
+                    Context.Velocity = new Vector2(Context.Velocity.X, 0);
+                    Context.StateMachine.TransitionFall();
+                    return true;
+                }
+            }
 
-    
+            return false;
+        }
 
-        public abstract void BecomeWalk(Facing orientation);
-        public abstract void BecomeJump();
-        public abstract void BecomeCrouch();
+        public virtual void Enter() { }
+        public virtual void Leave() { }
+        public virtual void Walk(Facing orientation) { }
+        public virtual void Jump() { }
+        public virtual void Crouch() { }
+        public virtual void Dash() { }
+		public virtual void ReleaseWalk(Facing orientation)
+        {
+            Context.Velocity = new Vector2(0, Context.Velocity.Y);
+        }
+        public virtual void ReleaseCrouch() { }
+        public virtual void Warp()
+        {
+            Context.StateMachine.TransitionWarp();
+        }
         public abstract void UpdateHitBox();
 
     }

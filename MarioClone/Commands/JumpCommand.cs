@@ -13,7 +13,10 @@ namespace MarioClone.Commands
 
         public override void InvokeCommand()
         {
-            Receiver.BecomeJump();
+            if (MarioCloneGame.State == GameState.Playing)
+            {
+                Receiver.Jump(); 
+            }
         }
     }
 }

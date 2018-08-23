@@ -8,11 +8,15 @@ namespace MarioClone.Factories
         StairBlock,
         UsedBlock,
         QuestionBlock,
-        CoinBlock,
         BreakableBrick,
         FloorBlock,
         BrickPiece,
-        HiddenBlock
+        HiddenBlock,
+		PipeTop,
+		PipeSegment,
+        Flagpole,
+        Flag,
+        FireCannon
     }
 
     public class BlockFactory
@@ -32,7 +36,7 @@ namespace MarioClone.Factories
                 return _factory;
             }
         }
-
+	
         protected BlockFactory()
         {
             SpriteFactory = NormalThemedBlockSpriteFactory.Instance;
@@ -45,8 +49,6 @@ namespace MarioClone.Factories
             {
                 case BlockType.BreakableBrick:
                     return new BreakableBrickObject(SpriteFactory.Create(type), position);
-                case BlockType.CoinBlock:
-                    return new CoinBrickObject(SpriteFactory.Create(type), position);
                 case BlockType.BrickPiece:
                     return new BrickPieceObject(SpriteFactory.Create(type),position);
                 case BlockType.FloorBlock:
@@ -59,6 +61,14 @@ namespace MarioClone.Factories
                     return new StaticBlockObject(SpriteFactory.Create(type),  position);
                 case BlockType.HiddenBlock:
                     return new HiddenBrickObject(SpriteFactory.Create(type), position);
+				case BlockType.PipeTop:
+					return new PipeTop(SpriteFactory.Create(type), position);
+				case BlockType.PipeSegment:
+					return new PipeSegment(SpriteFactory.Create(type), position);
+                case BlockType.Flagpole:
+                    return new Flagpole(SpriteFactory.Create(type), position);
+                case BlockType.FireCannon:
+                    return new FireCannonBlock(SpriteFactory.Create(type), position);
                 default:
                     return new BreakableBrickObject(SpriteFactory.Create(type),  position);
             }

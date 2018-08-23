@@ -1,24 +1,28 @@
 ﻿using MarioClone.Collision;
+using MarioClone.EventCenter;
 using MarioClone.Factories;
-using MarioClone.Sprites;
+using MarioClone.Projectiles;
 using MarioClone.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static MarioClone.Collision.GameGrid;
-using static MarioClone.States.MarioActionState;
 
 namespace MarioClone.GameObjects
 {
     public class Mario : AbstractGameObject
     {
-        public const float HorizontalMovementSpeed = 1f;
-        public const float VerticalMovementSpeed = 1f;
-        private static Mario _mario;
+        public const float GravityAcceleration = .4f;
+
+        public const float HorizontalMovementSpeed = 6f;
+        public const float VerticalMovementSpeed = 15f;
+        public const int MaxDashCooldown = 2000;
+
+        private bool outSideBoss = true;
+        private bool bouncing = false;
+
+        private int poleBottom;
+        private int poleTop;
+        private int increment;
 
         /// <summary>
         /// Do not instantiate Mario more than once. We have to make Mario before
@@ -26,69 +30,176 @@ namespace MarioClone.GameObjects
         /// If you aren't sure what you're doing comes after Mario's creation, then
         /// null check the return on instance.
         /// </summary>
-        public static Mario Instance
+
+        public MarioStateMachine StateMachine { get; set; }
+
+        public MarioActionState ActionState
         {
-            get
-            {
-                return _mario;
-            }
+            get { return StateMachine.CurrentActionState; }
         }
 
-        public MarioActionState ActionState { get; set; }
+        public MarioActionState PreviousActionState
+        {
+            get { return StateMachine.PreviousActionState; }
+        }
 
-        public MarioActionState PreviousActionState { get; set; }
+        public MarioPowerupState PowerupState
+        {
+            get { return StateMachine.CurrentPowerupState; }
+        }
 
-        public MarioPowerupState PowerupState { get; set; }
-        
+        public MarioPowerupState PreviousPowerupState
+        {
+            get { return StateMachine.PreviousPowerupState; }
+        }
+
         public MarioSpriteFactory SpriteFactory { get; set; }
-        
+        public Color PlayerTint { get; set; }
+
+        public FireballPool _FireBallPool { get; set; }
+
+        public int BounceCount { get; set; }
+        public bool Gravity { get; set; }
+
+        public int Spawn { get; set; }
+        public List<Vector2> Spawns { get; set; }
+        public Vector2 ActiveSpawn { get; set; }
+
+        public bool HasAirDash { get; set; }
+        public bool IsGroundDash { get; set; }
+        public int DashRecharge { get; set; }
+
+        public int Lives { get; set; }
+        public int CoinCount { get; set; }
+        public int Score
+        {
+            get;
+            internal set;
+        }
+        public int Time { get; internal set; }
+        public bool Winner { get; set; }
+        public bool LevelCompleted { get; set; }
+
+        public int height { get; set; }
+        public int poleHeight { get; private set; }
+
+
         //passing null sprite because mario's states control his sprite
         public Mario(Vector2 position) : base(null, position, Color.Yellow)
         {
-            _mario = this;
-            PowerupState = MarioNormal.Instance;
-            SpriteFactory = NormalMarioSpriteFactory.Instance;
-            ActionState = MarioIdle.Instance;
-            Sprite = SpriteFactory.Create(MarioAction.Idle);
-            Orientation = Facing.Right;
+            Spawns = new List<Vector2>();
+            Spawns.Add(new Vector2(position.X, position.Y));
+            ActiveSpawn = Spawns[0];
 
-            PreviousActionState = MarioIdle.Instance;
+            HasAirDash = true;
+
+            Orientation = Facing.Right;
+            Gravity = true;
+            BounceCount = 0;
+            Lives = 3;
+            CoinCount = 0;
+            Winner = true;
+            LevelCompleted = false;
+
+            StateMachine = new MarioStateMachine(this);
+            StateMachine.Begin();
+            _FireBallPool = new FireballPool(2);
             
-            ActionState.UpdateHitBox();
             BoundingBox.UpdateHitBox(position, Sprite);
+
+            EventManager.Instance.RaisePowerupCollectedEvent += ReceivePowerup;
         }
 
-		public void MoveLeft()
-		{
-            if (!(PowerupState is MarioDead))
+        /// <summary>
+        /// should be used when "r" is pressed or the game ends (i.e. mario runs out of lives or wins)
+        /// </summary>
+        /// <param name="position">initial position</param>
+        public void ResetMario(Vector2 position)
+        {
+            Spawns = new List<Vector2>();
+            Spawns.Add(new Vector2(position.X, position.Y));
+            ActiveSpawn = Spawns[0];
+
+            HasAirDash = true;
+
+            Winner = true;
+            LevelCompleted = false;
+
+            Orientation = Facing.Right;
+            Gravity = true;
+            BounceCount = 0;
+            Lives = 3;
+            CoinCount = 0;
+
+            ResetToCheckpoint();
+        }
+
+        public void MoveLeft()
+        {
+            ActionState.Walk(Facing.Left);
+        }
+
+        /// <summary>
+        /// should be called when resetting mario to a checkup i.e. he dies but still has lives
+        /// </summary>
+        public void ResetToCheckpoint()
+        {
+            StateMachine.Reset();
+            StateMachine.Begin();
+            Position = new Vector2(ActiveSpawn.X, ActiveSpawn.Y);
+            if (BoundingBox != null)
             {
-                ActionState.BecomeWalk(Facing.Left); 
+                BoundingBox.UpdateHitBox(Position, Sprite);
             }
-		}
+        }
 
         public void MoveRight()
         {
-            if (!(PowerupState is MarioDead))
-            {
-                ActionState.BecomeWalk(Facing.Right); 
-            }
+            ActionState.Walk(Facing.Right);
         }
 
-		public void BecomeJump()
+        public void Jump()
         {
-            if (!(PowerupState is MarioDead))
-            {
-                ActionState.BecomeJump(); 
-            }
+            ActionState.Jump();
         }
 
-        public void BecomeCrouch()
+        public void Crouch()
         {
-            if (!(PowerupState is MarioDead))
-            {
-                ActionState.BecomeCrouch(); 
-            }
+            ActionState.Crouch();
         }
+
+        public void ReleaseCrouch()
+        {
+            ActionState.ReleaseCrouch();
+        }
+
+        public void ReleaseMoveLeft()
+        {
+            ActionState.ReleaseWalk(Facing.Left);
+        }
+
+        public void ReleaseMoveRight()
+        {
+            ActionState.ReleaseWalk(Facing.Right);
+        }
+
+        public void BecomeWarp()
+        {
+            ActionState.Warp();
+        }
+
+        public void Dash()
+        {
+            ActionState.Dash();
+        }
+
+		public void FireBall()
+		{
+			if (PowerupState is MarioFire2)
+			{
+				_FireBallPool.GetAndRelease(this);
+			}
+		}
 
         public void BecomeDead()
         {
@@ -109,51 +220,189 @@ namespace MarioClone.GameObjects
         {
             PowerupState.BecomeFire();
         }
-
-        private void TakeDamage()
+        
+        private void ManageFlagPoleCount(AbstractGameObject gameObject, Side side)
         {
-            PowerupState.TakeDamage();
+            if (gameObject is Flagpole && side.Equals(Side.Right))
+            {
+                poleBottom = gameObject.BoundingBox.Dimensions.Bottom;
+                poleTop = gameObject.BoundingBox.Dimensions.Top;
+                poleHeight = poleBottom - poleTop;
+
+                increment = poleHeight / 5;
+                
+                if (Position.Y == poleTop)
+                { 
+                    Lives++;
+                }
+                else if (Position.Y > poleTop && Position.Y <= poleTop + increment)
+                {
+                    height = 4000;
+                }
+                else if (Position.Y > poleTop + increment && Position.Y <= poleTop + (increment + increment))
+                {
+                    height = 2000;
+                }
+                else if ((Position.Y  > (poleTop + (increment + increment))) && (Position.Y <= poleTop + (increment + increment + increment)))
+                {
+                    height = 800;
+                }
+                else if (Position.Y <= poleBottom - increment && Position.Y > poleTop + (increment + increment + increment))
+                {
+                    height = 400;
+                }
+                else if (Position.Y <= poleBottom + 5 && Position.Y > poleBottom - increment)
+                {
+                    height = 100;
+                }
+                
+                EventManager.Instance.TriggerPlayerHitPoleEvent(height, this);
+            }
         }
 
-        public override void CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+
+        private void ManageBouncing(AbstractGameObject gameObject, Side side)
         {
-            if ((gameObject is GoombaObject || gameObject is GreenKoopaObject || gameObject is RedKoopaObject) && (side.Equals(Side.Top) || side.Equals(Side.Left) || side.Equals(Side.Right)))
+            if (gameObject is AbstractEnemy && side.Equals(Side.Bottom))
             {
-                TakeDamage();
+                if (bouncing)
+                {
+                    BounceCount += 1;
+                }
+                else
+                {
+                    bouncing = true;
+                }
             }
-            else if ((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible) || gameObject is CoinObject || gameObject is GreenMushroomObject)
+            else if (side.Equals(Side.Bottom))
             {
-                // do nothing
+                BounceCount = 0;
+                bouncing = false;
             }
-            else if (gameObject is AbstractBlock)
+        }
+
+        /// <summary>
+        /// This method is intended for when Mario receives things that change a meta-game state, i.e. he gains a life or a coin. This is
+        /// not meant for the updating of his states, that should happen in sync with Mario's update/collision response. This is less time
+        /// dependent, and therefore easier to just have this happen as a response to a notification from a powerup.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void ReceivePowerup(object sender, PowerupCollectedEventArgs e)
+        {
+            //TODO move this into states?
+            if (!ReferenceEquals(e.Collector, this))
             {
-                Velocity = new Vector2(0, 0);             
-                Sprite = SpriteFactory.Create(MarioAction.Idle);
-                PreviousActionState = ActionState;
-                ActionState = MarioIdle.Instance;
+                return;
             }
-            else if (gameObject is RedMushroomObject)
+
+            if (e.Sender is CoinObject)
             {
-                BecomeSuper();
+                CoinCount++;
+                if (CoinCount >= 100)
+                {
+                    CoinCount = 0;
+                    Lives++;
+                }
             }
-            else if (gameObject is FireFlowerObject)
+            else if (e.Sender is GreenMushroomObject)
             {
-                BecomeFire();
+                Lives++;
             }
-            else
+        }
+
+        public override bool CollisionResponse(AbstractGameObject gameObject, Side side, GameTime gameTime)
+        {
+            ManageBouncing(gameObject, side);
+            ManageFlagPoleCount(gameObject, side);
+
+            if ((((gameObject is HiddenBrickObject && side != Side.Top && !gameObject.Visible)
+                || (gameObject is HiddenBrickObject && side == Side.Top && !gameObject.Visible && (ActionState is MarioFall2)))
+                || gameObject is CoinObject || gameObject is GreenMushroomObject))
             {
-                Velocity = new Vector2(0, 0);
-                Sprite = SpriteFactory.Create(MarioAction.Idle);
-                PreviousActionState = ActionState;
-                ActionState = MarioIdle.Instance;
+                return false;
+            }
+
+            bool retVal1 = PowerupState.CollisionResponse(gameObject, side, gameTime);
+            bool retVal2 = ActionState.CollisionResponse(gameObject, side, gameTime);
+
+            return retVal1 || retVal2;
+        }
+
+        public override void FixClipping(Vector2 correction, AbstractGameObject obj1, AbstractGameObject obj2)
+        {
+            //TODO move this into states? poweurp
+            if (!(obj1 is AbstractEnemy) || (obj1 is PiranhaObject))
+            {
+                Position = new Vector2(Position.X + correction.X, Position.Y + correction.Y);
+                BoundingBox.UpdateHitBox(Position, Sprite);
             }
         }
 
         public override bool Update(GameTime gameTime, float percent)
         {
+            var newSpawns = new List<Vector2>();
+            foreach (var spawn in Spawns)
+            {
+                if (spawn.X > Position.X)
+                {
+                    newSpawns.Add(spawn);
+                }
+                else
+                {
+                    ActiveSpawn = new Vector2(spawn.X, spawn.Y);
+                }
+            }
+            Spawns.Clear();
+            Spawns.AddRange(newSpawns);
+
             Position = new Vector2(Position.X + Velocity.X * percent, Position.Y + Velocity.Y * percent);
             ActionState.UpdateHitBox();
-            return base.Update(gameTime, percent);
+
+            if (BoundingBox.Dimensions.Bottom >= MarioCloneGame.LevelAreas[LevelArea].Bottom)
+            {
+                if(!(PowerupState is MarioDead2))
+                {
+                    BecomeDead();
+                }
+            }
+            else
+            {
+                if (Gravity)
+                {
+                    Velocity = new Vector2(Velocity.X, Velocity.Y + GravityAcceleration * percent);
+                }
+                Gravity = true;
+            }
+
+            //TODO fix update to be inside the states or smth, or give mario a BecomeFall() method
+            if (!(ActionState is MarioFall2 || ActionState is MarioDash) && Velocity.Y > 1.5)
+            {
+                StateMachine.TransitionFall();
+            }
+
+            StateMachine.UpdateDash(gameTime);
+
+            PowerupState.Update(gameTime);    
+            _FireBallPool.Update(gameTime);
+
+            if (Position.X < 19000 && outSideBoss == false)
+            {
+                EventManager.Instance.TriggerEnterBossRoom(this);
+                outSideBoss = true;
+            }
+            else if (Position.X > 19000 && outSideBoss == true)
+            {
+                EventManager.Instance.TriggerEnterBossRoom(this);
+                outSideBoss = false;
+            }
+
+			return base.Update(gameTime, percent);    
         }
-    }
+
+		public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+		{
+			base.Draw(spriteBatch, gameTime);
+		}
+	}
 }

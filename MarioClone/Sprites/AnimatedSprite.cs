@@ -19,6 +19,7 @@ namespace MarioClone.Sprites
 
 		private int elapsedTime = 0;
 		private int timePerFrame;
+        private int lastTime;
 
         public AnimatedSprite(Texture2D spriteSheet, Rectangle sourceRectangle, int rows, int columns, int startFrame, int endFrame, int fps) : 
             base(spriteSheet, sourceRectangle)
@@ -29,6 +30,7 @@ namespace MarioClone.Sprites
             CurrentFrame = startFrame;
             Columns = columns;
             Rows = rows;
+            lastTime = 0;
         }
 
         private void UpdateSourceRectangle()
@@ -42,25 +44,34 @@ namespace MarioClone.Sprites
 
         private void Update(GameTime gameTime)
         {
-			elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
-			if(elapsedTime > timePerFrame)
-			{
-				elapsedTime -= timePerFrame;
-				CurrentFrame++;
-				if (CurrentFrame > EndFrame)
-				{
-					CurrentFrame = StartFrame;
-				}
-				UpdateSourceRectangle();
-			}
+            if(gameTime.TotalGameTime.Milliseconds != lastTime)
+            {
+                elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+                if (elapsedTime > timePerFrame)
+                {
+                    elapsedTime -= timePerFrame;
+                    CurrentFrame++;
+                    if (CurrentFrame > EndFrame)
+                    {
+                        CurrentFrame = StartFrame;
+                    }
+                    UpdateSourceRectangle();
+                }
+            }
 
-
+            lastTime = gameTime.TotalGameTime.Milliseconds;
 		}
 
-        public override void Draw(SpriteBatch batch, Vector2 position, float layer, GameTime gameTime, Facing facing)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth, GameTime gameTime, Facing facing, float scaling = 1)
         {
             Update(gameTime);
-            base.Draw(batch, position, layer, gameTime, facing);
+            base.Draw(spriteBatch, Position, LayerDepth, gameTime, facing, scaling);
         }
-    }
+
+		public override void Draw(SpriteBatch spriteBatch, Vector2 Position, float LayerDepth, GameTime gameTime, Facing facing, Color color, float scaling = 1)
+		{
+			Update(gameTime);
+			base.Draw(spriteBatch, Position, LayerDepth, gameTime, facing, color, scaling);
+		}
+	}
 }

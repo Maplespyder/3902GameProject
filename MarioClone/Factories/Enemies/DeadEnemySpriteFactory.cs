@@ -21,18 +21,22 @@ namespace MarioClone.Factories
             switch (type)
             {
                 case EnemyType.Goomba:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
-                        new Rectangle(64, 0, 32, 31));
+                    return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
+                        new Rectangle(0, 0, 90, 92),1,6,0,5,8);
                 case EnemyType.GreenKoopa:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/GreenKoopa"),
-                        new Rectangle(0, 0, 32, 32));
-                case EnemyType.RedKoopa:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/RedKoopa"),
-                        new Rectangle(0, 0, 32, 32));
+					return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
+						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
+				case EnemyType.Piranha:
+					return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
+						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
+                case EnemyType.Bowser:
+                    return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
+                        new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
                 default:
-                    return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/Goomba"),
-                        new Rectangle(64, 0, 32, 32));
-            }
+					return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
+						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
+
+			}
         }
     }
 }

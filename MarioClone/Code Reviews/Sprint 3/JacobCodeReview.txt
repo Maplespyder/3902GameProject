@@ -1,0 +1,26 @@
+﻿Code Review Template
+Author of Review: Jacob Crabtree
+Date of Review: 10/31/2017
+File Under Review: PiranhaObject.cs
+Author(s) of File: Allie Jett
+Comments on Code Quality:
+
+The constructor does what it needs to and nothing more, the clean polymorphism is nice. It might even be reasonable to only set the PiranhaAlive state,
+and allow it to choose the hitbox offset, and update the bounding box. 
+It doesn't have any extra variables cluttering the class, everything it needs is provided by the abstract class.
+Collision response could be a little cleaner still, and I think I see a potential bug even though not everything is implemented yet.
+The method calls PowerupState.BecomeDead(), but then sets the TimeDead = 0 on behalf of the state, instead of letting alive decide to do that, and dead	
+decide to do nothing. What happens if Piranha object is collided with repeatedly while dead? He will never be dead long enough to revive.
+Still, I at least think letting the states handle BecomeDead is good. 
+The update method does a good job of letting its state and base  handle all the work. Piranha object is essentially just an oscillating hitbox, so 
+it's good the update method didn't become overcomplicated. Other virtual methods were left to the parent, which is good, since I've seen 
+empty overrides of empty virtual methods in other classes.
+Those issues stated, the fact that nearly everything is handled by one of its states, completely out of its perspective, makes changing the class
+incredibly easy.
+
+
+
+Minutes to Complete: 18 min
+Hypothetical Change to File:
+The piranha plant is made to move up and down. This would actually not change the code in the piranha plant class, which is great. Everything would
+just go in into piranha alive, where the piranha plant alive's update would take care of all the motion.

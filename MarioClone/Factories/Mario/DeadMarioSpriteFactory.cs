@@ -23,7 +23,8 @@ namespace MarioClone.Factories
 
         public override ISprite Create(MarioAction action)
         {
-            return new StaticSprite(MarioCloneGame.GameContent.Load<Texture2D>("Sprites/SmallMario"), new Rectangle(160, 0, 32, 32));
-        }
+			return new SingleLoopAnimatedSprite(MarioCloneGame.GameContent.Load<Texture2D>("CustomSprites/Explode"),
+						new Rectangle(0, 0, 90, 92), 1, 6, 0, 5, 8);
+		}
     }
 }

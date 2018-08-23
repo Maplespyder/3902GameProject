@@ -5,44 +5,29 @@ namespace MarioClone.States.BlockStates
 {
     public class BreakableBrickStatic : BlockState
     {
-        private static bool IsMarioNormal
-        {
-            get
-            {
-                return Mario.Instance.PowerupState.Powerup == MarioPowerup.Normal;
-            }
-        }
-
-        private static bool IsMarioSuper
-        {
-            get
-            {
-                return Mario.Instance.PowerupState.Powerup == MarioPowerup.Super;
-            }
-        }
-
-        private static bool IsMarioFire
-        {
-            get
-            {
-                return Mario.Instance.PowerupState.Powerup == MarioPowerup.Fire;
-            }
-        }
-
+ 
         public BreakableBrickStatic(AbstractBlock context) : base(context)
         {
-            State = BlockStates.Static;
+            Context.Bumper = null;
         }
 
-        public override void Bump()
+        public override void Bump(Mario bumper)
         {
-            if (IsMarioNormal)
+            if (bumper.PowerupState is MarioNormal2)
             {
-                Context.State = new BreakableBrickBounce(Context);
+                Context.State = new BreakableBrickBounce(Context, bumper);
             }
-            else if (IsMarioSuper || IsMarioFire)
+            else if (bumper.PowerupState is MarioSuper2 || bumper.PowerupState is MarioFire2)
             {
-                Context.State = new BreakableBrickBreak(Context);
+                Context.State = new BreakableBrickBreak((BreakableBrickObject)Context);
+            }
+            else if (bumper.PreviousPowerupState is MarioNormal2)
+            {
+                Context.State = new BreakableBrickBounce(Context, bumper);
+            }
+            else if (bumper.PreviousPowerupState is MarioSuper2 || bumper.PreviousPowerupState is MarioFire2)
+            {
+                Context.State = new BreakableBrickBreak((BreakableBrickObject)Context);
             }
         }
     }
